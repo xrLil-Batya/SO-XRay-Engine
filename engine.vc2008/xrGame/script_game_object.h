@@ -704,24 +704,27 @@ public:
 			// My getters for arts and items
 
 			// Monster Jumper
-			void				jump					(const Fvector &position, float factor);
+			void jump(const Fvector &position, float factor);
 
-			void				set_ignore_monster_threshold		(float ignore_monster_threshold);
-			void				restore_ignore_monster_threshold	();
-			float				ignore_monster_threshold			() const;
-			void				set_max_ignore_monster_distance		(const float &max_ignore_monster_distance);
-			void				restore_max_ignore_monster_distance	();
-			float				max_ignore_monster_distance			() const;
+			void set_ignore_monster_threshold(float ignore_monster_threshold);
+			void restore_ignore_monster_threshold();
+			float ignore_monster_threshold() const;
+			void set_max_ignore_monster_distance(const float &max_ignore_monster_distance);
+			void restore_max_ignore_monster_distance();
+			float max_ignore_monster_distance() const;
 
-			void				make_object_visible_somewhen		(CScriptGameObject *object);
+			void make_object_visible_somewhen		(CScriptGameObject *object);
 
-			CScriptGameObject	*item_in_slot						(u32 slot_id) const;
-			CScriptGameObject	*active_detector					() const;
-			u32					active_slot							();
-			void				activate_slot						(u32 slot_id);
-			void				enable_level_changer				(bool b);
-			bool				is_level_changer_enabled			();
-			void				set_level_changer_invitation		(LPCSTR str);
+			CScriptGameObject* item_in_slot(u32 slot_id) const;
+			CScriptGameObject* active_device() const;
+			void show_device(bool bFast);
+			void hide_device(bool bFast);
+			void force_hide_device();
+			u32 active_slot();
+			void activate_slot(u32 slot_id);
+			void enable_level_changer(bool b);
+			bool is_level_changer_enabled();
+			void set_level_changer_invitation(LPCSTR str);
 #ifdef DEBUG
 			void				debug_planner						(const script_planner *planner);
 #endif
@@ -859,8 +862,10 @@ public:
 			u32					GetAmmoType();
 			u32					SetAmmoType(float type);
 
-			u32 PlayHudMotion(LPCSTR M, bool bMixIn, u32 state, float speed = 0.f, float end = 0.f);
-			u32 GetState();
+	//Any class that is derived from CHudItem
+	u32 PlayHudMotion(LPCSTR M, bool bMixIn, u32 state, float speed = 0.f, float end = 0.f);
+	void SwitchState(u32 state);
+	u32 GetState();
 
 	doors::door*				m_door;
 

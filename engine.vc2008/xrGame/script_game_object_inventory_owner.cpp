@@ -1336,24 +1336,83 @@ int	CScriptGameObject::animation_slot			() const
 	return			(hud_item->animation_slot());
 }
 
-CScriptGameObject *CScriptGameObject::active_detector	() const
+CScriptGameObject* CScriptGameObject::active_device() const
 {
-	CInventoryOwner	*inventory_owner = smart_cast<CInventoryOwner*>(&object());
-	if (!inventory_owner) {
-		ai().script_engine().script_log			(ScriptStorage::eLuaMessageTypeError,"CInventoryOwner : cannot access class member active_detector!");
-		return		(0);
+	CInventoryOwner* inventory_owner = smart_cast<CInventoryOwner*>(&object());
+	if (!inventory_owner)
+	{
+		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,
+		                                "CInventoryOwner : cannot access class member active_detector!");
+		return (0);
 	}
 
-	CInventoryItem	*result = inventory_owner->inventory().ItemFromSlot(DETECTOR_SLOT);
-	if (result) {
-		CCustomDetector *detector = smart_cast<CCustomDetector*>(result);
-		VERIFY(detector);
-		return			(detector->IsWorking() ? result->object().lua_game_object() : 0);
+	CInventoryItem* result = inventory_owner->inventory().ItemFromSlot(DETECTOR_SLOT);
+	if (result)
+	{
+		CCustomDetector* device = smart_cast<CCustomDetector*>(result);
+
+		if (device && device->GetState() != CHUDState::eHidden)
+			return result->object().lua_game_object();
 	}
 	return (0);
 }
 
+void CScriptGameObject::show_device(bool bFast)
+{
+	CInventoryOwner* inventory_owner = smart_cast<CInventoryOwner*>(&object());
+	if (!inventory_owner)
+	{
+		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,
+		                                "CInventoryOwner : cannot access class member show_device!");
+		return;
+	}
 
+	CInventoryItem* result = inventory_owner->inventory().ItemFromSlot(DETECTOR_SLOT);
+	if (result)
+	{
+		CCustomDetector* device = smart_cast<CCustomDetector*>(result);
+		if (device && device->GetState() == CHUDState::eHidden)
+			device->ShowDetector(bFast);
+	}
+}
+
+void CScriptGameObject::hide_device(bool bFast)
+{
+	CInventoryOwner* inventory_owner = smart_cast<CInventoryOwner*>(&object());
+	if (!inventory_owner)
+	{
+		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,
+		                                "CInventoryOwner : cannot access class member hide_device!");
+		return;
+	}
+
+	CInventoryItem* result = inventory_owner->inventory().ItemFromSlot(DETECTOR_SLOT);
+	if (result)
+	{
+		CCustomDetector* device = smart_cast<CCustomDetector*>(result);
+		if (device && device->GetState() != CHUDState::eHidden)
+			device->ShowDetector(bFast);
+	}
+}
+
+void CScriptGameObject::force_hide_device()
+{
+	CInventoryOwner* inventory_owner = smart_cast<CInventoryOwner*>(&object());
+	if (!inventory_owner)
+	{
+		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,
+			"CInventoryOwner : cannot access class member force_hide_device!");
+		return;
+	}
+
+	CInventoryItem* result = inventory_owner->inventory().ItemFromSlot(DETECTOR_SLOT);
+	if (result)
+	{
+		CCustomDetector* device = smart_cast<CCustomDetector*>(result);
+		if (device)
+			device->ForceHide();
+	}
+}
 
 CScriptGameObject *CScriptGameObject::item_in_slot	(u32 slot_id) const
 {

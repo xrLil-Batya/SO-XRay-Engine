@@ -78,13 +78,18 @@ bool  CCustomDetector::CheckCompatibility(CHudItem* itm)
 
 void CCustomDetector::HideDetector(bool bFastMode)
 {
-	if(GetState()==eIdle)
+	if(GetState() != eHidden)
 		ToggleDetector(bFastMode);
+}
+
+void CCustomDetector::ForceHide()
+{
+	g_player_hud->detach_item(this);
 }
 
 void CCustomDetector::ShowDetector(bool bFastMode)
 {
-	if(GetState()==eHidden)
+	if(GetState() == eHidden)
 		ToggleDetector(bFastMode);
 }
 
@@ -113,7 +118,7 @@ void CCustomDetector::ToggleDetector(bool bFastMode)
             }
         }
     }
-    else if (GetState() == eIdle)
+    else
         SwitchState(eHiding);
 }
 
