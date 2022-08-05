@@ -1391,7 +1391,7 @@ void CScriptGameObject::hide_device(bool bFast)
 	{
 		CCustomDetector* device = smart_cast<CCustomDetector*>(result);
 		if (device && device->GetState() != CHUDState::eHidden)
-			device->ShowDetector(bFast);
+			device->HideDetector(bFast);
 	}
 }
 

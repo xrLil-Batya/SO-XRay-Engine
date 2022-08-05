@@ -54,6 +54,17 @@ namespace GameObject {
 
 		eInvBoxItemTake,
 		eWeaponNoAmmoAvailable,
+		//AVO: custom callbacks
+		// input
+		eKeyPress,
+		eKeyRelease,
+		eKeyHold,
+		// weapon
+		eOnWeaponZoomIn,
+		eOnWeaponZoomOut,
+		eOnWeaponJammed,
+		eOnWeaponFired,
+		eOnWeaponMagazineEmpty,
 
 		eDummy = u32(-1),
 	};

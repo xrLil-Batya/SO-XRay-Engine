@@ -283,19 +283,20 @@ void CHudItem::on_a_hud_attach()
 
 u32 CHudItem::PlayHUDMotion(const shared_str& M, BOOL bMixIn, CHudItem* W, u32 state, float speed, float end, bool bMixIn2)
 {
-	u32 anim_time					= PlayHUDMotion_noCB(M, bMixIn, speed, bMixIn2);
-	if (anim_time>0)
+	u32 anim_time = PlayHUDMotion_noCB(M, bMixIn, speed, bMixIn2);
+	if (anim_time > 0)
 	{
-		m_bStopAtEndAnimIsRunning	= true;
-		m_dwMotionStartTm			= Device.dwTimeGlobal;
-		m_dwMotionCurrTm			= m_dwMotionStartTm;
-		m_dwMotionEndTm				= m_dwMotionStartTm + anim_time;
-		m_startedMotionState		= state;
+		m_bStopAtEndAnimIsRunning = true;
+		m_dwMotionStartTm = Device.dwTimeGlobal;
+		m_dwMotionCurrTm = m_dwMotionStartTm;
+		m_dwMotionEndTm = m_dwMotionStartTm + anim_time;
+		m_startedMotionState = state;
+
 		float end_modifier = 0.f;
 
 		if (HudItemData())
 		{
-			player_hud_motion* anm = HudItemData()->m_hand_motions.find_motion(M);
+			player_hud_motion* anm = HudItemData()->find_motion(M);
 			end_modifier = anm->m_anim_end;
 		}
 
@@ -303,8 +304,9 @@ u32 CHudItem::PlayHUDMotion(const shared_str& M, BOOL bMixIn, CHudItem* W, u32 s
 			end_modifier = end;
 
 		m_dwMotionEndTm -= end_modifier * 1000;
-	}else
-		m_bStopAtEndAnimIsRunning	= false;
+	}
+	else
+		m_bStopAtEndAnimIsRunning = false;
 
 	return anim_time;
 }
@@ -312,24 +314,25 @@ u32 CHudItem::PlayHUDMotion(const shared_str& M, BOOL bMixIn, CHudItem* W, u32 s
 
 u32 CHudItem::PlayHUDMotion_noCB(const shared_str& motion_name, BOOL bMixIn, float speed, bool bMixIn2)
 {
-	m_current_motion					= motion_name;
+	m_current_motion = motion_name;
 
-	if(bDebug && item().m_pInventory)
+	if (bDebug && item().m_pInventory)
 	{
 		Msg("-[%s] as[%d] [%d]anim_play [%s][%d]",
-			HudItemData()?"HUD":"Simulating", 
-			item().m_pInventory->GetActiveSlot(), 
-			item().object_id(),
-			motion_name.c_str(), 
-			Device.dwFrame);
+		    HudItemData() ? "HUD" : "Simulating",
+		    item().m_pInventory->GetActiveSlot(),
+		    item().object_id(),
+		    motion_name.c_str(),
+		    Device.dwFrame);
 	}
-	if( HudItemData() )
+	if (HudItemData())
 	{
-		return HudItemData()->anim_play		(motion_name, bMixIn, m_current_motion_def, m_started_rnd_anim_idx);
-	}else
+		return HudItemData()->anim_play(motion_name, bMixIn, m_current_motion_def, m_started_rnd_anim_idx, speed, bMixIn2);
+	}
+	else
 	{
-		m_started_rnd_anim_idx				= 0;
-		return g_player_hud->motion_length	(motion_name, HudSection(), m_current_motion_def );
+		m_started_rnd_anim_idx = 0;
+		return g_player_hud->motion_length(motion_name, HudSection(), m_current_motion_def);
 	}
 }
 

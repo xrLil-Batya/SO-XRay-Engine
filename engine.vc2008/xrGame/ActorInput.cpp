@@ -48,6 +48,10 @@ void CActor::IR_OnKeyboardPress(int cmd)
 	if (IsTalking())	return;
 	if (m_input_external_handler && !m_input_external_handler->authorized(cmd))	return;
 	
+	/* avo: script callback */
+	callback(GameObject::eKeyPress)(cmd);
+	/* avo: end */
+
 	switch (cmd)
 	{
 	case kWPN_FIRE:
@@ -258,7 +262,10 @@ void CActor::IR_OnKeyboardRelease(int cmd)
 	if (m_input_external_handler && !m_input_external_handler->authorized(cmd))	return;
 
 	if (g_Alive())	
-	{
+	{	
+		/* avo: script callback */
+		callback(GameObject::eKeyRelease)(cmd);
+		/* avo: end */
 		if (cmd == kUSE) 
 			m_bPickupMode = false;
 		if(m_holder)
@@ -287,7 +294,10 @@ void CActor::IR_OnKeyboardHold(int cmd)
 	if (Remote() || !g_Alive())					return;
 	if (m_input_external_handler && !m_input_external_handler->authorized(cmd))	return;
 	if (IsTalking())							return;
-
+	
+	/* avo: script callback */
+	if (g_actor) g_actor->callback(GameObject::eKeyHold)(cmd);
+	/* avo: end */
 	if(m_holder)
 	{
 		m_holder->OnKeyboardHold(cmd);

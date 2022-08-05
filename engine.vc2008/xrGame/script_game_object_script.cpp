@@ -94,6 +94,17 @@ void CScriptGameObject::script_register(lua_State *L)
 				value("task_state",					int(GameObject::eTaskStateChange)),
 				value("take_item_from_box",			int(GameObject::eInvBoxItemTake)),
 				value("weapon_no_ammo",				int(GameObject::eWeaponNoAmmoAvailable)),
+			//AVO: custom callbacks
+			// input
+			value("key_press", int(GameObject::eKeyPress)),
+			value("key_release", int(GameObject::eKeyRelease)),
+			value("key_hold", int(GameObject::eKeyHold)),
+			//weapon
+			value("weapon_fired", int(GameObject::eOnWeaponFired)),
+			value("weapon_jammed", int(GameObject::eOnWeaponJammed)),
+			value("weapon_zoom_in", int(GameObject::eOnWeaponZoomIn)),
+			value("weapon_zoom_out", int(GameObject::eOnWeaponZoomOut)),
+			value("weapon_magazine_empty", int(GameObject::eOnWeaponMagazineEmpty)),
 				
 				value("map_location_added",			int(GameObject::eMapLocationAdded))
 			],

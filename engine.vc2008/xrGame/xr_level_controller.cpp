@@ -91,6 +91,16 @@ _action  actions[]		= {
 	{ "dosimeter",			kDOSIMETER				,_sp},	
 	{ "show_hud",			kSHOWHUD				,_sp},	
 	{ "torch_mod",			kTORCH_MOD				,_sp},	
+	{ "custom_1",			kCUSTOM1				,_sp},	
+	{ "custom_2",			kCUSTOM2				,_sp},	
+	{ "custom_3",			kCUSTOM3				,_sp},	
+	{ "custom_4",			kCUSTOM4				,_sp},	
+	{ "custom_5",			kCUSTOM5				,_sp},	
+	{ "custom_6",			kCUSTOM6				,_sp},	
+	{ "custom_7",			kCUSTOM7				,_sp},	
+	{ "custom_8",			kCUSTOM8				,_sp},	
+	{ "custom_9",			kCUSTOM9				,_sp},	
+	{ "custom_10",			kCUSTOM10				,_sp},	
 	
 																
 	{ NULL, 				kLASTACTION				,_both}		
