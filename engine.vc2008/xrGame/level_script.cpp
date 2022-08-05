@@ -40,6 +40,9 @@
 
 using namespace luabind;
 
+bool g_block_all_except_movement;
+bool g_actor_allow_ladder;
+
 LPCSTR command_line	()
 {
 	return		(Core.Params);
@@ -740,6 +743,21 @@ float SetBlendAnmTime(LPCSTR name, float time)
 	return g_player_hud->SetBlendAnmTime(name, time);
 }
 
+void block_all_except_movement(bool b)
+{
+	g_block_all_except_movement = b;
+}
+
+bool only_movement_allowed()
+{
+	return g_block_all_except_movement;
+}
+
+void set_actor_allow_ladder(bool b)
+{
+	g_actor_allow_ladder = b;
+}
+
 bool has_active_tutotial()
 {
 	return (g_tutorial!=NULL);
@@ -926,6 +944,9 @@ void CLevel::script_register(lua_State *L)
 		def("stop_hud_anm", StopBlendAnm),
 		def("stop_all_hud_anms", StopAllBlendAnms),
 		def("set_hud_anm_time", SetBlendAnmTime),
+		def("only_allow_movekeys", block_all_except_movement),
+		def("only_movekeys_allowed", only_movement_allowed),
+		def("set_actor_allow_ladder", set_actor_allow_ladder),
 	def("has_active_tutorial",	&has_active_tutotial),
 	def("translate_string",		&translate_string)
 
