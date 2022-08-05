@@ -964,6 +964,15 @@ bool CScriptGameObject::torch_enabled() const
 }
 
 //ARTLantist
+void CScriptGameObject::torch_set_mod()
+{
+	CTorch *torch = smart_cast<CTorch*>(&object());
+	if (!torch) {
+		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member enable_torch!");
+		return;
+	}
+	torch->SetTorchMod();
+}
 void CScriptGameObject::torch_switch_spot(bool value)
 {
 	CTorch *torch = smart_cast<CTorch*>(&object());

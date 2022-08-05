@@ -114,6 +114,7 @@ class_<CScriptGameObject> &script_register_game_object2(class_<CScriptGameObject
 		.def("enable_torch",				&CScriptGameObject::enable_torch)
 		.def("torch_enabled",				&CScriptGameObject::torch_enabled)
 		//ARTLantist
+		.def("torch_set_mod",				&CScriptGameObject::torch_set_mod)
 		.def("torch_switch_spot",			&CScriptGameObject::torch_switch_spot)
 		.def("torch_set_color_r",			&CScriptGameObject::torch_set_color_r)
 		.def("torch_set_color_g",			&CScriptGameObject::torch_set_color_g)

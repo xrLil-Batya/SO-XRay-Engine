@@ -110,71 +110,11 @@ void CActor::IR_OnKeyboardPress(int cmd)
 	case kCAM_1:	cam_Set			(eacFirstEye);				break;
 	case kCAM_2:	cam_Set			(eacLookAt);				break;
 	case kCAM_3:	cam_Set			(eacFreeLook);				break;
-	case kNIGHT_VISION:
-		{
-			PIItem torch = inventory().ItemFromSlot(FAKE_TORCH_SLOT);
-			if (torch && torch->GetCondition() > 0.04) {
-				SwitchNightVision();
-			}
-			else if (torch && torch->GetCondition() <= 0.04) {
-				luabind::functor<void>	funct;
-				if( ai().script_engine().functor( "items_condition.show_message_battery_low", funct ) )
-					funct( "nv_low" );
-			}
-			else if (!torch) {
-				luabind::functor<void>	funct;
-				if( ai().script_engine().functor( "items_condition.show_message_battery_low", funct ) )
-					funct( "nv_not" );
-			}
-			break;
-		}
-	case kTORCH:
-		{
-			PIItem torch = inventory().ItemFromSlot(FAKE_TORCH_SLOT);
-			if (torch && torch->GetCondition() > 0.04) {
-				SwitchTorch();
-			}
-			else if (torch && torch->GetCondition() <= 0.04) {
-				luabind::functor<void>	funct;
-				if( ai().script_engine().functor( "items_condition.show_message_battery_low", funct ) )
-					funct( "torch_low" );
-			}
-			else if (!torch) {
-				luabind::functor<void>	funct;
-				if( ai().script_engine().functor( "items_condition.show_message_battery_low", funct ) )
-					funct( "torch_not" );
-			}
-			break;
-		}
-	case kTORCH_MOD:
-		{	
-			xr_vector<CAttachableItem*> const& all = CAttachmentOwner::attached_objects();
-			xr_vector<CAttachableItem*>::const_iterator it = all.begin();
-			xr_vector<CAttachableItem*>::const_iterator it_e = all.end();
-			for ( ; it != it_e; ++it )
-			{
-				CTorch* torch = smart_cast<CTorch*>(*it);
-				if ( torch )
-				{		
-					torch->SetTorchMod();
-					return;
-				}
-			}
-	}break;
-	case kDOSIMETER:
-		{
-			luabind::functor<void>	dosimeter_key;
-			if (ai().script_engine().functor("items_manager.dosimeter_rad",dosimeter_key))
-				dosimeter_key();
-	}break; 
 	case kSHOWHUD:
 		{
 			CUIHudStatesWnd* wnd = CurrentGameUI()->UIMainIngameWnd->get_hud_states();
 			VERIFY( wnd );
-			if ( !wnd )
-			{
-				return;
-			}
+			if ( !wnd ) return;
 			wnd->ShowHud();
 	}break; 
 	case kDETECTOR:

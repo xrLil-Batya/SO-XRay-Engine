@@ -634,6 +634,7 @@ public:
 			void enable_torch(bool value);
 			bool torch_enabled() const;
 			//ARTLantist
+			void torch_set_mod();
 			void torch_switch_spot(bool value);
 			void torch_set_color_r(float value);
 			void torch_set_color_g(float value);
