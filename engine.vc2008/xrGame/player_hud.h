@@ -205,7 +205,9 @@ public:
 	};
 
 	Fmatrix m_transform;
+	Fmatrix m_transform_2;
 	Fmatrix m_attach_offset;
+	Fmatrix m_attach_offset_2;
 
 	void calc_transform(u16 attach_slot_idx, const Fmatrix& offset, Fmatrix& result);
 	void tune(Ivector values);
@@ -217,10 +219,11 @@ public:
 private:
 	void update_inertion(Fmatrix& trans);
 private:
-	const Fvector& attach_rot() const;
-	const Fvector& attach_pos() const;
+	const Fvector& attach_rot(u8 part) const;
+	const Fvector& attach_pos(u8 part) const;
 	shared_str m_sect_name;
 	IKinematicsAnimated* m_model;
+	IKinematicsAnimated* m_model_2;
 	xr_vector<u16> m_ancors;
 	attachable_hud_item* m_attached_items[2];
 	xr_vector<attachable_hud_item*> m_pool;
