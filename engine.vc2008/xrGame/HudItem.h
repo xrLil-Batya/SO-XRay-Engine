@@ -10,6 +10,17 @@ class CMotionDef;
 #include "inventory_space.h"
 #include "hudsound.h"
 
+#define TENDTO_SPEED         1.0f     // Модификатор силы инерции (больше - чувствительней)
+#define TENDTO_SPEED_AIM     1.0f     // (Для прицеливания)
+#define TENDTO_SPEED_RET     5.0f     // Модификатор силы отката инерции (больше - быстрее)
+#define TENDTO_SPEED_RET_AIM 5.0f     // (Для прицеливания)
+#define INERT_MIN_ANGLE      0.0f     // Минимальная сила наклона, необходимая для старта инерции
+#define INERT_MIN_ANGLE_AIM  3.5f     // (Для прицеливания)
+
+// Пределы смещения при инерции (лево / право / верх / низ)
+#define ORIGIN_OFFSET        0.04f,  0.04f,  0.04f, 0.02f
+#define ORIGIN_OFFSET_AIM    0.015f, 0.015f, 0.01f, 0.005f
+
 struct attachable_hud_item;
 class motion_marks;
 

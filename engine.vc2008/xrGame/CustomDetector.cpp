@@ -78,7 +78,7 @@ bool  CCustomDetector::CheckCompatibility(CHudItem* itm)
 
 void CCustomDetector::HideDetector(bool bFastMode)
 {
-	if(GetState() != eHidden)
+	if(GetState() == eIdle)
 		ToggleDetector(bFastMode);
 }
 
