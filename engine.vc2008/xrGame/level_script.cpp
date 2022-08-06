@@ -665,6 +665,21 @@ int g_get_general_goodwill_between ( u16 from, u16 to)
 	return presonal_goodwill + community_to_obj_goodwill + community_to_community_goodwill;
 }
 
+void LevelPressAction(EGameActions cmd)
+{
+	Level().IR_OnKeyboardPress(cmd);
+}
+
+void LevelReleaseAction(EGameActions cmd)
+{
+	Level().IR_OnKeyboardRelease(cmd);
+}
+
+void LevelHoldAction(EGameActions cmd)
+{
+	Level().IR_OnKeyboardHold(cmd);
+}
+
 u32 vertex_id	(Fvector position)
 {
 	return	(ai().level_graph().vertex_id(position));
@@ -862,6 +877,10 @@ void CLevel::script_register(lua_State *L)
 		def("remove_complex_effector",			&remove_complex_effector),
 		
 		def("vertex_id",						&vertex_id),
+
+		def("press_action", &LevelPressAction),
+		def("release_action", &LevelReleaseAction),
+		def("hold_action", &LevelHoldAction),
 
 		def("game_id",							&GameID)
 	],
