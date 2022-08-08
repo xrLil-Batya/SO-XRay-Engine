@@ -98,15 +98,60 @@ void CActor::IR_OnKeyboardPress(int cmd)
 		{
 			mstate_wishful |= mcJump;
 		}break;
-	case kSPRINT_TOGGLE:	
+	case kSPRINT_TOGGLE:
 		{
-			mstate_wishful ^= mcSprint;
-		}break;
-	case kCROUCH:	
+			if (psActorFlags.test(AF_SPRINT_TOGGLE))
+			{
+				if (psActorFlags.test(AF_WALK_TOGGLE)) mstate_wishful &= ~mcAccel;
+				if (psActorFlags.test(AF_CROUCH_TOGGLE)) mstate_wishful &= ~mcCrouch;
+				mstate_wishful ^= mcSprint;
+			}
+		}
+		break;
+	case kFREELOOK:
+	{
+		if (psActorFlags.test(AF_FREELOOK_TOGGLE))
 		{
-		if( psActorFlags.test(AF_CROUCH_TOGGLE) )
-			mstate_wishful ^= mcCrouch;
-		}break;
+			if (cam_freelook == eflDisabled && CanUseFreelook())
+			{
+				cam_SetFreelook();
+			}
+			else if (cam_freelook == eflEnabled)
+			{
+				cam_UnsetFreelook();
+			}
+		}
+	}
+	case kCROUCH:
+		{
+			if (psActorFlags.test(AF_CROUCH_TOGGLE))
+				mstate_wishful ^= mcCrouch;
+		}
+		break;
+	case kACCEL:
+		{
+			if (psActorFlags.test(AF_WALK_TOGGLE))
+				mstate_wishful ^= mcAccel;
+		}
+		break;
+	case kL_LOOKOUT:
+		{
+			if (psActorFlags.test(AF_LOOKOUT_TOGGLE))
+			{
+				mstate_wishful &= ~mcRLookout;
+				mstate_wishful ^= mcLLookout;
+			}
+		}
+		break;
+	case kR_LOOKOUT:
+		{
+			if (psActorFlags.test(AF_LOOKOUT_TOGGLE))
+			{
+				mstate_wishful &= ~mcLLookout;
+				mstate_wishful ^= mcRLookout;
+			}
+		}
+		break;
 	case kCAM_1:	cam_Set			(eacFirstEye);				break;
 	case kCAM_2:	cam_Set			(eacLookAt);				break;
 	case kCAM_3:	cam_Set			(eacFreeLook);				break;
@@ -256,28 +301,70 @@ void CActor::IR_OnKeyboardHold(int cmd)
 	switch(cmd)
 	{
 	case kUP:
-	case kDOWN: 
-		cam_Active()->Move( (cmd==kUP) ? kDOWN : kUP, 0, LookFactor);									break;
-	case kCAM_ZOOM_IN: 
-	case kCAM_ZOOM_OUT: 
-		cam_Active()->Move(cmd);												break;
+	case kDOWN:
+		if(cam_freelook != eflEnabling && cam_freelook != eflDisabling) cam_Active()->Move((cmd == kUP) ? kDOWN : kUP, 0, LookFactor);
+		break;
+	case kCAM_ZOOM_IN:
+	case kCAM_ZOOM_OUT:
+		cam_Active()->Move(cmd);
+		break;
 	case kLEFT:
 	case kRIGHT:
-		if (eacFreeLook!=cam_active) cam_Active()->Move(cmd, 0, LookFactor);	break;
-
-	case kACCEL:	mstate_wishful |= mcAccel;									break;
-	case kL_STRAFE:	mstate_wishful |= mcLStrafe;								break;
-	case kR_STRAFE:	mstate_wishful |= mcRStrafe;								break;
-	case kL_LOOKOUT:mstate_wishful |= mcLLookout;								break;
-	case kR_LOOKOUT:mstate_wishful |= mcRLookout;								break;
-	case kFWD:		mstate_wishful |= mcFwd;									break;
-	case kBACK:		mstate_wishful |= mcBack;									break;
+		if (eacFreeLook != cam_active && cam_freelook != eflEnabling && cam_freelook != eflDisabling) cam_Active()->Move(cmd, 0, LookFactor);
+		break;
+	case kL_STRAFE: mstate_wishful |= mcLStrafe;
+		break;
+	case kR_STRAFE: mstate_wishful |= mcRStrafe;
+		break;
+	case kL_LOOKOUT:
+		{
+			if (!psActorFlags.test(AF_LOOKOUT_TOGGLE) && cam_freelook == eflDisabled)
+				mstate_wishful |= mcLLookout;
+		}
+		break;
+	case kR_LOOKOUT:
+		{
+			if (!psActorFlags.test(AF_LOOKOUT_TOGGLE) && cam_freelook == eflDisabled)
+				mstate_wishful |= mcRLookout;
+		}
+		break;
+	case kFWD: mstate_wishful |= mcFwd;
+		break;
+	case kBACK: mstate_wishful |= mcBack;
+		break;
 	case kCROUCH:
 		{
-			if( !psActorFlags.test(AF_CROUCH_TOGGLE) )
-					mstate_wishful |= mcCrouch;
-
-		}break;
+			if (!psActorFlags.test(AF_CROUCH_TOGGLE))
+				mstate_wishful |= mcCrouch;
+		}
+		break;
+	case kACCEL:
+		{
+			if (!psActorFlags.test(AF_WALK_TOGGLE))
+				mstate_wishful |= mcAccel;
+		}
+	break;
+	case kFREELOOK:
+	{
+		if (!psActorFlags.test(AF_FREELOOK_TOGGLE))
+		{
+			if (cam_freelook == eflDisabled && CanUseFreelook())
+			{
+				cam_SetFreelook();
+			}
+		}
+	}
+	break;
+	case kSPRINT_TOGGLE:
+		{
+			if (!psActorFlags.test(AF_SPRINT_TOGGLE))
+			{
+				if (psActorFlags.test(AF_WALK_TOGGLE)) mstate_wishful &= ~mcAccel;
+				if (psActorFlags.test(AF_CROUCH_TOGGLE)) mstate_wishful &= ~mcCrouch;
+				mstate_wishful |= mcSprint;
+			}
+		}
+		break;
 	}
 }
 
@@ -301,6 +388,9 @@ void CActor::IR_OnMouseMove(int dx, int dy)
 		m_holder->OnMouseMove(dx,dy);
 		return;
 	}
+
+	if (cam_freelook == eflEnabling || cam_freelook == eflDisabling)
+		return;
 
 	float LookFactor = GetLookFactor();
 
@@ -552,17 +642,10 @@ float	CActor::GetLookFactor()
 	if (m_input_external_handler) 
 		return m_input_external_handler->mouse_scale_factor();
 
-	
-	float factor	= 1.f;
+	if (cam_freelook != eflDisabled)
+		return 1.5f;
 
-	PIItem pItem	= inventory().ActiveItem();
-
-	if (pItem)
-		factor *= pItem->GetControlInertionFactor();
-
-	VERIFY(!fis_zero(factor));
-
-	return factor;
+	return 1.f;
 }
 
 void CActor::set_input_external_handler(CActorInputHandler *handler) 

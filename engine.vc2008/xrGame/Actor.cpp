@@ -104,20 +104,25 @@ CActor::CActor() : CEntityAlive(),current_ik_cam_shift(0)
 	cameras[eacFirstEye]	= xr_new<CCameraFirstEye>				(this);
 	cameras[eacFirstEye]->Load("actor_firsteye_cam");
 
-	if(strstr(Core.Params,"-psp"))
-		psActorFlags.set(AF_PSP, TRUE);
-	else
-		psActorFlags.set(AF_PSP, FALSE);
+	//Alundaio -psp always
+	/*
+    if (strstr(Core.Params, "-psp"))
+        psActorFlags.set(AF_PSP, TRUE);
+    else
+        psActorFlags.set(AF_PSP, FALSE);
+	*/
 
-	if( psActorFlags.test(AF_PSP) )
-	{
-		cameras[eacLookAt]		= xr_new<CCameraLook2>				(this);
-		cameras[eacLookAt]->Load("actor_look_cam_psp");
-	}else
-	{
-		cameras[eacLookAt]		= xr_new<CCameraLook>				(this);
-		cameras[eacLookAt]->Load("actor_look_cam");
-	}
+	//if (psActorFlags.test(AF_PSP))
+	//{
+	cameras[eacLookAt] = xr_new<CCameraLook2>(this);
+	cameras[eacLookAt]->Load("actor_look_cam_psp");
+	//}
+	//else
+	//{
+	//    cameras[eacLookAt] = xr_new<CCameraLook>(this);
+	//    cameras[eacLookAt]->Load("actor_look_cam");
+	//}
+	//-Alundaio
 	cameras[eacFreeLook]	= xr_new<CCameraLook>					(this);
 	cameras[eacFreeLook]->Load("actor_free_cam");
 	cameras[eacFixedLookAt]	= xr_new<CCameraFixedLook>				(this);
@@ -127,9 +132,13 @@ CActor::CActor() : CEntityAlive(),current_ik_cam_shift(0)
 	fPrevCamPos				= 0.0f;
 	vPrevCamDir.set			(0.f,0.f,1.f);
 	fCurAVelocity			= 0.0f;
+	fFPCamYawMagnitude = 0.0f; //--#SM+#--
+	fFPCamPitchMagnitude = 0.0f; //--#SM+#--
 	// эффекторы
 	pCamBobbing				= 0;
 
+	cam_freelook = eflDisabled;
+	freelook_cam_control = 0.f;
 
 	r_torso.yaw				= 0;
 	r_torso.pitch			= 0;
@@ -1050,6 +1059,19 @@ void CActor::UpdateCL	()
 		g_player_hud->update			(trans);
 }
 
+void CActor::set_safemode(bool status)
+{
+	if (is_safemode() != status)
+	{
+		m_bSafemode = status;
+		g_player_hud->OnMovementChanged(mcAnyMove);
+		g_player_hud->updateMovementLayerState();
+
+		CWeapon* wep = smart_cast<CWeapon*>(inventory().ActiveItem());
+		//status ? callback(GameObject::eOnWeaponLowered)(wep ? wep->lua_game_object(): nullptr) : callback(GameObject::eOnWeaponRaised)(wep ? wep->lua_game_object() : nullptr);
+	}
+}
+
 float	NET_Jump = 0;
 void CActor::set_state_box(u32	mstate)
 {
@@ -1142,16 +1164,36 @@ void CActor::shedule_Update	(u32 DT)
 			f_DropPower			= 0.f;
 		}
 		if (!Level().IsDemoPlay())
-		{		
-		mstate_wishful &=~mcAccel;
-		mstate_wishful &=~mcLStrafe;
-		mstate_wishful &=~mcRStrafe;
-		mstate_wishful &=~mcLLookout;
-		mstate_wishful &=~mcRLookout;
-		mstate_wishful &=~mcFwd;
-		mstate_wishful &=~mcBack;
-		if( !psActorFlags.test(AF_CROUCH_TOGGLE) )
-			mstate_wishful &=~mcCrouch;
+		{
+			mstate_wishful &= ~mcLStrafe;
+			mstate_wishful &= ~mcRStrafe;
+			mstate_wishful &= ~mcFwd;
+			mstate_wishful &= ~mcBack;
+			if (!psActorFlags.test(AF_CROUCH_TOGGLE))
+				mstate_wishful &= ~mcCrouch;
+			if (!psActorFlags.test(AF_WALK_TOGGLE))
+				mstate_wishful &= ~mcAccel;
+			if (!psActorFlags.test(AF_SPRINT_TOGGLE))
+				mstate_wishful &= ~mcSprint;
+			if (!psActorFlags.test(AF_LOOKOUT_TOGGLE) || cam_freelook != eflDisabled)
+			{
+				mstate_wishful &= ~mcLLookout;
+				mstate_wishful &= ~mcRLookout;
+			}
+
+			if (cam_freelook == eflEnabled)
+			{
+				if (psActorFlags.test(AF_FREELOOK_TOGGLE))
+				{
+					if (!CanUseFreelook())
+						cam_UnsetFreelook();
+				}
+				else
+				{
+					if (!CanUseFreelook() || !pInput->iGetAsyncKeyState(get_action_dik(kFREELOOK)))
+						cam_UnsetFreelook();
+				}
+			}
 		}
 	}
 	else 

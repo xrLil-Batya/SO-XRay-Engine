@@ -16,6 +16,10 @@
 #include "Grenade.h"
 #include "game_base_space.h"
 #include "Artefact.h"
+#include "../xrEngine/CameraBase.h"
+#include "player_hud.h"
+#include "HUDManager.h"
+#include "WeaponKnife.h"
 
 static const float VEL_MAX		= 10.f;
 static const float VEL_A_MAX	= 10.f;
@@ -65,12 +69,30 @@ void CActor::g_fireParams	(const CHudItem* pHudItem, Fvector &fire_pos, Fvector 
 	fire_pos		= Cameras().Position();
 	fire_dir		= Cameras().Direction();
 
+	CWeapon* pWeapon = smart_cast<CWeapon*>(inventory().ActiveItem());
 	const CMissile	*pMissile = smart_cast <const CMissile*> (pHudItem);
 	if (pMissile)
 	{
 		Fvector offset;
 		XFORM().transform_dir(offset, pMissile->throw_point_offset());
 		fire_pos.add(offset);
+	}
+	else if (pWeapon && pWeapon->HudItemData() && !smart_cast<CWeaponKnife*>(pWeapon))
+	{
+		const Fmatrix& fire_mat = pWeapon->get_ParticlesXFORM();
+
+		if (cam_freelook != eflDisabled)
+		{
+			Fvector dir;
+			float pitch = fire_mat.k.getP();
+			dir.setHP(-angle_normalize_signed(old_torso_yaw), pitch > 0.f ? ((pWeapon->GetState() == CWeapon::eFire || cam_freelook == eflDisabling) ? pitch : pitch * .6f) : pitch * .8f);
+			fire_dir = dir;
+		}
+		else if ((psActorFlags.test(AF_FIREPOS) || (mstate_real & mcAnyMove)) && (pWeapon->GetZRotatingFactor() != 1.f /*|| dist < 1.f*/))
+		{
+			//correct barrel direction
+			fire_dir = fire_mat.k; //pWeapon->get_lastFD() doesn't seem to work, returns (0,0,1) for all weapons except pistols/shotguns
+		}
 	}
 }
 

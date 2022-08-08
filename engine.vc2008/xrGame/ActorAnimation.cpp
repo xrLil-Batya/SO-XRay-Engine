@@ -74,11 +74,19 @@ void  CActor::ShoulderCallback(CBoneInstance* B)
 	B->mTransform.mulA_43(spin);
 	B->mTransform.c		= c;
 }
+
+#include "../xrEngine/CameraBase.h"
+
 void  CActor::HeadCallback(CBoneInstance* B)
 {
 	CActor*	A			= static_cast<CActor*>(B->callback_param());	VERIFY	(A);
 	Fmatrix				spin;
-	float				bone_yaw	= angle_normalize_signed(A->r_torso.yaw - A->r_model_yaw - A->r_model_yaw_delta)*y_head_factor;
+	float bone_yaw;
+
+	if (A->cam_freelook != eflDisabled)
+		bone_yaw = angle_normalize_signed(-A->cam_FirstEye()->yaw - A->r_model_yaw - A->r_model_yaw_delta) * .35f;
+	else
+		bone_yaw = angle_normalize_signed(A->r_torso.yaw - A->r_model_yaw - A->r_model_yaw_delta) * y_head_factor;
 	float				bone_pitch	= angle_normalize_signed(A->r_torso.pitch)*p_head_factor;
 	float				bone_roll	= angle_normalize_signed(A->r_torso.roll)*r_head_factor;
 	Fvector c			= B->mTransform.c;
@@ -121,6 +129,7 @@ void STorsoWpn::Create(IKinematicsAnimated* K, LPCSTR base0, LPCSTR base1)
 	all_attack_0	= K->ID_Cycle_Safe(strconcat(sizeof(buf),buf,base0,"_all",base1,"_attack_0"));
 	all_attack_1	= K->ID_Cycle_Safe(strconcat(sizeof(buf),buf,base0,"_all",base1,"_attack_1"));
 	all_attack_2	= K->ID_Cycle_Safe(strconcat(sizeof(buf),buf,base0,"_all",base1,"_attack_2"));
+	safemode = K->ID_Cycle_Safe(strconcat(sizeof(buf), buf, base0, "_torso", base1, "_idle_1"));
 }
 void SAnimState::Create(IKinematicsAnimated* K, LPCSTR base0, LPCSTR base1)
 {

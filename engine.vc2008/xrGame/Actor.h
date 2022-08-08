@@ -311,7 +311,14 @@ public:
 	CActorCameraManager&	Cameras				() 	{VERIFY(m_pActorEffector); return *m_pActorEffector;}
 	IC CCameraBase*			cam_Active			()	{return cameras[cam_active];}
 	IC CCameraBase*			cam_FirstEye		()	{return cameras[eacFirstEye];}
-    EActorCameras active_cam() const { return cam_active; } // KD: we need to know which cam is active outside actor methods
+	//Swartz: actor shadow
+	IC EActorCameras active_cam() { return cam_active; } //KD: need to know which cam active outside actor methods
+	//-Swartz
+
+	// Rezy - Freelook
+	u8 cam_freelook;
+	float freelook_cam_control;
+	float old_torso_yaw;
 
 protected:
 	virtual	void			cam_Set					(EActorCameras style);
@@ -320,6 +327,10 @@ protected:
 	void					camUpdateLadder			(float dt);
 	void					cam_SetLadder			();
 	void					cam_UnsetLadder			();
+	void camUpdateFreelook(float dt);
+	void cam_SetFreelook();
+	void cam_UnsetFreelook();
+	bool CanUseFreelook();
 	float					currentFOV				();
 
 	// Cameras
@@ -335,6 +346,9 @@ protected:
 	//менеджер эффекторов, есть у каждого актрера
 	CActorCameraManager*	m_pActorEffector;
 	static float			f_Ladder_cam_limit;
+public: //--#SM+#--
+	float fFPCamYawMagnitude;
+	float fFPCamPitchMagnitude;
 public:
 	virtual void			feel_touch_new				(CObject* O);
 	virtual void			feel_touch_delete			(CObject* O);
@@ -755,6 +769,11 @@ private:
 	bool					m_disabled_hitmarks;
 	bool					m_inventory_disabled;
 //static CPhysicsShell		*actor_camera_shell;
+protected:
+	bool m_bSafemode;
+public:
+	bool is_safemode() { return m_bSafemode; }
+	void set_safemode(bool status);
 
 DECLARE_SCRIPT_REGISTER_FUNCTION
 };

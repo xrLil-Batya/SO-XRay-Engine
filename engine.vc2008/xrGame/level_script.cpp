@@ -718,6 +718,9 @@ LPCSTR translate_string(LPCSTR str)
 	return *CStringTable().translate(str);
 }
 
+#include "Inventory.h"
+#include "Weapon.h"
+
 u32 PlayHudMotion(u8 hand, LPCSTR itm_name, LPCSTR anm_name, bool bMixIn = true, float speed = 1.f)
 {
 	return g_player_hud->script_anim_play(hand, itm_name, anm_name, bMixIn, speed);
@@ -771,6 +774,24 @@ bool only_movement_allowed()
 void set_actor_allow_ladder(bool b)
 {
 	g_actor_allow_ladder = b;
+}
+
+bool actor_safemode()
+{
+	return Actor()->is_safemode();
+}
+
+void actor_set_safemode(bool status)
+{
+	if (Actor()->is_safemode() != status)
+	{
+		CWeapon* wep = smart_cast<CWeapon*>(Actor()->inventory().ActiveItem());
+		if (wep && wep->m_bCanBeLowered)
+		{
+			wep->Action(kSAFEMODE, CMD_START);
+			Actor()->set_safemode(status);
+		}
+	}
 }
 
 bool has_active_tutotial()
@@ -966,6 +987,8 @@ void CLevel::script_register(lua_State *L)
 		def("only_allow_movekeys", block_all_except_movement),
 		def("only_movekeys_allowed", only_movement_allowed),
 		def("set_actor_allow_ladder", set_actor_allow_ladder),
+		def("actor_weapon_lowered", actor_safemode),
+		def("actor_lower_weapon", actor_set_safemode),
 	def("has_active_tutorial",	&has_active_tutotial),
 	def("translate_string",		&translate_string)
 

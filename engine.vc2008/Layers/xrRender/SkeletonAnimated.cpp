@@ -137,23 +137,6 @@ void	CKinematicsAnimated::LL_IterateBlends( IterateBlendsCallback &callback )
 	for (; I!=E; I++)
 		if (I->blend_state() != CBlend::eFREE_SLOT) callback(*I);
 }
-/*
-LPCSTR CKinematicsAnimated::LL_MotionDefName_dbg	(LPVOID ptr)
-{
-//.
-	// cycles
-	mdef::const_iterator I,E;
-	I = motions.cycle()->begin(); 
-	E = motions.cycle()->end(); 
-	for ( ; I != E; ++I) if (&(*I).second == ptr) return *(*I).first;
-	// fxs
-	I = motions.fx()->begin(); 
-	E = motions.fx()->end(); 
-	for ( ; I != E; ++I) if (&(*I).second == ptr) return *(*I).first;
-	return 0;
-}
-*/
-
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -180,34 +163,49 @@ u16 CKinematicsAnimated::LL_PartID		(LPCSTR B)
 }
 
 // cycles
-MotionID CKinematicsAnimated::ID_Cycle_Safe(LPCSTR  N)
+MotionID CKinematicsAnimated::ID_Cycle_Safe(LPCSTR N)
 {
 	MotionID motion_ID;
-	for (int k=int(m_Motions.size())-1; k>=0; --k){
-    	shared_motions* s_mots			= &m_Motions[k].motions;
-		accel_map::const_iterator I 	= s_mots->cycle()->find(LPSTR(N));
-		if (I!=s_mots->cycle()->end())	{	motion_ID.set(u16(k),I->second); break;}
-    }
-    return motion_ID;
-}
-MotionID CKinematicsAnimated::ID_Cycle	(shared_str  N)
-{
-	MotionID motion_ID		= ID_Cycle_Safe	(N);	R_ASSERT3(motion_ID.valid(),"! MODEL: can't find cycle: ", N.c_str());
-    return motion_ID;
-}
-MotionID CKinematicsAnimated::ID_Cycle_Safe(shared_str  N)
-{
-	MotionID motion_ID;
-	for (int k=int(m_Motions.size())-1; k>=0; --k){
-		shared_motions* s_mots			= &m_Motions[k].motions;
-		accel_map::const_iterator I 	= s_mots->cycle()->find(N);
-		if (I!=s_mots->cycle()->end())	{	motion_ID.set(u16(k),I->second); break;}
+	for (int k = int(m_Motions.size()) - 1; k >= 0; --k)
+	{
+		shared_motions* s_mots = &m_Motions[k].motions;
+		accel_map::const_iterator I = s_mots->cycle()->find(LPSTR(N));
+		if (I != s_mots->cycle()->end())
+		{
+			motion_ID.set(u16(k), I->second);
+			break;
+		}
 	}
 	return motion_ID;
 }
-MotionID CKinematicsAnimated::ID_Cycle	(LPCSTR  N)
+
+MotionID CKinematicsAnimated::ID_Cycle(shared_str N)
 {
-	MotionID motion_ID		= ID_Cycle_Safe	(N);	R_ASSERT3(motion_ID.valid(),"! MODEL: can't find cycle: ", N);
+	MotionID motion_ID = ID_Cycle_Safe(N);
+	R_ASSERT3(motion_ID.valid(), "! MODEL: can't find cycle: ", N.c_str());
+	return motion_ID;
+}
+
+MotionID CKinematicsAnimated::ID_Cycle_Safe(shared_str N)
+{
+	MotionID motion_ID;
+	for (int k = int(m_Motions.size()) - 1; k >= 0; --k)
+	{
+		shared_motions* s_mots = &m_Motions[k].motions;
+		accel_map::const_iterator I = s_mots->cycle()->find(N);
+		if (I != s_mots->cycle()->end())
+		{
+			motion_ID.set(u16(k), I->second);
+			break;
+		}
+	}
+	return motion_ID;
+}
+
+MotionID CKinematicsAnimated::ID_Cycle(LPCSTR N)
+{
+	MotionID motion_ID = ID_Cycle_Safe(N);
+	R_ASSERT3(motion_ID.valid(), "! MODEL: can't find cycle: ", N);
 	return motion_ID;
 }
 void	CKinematicsAnimated::LL_FadeCycle(u16 part, float falloff, u8 mask_channel /*= (1<<0)*/)
@@ -219,10 +217,8 @@ void	CKinematicsAnimated::LL_FadeCycle(u16 part, float falloff, u8 mask_channel 
 		CBlend& B			= *Blend[I];
 		if(!(mask_channel&(1<<B.channel)))
 			continue;
-		//B.blend				= CBlend::eFalloff;
 		B.set_falloff_state();
 		B.blendFalloff		= falloff;
-		//B.blendAccrue		= B.timeCurrent;
 		if (B.stop_at_end)  B.stop_at_end_callback = FALSE;		// callback не должен приходить!
 	}
 }
@@ -237,7 +233,6 @@ void	CKinematicsAnimated::LL_CloseCycle(u16 part, u8 mask_channel /*= (1<<0)*/)
 		CBlend& B = *(*I);
 		if(!(mask_channel&(1<<B.channel)))
 					continue;
-		//B.blend = CBlend::eFREE_SLOT;
 		B.set_free_state();
 		
 		CPartDef& P	= (*m_Partition)[B.bone_or_part];
@@ -247,7 +242,6 @@ void	CKinematicsAnimated::LL_CloseCycle(u16 part, u8 mask_channel /*= (1<<0)*/)
 		blend_cycles[part].erase(I);// ?
 		E				= blend_cycles[part].end(); I--; 
 	}
-	//blend_cycles[part].clear	(); // ?
 }
 
 float CKinematicsAnimated::get_animation_length (MotionID motion_ID)
@@ -274,12 +268,9 @@ void CKinematicsAnimated::IBlendSetup(CBlend& B,u16 part,u8 channel, MotionID mo
 	VERIFY(B.channel<MAX_CHANNELS);
 	// Setup blend params
 	if (bMixing)	{
-		//B.blend		= CBlend::eAccrue;
 		B.set_accrue_state();
 		B.blendAmount	= EPS_S;
 	} else {
-		//B.blend		= CBlend::eFixed;
-		//B.blend		= CBlend::eAccrue;
 		B.set_accrue_state();
 		B.blendAmount	= 1;
 	}
@@ -334,10 +325,7 @@ CBlend*	CKinematicsAnimated::LL_PlayCycle(u16 part, MotionID motion_ID, BOOL  bM
 		return 0;
 	}
 	if (part>=MAX_PARTS)	return 0;
-	if (0==m_Partition->part(part).Name)	return 0;
-
-//	shared_motions* s_mots	= &m_Motions[motion.slot];
-//	CMotionDef* m_def		= s_mots->motion_def(motion.idx);
+	if (0==m_Partition->part(part).Name)	return 0;;
     
 	// Process old cycles and create _new_
 	if( channel == 0 )
@@ -421,7 +409,6 @@ CBlend*	CKinematicsAnimated::PlayFX			(LPCSTR  N, float power_scale)
 	MotionID motion_ID		= ID_FX(N);
     return PlayFX 			(motion_ID,power_scale);
 }
-//u16 part,u8 channel, MotionID motion_ID, BOOL  bMixing, float blendAccrue, float blendFalloff, float Speed, BOOL noloop, PlayCallback callback(), LPVOID CallbackParam)
 
 CBlend*	CKinematicsAnimated::LL_PlayFX		(u16 bone, MotionID motion_ID, float blendAccrue, float blendFalloff, float Speed, float Power)
 {
@@ -473,16 +460,6 @@ void CKinematicsAnimated::LL_UpdateTracks( float dt, bool b_force, bool leave_bl
 				blend_cycles[part].erase( I );
 				E = blend_cycles[part].end(); I--; 
 			}
-			//else{
-			//	CMotionDef* m_def						= m_Motions[B.motionID.slot].motions.motion_def(B.motionID.idx);
-			//	float timeCurrent						= B.timeCurrent;
-			//	xr_vector<motion_marks>::iterator it	= m_def->marks.begin();
-			//	xr_vector<motion_marks>::iterator it_e	= m_def->marks.end();
-			//	for(;it!=it_e; ++it)
-			//	{
-			//		if( (*it).pick_mark(timeCurrent) )
-			//	}
-			//}
 		}
 	}
 	
@@ -552,19 +529,6 @@ void CKinematicsAnimated::UpdateTracks	()
 
 void CKinematicsAnimated::Release()
 {
-	// xr_free bones
-//.	for (u32 i=0; i<bones->size(); i++)
-//.	{
-//.		CBoneDataAnimated* B	= (CBoneDataAnimated*)(*bones)[i];
-//.		B->Motions.clear		();
-//.	}
-
-	// destroy shared data
-//.	xr_delete(partition);
-//.	xr_delete(motion_map);
-//.	xr_delete(m_cycle);
-//.	xr_delete(m_fx);
-
     inherited::Release	();
 }
 
@@ -673,122 +637,154 @@ CBlend*	CKinematicsAnimated::IBlend_Create	()
 }
 void CKinematicsAnimated::Load(const char* N, IReader *data, u32 dwFlags)
 {
-	inherited::Load	(N, data, dwFlags);
+	inherited::Load(N, data, dwFlags);
 
 	// Globals
-	blend_instances		= NULL;
-    m_Partition			= NULL;
-	Update_LastTime 	= 0;
+	blend_instances = NULL;
+	m_Partition = NULL;
+	Update_LastTime = 0;
 
 	// Load animation
-    if (data->find_chunk(OGF_S_MOTION_REFS))
-    {
-    	string_path		items_nm;
-        data->r_stringZ	(items_nm,sizeof(items_nm));
-        u32 set_cnt		= _GetItemCount(items_nm);
-        R_ASSERT		(set_cnt<MAX_ANIM_SLOT);
-		m_Motions.reserve(set_cnt);
-    	string_path		nm;
-        for (u32 k=0; k<set_cnt; ++k)
-        {
-        	_GetItem	(items_nm,k,nm);
-            xr_strcat		(nm,".omf");
-            string_path	fn;
-            if (!FS.exist(fn, "$level$", nm))
-            {
-                if (!FS.exist(fn, "$game_meshes$", nm))
-                {
-#ifdef _EDITOR
-                    Msg			("!Can't find motion file '%s'.",nm);
-                    return;
-#else
-                    Debug.fatal	(DEBUG_INFO,"Can't find motion file '%s'.",nm);
-#endif
-                }
-            }
-            // Check compatibility
-            m_Motions.push_back				(SMotionsSlot());
-            bool create_res = true;
-            if( !g_pMotionsContainer->has(nm) ) //optimize fs operations
-			{
-				IReader* MS						= FS.r_open(fn);
-				create_res = m_Motions.back().motions.create	(nm,MS,bones);
-				FS.r_close						(MS);
-			}
-            if(create_res)
-				m_Motions.back().motions.create	(nm,NULL,bones);
-            else{
-            	m_Motions.pop_back	();
-                Msg					("! error in model [%s]. Unable to load motion file '%s'.", N, nm);
-                }
-    	}
-    }else
-    if (data->find_chunk(OGF_S_MOTION_REFS2))
-    {
-		u32 set_cnt		= data->r_u32();
-		m_Motions.reserve(set_cnt);
-    	string_path		nm;
-        for (u32 k=0; k<set_cnt; ++k)
-        {
-			data->r_stringZ	(nm,sizeof(nm));
-            xr_strcat			(nm,".omf");
-            string_path	fn;
-            if (!FS.exist(fn, "$level$", nm))
-            {
-                if (!FS.exist(fn, "$game_meshes$", nm))
-                {
-#ifdef _EDITOR
-                    Msg			("!Can't find motion file '%s'.",nm);
-                    return;
-#else
-                    Debug.fatal	(DEBUG_INFO,"Can't find motion file '%s'.",nm);
-#endif
-                }
-            }
-            // Check compatibility
-            m_Motions.push_back				(SMotionsSlot());
-            bool create_res = true;
-            if( !g_pMotionsContainer->has(nm) ) //optimize fs operations
-			{
-				IReader* MS						= FS.r_open(fn);
-				create_res = m_Motions.back().motions.create	(nm,MS,bones);
-				FS.r_close						(MS);
-			}
-            if(create_res)
-				m_Motions.back().motions.create	(nm,NULL,bones);
-            else{
-            	m_Motions.pop_back	();
-                Msg					("! error in model [%s]. Unable to load motion file '%s'.", N, nm);
-                }
-    	}
-    }else    
+	if (data->find_chunk(OGF_S_MOTION_REFS))
 	{
-		string_path	nm;
-		strconcat			(sizeof(nm),nm,N,".ogf");
+		string_path items_nm;
+		data->r_stringZ(items_nm, sizeof(items_nm));
+		u32 set_cnt = _GetItemCount(items_nm);
+		R_ASSERT(set_cnt<MAX_ANIM_SLOT);
+		m_Motions.reserve(set_cnt);
+		string_path nm;
+		for (u32 k = 0; k < set_cnt; ++k)
+		{
+			_GetItem(items_nm, k, nm);
+			xr_strcat(nm, ".omf");
+			LPCSTR _path = nm;
+			string_path fn;
+			if (!FS.exist(fn, "$level$", _path))
+			{
+				if (!FS.exist(fn, "$game_meshes$", _path))
+					Debug.fatal(DEBUG_INFO, "Can't find motion file '%s'.", _path);
+			}
+
+			// Check compatibility
+			m_Motions.push_back(SMotionsSlot());
+			bool create_res = true;
+			if (!g_pMotionsContainer->has(_path)) //optimize fs operations
+			{
+				IReader* MS = FS.r_open(fn);
+				create_res = m_Motions.back().motions.create(_path, MS, bones);
+				FS.r_close(MS);
+			}
+			if (create_res)
+				m_Motions.back().motions.create(_path, NULL, bones);
+			else
+			{
+				m_Motions.pop_back();
+				Msg("! error in model [%s]. Unable to load motion file '%s'.", N, _path);
+			}
+		}
+	}
+	else if (data->find_chunk(OGF_S_MOTION_REFS2))
+	{
+		u32 set_cnt = data->r_u32();
+		m_Motions.reserve(set_cnt);
+		string_path nm;
+		for (u32 k = 0; k < set_cnt; ++k)
+		{
+			data->r_stringZ(nm, sizeof(nm));
+
+			if (strstr(nm, "\\*.omf"))
+			{
+				FS_FileSet fset;
+				FS.file_list(fset, "$game_meshes$", FS_ListFiles, nm);
+				FS.file_list(fset, "$level$", FS_ListFiles, nm);
+
+				m_Motions.reserve(fset.size() - 1);
+
+				for (FS_FileSet::iterator it = fset.begin(); it != fset.end(); it++)
+				{
+					LPCSTR _path = (*it).name.c_str();
+					string_path fn;
+					if (!FS.exist(fn, "$level$", _path))
+					{
+						if (!FS.exist(fn, "$game_meshes$", _path))
+							Debug.fatal(DEBUG_INFO, "Can't find motion file '%s'.", _path);
+					}
+
+					// Check compatibility
+					m_Motions.push_back(SMotionsSlot());
+					bool create_res = true;
+					if (!g_pMotionsContainer->has(_path)) //optimize fs operations
+					{
+						IReader* MS = FS.r_open(fn);
+						create_res = m_Motions.back().motions.create(_path, MS, bones);
+						FS.r_close(MS);
+					}
+					if (create_res)
+						m_Motions.back().motions.create(_path, NULL, bones);
+					else
+					{
+						m_Motions.pop_back();
+						Msg("! error in model [%s]. Unable to load motion file '%s'.", N, _path);
+					}
+				}
+
+				continue;
+			}
+
+			xr_strcat(nm, ".omf");
+			LPCSTR _path = nm;
+			string_path fn;
+			if (!FS.exist(fn, "$level$", _path))
+			{
+				if (!FS.exist(fn, "$game_meshes$", _path))
+					Debug.fatal(DEBUG_INFO, "Can't find motion file '%s'.", _path);
+			}
+
+			// Check compatibility
+			m_Motions.push_back(SMotionsSlot());
+			bool create_res = true;
+			if (!g_pMotionsContainer->has(_path)) //optimize fs operations
+			{
+				IReader* MS = FS.r_open(fn);
+				create_res = m_Motions.back().motions.create(_path, MS, bones);
+				FS.r_close(MS);
+			}
+			if (create_res)
+				m_Motions.back().motions.create(_path, NULL, bones);
+			else
+			{
+				m_Motions.pop_back();
+				Msg("! error in model [%s]. Unable to load motion file '%s'.", N, _path);
+			}
+		}
+	}
+	else
+	{
+		string_path nm;
+		strconcat(sizeof(nm), nm, N, ".ogf");
 		m_Motions.push_back(SMotionsSlot());
-		m_Motions.back().motions.create(nm,data,bones);
-    }
+		m_Motions.back().motions.create(nm, data, bones);
+	}
 
-    R_ASSERT				(m_Motions.size());
+	R_ASSERT(m_Motions.size());
 
-    m_Partition				= m_Motions[0].motions.partition();
-	m_Partition->load		(this,N);
-    
+	m_Partition = m_Motions[0].motions.partition();
+	m_Partition->load(this, N);
+
 	// initialize motions
-	for (MotionsSlotVecIt m_it=m_Motions.begin(); m_it!=m_Motions.end(); m_it++){
-		SMotionsSlot& MS	= *m_it;
+	for (MotionsSlotVecIt m_it = m_Motions.begin(); m_it != m_Motions.end(); m_it++)
+	{
+		SMotionsSlot& MS = *m_it;
 		MS.bone_motions.resize(bones->size());
-		for (u32 i=0; i<bones->size(); i++){
-			CBoneData* BD		= (*bones)[i];
-			MS.bone_motions[i]	= MS.motions.bone_motions(BD->name);
+		for (u32 i = 0; i < bones->size(); i++)
+		{
+			CBoneData* BD = (*bones)[i];
+			MS.bone_motions[i] = MS.motions.bone_motions(BD->name);
 		}
 	}
 
 	// Init blend pool
-	IBlend_Startup	();
-
-//.	if (motions.cycle()->size()<2)			
-//.		Msg("* WARNING: model '%s' has only one motion. Candidate for SkeletonRigid???",N);
+	IBlend_Startup();
 }
 
 
@@ -861,86 +857,18 @@ void	CKinematicsAnimated::LL_BoneMatrixBuild	( CBoneInstance &bi, const Fmatrix 
 		Fbox dbg_box;
 		float box_size = 100000.f;
 		dbg_box.set( -box_size, -box_size, -box_size, box_size, box_size, box_size );
-		//VERIFY(dbg_box.contains(bi.mTransform.c));
 		VERIFY2( dbg_box.contains(bi.mTransform.c), ( make_string( "model: %s has strange bone position, matrix : ", getDebugName().c_str() ) + get_string( bi.mTransform ) ).c_str() );
 
-		//if(!is_similar(PrevTransform,RES,0.3f))
-		//{
-		//	Msg("bone %s",*bd->name)	;
-		//}
-		//BONE_INST.mPrevTransform.set(RES);
 #endif
 #endif
 }
 
 void	CKinematicsAnimated::BuildBoneMatrix			( const CBoneData* bd, CBoneInstance &bi, const Fmatrix *parent, u8 channel_mask /*= (1<<0)*/ )
 {
-			
-			//CKey				R						[MAX_CHANNELS][MAX_BLENDED];	//all keys 
-			//float				BA						[MAX_CHANNELS][MAX_BLENDED];	//all factors
-			//int				b_counts				[MAX_CHANNELS]	= {0,0,0,0}; //channel counts
 			SKeyTable	keys;
 			LL_BuldBoneMatrixDequatize( bd, channel_mask, keys );
 
 			LL_BoneMatrixBuild( bi, parent, keys );
-
-			/*
-			if(bi.mTransform.c.y>10000)
-			{
-			Log("BLEND_INST",BLEND_INST.Blend.size());
-			Log("Bone",LL_BoneName_dbg(SelfID));
-			Msg("Result.Q %f,%f,%f,%f",Result.Q.x,Result.Q.y,Result.Q.z,Result.Q.w);
-			Log("Result.T",Result.T);
-			Log("lp parent",(u32)parent);
-			Log("parent",*parent);
-			Log("RES",RES);
-			Log("mT",bi.mTransform);
-
-			CBlend*			B		=	*BI;
-			CMotion&		M		=	*LL_GetMotion(B->motionID,SelfID);
-			float			time	=	B->timeCurrent*float(SAMPLE_FPS);
-			u32				frame	=	iFloor(time);
-			u32				count	=	M.get_count();
-			float			delta	=	time-float(frame);
-
-			Log("flTKeyPresent",M.test_flag(flTKeyPresent));
-			Log("M._initT",M._initT);
-			Log("M._sizeT",M._sizeT);
-
-			// translate
-			if (M.test_flag(flTKeyPresent))
-			{
-			CKeyQT*	K1t	= &M._keysT[(frame+0)%count];
-			CKeyQT*	K2t	= &M._keysT[(frame+1)%count];
-
-			Fvector T1,T2,Dt;
-			T1.x		= float(K1t->x)*M._sizeT.x+M._initT.x;
-			T1.y		= float(K1t->y)*M._sizeT.y+M._initT.y;
-			T1.z		= float(K1t->z)*M._sizeT.z+M._initT.z;
-			T2.x		= float(K2t->x)*M._sizeT.x+M._initT.x;
-			T2.y		= float(K2t->y)*M._sizeT.y+M._initT.y;
-			T2.z		= float(K2t->z)*M._sizeT.z+M._initT.z;
-
-			Dt.lerp	(T1,T2,delta);
-
-			Msg("K1t %d,%d,%d",K1t->x,K1t->y,K1t->z);
-			Msg("K2t %d,%d,%d",K2t->x,K2t->y,K2t->z);
-
-			Log("count",count);
-			Log("frame",frame);
-			Log("T1",T1);
-			Log("T2",T2);
-			Log("delta",delta);
-			Log("Dt",Dt);
-
-			}else
-			{
-			D->T.set	(M._initT);
-			}
-			VERIFY(0);
-			}
-			*/
-
 }
 
 
