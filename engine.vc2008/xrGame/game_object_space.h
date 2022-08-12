@@ -22,6 +22,7 @@ namespace GameObject {
 		eMapLocationAdded,
 
 		eUseObject,
+		eUseInvObject,
 
 		eHit,
 

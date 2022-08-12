@@ -167,8 +167,8 @@ void CActor::IR_OnKeyboardPress(int cmd)
 			PIItem det_active					= inventory().ItemFromSlot(DETECTOR_SLOT);
 			if(det_active)
 			{
-				CCustomDetector* det			= smart_cast<CCustomDetector*>(det_active);
-				det->ToggleDetector				(g_player_hud->attached_item(0)!=NULL);
+				CCustomDevice* det			= smart_cast<CCustomDevice*>(det_active);
+				det->ToggleDevice				(g_player_hud->attached_item(0)!=NULL);
 				return;
 			}
 		}break;
@@ -202,8 +202,12 @@ void CActor::IR_OnKeyboardPress(int cmd)
 				{
 					if (IsGameTypeSingle())
 					{
-						inventory().Ruck			(itm);
-						inventory().Eat				(itm);
+						if (itm->GetScriptAnim())
+							callback(GameObject::eUseInvObject)((smart_cast<CGameObject*>(itm))->lua_game_object());
+						else {
+							inventory().Ruck			(itm);
+							inventory().Eat				(itm);
+						}
 					} else
 					{
 						inventory().ClientEat		(itm);
@@ -759,8 +763,8 @@ void CActor::NoClipFly(int cmd)
 			PIItem det_active = inventory().ItemFromSlot(DETECTOR_SLOT);
 			if(det_active)
 			{
-				CCustomDetector* det = smart_cast<CCustomDetector*>(det_active);
-				det->ToggleDetector(g_player_hud->attached_item(0)!=NULL);
+				CCustomDevice* det = smart_cast<CCustomDevice*>(det_active);
+				det->ToggleDevice(g_player_hud->attached_item(0)!=NULL);
 				return;
 			}
 		}

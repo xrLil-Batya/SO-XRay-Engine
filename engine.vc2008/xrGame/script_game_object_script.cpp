@@ -73,6 +73,7 @@ void CScriptGameObject::script_register(lua_State *L)
 				value("inventory_info",				int(GameObject::eInventoryInfo)),
 				value("article_info",				int(GameObject::eArticleInfo)),
 				value("use_object",					int(GameObject::eUseObject)),
+				value("use_inventory_object",		int(GameObject::eUseInvObject)),
 				value("hit",						int(GameObject::eHit)),
 				value("sound",						int(GameObject::eSound)),
 				value("action_removed",				int(GameObject::eActionTypeRemoved)),

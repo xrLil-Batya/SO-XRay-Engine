@@ -951,8 +951,8 @@ bool CUIActorMenu::ToSlot(CUICellItem* itm, bool force_place, u16 slot_id)
 		VERIFY(result);
 		result = ToSlot(itm, false, slot_id);
 		if(b_own_item && result && slot_id==DETECTOR_SLOT)	{
-			CCustomDetector* det = smart_cast<CCustomDetector*>(iitem);
-			det->ToggleDetector(g_player_hud->attached_item(0)!=NULL);
+			CCustomDevice* det = smart_cast<CCustomDevice*>(iitem);
+			det->ToggleDevice(g_player_hud->attached_item(0)!=NULL);
 		}
 
 		return result;
@@ -1069,6 +1069,10 @@ CUIDragDropListEx* CUIActorMenu::GetSlotList(u16 slot_idx)
     return m_pInventoryBagList;
 }
 
+#include "actor.h"
+#include "game_object_space.h"
+#include "script_callback_ex.h"
+#include "script_game_object.h"
 bool CUIActorMenu::TryUseItem( CUICellItem* cell_itm )
 {
 	if ( !cell_itm )
@@ -1076,7 +1080,7 @@ bool CUIActorMenu::TryUseItem( CUICellItem* cell_itm )
 		return false;
 	}
 	PIItem item	= (PIItem)cell_itm->m_pData;
-
+	
 	CBottleItem*	pBottleItem		= smart_cast<CBottleItem*>	(item);
 	CMedkit*		pMedkit			= smart_cast<CMedkit*>		(item);
 	CAntirad*		pAntirad		= smart_cast<CAntirad*>		(item);
@@ -1090,6 +1094,12 @@ bool CUIActorMenu::TryUseItem( CUICellItem* cell_itm )
 	{
 		return false;
 	}
+	if (item->GetScriptAnim()){
+		CActor* pActor = smart_cast<CActor*>(m_pActorInvOwner);
+		pActor->callback(GameObject::eUseInvObject)((smart_cast<CGameObject*>(item))->lua_game_object());
+		return false;
+	}
+
 	u16 recipient = m_pActorInvOwner->object_id();
 	if ( item->parent_id() != recipient )
 	{
