@@ -52,7 +52,7 @@ public:
 	IC u32 CurrStateTime() const {return Device.dwTimeGlobal-m_dw_curr_state_time;}
 	IC void ResetSubStateTime() {m_dw_curr_substate_time=Device.dwTimeGlobal;}
 	virtual void SwitchState(u32 S) = 0;
-	virtual void OnStateSwitch(u32 S) = 0;
+	virtual void OnStateSwitch(u32 S, u32 oldState) = 0;
 };
 
 class CHudItem :public CHUDState
@@ -80,6 +80,11 @@ protected:
 		u8 m_started_rnd_anim_idx;
 		bool m_bStopAtEndAnimIsRunning;
 	};
+
+	float m_fLR_CameraFactor; // Фактор бокового наклона худа при ходьбе [-1; +1]
+	float m_fLR_MovingFactor; // Фактор бокового наклона худа при движении камеры [-1; +1]
+	float m_fLR_InertiaFactor; // Фактор горизонтальной инерции худа при движении камеры [-1; +1]
+	float m_fUD_InertiaFactor; // Фактор вертикальной инерции худа при движении камеры [-1; +1]
 public:
 	virtual void Load(LPCSTR section);
 	virtual	BOOL net_Spawn(CSE_Abstract* DC) {return TRUE;};
@@ -99,6 +104,7 @@ public:
 	virtual	u8 GetCurrentHudOffsetIdx () {return 0;}
 
 	BOOL GetHUDmode();
+	void PlayBlendAnm(LPCSTR name, float speed = 1.f, float power = 1.f, bool stop_old = true);
 	IC BOOL IsPending() const { return !!m_huditem_flags.test(fl_pending);}
 
 	virtual bool ActivateItem();
@@ -114,7 +120,7 @@ public:
 	bool IsShowing() const { return GetState() == eShowing;}
 
 	virtual void SwitchState(u32 S);
-	virtual void OnStateSwitch(u32 S);
+	virtual void OnStateSwitch(u32 S, u32 oldState);
 
 	virtual void OnAnimationEnd(u32 state);
 	virtual void OnMotionMark(u32 state, const motion_marks&){};
@@ -131,7 +137,7 @@ public:
 
 	virtual void UpdateCL();
 	virtual void renderable_Render();
-	virtual void UpdateHudAdditional(Fmatrix& hud_trans);
+	virtual void UpdateHudAdditional(Fmatrix& trans);
 	virtual	void UpdateXForm() = 0;
 
 	u32 PlayHUDMotion(const shared_str& M, BOOL bMixIn, CHudItem*  W, u32 state, float speed = 1.f, float end = 0.f, bool bMixIn2 = true);
@@ -141,6 +147,8 @@ public:
 	IC void RenderHud(BOOL B) { m_huditem_flags.set(fl_renderhud, B);}
 	IC BOOL RenderHud() { return m_huditem_flags.test(fl_renderhud);}
 	attachable_hud_item* HudItemData();
+	virtual bool HParentIsActor();
+	virtual float GetHudFov();
 	virtual void on_a_hud_attach();
 	virtual void on_b_hud_detach();
 	IC BOOL HudInertionEnabled() const { return m_huditem_flags.test(fl_inertion_enable);}
@@ -151,6 +159,8 @@ public:
 	virtual bool render_item_3d_ui_query() {return false;}
 
 	virtual bool CheckCompatibility(CHudItem*) {return true;}
+
+	virtual collide::rq_result& GetRQ();
 protected:
 
 	IC void SetPending(BOOL H) { m_huditem_flags.set(fl_pending, H);}
@@ -180,7 +190,16 @@ public:
 	virtual void on_renderable_Render() = 0;
 	virtual void debug_draw_firedeps() {};
 
+	float m_hud_fov_add_mod;
+	float m_nearwall_dist_max;
+	float m_nearwall_dist_min;
+	float m_nearwall_last_hud_fov;
+	float m_nearwall_target_hud_fov;
+	float m_nearwall_speed_mod;
+	float m_base_fov;
+
 	virtual CHudItem* cast_hud_item() { return this; }
+	virtual bool PlayAnimCrouchIdleMoving(); //AVO: new crouch idle animation
 	bool HudAnimationExist(LPCSTR anim_name);
 };
 

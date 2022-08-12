@@ -128,10 +128,7 @@ void CInventoryItem::Load(LPCSTR section)
 	m_med1_count = READ_IF_EXISTS(pSettings, r_u32, section, "med1_count",0);
 	m_med2_count = READ_IF_EXISTS(pSettings, r_u32, section, "med2_count",0);
 	m_artefact_count = READ_IF_EXISTS(pSettings, r_u32, section, "artefact_count",0);
-	if (pSettings->line_exist(section,"artefact_count"))
-		m_artefact_count = pSettings->r_u32(section,"artefact_count");
-	else
-		m_artefact_count = 0;
+	m_b_script_anim = READ_IF_EXISTS(pSettings, r_bool, section, "use_script_anim",FALSE);
 	
 	//ARTLantist: for generate properties box 
 	m_b_move_to_bouch = READ_IF_EXISTS(pSettings, r_bool, section, "move_to_bouch",FALSE);

@@ -33585,6 +33585,22 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CustomDevice.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CustomDevice.h"
+			>
+		</File>
+		<File
+			RelativePath=".\Flashlight.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\Flashlight.h"
+			>
+		</File>
+		<File
 			RelativePath=".\ui\UIEditBox_script.cpp"
 			>
 		</File>

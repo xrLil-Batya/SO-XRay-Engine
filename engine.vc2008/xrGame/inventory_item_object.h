@@ -27,6 +27,7 @@ public:
 	virtual CWeapon			*cast_weapon					()	{return 0;}
 	virtual CFoodItem		*cast_food_item					()	{return 0;}
 	virtual CMissile		*cast_missile					()	{return 0;}
+	virtual CFlashlight* cast_flashlight() { return 0; }
 	virtual CHudItem		*cast_hud_item					()	{return 0;}
 	virtual CWeaponAmmo		*cast_weapon_ammo				()	{return 0;}
 	virtual CGameObject		*cast_game_object				()  {return this;};

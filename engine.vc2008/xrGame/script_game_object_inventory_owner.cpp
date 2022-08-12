@@ -1358,7 +1358,7 @@ CScriptGameObject* CScriptGameObject::active_device() const
 	CInventoryItem* result = inventory_owner->inventory().ItemFromSlot(DETECTOR_SLOT);
 	if (result)
 	{
-		CCustomDetector* device = smart_cast<CCustomDetector*>(result);
+		CCustomDevice* device = smart_cast<CCustomDevice*>(result);
 
 		if (device && device->GetState() != CHUDState::eHidden)
 			return result->object().lua_game_object();
@@ -1379,9 +1379,9 @@ void CScriptGameObject::show_device(bool bFast)
 	CInventoryItem* result = inventory_owner->inventory().ItemFromSlot(DETECTOR_SLOT);
 	if (result)
 	{
-		CCustomDetector* device = smart_cast<CCustomDetector*>(result);
+		CCustomDevice* device = smart_cast<CCustomDevice*>(result);
 		if (device && device->GetState() == CHUDState::eHidden)
-			device->ShowDetector(bFast);
+			device->ShowDevice(bFast);
 	}
 }
 
@@ -1398,9 +1398,9 @@ void CScriptGameObject::hide_device(bool bFast)
 	CInventoryItem* result = inventory_owner->inventory().ItemFromSlot(DETECTOR_SLOT);
 	if (result)
 	{
-		CCustomDetector* device = smart_cast<CCustomDetector*>(result);
+		CCustomDevice* device = smart_cast<CCustomDevice*>(result);
 		if (device && device->GetState() != CHUDState::eHidden)
-			device->HideDetector(bFast);
+			device->HideDevice(bFast);
 	}
 }
 
@@ -1417,7 +1417,7 @@ void CScriptGameObject::force_hide_device()
 	CInventoryItem* result = inventory_owner->inventory().ItemFromSlot(DETECTOR_SLOT);
 	if (result)
 	{
-		CCustomDetector* device = smart_cast<CCustomDetector*>(result);
+		CCustomDevice* device = smart_cast<CCustomDevice*>(result);
 		if (device)
 			device->ForceHide();
 	}

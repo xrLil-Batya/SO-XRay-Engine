@@ -100,6 +100,7 @@ private:
 	u32							m_med1_count;
 	u32							m_med2_count;
 	u32							m_artefact_count;
+	bool						m_b_script_anim;
 
 	bool						m_b_move_to_cargo_belt;
 	bool						m_b_move_to_bouch;
@@ -122,6 +123,7 @@ public:
 	virtual u32					GetMed1Count() const { return m_med1_count;  }
 	virtual u32					GetMed2Count() const { return m_med2_count;  }
 	virtual u32					GetArtCount() const { return m_artefact_count;  }
+	virtual bool				GetScriptAnim() const { return m_b_script_anim;  }
 
 	virtual bool				GetMoveToBouch() const { return m_b_move_to_bouch;  }
 	virtual bool				GetMoveToCargoBelt() const { return m_b_move_to_cargo_belt;  }

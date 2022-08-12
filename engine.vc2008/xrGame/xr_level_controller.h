@@ -92,6 +92,8 @@ enum	EGameActions
 	kCUSTOM8,
 	kCUSTOM9,
 	kCUSTOM10,
+	kSAFEMODE,
+	kFREELOOK,
 	kALIFE_CMD,
 
 	kLASTACTION,

@@ -179,6 +179,9 @@
 #	include "actor_mp_server.h"
 #	include "actor_mp_client.h"
 #	include "smart_cover_object.h"
+
+#include "Flashlight.h"
+#include "CustomDevice.h"
 #endif // NO_XR_GAME
 
 #ifndef NO_XR_GAME
@@ -397,6 +400,8 @@ void CObjectFactory::register_classes	()
 	ADD(CTorch					,CSE_ALifeItemTorch				,CLSID_DEVICE_TORCH				,"device_torch");
 	ADD(CPda					,CSE_ALifeItemPDA				,CLSID_DEVICE_PDA				,"device_pda");
 	ADD(CFlare					,CSE_ALifeItem					,CLSID_DEVICE_FLARE				,"device_flare");
+	ADD(CFlashlight, CSE_ALifeItem, CLSID_DEVICE_FLASHLIGHT, "device_flashlight");
+	ADD(CCustomDevice, CSE_ALifeItem, TEXT2CLSID("D_CUSTOM"), "device_custom");
 
 	// objects
 	ADD(CProjector				,CSE_ALifeObjectProjector		,CLSID_OBJECT_PROJECTOR			,"projector");

@@ -101,6 +101,8 @@ _action  actions[]		= {
 	{ "custom_8",			kCUSTOM8				,_sp},	
 	{ "custom_9",			kCUSTOM9				,_sp},	
 	{ "custom_10",			kCUSTOM10				,_sp},	
+	{"safemode",			kSAFEMODE				,_both},
+	{"freelook",			kFREELOOK				,_both},
 	
 																
 	{ NULL, 				kLASTACTION				,_both}		

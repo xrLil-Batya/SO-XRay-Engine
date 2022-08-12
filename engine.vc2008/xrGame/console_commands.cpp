@@ -72,7 +72,7 @@ extern	u64		g_qwStartGameTime;
 extern	u64		g_qwEStartGameTime;
 
 ENGINE_API
-extern	float	psHUD_FOV;
+extern float psHUD_FOV_def;
 extern	float	psSqueezeVelocity;
 extern	int		psLUA_GCSTEP;
 
@@ -1808,7 +1808,18 @@ void CCC_RegisterCommands()
 	CMD1(CCC_MemCheckpoint,		"stat_memory_checkpoint");
 #endif //#ifdef DEBUG	
 	// game
-	CMD3(CCC_Mask,				"g_crouch_toggle",		&psActorFlags,	AF_CROUCH_TOGGLE);
+
+	psActorFlags.set(AF_CROUCH_TOGGLE, FALSE);
+	psActorFlags.set(AF_WALK_TOGGLE, FALSE);
+	psActorFlags.set(AF_SPRINT_TOGGLE, TRUE);
+	psActorFlags.set(AF_LOOKOUT_TOGGLE, FALSE);
+	psActorFlags.set(AF_FREELOOK_TOGGLE, FALSE);
+
+	CMD3(CCC_Mask, "g_crouch_toggle", &psActorFlags, AF_CROUCH_TOGGLE);
+	CMD3(CCC_Mask, "g_walk_toggle", &psActorFlags, AF_WALK_TOGGLE);
+	CMD3(CCC_Mask, "g_sprint_toggle", &psActorFlags, AF_SPRINT_TOGGLE);
+	CMD3(CCC_Mask, "g_lookout_toggle", &psActorFlags, AF_LOOKOUT_TOGGLE);
+	CMD3(CCC_Mask, "g_freelook_toggle", &psActorFlags, AF_FREELOOK_TOGGLE);
 	CMD1(CCC_GameDifficulty,	"g_game_difficulty"		);
 
 	CMD3(CCC_Mask,				"g_backrun",			&psActorFlags,	AF_RUN_BACKWARD);
@@ -1849,8 +1860,8 @@ void CCC_RegisterCommands()
 	CMD3(CCC_Mask,				"hud_crosshair_dist",	&psHUD_Flags,	HUD_CROSSHAIR_DIST);
 
 //#ifdef DEBUG
-	CMD4(CCC_Float,				"hud_fov",				&psHUD_FOV,		0.1f,	1.0f);
-	CMD4(CCC_Float,				"fov",					&g_fov,			70.0f,	100.0f);
+	CMD4(CCC_Float, "hud_fov", &psHUD_FOV_def, 0.1f, 1.0f);
+	CMD4(CCC_Float, "fov", &g_fov, 5.0f, 180.0f);
 //#endif // DEBUG
 
 	// Demo
@@ -1989,12 +2000,16 @@ CMD4(CCC_Integer,			"hit_anims_tune",						&tune_hit_anims,		0, 1);
 #endif // DEBUG
 
 #ifndef MASTER_GOLD
-	CMD3(CCC_Mask,			"g_god",			&psActorFlags,	AF_GODMODE	);
-	CMD3(CCC_Mask,			"g_unlimitedammo",	&psActorFlags,	AF_UNLIMITEDAMMO);
-	CMD1(CCC_Script,		"run_script");
-	CMD1(CCC_ScriptCommand,	"run_string");
-	CMD1(CCC_TimeFactor,	"time_factor");	
-	CMD1(CCC_JumpToLevel,	"jump_to_level"		);	
+	if (0 != strstr(Core.Params, "-dbg"))
+	{
+		CMD3(CCC_Mask,			"g_god",			&psActorFlags,	AF_GODMODE	);
+		CMD3(CCC_Mask,			"g_unlimitedammo",	&psActorFlags,	AF_UNLIMITEDAMMO);
+		CMD1(CCC_Script,		"run_script");
+		CMD1(CCC_ScriptCommand,	"run_string");
+		CMD1(CCC_TimeFactor,	"time_factor");	
+		CMD1(CCC_JumpToLevel,	"jump_to_level"		);
+		CMD3(CCC_Mask, "g_firepos", &psActorFlags, AF_FIREPOS);
+	}
 #endif // MASTER_GOLD
 
 	CMD3(CCC_Mask,		"g_autopickup",			&psActorFlags,	AF_AUTOPICKUP);

@@ -88,7 +88,7 @@ struct movement_layer
 		active = true;
 	}
 
-	bool IsPlaying()
+	BOOL IsPlaying()
 	{
 		return anm->IsPlaying();
 	}
@@ -142,7 +142,7 @@ struct script_layer
 		active = true;
 	}
 
-	bool IsPlaying()
+	BOOL IsPlaying()
 	{
 		return anm->IsPlaying();
 	}

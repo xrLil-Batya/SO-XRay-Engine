@@ -24,6 +24,12 @@ class CUIWindow;
 class CBinocularsVision;
 class CNightVisionEffector;
 
+struct SafemodeAnm
+{
+	LPCSTR name;
+	float power, speed;
+};
+
 class CWeapon : public CHudItemObject,
 				public CShootingObject
 {
@@ -50,6 +56,8 @@ public:
 	virtual void			save				(NET_Packet &output_packet);
 	virtual void			load				(IReader &input_packet);
 	virtual BOOL			net_SaveRelevant	()								{return inherited::net_SaveRelevant();}
+
+	IC float GetZRotatingFactor()    const { return m_zoom_params.m_fZoomRotationFactor; }
 
 	virtual void			UpdateCL			();
 	virtual void			shedule_Update		(u32 dt);
@@ -97,6 +105,7 @@ protected:
 public:
 	void					signal_HideComplete	();
 	virtual bool			Action(u16 cmd, u32 flags);
+	u8 last_idx;
 
 	enum EWeaponStates {
 		eFire		= eLastBaseState+1,
@@ -105,6 +114,7 @@ public:
 		eMisfire,
 		eMagEmpty,
 		eSwitch,
+		eSwitchMode,
 	};
 	enum EWeaponSubStates{
 		eSubstateReloadBegin		=0,
@@ -161,10 +171,11 @@ public:
 	int	GetSilencerY() {return m_iSilencerY;}
 	int	GetGrenadeLauncherX() {return m_iGrenadeLauncherX;}
 	int	GetGrenadeLauncherY() {return m_iGrenadeLauncherY;}
+	
 
-	const shared_str& GetGrenadeLauncherName	() const{return m_sGrenadeLauncherName;}
-	const shared_str GetScopeName				() const{return pSettings->r_string(m_scopes[m_cur_scope], "scope_name");}
-	const shared_str& GetSilencerName			() const{return m_sSilencerName;}
+	const shared_str& GetGrenadeLauncherName() const {return m_sGrenadeLauncherName;}
+	const shared_str& GetSilencerName() const {return m_sSilencerName;}
+	const shared_str GetScopeName() const {return pSettings->r_string(m_scopes[m_cur_scope], "scope_name");}
 
 	IC void	ForceUpdateAmmo						()		{ m_BriefInfo_CalcFrame = 0; }
 
@@ -195,7 +206,6 @@ protected:
 	{
 		bool			m_bZoomEnabled;			//разрешение режима приближения
 		bool			m_bHideCrosshairInZoom;
-//		bool			m_bZoomDofEnabled;
 
 		bool			m_bIsZoomModeNow;		//когда режим приближения включен
 		float			m_fCurrentZoomFactor;	//текущий фактор приближения
@@ -206,8 +216,6 @@ protected:
 
 		float			m_fZoomRotationFactor;
 		
-//		Fvector			m_ZoomDof;
-//		Fvector4		m_ReloadDof;
 		BOOL			m_bUseDynamicZoom;
 		shared_str		m_sUseZoomPostprocess;
 		shared_str		m_sUseBinocularVision;
@@ -258,8 +266,11 @@ protected:
 	Fmatrix					m_StrapOffset;
 	bool					m_strapped_mode;
 	bool					m_can_be_strapped;
+	float m_fSafeModeRotateTime;
+	SafemodeAnm m_safemode_anm[2];
 
 	Fmatrix					m_Offset;
+	Fvector m_hud_offset[2];
 	// 0-используется без участия рук, 1-одна рука, 2-две руки
 	EHandDependence			eHandDependence;
 	bool					m_bIsSingleHanded;
@@ -268,15 +279,19 @@ public:
 	//загружаемые параметры
 	Fvector					vLoadedFirePoint;
 	Fvector					vLoadedFirePoint2;
+	bool m_bCanBeLowered;
 
 private:
 	firedeps				m_current_firedeps;
+
+public:
+	Fmatrix m_shoot_shake_mat;
 
 protected:
 	virtual void			UpdateFireDependencies_internal	();
 	virtual void			UpdatePosition			(const Fmatrix& transform);	//.
 	virtual void			UpdateXForm				();
-	virtual void			UpdateHudAdditional		(Fmatrix& trans);
+	virtual void UpdateHudAdditional(Fmatrix& trans);
 	IC		void			UpdateFireDependencies	()			{ if (dwFP_Frame==Device.dwFrame) return; UpdateFireDependencies_internal(); };
 
 	virtual void			LoadFireParams		(LPCSTR section);
@@ -296,7 +311,7 @@ protected:
 	virtual void			SetDefaults				();
 	
 	virtual bool			MovingAnimAllowedNow	();
-	virtual void			OnStateSwitch			(u32 S);
+	virtual void			OnStateSwitch			(u32 S, u32 oldState);
 	virtual void			OnAnimationEnd			(u32 state);
 
 	//трассирование полета пули
@@ -424,22 +439,13 @@ protected:
 
 public:
 	xr_vector<shared_str>	m_ammoTypes;
-/*
-	struct SScopes
-	{
-		shared_str			m_sScopeName;
-		int					m_iScopeX;
-		int					m_iScopeY;
-	};
-	DEFINE_VECTOR(SScopes*, SCOPES_VECTOR, SCOPES_VECTOR_IT);
-	SCOPES_VECTOR			m_scopes;
-
-	u8						cur_scope;
-*/
 
 	DEFINE_VECTOR(shared_str, SCOPES_VECTOR, SCOPES_VECTOR_IT);
 	SCOPES_VECTOR			m_scopes;
 	u8						m_cur_scope;
+	
+	bool m_altAimPos;
+	u8 m_zoomtype;
 
 	CWeaponAmmo*			m_pCurrentAmmo;
 	u8						m_ammoType;
@@ -500,7 +506,12 @@ private:
 
 	bool					m_bRememberActorNVisnStatus;
 public:
+	float m_fLR_ShootingFactor; // Фактор горизонтального сдвига худа при стрельбе [-1; +1]
+	float m_fUD_ShootingFactor; // Фактор вертикального сдвига худа при стрельбе [-1; +1]
+	float m_fBACKW_ShootingFactor; // Фактор сдвига худа в сторону лица при стрельбе [0; +1]
+public:
 	virtual void			SetActivationSpeedOverride	(Fvector const& speed);
+	void AddHUDShootingEffect();
 			bool			GetRememberActorNVisnStatus	() {return m_bRememberActorNVisnStatus;};
 	virtual void			EnableActorNVisnAfterZoom	();
 	virtual void 			OnBulletHit();

@@ -48,7 +48,7 @@ protected:
 	virtual void	OnEmptyClick	();
 
 	virtual void	OnAnimationEnd	(u32 state);
-	virtual void	OnStateSwitch	(u32 S);
+	virtual void	OnStateSwitch	(u32 S, u32 oldState);
 
 	virtual void	UpdateSounds	();
 
@@ -57,7 +57,9 @@ protected:
 protected:
 	virtual void	ReloadMagazine();
 			void	ApplySilencerKoeffs();
+	void ApplyScopeKoeffs();
 			void	ResetSilencerKoeffs();
+	void ResetScopeKoeffs();
 
 	virtual void	state_Fire		(float dt);
 	virtual void	state_MagEmpty	(float dt);
@@ -68,6 +70,7 @@ public:
 
 	virtual void	Load			(LPCSTR section);
 			void	LoadSilencerKoeffs();
+	void LoadScopeKoeffs();
 	virtual CWeaponMagazined*cast_weapon_magazined	()		 {return this;}
 
 	virtual void	SetDefaults		();

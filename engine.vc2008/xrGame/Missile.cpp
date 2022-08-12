@@ -322,10 +322,10 @@ void CMissile::State(u32 state)
 	}
 }
 
-void CMissile::OnStateSwitch	(u32 S)
+void CMissile::OnStateSwitch	(u32 S, u32 oldState)
 {
 	m_dwStateTime				= 0;
-	inherited::OnStateSwitch	(S);
+	inherited::OnStateSwitch	(S, oldState);
 	State						(S);
 }
 

@@ -200,6 +200,14 @@ bool CWeaponMagazinedWGrenade::Action(u16 cmd, u32 flags)
 		if(IsPending())		
 			return				false;
 
+		if (ParentIsActor() && Actor()->is_safemode())
+		{
+			Actor()->set_safemode(false);
+
+			if (iAmmoElapsed)
+				return false;
+		}
+
 		if(flags&CMD_START)
 		{
 			if(iAmmoElapsed)
@@ -393,7 +401,7 @@ void CWeaponMagazinedWGrenade::ReloadMagazine()
 }
 
 
-void CWeaponMagazinedWGrenade::OnStateSwitch(u32 S) 
+void CWeaponMagazinedWGrenade::OnStateSwitch(u32 S, u32 oldState) 
 {
 	switch (S)
 	{
@@ -406,7 +414,7 @@ void CWeaponMagazinedWGrenade::OnStateSwitch(u32 S)
 		}break;
 	}
 	
-	inherited::OnStateSwitch(S);
+	inherited::OnStateSwitch(S, oldState);
 	UpdateGrenadeVisibility(!!iAmmoElapsed || S == eReload);
 }
 
@@ -530,8 +538,46 @@ void CWeaponMagazinedWGrenade::InitAddons()
 		if(IsGrenadeLauncherAttached())
 		{
 			CRocketLauncher::m_fLaunchSpeed = pSettings->r_float(*m_sGrenadeLauncherName,"grenade_vel");
+			ApplyLauncherKoeffs();
+		}
+		else
+		{
+			ResetLauncherKoeffs();
 		}
 	}
+}
+
+void CWeaponMagazinedWGrenade::LoadLauncherKoeffs()
+{
+	if (m_eGrenadeLauncherStatus == ALife::eAddonAttachable)
+	{
+		LPCSTR sect = GetGrenadeLauncherName().c_str();
+		m_launcher_koef.cam_dispersion = READ_IF_EXISTS(pSettings, r_float, sect, "cam_dispersion_k", 1.0f);
+		m_launcher_koef.cam_disper_inc = READ_IF_EXISTS(pSettings, r_float, sect, "cam_dispersion_inc_k", 1.0f);
+		m_launcher_koef.pdm_base = READ_IF_EXISTS(pSettings, r_float, sect, "PDM_disp_base_k", 1.0f);
+		m_launcher_koef.pdm_accel = READ_IF_EXISTS(pSettings, r_float, sect, "PDM_disp_accel_k", 1.0f);
+		m_launcher_koef.pdm_vel = READ_IF_EXISTS(pSettings, r_float, sect, "PDM_disp_vel_k", 1.0f);
+		m_launcher_koef.crosshair_inertion = READ_IF_EXISTS(pSettings, r_float, sect, "crosshair_inertion_k", 1.0f);
+		m_launcher_koef.zoom_rotate_time = READ_IF_EXISTS(pSettings, r_float, sect, "zoom_rotate_time_k", 1.0f);
+	}
+
+	clamp(m_launcher_koef.cam_dispersion, 0.01f, 2.0f);
+	clamp(m_launcher_koef.cam_disper_inc, 0.01f, 2.0f);
+	clamp(m_launcher_koef.pdm_base, 0.01f, 2.0f);
+	clamp(m_launcher_koef.pdm_accel, 0.01f, 2.0f);
+	clamp(m_launcher_koef.pdm_vel, 0.01f, 2.0f);
+	clamp(m_launcher_koef.crosshair_inertion, 0.01f, 2.0f);
+	clamp(m_launcher_koef.zoom_rotate_time, 0.01f, 2.0f);
+}
+
+void CWeaponMagazinedWGrenade::ApplyLauncherKoeffs()
+{
+	cur_launcher_koef = m_launcher_koef;
+}
+
+void CWeaponMagazinedWGrenade::ResetLauncherKoeffs()
+{
+	cur_launcher_koef.Reset();
 }
 
 bool	CWeaponMagazinedWGrenade::UseScopeTexture()
@@ -604,6 +650,8 @@ void CWeaponMagazinedWGrenade::PlayAnimIdle()
 			{
 				CEntity::SEntityState st;
 				pActor->g_State(st);
+				if (pActor->is_safemode())
+					act_state = 0;
 				if(st.bSprint)
 				{
 					act_state = 1;
@@ -746,16 +794,19 @@ bool CWeaponMagazinedWGrenade::IsNecessaryItem	    (const shared_str& item_sect)
 
 u8 CWeaponMagazinedWGrenade::GetCurrentHudOffsetIdx()
 {
-	bool b_aiming		= 	((IsZoomed() && m_zoom_params.m_fZoomRotationFactor<=1.f) ||
-							(!IsZoomed() && m_zoom_params.m_fZoomRotationFactor>0.f));
-	
-	if(!b_aiming)
-		return		0;
+	bool b_aiming = ((IsZoomed() && m_zoom_params.m_fZoomRotationFactor <= 1.f) ||
+		(!IsZoomed() && m_zoom_params.m_fZoomRotationFactor > 0.f));
+
+	if (Actor()->is_safemode())
+		return 4;
+	else if (!IsZoomed())
+		return 0;
+	else if (m_bGrenadeMode)
+		return 2;
+	else if (m_zoomtype == 1)
+		return 3;
 	else
-	if(m_bGrenadeMode)
-		return		2;
-	else
-		return		1;
+		return 1;
 }
 
 bool CWeaponMagazinedWGrenade::install_upgrade_ammo_class	( LPCSTR section, bool test )
