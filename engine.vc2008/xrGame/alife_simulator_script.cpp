@@ -252,24 +252,22 @@ ALife::_SPAWN_ID CALifeSimulator__spawn_id		(CALifeSimulator *self, ALife::_SPAW
 
 void CALifeSimulator__release					(CALifeSimulator *self, CSE_Abstract *object, bool)
 {
-	VERIFY								(self);
-//	self->release						(object,true);
-
-	THROW								(object);
-	CSE_ALifeObject						*alife_object = smart_cast<CSE_ALifeObject*>(object);
-	THROW								(alife_object);
+	VERIFY(self);
+	THROW(object);
+	CSE_ALifeObject *alife_object = smart_cast<CSE_ALifeObject*>(object);
+	THROW(alife_object);
+	if (!alife_object) return;
 	if (!alife_object->m_bOnline) {
-		self->release					(object,true);
+		self->release(object,true);
 		return;
 	}
-
 	// awful hack, for stohe only
-	NET_Packet							packet;
-	packet.w_begin						(M_EVENT);
-	packet.w_u32						(Level().timeServer());
-	packet.w_u16						(GE_DESTROY);
-	packet.w_u16						(object->ID);
-	Level().Send						(packet,net_flags(TRUE,TRUE));
+	NET_Packet packet;
+	packet.w_begin(M_EVENT);
+	packet.w_u32(Level().timeServer());
+	packet.w_u16(GE_DESTROY);
+	packet.w_u16(object->ID);
+	Level().Send(packet,net_flags(TRUE,TRUE));
 }
 
 LPCSTR get_level_name							(const CALifeSimulator *self, int level_id)

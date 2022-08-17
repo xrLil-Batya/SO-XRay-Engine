@@ -715,16 +715,43 @@ void  CWeaponMagazinedWGrenade::PlayAnimModeSwitch()
 		PlayHUDMotion("anm_switch" , FALSE, this, eSwitch);
 }
 
-void CWeaponMagazinedWGrenade::PlayAnimBore()
+bool CWeaponMagazinedWGrenade::TryPlayAnimBore()
 {
-	if(IsGrenadeLauncherAttached())
+	if (IsGrenadeLauncherAttached())
 	{
-		if(m_bGrenadeMode)
-			PlayHUDMotion	("anm_bore_g", TRUE, this, GetState());
+		if (m_bGrenadeMode)
+		{
+			if (iAmmoElapsed == 0 && HudAnimationExist("anm_bore_empty_g"))
+			{
+				PlayHUDMotion("anm_bore_empty_g", TRUE, NULL, GetState());
+				return true;
+			}
+
+			if (HudAnimationExist("anm_bore_g"))
+			{
+				PlayHUDMotion("anm_bore_g", TRUE, NULL, GetState());
+				return true;
+			}
+		}
 		else
-			PlayHUDMotion	("anm_bore_w_gl", TRUE, this, GetState());
-	}else
-		inherited::PlayAnimBore();
+		{
+			if (iAmmoElapsed == 0 && HudAnimationExist("anm_bore_empty_w_gl"))
+			{
+				PlayHUDMotion("anm_bore_empty_w_gl", TRUE, NULL, GetState());
+				return true;
+			}
+
+			if (HudAnimationExist("anm_bore_w_gl"))
+			{
+				PlayHUDMotion("anm_bore_w_gl", TRUE, NULL, GetState());
+				return true;
+			}
+		}
+	}
+	else
+		return inherited::TryPlayAnimBore();
+
+	return false;
 }
 
 void CWeaponMagazinedWGrenade::UpdateSounds	()

@@ -249,17 +249,35 @@ void	CInifile::Load(IReader* F, LPCSTR path
                 strconcat	(sizeof(fn),fn,path,inc_name);
 				_splitpath	(fn,inc_path,folder, 0, 0 );
 				xr_strcat		(inc_path,sizeof(inc_path),folder);
-#ifndef _EDITOR
-				if (!allow_include_func || allow_include_func(fn))
-#endif                
+				
+				if (strstr(inc_name, "*.ltx"))
 				{
-					IReader* I 	= FS.r_open(fn); R_ASSERT3(I,"Can't find include file:", inc_name);
-            		Load		(I,inc_path
-                    #ifndef _EDITOR
-                    , allow_include_func
-                    #endif
-                    );
-					FS.r_close	(I);
+					FS_FileSet fset;
+					FS.file_list(fset, inc_path, FS_ListFiles, inc_name);
+
+					for (FS_FileSet::iterator it = fset.begin(); it != fset.end(); it++)
+					{
+						LPCSTR _name = it->name.c_str();
+						string_path _fn;
+						strconcat(sizeof(_fn), _fn, inc_path, _name);
+						if (!allow_include_func || allow_include_func(fn))            
+						{
+							IReader* I = FS.r_open(_fn);
+							R_ASSERT3(I, "Can't find include file:", _name);
+							Load(I, inc_path, allow_include_func);
+							FS.r_close(I);
+						}
+					}
+				}
+				else
+				{
+					if (!allow_include_func || allow_include_func(fn))            
+					{
+						IReader* I = FS.r_open(fn);
+						R_ASSERT3(I,"Can't find include file:", inc_name);
+            			Load(I,inc_path, allow_include_func);
+						FS.r_close(I);
+					}
 				}
             }
         } 
