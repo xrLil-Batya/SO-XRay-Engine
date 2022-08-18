@@ -630,6 +630,7 @@ float CActor::MaxWalkWeight() const
 	return max_w;
 }
 #include "artefact.h"
+#include "ActorBackpack.h"
 float CActor::get_additional_weight() const
 {
 	float res = 0.0f ;
@@ -637,11 +638,12 @@ float CActor::get_additional_weight() const
 	if ( outfit ){
 		res				+= (outfit->m_additional_weight * outfit->GetCondition());
 	}
-	PIItem itm = inventory().ItemFromSlot(BACKPACK_SLOT);
-	CArtefact* backpack	= smart_cast<CArtefact*>(itm);
-	if ( backpack ){
-		res				+= (backpack->AdditionalInventoryWeight() * backpack->GetCondition());
+	
+	CBackpack* pBackpack = smart_cast<CBackpack*>(inventory().ItemFromSlot(BACKPACK_SLOT));
+	if ( pBackpack ){
+		res				+= (pBackpack->m_additional_weight * pBackpack->GetCondition());
 	}
+	
 	for(TIItemContainer::const_iterator it = inventory().m_belt.begin(); 
 		inventory().m_belt.end() != it; ++it) 
 	{

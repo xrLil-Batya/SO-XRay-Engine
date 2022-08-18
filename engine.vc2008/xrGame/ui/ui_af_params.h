@@ -25,6 +25,7 @@ public:
 			bool	Check					(CArtefact* artefact, const shared_str& af_section);
 			void	SetInfo					(CCustomOutfit* pInvItem);
 			void	SetInfo					(CHelmet* pInvItem);
+			void	SetInfo					(CBackpack* pInvItem);
 			void	SetInfo					(CInventoryItem* pInvItem);
 			void	SetInfo					(CWeapon* pInvItem);
 			void	SetInfo					(CArtefact* artefact, const shared_str& af_section);

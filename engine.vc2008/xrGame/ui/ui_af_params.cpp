@@ -406,6 +406,140 @@ void CUIArtefactParams::SetInfo(CHelmet* pInvItem)
 	SetHeight(h);
 }
 
+void CUIArtefactParams::SetInfo(CBackpack* pInvItem)
+{
+	DetachAll();
+	AttachChild( m_Prop_line );
+
+	CActor* actor = smart_cast<CActor*>( Level().CurrentViewEntity() );
+	if ( !actor )
+	{
+		return;
+	}
+
+	float val = 0.0f, max_val = 1.0f;
+	Fvector2 pos;
+	float h = m_Prop_line->GetWndPos().y+m_Prop_line->GetWndSize().y;
+
+	{
+		val	= pInvItem->GetCondition();
+		{
+			m_condition->SetValue( val );
+
+			pos.set( m_condition->GetWndPos() );
+			pos.y = h;
+			m_condition->SetWndPos( pos );
+
+			h += m_condition->GetWndSize().y;
+			AttachChild( m_condition );
+		}
+	}
+	{
+        const float* const arrayOfImmunities[ALife::infl_max_count] =
+        {
+            &pInvItem->m_HitTypeProtection[ALife::eHitTypeRadiation],
+            &pInvItem->m_HitTypeProtection[ALife::eHitTypeBurn],
+            &pInvItem->m_HitTypeProtection[ALife::eHitTypeChemicalBurn],
+            &pInvItem->m_HitTypeProtection[ALife::eHitTypeTelepatic],
+            &pInvItem->m_HitTypeProtection[ALife::eHitTypeShock],
+            &pInvItem->m_HitTypeProtection[ALife::eHitTypeStrike],
+            &pInvItem->m_HitTypeProtection[ALife::eHitTypeWound],
+            &pInvItem->m_HitTypeProtection[ALife::eHitTypeFireWound],
+            &pInvItem->m_HitTypeProtection[ALife::eHitTypeExplosion]
+        };
+
+        for (u32 i = 0; i < ALife::infl_max_count; ++i)
+        {
+            val = *arrayOfImmunities[i] * pInvItem->GetCondition();
+			val *= pInvItem->GetCondition();
+            if (fis_zero(val))
+                continue;
+			max_val = actor->conditions().GetZoneMaxPower( (ALife::EInfluenceType)i );
+			val /= max_val;
+			m_immunity_item[i]->SetValue( val );
+
+			pos.set( m_immunity_item[i]->GetWndPos() );
+			pos.y = h;
+			m_immunity_item[i]->SetWndPos( pos );
+
+			h += m_immunity_item[i]->GetWndSize().y;
+			AttachChild( m_immunity_item[i] );
+		}
+	}
+
+	{
+        const float* const arrayOfImmunities[ALife::eRestoreTypeMax] =
+        {
+            &pInvItem->m_fHealthRestoreSpeed,
+            &pInvItem->m_fSatietyRestoreSpeed,
+            &pInvItem->m_fPowerRestoreSpeed,
+            &pInvItem->m_fBleedingRestoreSpeed,
+            &pInvItem->m_fPsyHealthRestoreSpeed,
+            &pInvItem->m_fRadiationRestoreSpeed
+        };
+        for (u32 i = 0; i < ALife::eRestoreTypeMax; ++i)
+        {
+            val = *arrayOfImmunities[i];
+			val *= pInvItem->GetCondition();
+            if (fis_zero(val))
+                continue;
+
+            m_restore_item[i]->SetValue(val);
+
+            pos.set(m_restore_item[i]->GetWndPos());
+            pos.y = h;
+            m_restore_item[i]->SetWndPos(pos);
+
+            h += m_restore_item[i]->GetWndSize().y;
+            AttachChild(m_restore_item[i]);
+        }
+    }
+
+	{
+		val	= pInvItem->m_fWalkAccel;
+		val *= pInvItem->GetCondition();
+		if ( !fis_zero(val) )
+		{
+			m_WalkAccel->SetValue( val );
+
+			pos.set( m_WalkAccel->GetWndPos() );
+			pos.y = h;
+			m_WalkAccel->SetWndPos( pos );
+
+			h += m_WalkAccel->GetWndSize().y;
+			AttachChild( m_WalkAccel );
+		}
+		val	= pInvItem->m_additional_weight;
+		val *= pInvItem->GetCondition();
+		if ( !fis_zero(val) )
+		{
+			m_additional_weight->SetValue( val );
+
+			pos.set( m_additional_weight->GetWndPos() );
+			pos.y = h;
+			m_additional_weight->SetWndPos( pos );
+
+			h += m_additional_weight->GetWndSize().y;
+			AttachChild( m_additional_weight );
+		}
+		val	= pInvItem->m_fJumpSpeed;
+		val *= pInvItem->GetCondition();
+		if ( !fis_zero(val) )
+		{
+			m_JumpSpeed->SetValue( val );
+
+			pos.set( m_JumpSpeed->GetWndPos() );
+			pos.y = h;
+			m_JumpSpeed->SetWndPos( pos );
+
+			h += m_JumpSpeed->GetWndSize().y;
+			AttachChild( m_JumpSpeed );
+		}
+	}
+	
+	SetHeight( h );
+}
+
 void CUIArtefactParams::SetInfo(CWeapon* pInvItem)
 {
 	DetachAll();

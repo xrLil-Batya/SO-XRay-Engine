@@ -379,6 +379,10 @@ void CUIItemInfo::TryAddArtefactInfo	(CInventoryItem& pInvItem, const shared_str
 		UIArtefactParams->SetInfo(helmet);
 		UIDesc->AddWindow(UIArtefactParams, false);
 	}
+	else if (backpack){
+		UIArtefactParams->SetInfo(backpack);
+		UIDesc->AddWindow(UIArtefactParams, false);
+	}
 	else if (weapon){
 		UIArtefactParams->SetInfo(weapon);
 		UIDesc->AddWindow(UIArtefactParams, false);

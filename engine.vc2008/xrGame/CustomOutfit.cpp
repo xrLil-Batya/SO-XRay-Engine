@@ -126,10 +126,6 @@ void CCustomOutfit::Hit(float hit_power, ALife::EHitType hit_type)
 {
 	hit_power *= GetHitImmunity(hit_type);
 	ChangeCondition(-hit_power);
-	CActor* pActor = smart_cast<CActor*>( H_Parent() );
-	PIItem pBackpack = pActor->inventory().ItemFromSlot(BACKPACK_SLOT);
-	if(pBackpack)
-		pBackpack->ChangeCondition(-(hit_power*0.65));
 }
 
 float CCustomOutfit::GetDefHitTypeProtection(ALife::EHitType hit_type)

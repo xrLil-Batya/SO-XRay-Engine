@@ -74,6 +74,8 @@
 #include "ActorHelmet.h"
 #include "UI/UIDragDropReferenceList.h"
 
+#include "ActorBackpack.h"
+
 const u32		patch_frames	= 50;
 const float		respawn_delay	= 1.f;
 const float		respawn_auto	= 7.f;
@@ -1705,8 +1707,8 @@ void CActor::UpdateArtefactsOnBeltAndOutfit()
 			conditions().ChangeSatiety	(artefact->m_fSatietyRestoreSpeed   * artefact->GetCondition() * f_update_time);
 			conditions().ChangePsyHealth(artefact->m_fPsyHealthRestoreSpeed * artefact->GetCondition() * f_update_time);
 			// Lex Addon (correct by Suhar_)				(begin)
-			jump_speed_add	+=				(artefact->m_fJumpSpeed);
-			walk_accel_add	+=				(artefact->m_fWalkAccel);
+			jump_speed_add	+= (artefact->m_fJumpSpeed);
+			walk_accel_add	+= (artefact->m_fWalkAccel);
 			// Lex Addon (correct by Suhar_)	
 			if(artefact->m_fRadiationRestoreSpeed>0.0f) 
 			{
@@ -1730,38 +1732,27 @@ void CActor::UpdateArtefactsOnBeltAndOutfit()
 			}
 		}
 	}
-	PIItem bp_slot = inventory().ItemFromSlot(BACKPACK_SLOT);
-	CArtefact* backpack = smart_cast<CArtefact*>(bp_slot);
-	if ( backpack )
-	{
-		backpack->SetCondition(backpack->GetCondition()-(backpack->m_degradate_speed * f_update_time));
-		conditions().ChangeBleeding	(backpack->m_fBleedingRestoreSpeed  * backpack->GetCondition() * f_update_time);
-		conditions().ChangeHealth	(backpack->m_fHealthRestoreSpeed    * backpack->GetCondition() * f_update_time);
-		conditions().ChangePower	(backpack->m_fPowerRestoreSpeed     * backpack->GetCondition() * f_update_time);
-		conditions().ChangeSatiety	(backpack->m_fSatietyRestoreSpeed   * backpack->GetCondition() * f_update_time);
-		conditions().ChangePsyHealth(backpack->m_fPsyHealthRestoreSpeed * backpack->GetCondition() * f_update_time);
-	}
 	CCustomOutfit* outfit = GetOutfit();
-	if ( outfit )
-	{
-		conditions().ChangeBleeding		(outfit->m_fBleedingRestoreSpeed  * outfit->GetCondition() * f_update_time);
-		conditions().ChangeHealth		(outfit->m_fHealthRestoreSpeed    * outfit->GetCondition() * f_update_time);
-		conditions().ChangePower		(outfit->m_fPowerRestoreSpeed     * outfit->GetCondition() * f_update_time);
-		conditions().ChangeSatiety		(outfit->m_fSatietyRestoreSpeed   * outfit->GetCondition() * f_update_time);
-		conditions().ChangeRadiation	(outfit->m_fRadiationRestoreSpeed * outfit->GetCondition() * f_update_time);
-	}
-	else
-	{
-		CHelmet* pHelmet				= smart_cast<CHelmet*>(inventory().ItemFromSlot(HELMET_SLOT));
-		if(!pHelmet)
-		{
-			CTorch* pTorch = smart_cast<CTorch*>( inventory().ItemFromSlot(TORCH_SLOT) );
-			if ( pTorch && pTorch->GetNightVisionStatus() )
-			{
-				pTorch->SwitchNightVision(false);
-			}
-		}
-	}
+	CHelmet* pHelmet = smart_cast<CHelmet*>(inventory().ItemFromSlot(HELMET_SLOT));
+	CBackpack* pBackpack = smart_cast<CBackpack*>(inventory().ItemFromSlot(BACKPACK_SLOT));
+	if (!outfit && !pHelmet && !pBackpack)
+    {
+/*      if (GetNightVisionStatus())
+        {
+                SwitchNightVision(false);
+		} */
+    }
+    else
+    {
+        conditions().ChangeBleeding(((outfit ? outfit->m_fBleedingRestoreSpeed : 0.f) + (pHelmet ? pHelmet->m_fBleedingRestoreSpeed : 0.f) + (pBackpack ? pBackpack->m_fBleedingRestoreSpeed : 0.f))  * f_update_time);
+        conditions().ChangeHealth(((outfit ? outfit->m_fHealthRestoreSpeed : 0.f) + (pHelmet ? pHelmet->m_fHealthRestoreSpeed : 0.f) + (pBackpack ? pBackpack->m_fHealthRestoreSpeed : 0.f))    * f_update_time);
+        conditions().ChangePower(((outfit ? outfit->m_fPowerRestoreSpeed : 0.f) + (pHelmet ? pHelmet->m_fPowerRestoreSpeed : 0.f) + (pBackpack ? pBackpack->m_fPowerRestoreSpeed : 0.f))     * f_update_time);
+        conditions().ChangeSatiety(((outfit ? outfit->m_fSatietyRestoreSpeed : 0.f) + (pHelmet ? pHelmet->m_fSatietyRestoreSpeed : 0.f) + (pBackpack ? pBackpack->m_fSatietyRestoreSpeed : 0.f))   * f_update_time);
+        conditions().ChangeRadiation(((outfit ? outfit->m_fRadiationRestoreSpeed : 0.f) + (pHelmet ? pHelmet->m_fRadiationRestoreSpeed : 0.f) + (pBackpack ? pBackpack->m_fRadiationRestoreSpeed : 0.f)) * f_update_time);
+		conditions().ChangePsyHealth((pBackpack ? pBackpack->m_fPsyHealthRestoreSpeed : 0.f) * f_update_time);
+		jump_speed_add	+= (pBackpack ? pBackpack->m_fJumpSpeed : 0.f);
+		walk_accel_add	+= (pBackpack ? pBackpack->m_fWalkAccel : 0.f);
+    }
 	// Lex Addon (correct by Suhar_) 				(begin)
 	if (m_fBaseJumpSpeed + jump_speed_add <=1)
 		m_fJumpSpeed = 1;
@@ -1840,15 +1831,7 @@ float	CActor::HitArtefactsOnBelt(float hit_power, ALife::EHitType hit_type)
 			hit_power -= (artefact->m_ArtefactHitImmunities[hit_type] * artefact->GetCondition());
 		}
 	}
-	PIItem bp_slot = inventory().ItemFromSlot(BACKPACK_SLOT);
-	CArtefact*	backpack = smart_cast<CArtefact*>(bp_slot);
-	if ( backpack )
-	{
-		hit_power -= (backpack->m_ArtefactHitImmunities[hit_type] * backpack->GetCondition());
-	}
-	clamp(hit_power, 0.0f, flt_max);
-	if (hit_power < 0.02)
-		hit_power = 0.02;
+	clamp(hit_power, 0.02f, flt_max);
 	return hit_power;
 }
 
@@ -1864,12 +1847,6 @@ float CActor::GetProtection_ArtefactsOnBelt( ALife::EHitType hit_type )
 		{
 			sum += artefact->m_ArtefactHitImmunities[hit_type] * artefact->GetCondition();
 		}
-	}
-	PIItem bp_slot = inventory().ItemFromSlot(BACKPACK_SLOT);
-	CArtefact*	backpack = smart_cast<CArtefact*>(bp_slot);
-	if ( backpack )
-	{
-		sum += (backpack->m_ArtefactHitImmunities[hit_type] * backpack->GetCondition());
 	}
 	return sum;
 }

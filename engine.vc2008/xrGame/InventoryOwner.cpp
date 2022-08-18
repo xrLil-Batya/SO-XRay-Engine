@@ -367,10 +367,9 @@ float  CInventoryOwner::MaxCarryWeight () const
 		ret += (outfit->m_additional_weight2 * outfit->GetCondition());
 	}
 
-	PIItem itm = inventory().ItemFromSlot(BACKPACK_SLOT);
-	CArtefact* backpack	= smart_cast<CArtefact*>(itm);
-	if ( backpack ){
-		ret				+= (backpack->AdditionalInventoryWeight() * backpack->GetCondition());
+	CBackpack* pBackpack = smart_cast<CBackpack*>(inventory().ItemFromSlot(BACKPACK_SLOT));
+	if ( pBackpack ){
+		ret				+= (pBackpack->m_additional_weight2 * pBackpack->GetCondition());
 	}
 
 	for(TIItemContainer::const_iterator it = inventory().m_belt.begin(); 
