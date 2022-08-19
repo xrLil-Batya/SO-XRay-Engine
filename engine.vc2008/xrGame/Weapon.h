@@ -57,7 +57,12 @@ public:
 	virtual void			load				(IReader &input_packet);
 	virtual BOOL			net_SaveRelevant	()								{return inherited::net_SaveRelevant();}
 
+	float CWeapon::GetSecondVPFov() const;
 	IC float GetZRotatingFactor()    const { return m_zoom_params.m_fZoomRotationFactor; }
+	IC float GetSecondVPZoomFactor() const { return m_zoom_params.m_fSecondVPFovFactor; }
+	IC float IsSecondVPZoomPresent() const { return GetSecondVPZoomFactor() > 0.005f; }
+
+	void UpdateSecondVP();
 
 	virtual void			UpdateCL			();
 	virtual void			shedule_Update		(u32 dt);
@@ -89,6 +94,7 @@ public:
 	virtual void			OnHiddenItem		();
 	virtual void			SendHiddenItem		();	//same as OnHiddenItem but for client... (sends message to a server)...
 
+	virtual bool NeedBlendAnm();
 public:
 	virtual bool			can_kill			() const;
 	virtual CInventoryItem	*can_kill			(CInventory *inventory) const;
@@ -139,7 +145,8 @@ protected:
 	bool					m_bTriStateReload;
 	u8						m_sub_state;
 	// a misfire happens, you'll need to rearm weapon
-	bool					bMisfire;				
+	bool					bMisfire;
+	bool bClearJamOnly; //used for "reload" misfire animation		
 
 	BOOL					m_bAutoSpawnAmmo;
 	virtual bool			AllowBore		();
@@ -204,18 +211,20 @@ protected:
 
 	struct SZoomParams
 	{
-		bool			m_bZoomEnabled;			//разрешение режима приближения
-		bool			m_bHideCrosshairInZoom;
+		bool m_bZoomEnabled; //разрешение режима приближения
+		bool m_bHideCrosshairInZoom;
+		bool m_bZoomDofEnabled;
+		bool m_bIsZoomModeNow; //когда режим приближения включен
+		float m_fCurrentZoomFactor; //текущий фактор приближения
+		float m_fZoomRotateTime; //время приближения
+		float m_fBaseZoomFactor; //коэффициент увеличения прицеливания
+		float m_fScopeZoomFactor; //коэффициент увеличения прицела
+		float m_fZoomRotationFactor;
+		float m_fSecondVPFovFactor;
 
-		bool			m_bIsZoomModeNow;		//когда режим приближения включен
-		float			m_fCurrentZoomFactor;	//текущий фактор приближения
-		float			m_fZoomRotateTime;		//время приближения
-	
-		float			m_fIronSightZoomFactor;	//коэффициент увеличения прицеливания
-		float			m_fScopeZoomFactor;		//коэффициент увеличения прицела
-
-		float			m_fZoomRotationFactor;
-		
+		Fvector m_ZoomDof;
+		Fvector4 m_ReloadDof;
+		Fvector4 m_ReloadEmptyDof; //Swartz: reload when empty mag. DOF
 		BOOL			m_bUseDynamicZoom;
 		shared_str		m_sUseZoomPostprocess;
 		shared_str		m_sUseBinocularVision;
@@ -289,6 +298,9 @@ public:
 
 protected:
 	virtual void			UpdateFireDependencies_internal	();
+	void UpdateUIScope();
+	void SwitchZoomType();
+	float GetHudFov();
 	virtual void			UpdatePosition			(const Fmatrix& transform);	//.
 	virtual void			UpdateXForm				();
 	virtual void UpdateHudAdditional(Fmatrix& trans);
@@ -390,6 +402,7 @@ protected:
 	//оружия
 	float					m_fMinRadius;
 	float					m_fMaxRadius;
+	float m_fZoomRotateModifier;
 
 protected:	
 	//для второго ствола
