@@ -67,7 +67,6 @@ function item_on_update(itm,d)
 		-- Сперва проверяем, кто владелец предмета. Если торговец - то останавливаемся. У торговцев предметы не портятся
 		local parent = itm:parent()
 		if Traders[parent:section()] then
-			if db.actor then news_manager.send_tip(db.actor,parent:section()) end
 			return
 		end
 		-- Проверяем, что предмет может портиться.
