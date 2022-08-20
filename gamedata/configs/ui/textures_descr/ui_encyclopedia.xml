@@ -1,0 +1,80 @@
+<w>
+	<file name="ui\pda_encyclopedia\ui_encyclopedia_recepies">
+	    <texture id="ui_encyclopedia_not_picture" x="300" y="0" width="1" height="1" />
+		
+	    <texture id="ui_st_enc_recipes_1_picture" x="0" y="0" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_2_picture" x="0" y="50" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_3_picture" x="0" y="100" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_4_picture" x="0" y="150" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_5_picture" x="0" y="200" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_6_picture" x="0" y="250" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_7_picture" x="0" y="300" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_8_picture" x="0" y="350" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_9_picture" x="0" y="400" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_10_picture" x="0" y="450" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_11_picture" x="0" y="500" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_12_picture" x="0" y="550" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_13_picture" x="0" y="600" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_14_picture" x="0" y="650" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_15_picture" x="0" y="700" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_16_picture" x="0" y="750" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_17_picture" x="0" y="800" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_18_picture" x="0" y="850" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_19_picture" x="0" y="900" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_20_picture" x="0" y="950" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_21_picture" x="350" y="0" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_22_picture" x="350" y="50" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_23_picture" x="350" y="100" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_24_picture" x="350" y="150" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_25_picture" x="350" y="200" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_26_picture" x="350" y="250" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_27_picture" x="350" y="300" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_28_picture" x="350" y="350" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_29_picture" x="350" y="400" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_30_picture" x="350" y="450" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_31_picture" x="350" y="500" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_32_picture" x="350" y="550" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_33_picture" x="350" y="600" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_34_picture" x="350" y="650" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_35_picture" x="350" y="700" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_36_picture" x="350" y="750" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_37_picture" x="350" y="800" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_38_picture" x="350" y="850" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_39_picture" x="350" y="900" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_40_picture" x="350" y="950" width="300" height="50" />
+	    <texture id="ui_st_enc_recipes_41_picture" x="700" y="0" width="300" height="50" />
+		
+	    <texture id="ui_st_enc_recipes_m_1_picture" x="650" y="100" width="150" height="50" />
+	    <texture id="ui_st_enc_recipes_m_2_picture" x="650" y="150" width="150" height="50" />
+	    <texture id="ui_st_enc_recipes_m_3_picture" x="650" y="200" width="150" height="50" />
+	    <texture id="ui_st_enc_recipes_m_4_picture" x="650" y="250" width="150" height="50" />
+	    <texture id="ui_st_enc_recipes_m_5_picture" x="750" y="100" width="150" height="50" />
+	    <texture id="ui_st_enc_recipes_m_6_picture" x="750" y="150" width="150" height="50" />
+	    <texture id="ui_st_enc_recipes_m_7_picture" x="750" y="200" width="150" height="50" />
+	    <texture id="ui_st_enc_recipes_m_8_picture" x="750" y="250" width="150" height="50" />
+	    <texture id="ui_st_enc_recipes_m_9_picture" x="650" y="500" width="150" height="50" />
+	    <texture id="ui_st_enc_recipes_m_10_picture" x="650" y="550" width="150" height="50" />
+	    <texture id="ui_st_enc_recipes_m_11_picture" x="650" y="600" width="150" height="50" />
+	    <texture id="ui_st_enc_recipes_m_12_picture" x="650" y="650" width="150" height="50" />
+	    <texture id="ui_st_enc_recipes_m_13_picture" x="750" y="300" width="150" height="50" />
+	    <texture id="ui_st_enc_recipes_m_14_picture" x="750" y="350" width="150" height="50" />
+	    <texture id="ui_st_enc_recipes_m_15_picture" x="750" y="400" width="150" height="50" />
+	    <texture id="ui_st_enc_recipes_m_16_picture" x="750" y="450" width="150" height="50" />
+	    <texture id="ui_st_enc_recipes_m_17_picture" x="850" y="100" width="150" height="50" />
+	    <texture id="ui_st_enc_recipes_m_18_picture" x="850" y="150" width="150" height="50" />
+	    <texture id="ui_st_enc_recipes_m_19_picture" x="850" y="200" width="150" height="50" />
+	    <texture id="ui_st_enc_recipes_m_20_picture" x="850" y="250" width="150" height="50" />
+	    <texture id="ui_st_enc_recipes_m_21_picture" x="850" y="300" width="150" height="50" />
+	    <texture id="ui_st_enc_recipes_m_22_picture" x="850" y="350" width="150" height="50" />
+	    <texture id="ui_st_enc_recipes_m_23_picture" x="850" y="400" width="150" height="50" />
+	    <texture id="ui_st_enc_recipes_m_24_picture" x="850" y="450" width="150" height="50" />
+	    <texture id="ui_st_enc_recipes_m_25_picture" x="650" y="300" width="150" height="50" />
+	    <texture id="ui_st_enc_recipes_m_26_picture" x="650" y="350" width="150" height="50" />
+	    <texture id="ui_st_enc_recipes_m_27_picture" x="650" y="400" width="150" height="50" />
+	    <texture id="ui_st_enc_recipes_m_28_picture" x="650" y="450" width="150" height="50" />
+	    <texture id="ui_st_enc_recipes_m_29_picture" x="700" y="50" width="300" height="50" />
+   </file>
+    <file name="ui\ui_actor_monsters_PDA">
+		
+	</file>
+</w>

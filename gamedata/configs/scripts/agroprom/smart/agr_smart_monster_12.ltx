@@ -1,0 +1,13 @@
+; смарт в камнях недалеко от перехода на янтарь
+
+[smart_terrain]
+squad_id = 17
+max_population = 1
+respawn_params = respawn@agr_smart_monster_12
+
+[respawn@agr_smart_monster_12]
+spawn_cat@agr_smart_monster_12
+
+[spawn_cat@agr_smart_monster_12]
+spawn_squads = {+info_mutant_spawn_hard +info_mutant_spawn_medium +info_mutant_spawn_basic} agr_smart_monster_12_squad_3, {-info_mutant_spawn_hard +info_mutant_spawn_medium +info_mutant_spawn_basic} agr_smart_monster_12_squad_2, {-info_mutant_spawn_hard -info_mutant_spawn_medium +info_mutant_spawn_basic} agr_smart_monster_12_squad
+spawn_num = {+info_mutant_spawn_basic} 1, 0

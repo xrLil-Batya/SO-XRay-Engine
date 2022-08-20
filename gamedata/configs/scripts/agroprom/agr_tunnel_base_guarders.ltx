@@ -1,0 +1,66 @@
+;---------------------------------------------Guarders jobs-------------------------------------------------
+[logic@agr_tunnel_base_guarder_1]
+active = walker@guarder_1
+suitable = {!is_squad_commander} true
+prior = 180
+[walker@guarder_1]
+path_walk = guarder_1_walk
+path_look = guarder_1_look
+use_camp = false
+gather_items_enabled = false
+help_wounded_enabled = true
+corpse_detection_enabled = true
+def_state_standing = guard
+
+
+[logic@agr_tunnel_base_guarder_2]
+active = walker@guarder_2
+suitable = {!is_squad_commander} true
+prior = 180
+[walker@guarder_2]
+path_walk = guarder_2_walk
+path_look = guarder_2_look
+use_camp = false
+gather_items_enabled = false
+help_wounded_enabled = true
+corpse_detection_enabled = true
+def_state_standing = hide
+
+
+[logic@agr_tunnel_base_guarder_3]
+active = animpoint@guarder_3
+suitable = true
+prior = 150
+[animpoint@guarder_3]
+cover_name = agr_tunnel_base_animpoint_3
+reach_movement = walk
+use_camp = true
+gather_items_enabled = true
+help_wounded_enabled = true
+corpse_detection_enabled = true
+
+
+[logic@agr_tunnel_base_guarder_4]
+active = animpoint@guarder_4
+suitable = true
+prior = 150
+[animpoint@guarder_4]
+cover_name = agr_tunnel_base_animpoint_4
+reach_movement = walk
+use_camp = true
+gather_items_enabled = true
+help_wounded_enabled = true
+corpse_detection_enabled = true
+
+
+[logic@agr_tunnel_base_guarder_5]
+active = animpoint@guarder_5
+suitable = true
+prior = 150
+[animpoint@guarder_5]
+cover_name = agr_tunnel_base_animpoint_5
+reach_movement = walk
+use_camp = true
+gather_items_enabled = true
+help_wounded_enabled = true
+corpse_detection_enabled = true

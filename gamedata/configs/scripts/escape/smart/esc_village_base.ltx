@@ -1,0 +1,46 @@
+[smart_terrain]
+squad_id = 1
+max_population = 5
+arrive_dist = 120
+att_restr = esc_village_base_sr_attack
+def_restr = esc_village_base_sr_defence
+spawn_point = esc_village_base_default_spawn
+respawn_params = respawn@esc_village_base
+
+[respawn@esc_village_base]
+spawn_stalker@esc_village_base
+
+[spawn_stalker@esc_village_base]
+spawn_squads = esc_village_base_squad
+spawn_num = {!squad_exist(esc_village_base_squad)} 1, 0
+
+[exclusive]
+;exclusive npc
+;guarders day jobs
+esc_village_base_guarder_1_day = escape\esc_village_base_guarders.ltx
+esc_village_base_guarder_2_day = escape\esc_village_base_guarders.ltx
+esc_village_base_guarder_3_day = escape\esc_village_base_guarders.ltx
+esc_village_base_guarder_4_day = escape\esc_village_base_guarders.ltx
+esc_village_base_guarder_5_day = escape\esc_village_base_guarders.ltx
+esc_village_base_guarder_6_day = escape\esc_village_base_guarders.ltx
+esc_village_base_guarder_7_day = escape\esc_village_base_guarders.ltx
+esc_village_base_guarder_8_day = escape\esc_village_base_guarders.ltx
+esc_village_base_guarder_9_day = escape\esc_village_base_guarders.ltx
+esc_village_base_guarder_10_day = escape\esc_village_base_guarders.ltx
+esc_village_base_guarder_11_day = escape\esc_village_base_guarders.ltx
+esc_village_base_guarder_12_day = escape\esc_village_base_guarders.ltx
+esc_village_base_guarder_13_day = escape\esc_village_base_guarders.ltx
+;guarders night jobs
+esc_village_base_guarder_1_night = escape\esc_village_base_guarders.ltx
+esc_village_base_guarder_2_night = escape\esc_village_base_guarders.ltx
+esc_village_base_guarder_3_night = escape\esc_village_base_guarders.ltx
+esc_village_base_guarder_4_night = escape\esc_village_base_guarders.ltx
+esc_village_base_guarder_5_night = escape\esc_village_base_guarders.ltx
+esc_village_base_guarder_6_night = escape\esc_village_base_guarders.ltx
+esc_village_base_guarder_7_night = escape\esc_village_base_guarders.ltx
+esc_village_base_guarder_8_night = escape\esc_village_base_guarders.ltx
+esc_village_base_guarder_9_night = escape\esc_village_base_guarders.ltx
+esc_village_base_guarder_10_night = escape\esc_village_base_guarders.ltx
+esc_village_base_guarder_11_night = escape\esc_village_base_guarders.ltx
+esc_village_base_guarder_12_night = escape\esc_village_base_guarders.ltx
+esc_village_base_guarder_13_night = escape\esc_village_base_guarders.ltx

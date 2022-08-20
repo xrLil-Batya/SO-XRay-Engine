@@ -1,0 +1,111 @@
+local SINGLETON = nil
+function get_ui()
+	SINGLETON = SINGLETON or pda_relations_tab()
+	SINGLETON:Reset()
+	return SINGLETON
+end
+
+class "pda_relations_tab" (CUIScriptWnd)
+function pda_relations_tab:__init() super()
+	self.list = {
+		"stalker",
+		"renegade",
+		"dolg",
+		"freedom",
+		"csky",
+		"ecolog",
+		"bandit",
+		"killer",
+		"army",
+		"monolith"
+	}
+	
+	self.to_text		= true
+	
+	self:InitControls()
+end
+
+function pda_relations_tab:__finalize() end
+
+function pda_relations_tab:InitControls()
+	self:SetWndRect(Frect():set(0, 0, 1024, 768))
+
+	local xml = CScriptXmlInit()
+	xml:ParseFile("pda_relations.xml")
+
+	xml:InitFrame("background",self)
+	self.tab = xml:InitStatic("tab", self)
+	xml:InitStatic("tab:caption", self.tab)
+	
+	self.btn = xml:Init3tButton("btn_to_text", self)
+	self:Register(self.btn, "btn")
+	self:AddCallback("btn", ui_events.BUTTON_CLICKED, self.btn_to_text, self)
+
+	self.relations = {}
+	
+	local is_widescreen = utils.is_widescreen()
+	local x = is_widescreen and 45 or 55
+	local c_width = is_widescreen and 65 or 90
+	local c_height = 35
+
+	for i=1, #self.list do
+		x = x + c_width
+		local iobj = xml:InitTextWnd("tab:faction", self.tab)
+		iobj:SetWndPos(vector2():set(x,65))
+		iobj:SetText(game.translate_string(self.list[i]))
+		
+		self.relations[i] = {}
+		local y = 60
+		for k=0, #self.list do
+			y = y + c_height
+			if (i == 1) then
+				local kobj = xml:InitTextWnd("tab:faction", self.tab)
+				kobj:SetWndPos(vector2():set(x - c_width - 10, y))
+				if k > 0 then
+					kobj:SetText(game.translate_string(self.list[k]))
+				else 
+					kobj:SetText(game.translate_string("ui_st_reputation"))
+				end
+			end
+			self.relations[i][k] = xml:InitTextWnd("tab:cell",self.tab)
+			self.relations[i][k]:SetWndPos(vector2():set(x,y))
+		end
+	end
+end
+
+function pda_relations_tab:Reset()
+	for i=1, #self.list do
+		for k=0, #self.list do
+			local comm = self.list[k]
+			if (k==0) then comm = db.actor:character_community() end
+			local r_val = relation_registry.community_relation(comm, self.list[i])
+			
+			if r_val >= game_relations.FRIENDS then
+				self.relations[i][k]:SetTextColor(GetARGB(255, 1, 255, 1))
+				self.relations[i][k]:SetText(game.translate_string("friendly"))
+
+			elseif r_val <= game_relations.ENEMIES then
+				self.relations[i][k]:SetTextColor(GetARGB(255, 255, 1, 1))
+				self.relations[i][k]:SetText(game.translate_string("enemy"))
+
+			else
+				self.relations[i][k]:SetTextColor(GetARGB(255, 255, 255, 1))
+				self.relations[i][k]:SetText(game.translate_string("indifferent"))
+
+			end
+
+			if not (self.to_text) then self.relations[i][k]:SetText(tostring(r_val)) end
+		end
+	end
+end
+
+function pda_relations_tab:btn_to_text()
+	self.to_text = not self.to_text
+	if self.to_text then
+		self.btn:TextControl():SetText(game.translate_string("pda_table_value_off"))
+	else
+		self.btn:TextControl():SetText(game.translate_string("pda_table_value_on"))
+	end
+	
+	self:Reset()
+end

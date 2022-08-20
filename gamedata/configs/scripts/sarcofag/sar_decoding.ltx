@@ -1,0 +1,10 @@
+[logic]
+active = sr_idle
+
+[sr_idle]
+on_info = {+sar_access_decoding} sr_timer %=play_sound_looped(decoder)%
+
+[sr_timer]
+type = dec
+start_value = 30000
+on_value = 1|%=stop_sound_looped(decoder)%| 0| nil %+sar_finish_decoding% 

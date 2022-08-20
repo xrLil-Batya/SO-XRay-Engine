@@ -1,0 +1,20 @@
+[logic]
+active = {+esc_megafone_broken} nil, ph_idle@wait
+
+[ph_idle@wait]
+on_info = %=play_sound(esc_megafone)%
+on_info2 = {=is_night} ph_idle@night, {=check_smart_alarm_status(esc_arm_base)} ph_idle@alarm %=stop_sound%
+hit_on_bone = 2|ph_idle@broken
+
+[ph_idle@night]
+on_info = %=stop_sound%
+on_info2 = {!is_night} ph_idle@wait, {=check_smart_alarm_status(esc_arm_base)} ph_idle@alarm %=stop_sound%
+hit_on_bone = 2|ph_idle@broken
+
+[ph_idle@alarm]
+on_info = %=play_sound(esc_megafone_alarm)%
+on_info2 = {=is_night !check_smart_alarm_status(esc_arm_base)} ph_idle@night, {!check_smart_alarm_status(esc_arm_base)} ph_idle@wait
+hit_on_bone = 2|ph_idle@broken
+
+[ph_idle@broken]
+on_info = nil %=stop_sound +esc_megafone_broken%

@@ -1,0 +1,22 @@
+-- Вывод сообщения о разряженной батарее или отсутствии предмета в слоте
+local var = 0
+function show_message_battery_low(type_obj)
+	if not type_obj then return end
+	if type_obj == "pda_low" then
+		SetHudMsg(game.translate_string("st_pda_battery_low"),3)
+	elseif type_obj == "pda_not" then
+		SetHudMsg(game.translate_string("st_not_have_pda"),3)
+	elseif type_obj == "torch_low" then
+		SetHudMsg(game.translate_string("st_torch_battery_low"),3)
+	elseif type_obj == "torch_not" then
+		SetHudMsg(game.translate_string("st_not_have_torch"),3)
+	elseif type_obj == "nv_low" then
+		SetHudMsg(game.translate_string("st_torch_battery_low"),3)
+	elseif type_obj == "nv_not" then
+		SetHudMsg(game.translate_string("st_not_have_torch"),3)
+	elseif type_obj == "dosimeter_not" then
+		SetHudMsg(game.translate_string("st_not_have_dosimeter"),3)
+	elseif type_obj == "dosimeter_low" then
+		SetHudMsg(game.translate_string("st_dosimeter_battery_low"),3)
+	end
+end

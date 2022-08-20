@@ -1,0 +1,13 @@
+; смарт на севере на холме возле ЛЭП
+
+[smart_terrain]
+squad_id = 19
+max_population = 1
+respawn_params = respawn@agr_smart_monster_14
+
+[respawn@agr_smart_monster_14]
+spawn_zombie@agr_smart_monster_14
+
+[spawn_zombie@agr_smart_monster_14]
+spawn_squads = {+info_mutant_spawn_hard +info_mutant_spawn_medium +info_mutant_spawn_basic} agr_smart_monster_14_squad_3, {-info_mutant_spawn_hard +info_mutant_spawn_medium +info_mutant_spawn_basic} agr_smart_monster_14_squad_2, {-info_mutant_spawn_hard -info_mutant_spawn_medium +info_mutant_spawn_basic} agr_smart_monster_14_squad
+spawn_num = {+info_mutant_spawn_basic} 1, 0

@@ -1,0 +1,32 @@
+[logic@val_freedom_barmen]
+suitable = {=check_npc_name(val_freedom_barmen)} true
+prior = 200
+active = walker@barmen
+;trade = misc\trade\trade_barmen_all.ltx
+level_spot = trader
+
+[walker@barmen]
+path_walk = val_barmen_walk
+path_look = val_barmen_look
+def_state_standing = wait_na
+meet = meet@main
+gather_items_enabled = false
+;help_wounded_enabled = false
+corpse_detection_enabled = false
+on_info = {=surge_started} walker@surge ;Что делать, если Выброс нагрянул
+
+[walker@surge]
+path_walk = val_barmen_surge_walk
+path_look = val_barmen_surge_look
+meet = no_meet
+on_info = {=surge_complete} walker@barmen ; возвращаемся на позицию после выброса
+gather_items_enabled = false
+;help_wounded_enabled = false
+corpse_detection_enabled = false
+
+[meet@main]
+close_snd_hello = {=actor_has_weapon} meet_hide_weapon, val_freedom_barmen_meet
+close_snd_bye 	= {=actor_has_weapon} nil, val_freedom_barmen_meet_bye
+snd_on_use = {=actor_enemy} nil, {=actor_has_weapon} nil
+abuse           = false
+use = {=actor_enemy} false, {=actor_has_weapon} false, true

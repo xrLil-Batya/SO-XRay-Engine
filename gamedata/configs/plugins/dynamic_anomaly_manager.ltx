@@ -1,0 +1,132 @@
+;==============================================================
+;
+; Dynamic Anomaly Generator Settings (drx_dynamic_anomaly.ltx)
+;	CoC 1.4.22 - DoctorX Dynamic Anomalies 1.3
+;
+;	Created by: DoctorX
+;	Last revised: April 16, 2017
+;
+;==============================================================
+
+
+; Anomaly field properties:
+[location_list]
+k01_forest
+l01_escape
+l02_garbage
+l03_agroprom
+la14_rostok_factory
+l04_darkvalley
+l05_bar
+l06_rostok
+l07_military
+l08_yantar
+l09_deadcity
+l10_limansk
+l10_red_forest
+lost_village
+l10_radar
+l12_stancia
+l12_stancia_2
+l13_generators
+jupiter
+pripyat
+
+
+[location_offset]
+max_offset_x = 70
+max_offset_y = 0
+max_offset_z = 70
+
+
+; \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+;	Локация "Туманный лес": параметры для спавна динамических аномалий
+;//////////////////////////////////////////////////////////////////////////////////////////////////
+;--------------------------------------------------------------------------------------------------
+[k01_forest_anomaly_types]
+zone_mine_acidic_weak
+zone_mine_acidic_weak
+zone_mine_acidic_weak
+zone_mine_chemical_weak
+zone_mine_chemical_weak
+zone_mine_electric_weak
+zone_mine_gravitational_weak
+zone_mine_gravitational_weak
+zone_mine_gravitational_weak
+zone_mine_gravitational_average
+zone_mine_gravitational_average
+zone_mine_gravitational_average
+zone_mine_gravitational_strong
+zone_mine_gravitational_strong
+zone_mine_gravitational_strong
+
+[k01_forest_field_properties]
+anomaly_number = 8
+sr_no_spawn = forest_sr_no_anomaly
+
+
+;//////////////////////////////////////////////////////////////////////////////////////////////////
+;	Локация "Кордон": параметры для спавна динамических аномалий
+;//////////////////////////////////////////////////////////////////////////////////////////////////
+;--------------------------------------------------------------------------------------------------
+[l01_escape_anomaly_types]
+zone_mine_acidic_weak
+zone_mine_acidic_weak
+zone_mine_electric_weak
+zone_mine_gravitational_weak
+zone_mine_gravitational_weak
+zone_mine_gravitational_average
+zone_mine_gravitational_average
+zone_mine_gravitational_average
+zone_mine_gravitational_strong
+zone_mine_gravitational_strong
+zone_mine_gravitational_strong
+
+[l01_escape_field_properties]
+anomaly_number = 15
+sr_no_spawn = escape_sr_no_anomaly
+
+
+;//////////////////////////////////////////////////////////////////////////////////////////////////
+;	Локация "Свалка": параметры для спавна динамических аномалий
+;//////////////////////////////////////////////////////////////////////////////////////////////////
+;--------------------------------------------------------------------------------------------------
+[l02_garbage_anomaly_types]
+zone_mine_acidic_weak
+zone_mine_acidic_weak
+zone_mine_electric_weak
+zone_mine_gravitational_weak
+zone_mine_gravitational_weak
+zone_mine_gravitational_average
+zone_mine_gravitational_average
+zone_mine_gravitational_average
+zone_mine_gravitational_strong
+zone_mine_gravitational_strong
+zone_mine_gravitational_strong
+
+[l02_garbage_field_properties]
+anomaly_number = 13
+sr_no_spawn = garbage_sr_no_anomaly
+
+
+;//////////////////////////////////////////////////////////////////////////////////////////////////
+;	Локация "Агропром": параметры для спавна динамических аномалий
+;//////////////////////////////////////////////////////////////////////////////////////////////////
+;--------------------------------------------------------------------------------------------------
+[l03_agroprom_anomaly_types]
+zone_mine_chemical_average
+zone_mine_acidic_average
+zone_mine_electric_average
+zone_mine_thermal_average
+zone_mine_gravitational_weak
+zone_mine_gravitational_average
+zone_mine_gravitational_average
+zone_mine_gravitational_strong
+zone_mine_gravitational_strong
+
+[l03_agroprom_field_properties]
+anomaly_number = 10
+sr_no_spawn = agroprom_sr_no_anomaly
+
+
+

@@ -1,0 +1,223 @@
+local item_by_community = {}
+local item_count = {}
+local always_keep_item = {}
+local item_by_story_id
+
+local death_ini = ini_file("misc\\death_generic.ltx")
+
+
+function init_drop_settings()
+	local community_list = { "stalker", "dolg", "freedom", "bandit", "csky", "army", "zombied", "ecolog", "killer", "monolith", "renegade", "trader"}
+
+	for k,v in pairs(community_list) do
+		item_by_community[v] = {}
+		if death_ini:section_exist(v) then
+			local n = death_ini:line_count(v)
+			local id, value = "", ""
+			for i=0,n-1 do
+				result, id, value	= death_ini:r_line(v,i,"","")
+				item_by_community[v][id] = 100*tonumber(value)
+			end
+		end
+	end
+	
+	local n = death_ini:line_count("item_count")
+	local id, value = "", ""
+	for i=0,n-1 do
+		local result, id, value	= death_ini:r_line("item_count",i,"","")
+		local p = utils.str_explode(value,",")
+		if (p) then
+			p[1] = tonumber(p[1]) or 0
+			p[2] = tonumber(p[2]) or p[1]
+			item_count[id] = {p[1],p[2]}
+		end
+	end
+
+ 	--' Предметы, которые нельзя удалять (квестовые например)
+	local n = death_ini:line_count("keep_items")
+	for i=0,n-1 do
+		result, id, value	= death_ini:r_line("keep_items",i,"","")
+		if value == "true" then
+			always_keep_item[id] = true
+		end
+	end
+	
+	-- Create a list of item sections that npc must keep
+	local n = death_ini:line_count("spawn_by_story_id")
+	for i=0,n-1 do
+		if not (item_by_story_id) then 
+			item_by_story_id = {}
+		end
+		local result, id, value	= death_ini:r_line("spawn_by_story_id",i,"","")
+		item_by_story_id[id] = value
+	end
+end
+
+function create_release_item(npc)
+	--' Спрашиваем у серверного объекта генерились ли предметы
+	local se_obj = alife():object(npc:id())
+	if se_obj == nil or se_obj.death_droped == true then
+		return
+	end
+	se_obj.death_droped = true
+	
+	--' Запускаем итератор на удаление предметов
+	npc:iterate_inventory(keep_item, npc)
+	
+	
+	--' Проверка на отсутствие спауна лута
+	local ini = npc:spawn_ini()
+
+	if ini and ini:section_exist("dont_spawn_loot") then
+		return
+	end
+	local st		= db.storage[npc:id()]
+	local st_ini 	= st and st.ini
+	if st_ini and st_ini:line_exist(st.section_logic , "dont_spawn_loot") then
+		return
+	end
+
+	--' Доспавниваем необходимое количество итемов:
+	--' Необходимо составить список объектов которые могут быть заспавнены для персонажа
+
+	local spawn_items = item_by_community[character_community(npc)]
+	if spawn_items == nil then
+		return
+	end
+	
+	local grenade_classes = { 
+								["ammo_m209"] = true,
+								["ammo_vog-25"] = true,
+								["ammo_og-7b"] = true
+							}
+	for sec,v in pairs(spawn_items) do
+		if (v > 0 and item_count[sec] and not utils.is_ammo(sec) and not grenade_classes[sec]) then
+			local number = math.random(item_count[sec][1], item_count[sec][2])
+			create_items(npc, sec, number, v)
+		end
+	end
+
+	-- spawn items by story id
+	local sid = item_by_story_id and get_object_story_id(npc:id())
+	if (sid and item_by_story_id[sid]) then
+		local p = xr_logic.pick_section_from_condlist(db.actor,npc,utils.parse_condlist(item_by_story_id[sid]))
+		if (p and p ~= "" and p ~= "nil") then
+			create_items(npc, p, 1, 100)
+		end
+	end
+end
+
+local anm_obj_list = {
+	["bolt"] = true,
+	["medkit_script"] = true,
+	["bandage_script"] = true,
+	["wpn_binoc"] = true,
+	["anim_binoc"] = true,
+	["anim_knife"] = true,
+	["device_torch"] = true,
+	["device_pda"] = true,
+	["hand_radio"] = true,
+	["hand_radio_r"] = true,
+	["detector_fake"] = true,
+	["stick_bred"] = true,
+	["stick_kolbasa"] = true,
+	["stick_kolbasa_bred"] = true,
+	["cigarette"] = true,
+}
+
+--' Функция вызывается для каждого предмета, если вернет false то предмет удалится.
+function keep_item(npc, item)
+
+	if not (item) then
+		return 
+	end 
+	
+	local section = item:section()
+	if (always_keep_item[section]) then 
+		return 
+	end 
+	
+	local se_item = alife_object(item:id())
+	if not (se_item) then return end
+
+	local ini = npc:spawn_ini()
+
+	if ini and ini:section_exist("keep_items") then return end
+	
+	if anm_obj_list[section] then
+		alife():release(se_item, true)
+		return 
+	end
+
+	if always_keep_item[section] == true then
+		return
+	end
+	
+	local cls = item:clsid()
+	if IsWeapon(item,cls) and not(cls==clsid.wpn_grenade_rgd5_s or cls==clsid.wpn_grenade_f1_s) then
+		set_weapon_drop_condition(npc,item)
+		return
+	end
+
+	if (utils.is_ammo(item:section())) then
+		alife():release(se_item, true)		
+		return
+	end	
+end
+
+function set_weapon_drop_condition(npc,item)
+	
+	--'Ломаем оружие
+	item:set_condition(math.random(3,25)/100)
+	
+	--'Спавним в инвентарь НПС патроны от этого оружия
+	
+	local ini = system_ini()
+	local sec,number
+	local ammo_class = {}
+
+	if ini:line_exist(item:section(), "ammo_class") then
+		local conf = ini:r_string(item:section(), "ammo_class")
+		for s in string.gfind(conf, "%s*([^,]+)%s*") do
+			table.insert(ammo_class, s)
+		end
+	end
+	
+	if (#ammo_class > 0) then
+		sec = ammo_class[math.random(1,#ammo_class)]
+		if (sec and item_count[sec]) then
+		
+			number = math.random(item_count[sec][1], item_count[sec][2])
+			if (number > 0 and system_ini():section_exist(sec)) then
+				create_ammo(sec,npc:position(),npc:level_vertex_id(),npc:game_vertex_id(),npc:id(),number)
+			end
+		end
+	end
+	
+	--'Рандомим, будут ли патроны в магазине, и сколько их будет
+	local ammo = item:get_ammo_in_magazine()
+		
+	if (ammo > 10) then
+		item:set_ammo_elapsed(math.random(5,10))
+	else
+		item:set_ammo_elapsed(math.random(0,ammo))
+	end
+	
+end
+
+--' Функция спавнит необходимое число предметов
+function create_items(npc, section, number, rnd)
+	--'printf("create %s of %s", tostring(number), tostring(section))
+	if utils.is_ammo(section) == true then
+		if number > 0 then
+			create_ammo(section,npc:position(),npc:level_vertex_id(),npc:game_vertex_id(),npc:id(),number)
+		end
+	else
+		for i=1,number do
+		--' Проверяем вероятность появить каждый объект в отдельности
+			if math.random(100) <=  rnd then
+				alife():create(section,npc:position(),npc:level_vertex_id(),npc:game_vertex_id(),npc:id())
+			end
+		end
+	end
+end

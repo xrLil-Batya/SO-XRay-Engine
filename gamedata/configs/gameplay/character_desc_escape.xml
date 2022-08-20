@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding="windows-1251"?>
+
+<xml>
+	<specific_character id="trader" no_random = "1">
+	<name>esc_trader_name</name>
+	<icon>ui_npc_u_trader_1</icon>
+	<bio>Detalnaya informatsiya otsutstvuet.</bio>
+	<class>trader</class>
+	<community>stalker</community>
+	<visual>actors\stalker_trader\stalker_trader_1</visual>
+	<rank>1280</rank>
+	<reputation>0</reputation>
+	<money min="1000000" max="1000000" infinitive="1"/>
+	
+    <supplies>
+		[spawn] \n
+    </supplies>
+		#include "gameplay\character_criticals_4.xml"
+		<start_dialog>zat_b30_owl_stalker_trader_start_dialog</start_dialog>
+		<actor_dialog>actor_break_dialog</actor_dialog>
+	</specific_character>
+
+</xml>

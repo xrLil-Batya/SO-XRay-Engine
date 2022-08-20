@@ -1,0 +1,318 @@
+; Все предметы теперь рассортированы по отдельным файлам ввиду их большого количества. Благодаря исходникам аномали, адаптирован их параметр чтения конфигов. Теперь можно создать фай и назвать его "items_*имя*.ltx" и он автоматически заинклудится.
+; В инвентаре есть кнопки для сортировки предметов. Чтобы предметы отображались при нажатии кнопки, нужно задать следующие параметры:
+; sort_in_weapon = true   для отображения под кнопкой "Оружие/Модули"
+; sort_in_armor = true   для отображения под кнопкой "Экипировка для подсумка/разгрузки"
+; sort_in_ammo = true   для отображения под кнопкой "Боеприпасы"
+; sort_in_artefact = true   для отображения под кнопкой "Артефакты/Трофеи"
+; sort_in_tools = true   для отображения под кнопкой "Устройства/Инструменты/Ремонт"
+; sort_in_consumables = true   для отображения под кнопкой "Питание/Помощь"
+; sort_in_misc = true   для отображения под кнопкой "Разное"
+; move_to_bouch = true	для генерации листа подсказок в инвентаре, чтобы отправить предмет в подсумок
+; move_to_cargo_belt = true	для генерации листа подсказок в инвентаре, чтобы отправить предмет в рузгрузку
+
+[medkit_script]:booster ;Do not use! Used in xr_wounded
+;$spawn 				= "food and drugs\medkit_script"
+visual				= dynamics\devices\dev_aptechka\dev_aptechka_low.ogf
+inv_name			= st_medkit
+inv_name_short		= st_medkit
+description			= st_medkit_descr
+inv_weight			= 0.1
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 27
+inv_grid_y			= 21
+cost				= 300
+
+;eatable item
+eat_health			= 0.5
+eat_max_power		= 0.1
+eat_radiation		= -0.05
+wounds_heal_perc	= 0.1
+eat_portions_num	= 1
+
+use_sound			= interface\inv_medkit
+
+[guitar_a]:identity_immunities
+GroupControlSection		= spawn_group
+discovery_dependency	=
+$spawn					= "food and drugs\guitar_a"
+cform                   = skeleton
+class					= II_ATTCH
+visual                  = dynamics\devices\dev_guitar\dev_guitar.ogf
+cost					= 600
+inv_name				= st_guitar_name
+inv_name_short			= st_guitar_name
+description				= st_guitar_descr
+inv_weight				= 1.5
+inv_grid_width			= 4
+inv_grid_height			= 2
+inv_grid_x				= 9
+inv_grid_y				= 1
+attach_angle_offset		= -0.415, -1.262, 0.808
+;-1.512, -1.392, -0.242
+attach_position_offset	= -0.014, 0.010, 0.020
+;0.010, -0.090, 0.000
+attach_bone_name		= bip01_l_hand
+auto_attach				= false
+can_trade				= true
+
+[harmonica_a]:identity_immunities
+GroupControlSection		= spawn_group
+discovery_dependency	=
+$spawn					= "food and drugs\harmonica_a"
+cform                   = skeleton
+class					= II_ATTCH
+visual                  = dynamics\devices\dev_harmonica\dev_harmonica.ogf
+cost					= 35
+inv_name				= "harmonica"
+inv_name_short			= "harmonica"
+inv_weight				= 0.35
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x				= 12
+inv_grid_y				= 3
+attach_angle_offset		= 0.000000, -1.204452, -1.262921
+attach_position_offset	= 0.081856, -0.035081, 0.011694
+attach_bone_name		= bip01_l_hand
+auto_attach				= false
+can_trade				= true
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;	Scaner B6
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[anomaly_scaner]:identity_immunities
+GroupControlSection   	= spawn_group
+discovery_dependency  	=
+$spawn          		= "equipment\anomaly_scaner"
+cform                   = skeleton
+class         			= II_ATTCH
+visual                  = dynamics\devices\dev_datchik_2\dev_datchik_2.ogf
+cost          			= 0
+inv_name        		= "hand_radio"
+inv_name_short      	= "hand_radio"
+inv_weight        		= 0.5
+inv_grid_width      	= 2
+inv_grid_height     	= 1
+inv_grid_x        		= 13
+inv_grid_y        		= 3
+attach_angle_offset   	= -1.571,-1.308,-1.458    ;устанавливаетсљ в радианах Angle*PI/180
+attach_position_offset  = 0.105, -0.004, 0.003
+attach_bone_name    	= bip01_l_hand
+auto_attach       		= false
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;	DEVICES
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[dev_flash_1]:identity_immunities
+GroupControlSection	= spawn_group
+discovery_dependency=
+$spawn 				= "devices\dev_flash_1"
+$prefetch 			= 16
+class				= D_PDA
+cform				= skeleton
+visual				= dynamics\devices\dev_flash_1\dev_flash_1.ogf
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 9
+inv_grid_y			= 4
+
+slot				= 7
+radius				= 50
+default_to_ruck		= false
+inv_weight			= 0.05
+
+inv_name			= st_pda_name
+inv_name_short		= st_pda_name
+description			= st_pda_descr
+cost				= 50
+can_trade			= false
+
+[dev_flash_2]:identity_immunities
+GroupControlSection	= spawn_group
+discovery_dependency=
+$spawn 				= "devices\dev_flash_2"
+$prefetch 			= 16
+class				= D_PDA
+cform				= skeleton
+visual				= dynamics\devices\dev_flash_2\dev_flash_2.ogf
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 10
+inv_grid_y			= 4
+
+slot				= 7
+radius				= 50
+default_to_ruck		= false
+inv_weight			= 0.05
+
+inv_name			= st_pda_name
+inv_name_short		= st_pda_name
+description			= st_pda_descr
+cost				= 50
+can_trade			= false
+
+[device_torch]:identity_immunities
+GroupControlSection	= spawn_group
+discovery_dependency =
+$spawn				= "devices\torch"
+$prefetch 			= 32
+class				= TORCH_S
+cform				= skeleton
+visual				= dynamics\devices\dev_torch_light\dev_torch_light.ogf
+description			= st_device_torch_descr
+cost				= 100
+inv_name			= st_device_torch_name
+inv_name_short		= st_device_torch_name
+inv_weight			= 0.0
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 15
+inv_grid_y			= 3
+
+;вещью нельзя торговать
+can_trade			= true
+
+position			= 0.35,0.25,0.0
+light_trace_bone		= lights_bone
+
+attach_angle_offset		= 3.062, 0.008, -1.532
+attach_position_offset		= 0.134, -0.007, 0.09
+
+attach_bone_name		= bip01_head
+auto_attach			= false
+
+light_section		= torch_definition
+light2_section		= glowstick_definition
+
+night_vision				= on
+night_vision_texture		= wpn\wpn_night
+night_vision_effector		= postprocess_night
+
+snd_turn_on     			= torch\snd_switch_on
+snd_turn_off    			= torch\snd_switch_off
+snd_night_vision_on			= weapons\nv_start
+snd_night_vision_off		= weapons\nv_off
+snd_night_vision_idle		= weapons\nv_loop
+snd_night_vision_broken		= weapons\nv_off
+
+night_vision_recharge_time			= 6		;(c) время зарядки аккамулятора
+night_vision_recharge_time_min		= 2		;(c) мин. время зарядки аккамулятора, после которого уст-во уже может работать
+night_vision_discharge_time			= 20	;(c) время разрядки (работы) устройства после полной зарядки
+slot								= 9
+default_to_ruck						= false
+sprint_allowed						= true
+control_inertion_factor				= 1
+disabled_maps						= ai_test,ai_test2, andy_test_
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;	OTHERS
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[wpn_vodka_hud]:identity_immunities,hud_base
+fire_point               = 0.0, 0.0, 0.06
+fire_bone                = bip01_head
+orientation              = 0, 0, 0
+position                 = 0, 0, 0
+visual                   = dynamics\devices\dev_vodka\dev_vodka.ogf
+
+anim_idle			= vodka_2
+anim_show			= vodka_1
+anim_hide			= vodka_4
+anim_play			= vodka_5
+anim_prepare		= vodka_5
+anim_eat			= vodka_3
+
+;----------------------------------------------------------------------------------------------------------------------------------------
+[af_base]:identity_immunities
+class = SCRPTART
+GroupControlSection                      = spawn_group
+cform                                    = skeleton
+hud                                      = artefact_hud
+animation_slot                           = 11
+allow_inertion                           = true
+attach_angle_offset                      = 0,0,0
+attach_position_offset                   = -0.1,-0.1,0
+attach_bone_name                         = bip01_root
+inv_grid_width                           = 1
+inv_grid_height                          = 1
+belt                                     = true
+slot                                     = -1
+lights_enabled = false
+
+trail_light_color 		= 0.0,0.0,0
+trail_light_range 		= 0.7
+
+default_to_ruck			     = true
+af_actor_properties		     = on
+actor_properties		     = on
+det_show_particles		     = anomaly2\plasma_generator_death
+det_hide_particles		     = anomaly2\plasma_generator_death
+
+det_show_snd			     = anomaly\bfuzz_blowout
+det_hide_snd			     = anomaly\pux_blast
+af_rank                                  = 0
+degrade_rate							 = 0
+can_be_controlled                        = true
+script_binding                           = bind_artefact.bind
+particles_bone                           = link
+additional_inventory_weight              = 0
+idle_light_shadow                        = false
+hit_on_take								 = 1
+health_restore_speed 	= 0.00
+radiation_restore_speed = 0.00
+satiety_restore_speed 	= 0.00
+power_restore_speed 	= 0.00
+bleeding_restore_speed 	= 0.00
+psyhealth_restore_speed = 0.00
+additional_inventory_weight		= 0	
+additional_inventory_weight2	= 0
+jump_speed = 0
+walk_accel = 0
+hit_absorbation_sect	= af_base_absorbation
+sort_in_artefact			   	   = true
+;скорость уменьшения состояния артефакта и возможность его удаления при достижении 5%
+degradate						   = false
+degradate_speed					   = 0.0
+[af_base_absorbation]
+burn_immunity 			           = 0
+strike_immunity 		           = 0  
+shock_immunity 			           = 0     
+wound_immunity 			           = 0
+radiation_immunity 		           = 0
+telepatic_immunity 		           = 0  
+chemical_burn_immunity 	           = 0  
+explosion_immunity 		           = 0
+fire_wound_immunity  	           = 0 
+
+[artefact_hud]:hud_base
+item_visual                  = dynamics\artefacts\artefact_electra_blue_hud
+attach_place_idx		     = 0
+
+hands_position          	 = 0,0,0
+hands_orientation       	 = 0,0,0
+hands_position_16x9     	 = 0,0,0
+hands_orientation_16x9  	 = 0,0,0
+
+item_position			     = 0,0,0
+item_orientation		     = 0,0,0
+aim_hud_offset_pos		     = 0,0,0
+aim_hud_offset_rot		     = 0,0,0
+
+gl_hud_offset_pos		     = 0,0,0
+gl_hud_offset_rot		     = 0,0,0
+
+lean_hud_offset_pos		     = 0,0,0
+lean_hud_offset_rot		     = 0,0,0
+
+anm_idle			         = dev_artefact_idle
+anm_idle_sprint			     = dev_artefact_idle
+anm_hide			         = dev_artefact_holster
+anm_show			         = dev_artefact_draw
+anm_activate			     = dev_artefact_use
+
+#include "items_*.ltx"

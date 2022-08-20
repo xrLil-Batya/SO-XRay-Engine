@@ -1,0 +1,445 @@
+;---------------------------------------------------------------------------------------------
+;		ÿÀ≈Ã€
+;---------------------------------------------------------------------------------------------
+
+[helmet]:helmet_base
+$spawn 								= "outfit\helmet"
+visual								= dynamics\outfit\cloth_mask
+
+description							= st_helmet_descr
+
+inv_name 							= st_helmet
+inv_name_short 						= st_helmet
+
+inv_weight 							= 1.0
+
+inv_grid_width 						= 2
+inv_grid_height						= 3
+inv_grid_x 							= 14
+inv_grid_y 							= 16
+
+upgr_icon_x							= 200
+upgr_icon_y							= 0
+upgr_icon_width						= 100
+upgr_icon_height 					= 100
+
+cost								= 1100
+
+burn_protection 					= 0.0
+shock_protection 					= 0.0
+chemical_burn_protection 			= 0.0
+radiation_protection 				= 0.0
+telepatic_protection 				= 0.0
+strike_protection 					= 0.0
+explosion_protection 				= 0.0
+wound_protection					= 0.0
+hit_fraction_actor					= 1.0
+
+bones_koeff_protection				= actor_helm_respirator
+immunities_sect 					= sect_helm_immunities
+
+
+;---------------------------------------------------------------------------------------------
+;		“–ﬂœ»◊Õ¿ﬂ Ã¿— ¿
+;---------------------------------------------------------------------------------------------
+
+[helm_cloth_mask]:helmet
+$spawn 								= "outfit\helm_cloth_mask"
+visual								= dynamics\outfit\cloth_mask
+
+inv_name             	= st_helm_cloth_mask
+inv_name_short       	= st_helm_cloth_mask
+description				= st_helm_cloth_mask_descr
+
+inv_weight 							= 0.124
+
+inv_grid_width 						= 2
+inv_grid_height						= 2
+inv_grid_x 							= 0
+inv_grid_y 							= 12
+
+upgr_icon_x							= 639
+upgr_icon_y							= 619
+upgr_icon_width						= 119
+upgr_icon_height 					= 148
+
+cost								= 200
+
+bones_koeff_protection				= actor_helm_absent
+immunities_sect 					= sect_helm_cloth_mask_immunities
+
+repair_part_bonus	 	= 0.05
+
+use1_functor                             = items_manager.inv_item_dismantle_menu
+use1_action_functor                      = items_manager.inv_item_dismantle
+
+telepatic_protection 		= 0.0
+shock_protection 			= 0.0
+radiation_protection 		= 0.005
+chemical_burn_protection 	= 0.05
+burn_protection			= 0.0
+strike_protection 		= 0.0
+wound_protection		= 0.0
+explosion_protection		= 0.0
+
+[sect_helm_cloth_mask_immunities]
+burn_immunity						= 0.01
+strike_immunity						= 0.0
+shock_immunity						= 0.01
+wound_immunity						= 0.0
+wound_2_immunity					= 0.0
+radiation_immunity					= 0.0
+telepatic_immunity					= 0.0
+chemical_burn_immunity				= 0.0
+explosion_immunity					= 0.03
+fire_wound_immunity					= 0.035
+
+;---------------------------------------------------------------------------------------------
+;		œÓÚË‚Ó„‡Á
+;---------------------------------------------------------------------------------------------
+
+[helm_respirator]:helmet
+$spawn 								= "outfit\helm_respirator"
+visual								= dynamics\outfit\helm_respirator
+
+description							= st_helm_respirator_descr
+
+inv_name 							= st_helm_respirator
+inv_name_short 						= st_helm_respirator
+
+inv_weight 							= 1.05
+
+inv_grid_width 						= 2
+inv_grid_height						= 2
+inv_grid_x 							= 2
+inv_grid_y 							= 12
+
+upgr_icon_x							= 20
+upgr_icon_y							= 619
+upgr_icon_width						= 106
+upgr_icon_height 					= 149
+
+cost								= 4500
+
+bones_koeff_protection				= actor_helm_respirator
+immunities_sect 					= sect_helm_respirator_immunities
+
+burn_protection			 = 0.05
+shock_protection 		 = 0.05
+radiation_protection 	 = 0.015 ;/100
+chemical_burn_protection = 0.12
+telepatic_protection 	 = 0.05
+strike_protection 		 = 0.03
+wound_protection		 = 0.03
+explosion_protection	 = 0.03
+
+power_restore_speed				= -0.0014
+
+upgrades							= up_gr_firstab_helm_respirator
+installed_upgrades					=
+upgrade_scheme						= upgrade_scheme_helm_respirator
+
+[sect_helm_respirator_immunities]
+burn_immunity						= 0.04
+strike_immunity						= 0.0
+shock_immunity						= 0.04
+wound_immunity						= 0.0
+wound_2_immunity					= 0.0
+radiation_immunity					= 0.0
+telepatic_immunity					= 0.0
+chemical_burn_immunity				= 0.04
+explosion_immunity					= 0.04
+fire_wound_immunity					= 0.04
+
+;---------------------------------------------------------------------------------------------
+;		œÓÚË‚Ó„‡Á Ã40
+;---------------------------------------------------------------------------------------------
+
+[helm_m40]:helmet
+$spawn 								= "outfit\helm_m40"
+visual								= dynamics\outfit\helm_m40
+
+description                              = st_helm_m40_descr
+
+inv_name                                 = st_helm_m40
+inv_name_short                           = st_helm_m40
+
+inv_weight 							= 0.92
+
+inv_grid_width 						= 2
+inv_grid_height						= 2
+inv_grid_x 							= 4
+inv_grid_y 							= 12
+
+upgr_icon_x							= 510
+upgr_icon_y							= 770
+upgr_icon_width						= 180
+upgr_icon_height 					= 150
+
+cost								= 6500
+
+bones_koeff_protection				= actor_helm_respirator
+immunities_sect 					= sect_helm_m40_immunities
+
+burn_protection			 = 0.1
+shock_protection 		 = 0.1
+radiation_protection 	 = 0.025 ;/100
+chemical_burn_protection = 0.18
+telepatic_protection 	 = 0.05
+strike_protection 		 = 0.03
+wound_protection		 = 0.03
+explosion_protection	 = 0.03
+
+power_restore_speed				= -0.0012
+
+nightvision_sect					= effector_nightvision_1
+
+upgrades							= up_gr_firstab_helm_respirator
+installed_upgrades					=
+upgrade_scheme						= upgrade_scheme_helm_respirator
+
+[sect_helm_m40_immunities]
+burn_immunity			= 0.4
+strike_immunity			= 0.08
+shock_immunity			= 0.08
+wound_immunity			= 0.16
+wound_2_immunity		= 0.16
+radiation_immunity 		= 0.0
+telepatic_immunity		= 0.0
+chemical_burn_immunity	= 0.028
+explosion_immunity		= 0.08
+fire_wound_immunity		= 0.16
+
+;---------------------------------------------------------------------------------------------
+;		ÿÎÂÏ ÒÚ‡Î¸ÌÓÈ
+;---------------------------------------------------------------------------------------------
+
+[helm_hardhat]:helmet
+$spawn 								= "outfit\helm_hardhat"
+visual								= dynamics\outfit\helm_hardhat
+
+description							= st_helm_hardhat_descr
+
+inv_name 							= st_helm_hardhat
+inv_name_short 						= st_helm_hardhat
+
+inv_weight 							= 2.4
+
+inv_grid_width 						= 2
+inv_grid_height						= 2
+inv_grid_x 							= 6
+inv_grid_y 							= 12
+
+upgr_icon_x							= 474
+upgr_icon_y							= 619
+upgr_icon_width						= 149
+upgr_icon_height 					= 143
+
+cost								= 10000
+
+bones_koeff_protection				= actor_helm_hardhat
+immunities_sect 					= sect_helm_hardhat_immunities
+
+telepatic_protection 		= 0.1
+shock_protection 			= 0.0
+radiation_protection 		= 0.005
+chemical_burn_protection 	= 0.02
+burn_protection			    = 0.02
+wound_protection		    = 0.08
+strike_protection 		    = 0.08
+explosion_protection		= 0.08
+
+power_restore_speed				= -0.0006
+
+upgrades							= up_gr_firstab_helm_hardhat, up_gr_seconab_helm_hardhat
+installed_upgrades					=
+upgrade_scheme						= upgrade_scheme_helm_hardhat
+
+[sect_helm_hardhat_immunities]
+burn_immunity			= 0.005
+strike_immunity			= 0.0
+shock_immunity			= 0.0
+wound_immunity			= 0.02
+wound_2_immunity		= 0.02
+radiation_immunity 		= 0.0
+telepatic_immunity		= 0.0
+chemical_burn_immunity	= 0.005
+explosion_immunity		= 0.01
+fire_wound_immunity		= 0.05
+
+;---------------------------------------------------------------------------------------------
+;		“‡ÍÚË˜ÂÒÍËÈ ¯ÎÂÏ
+;---------------------------------------------------------------------------------------------
+
+[helm_tactic]:helmet
+$spawn 								= "outfit\helm_tactic"
+visual								= dynamics\outfit\helm_tactic
+
+description							= st_helm_tactic_descr
+
+inv_name 							= st_helm_tactic
+inv_name_short 						= st_helm_tactic
+
+inv_weight 							= 3.21
+
+inv_grid_width 						= 2
+inv_grid_height						= 2
+inv_grid_x 							= 10
+inv_grid_y 							= 12
+
+upgr_icon_x							= 325
+upgr_icon_y							= 619
+upgr_icon_width						= 136
+upgr_icon_height 					= 143
+
+cost								= 19500
+
+bones_koeff_protection				= actor_helm_tactic
+immunities_sect 					= sect_helm_tactic_immunities
+
+burn_protection			 = 0.15
+shock_protection 		 = 0.15
+radiation_protection 	 = 0.03
+chemical_burn_protection = 0.2
+telepatic_protection 	 = 0.2
+strike_protection 		 = 0.1
+wound_protection		 = 0.1
+explosion_protection	 = 0.1
+
+power_restore_speed				= -0.002
+
+nightvision_sect					= effector_nightvision_1
+
+;nearest_enemies_show_dist			= 20
+
+upgrades							= up_gr_firstab_helm_tactic, up_gr_seconab_helm_tactic
+installed_upgrades					=
+upgrade_scheme						= upgrade_scheme_helm_tactic
+
+[sect_helm_tactic_immunities]
+burn_immunity			= 0.2
+strike_immunity			= 0.07
+shock_immunity			= 0.07
+wound_immunity			= 0.05
+wound_2_immunity		= 0.05
+radiation_immunity 		= 0.0
+telepatic_immunity		= 0.0
+chemical_burn_immunity	= 0.012
+explosion_immunity		= 0.04
+fire_wound_immunity		= 0.07
+
+;---------------------------------------------------------------------------------------------
+;		ÿÎÂÏ "—‘≈–¿ ¡12"
+;---------------------------------------------------------------------------------------------
+
+[helm_battle]:helmet
+$spawn 								= "outfit\helm_battle"
+visual								= dynamics\outfit\helm_battle
+
+description							= st_helm_battle_descr
+
+inv_name 							= st_helm_battle
+inv_name_short 						= st_helm_battle
+
+inv_weight 							= 5.41
+
+inv_grid_width 						= 2
+inv_grid_height						= 2
+inv_grid_x 							= 8
+inv_grid_y 							= 12
+
+upgr_icon_x							= 150
+upgr_icon_y							= 619
+upgr_icon_width						= 162
+upgr_icon_height 					= 143
+
+cost								= 15000
+
+bones_koeff_protection				= actor_helm_battle
+immunities_sect 					= sect_helm_battle_immunities
+
+telepatic_protection 		= 0.12
+shock_protection 			= 0.0
+radiation_protection 		= 0.025
+chemical_burn_protection 	= 0.18
+burn_protection			    = 0.12
+wound_protection		    = 0.08
+strike_protection 		    = 0.08
+explosion_protection		= 0.08
+
+power_restore_speed				= -0.0020
+
+nightvision_sect					= effector_nightvision_1
+
+upgrades							= up_gr_firstab_helm_battle, up_gr_seconab_helm_battle
+installed_upgrades					=
+upgrade_scheme						= upgrade_scheme_helm_battle
+
+[sect_helm_battle_immunities]
+burn_immunity			= 0.05
+strike_immunity			= 0.04
+shock_immunity			= 0.08
+wound_immunity			= 0.05
+wound_2_immunity		= 0.05
+radiation_immunity 		= 0.0
+telepatic_immunity		= 0.0
+chemical_burn_immunity	= 0.01
+explosion_immunity		= 0.04
+fire_wound_immunity		= 0.07
+
+
+;---------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------
+;		*** ”Õ» ¿À‹Õ€≈  Œ—“ﬁÃ€ » ÿÀ≈Ã€ ***
+;---------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------
+
+[exo_outfit_nimble]:neutral_assault_outfit
+inv_name							= exo_outfit_name
+inv_name_short						= exo_outfit_name
+description							= exo_outfit_description
+cost								= 65000
+nightvision_sect					= effector_nightvision_3
+artefact_count          			= 3
+upgrades							= up_gr_firstab_exo_outfit, up_gr_seconab_exo_outfit, up_gr_thirdab_exo_outfit, up_gr_fourtab_exo_outfit, up_gr_fifthab_exo_outfit
+installed_upgrades					= up_fourtc_exo_outfit, up_sect_fourta_exo_outfit, up_fifthd_exo_outfit
+upgrade_scheme						= upgrade_scheme_exo_outfit
+
+[stalker_medic_outfit]:stalker_outfit
+inv_name							= stalker_medic_outfit_name
+inv_name_short						= stalker_medic_outfit_name
+description							= stalker_medic_outfit_description
+inv_weight							= 4.5
+cost								= 25000
+artefact_count          			= 3
+upgrades                			= up_gr_firstte_stalker_medic_outfit
+installed_upgrades      			= up_firstte_stalker_medic_outfit
+upgrade_scheme          			= upgrade_scheme_stalker_outfit
+
+
+[stalker_outfit_barge]:stalker_outfit
+GroupControlSection	= spawn_group
+discovery_dependency =
+$spawn 								= "outfit\stalker_outfit_barge"
+cost								= 17000
+upgrades                			= up_gr_firstab_stalker_outfit, up_gr_seconab_stalker_outfit, up_gr_thirdab_stalker_outfit
+installed_upgrades      			= up_firsta_stalker_outfit, up_firstd_stalker_outfit, up_firste_stalker_outfit, up_secona_stalker_outfit, up_second_stalker_outfit, up_secone_stalker_outfit, up_thirda_stalker_outfit, up_thirdc_stalker_outfit, up_thirde_stalker_outfit
+upgrade_scheme          			= upgrade_scheme_stalker_outfit
+
+[helm_hardhat_snag]:helm_hardhat
+GroupControlSection	= spawn_group
+discovery_dependency =
+$spawn 								= "outfit\helm_hardhat_snag"
+cost								= 13000
+upgrades               				= up_gr_firstab_helm_hardhat, up_gr_seconab_helm_hardhat
+installed_upgrades      			= up_firsta_helm_hardhat
+upgrade_scheme          			= upgrade_scheme_helm_hardhat
+
+[helm_respirator_joker]:helm_respirator
+GroupControlSection	= spawn_group
+discovery_dependency =
+$spawn 								= "outfit\helm_respirator_joker"
+cost								= 6500
+upgrades                			= up_gr_firstab_helm_respirator
+installed_upgrades      			= up_firsta_helm_respirator, up_firstc_helm_respirator
+upgrade_scheme          			= upgrade_scheme_helm_respirator

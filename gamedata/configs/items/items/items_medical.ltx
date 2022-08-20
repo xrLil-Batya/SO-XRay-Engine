@@ -1,0 +1,389 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;; MEDICAL ITEMS ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[medical_base]
+move_to_bouch = true
+move_to_cargo_belt = true
+sort_in_armor = true
+sort_in_consumables = true
+slot = 26
+use_script_anim = true ;переменная для предметов со скриптовыми анимациями - отключает съедание предмета, для дальнейшего его съедания в конце анимации.
+
+[medkit]:booster,medical_base
+$spawn 				= "food and drugs\medkit"
+visual				= dynamics\devices\dev_aptechka\dev_aptechka_low.ogf
+inv_name			= st_medkit
+inv_name_short		= st_medkit
+description			= st_medkit_descr
+inv_weight			= 0.24
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 21
+inv_grid_y			= 12
+cost				= 2400
+boost_time				= 120.0
+boost_health_restore	= 0.0003 ;0.3% хп
+boost_radiation_restore	= 0.0
+boost_bleeding_restore	= 0.0
+;use_sound			= interface\inv_medkit
+eat_alcohol				= 0.100
+quick_num				= 1
+
+; Script Animation Settings:
+snd = interface\item_usage\medkit_use
+anm = item_anm_medkit_hud
+cam = itemuse_anm_effects\aptechka_use.anm
+tm = 6000
+tm_use = 4500
+helm = true
+
+[medkit_army]:booster,medical_base
+$spawn 				= "food and drugs\medkit_army"
+visual				= dynamics\devices\dev_aptechka\dev_aptechka_high.ogf
+inv_name			= st_medkit_army
+inv_name_short			= st_medkit_army
+description			= st_medkit_army_descr
+inv_weight			= 0.2
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 22
+inv_grid_y			= 12
+cost				= 5000
+boost_time				= 120
+boost_health_restore	= 0.0006
+boost_bleeding_restore	= 0.001
+wounds_heal_perc        = 0.12
+;use_sound			= interface\inv_medkit
+eat_alcohol				= 0.1
+quick_num				= 1
+
+use1_functor                             = items_manager.inv_item_dismantle_menu
+use1_action_functor                      = items_manager.inv_item_dismantle
+
+; Script Animation Settings:
+snd = interface\item_usage\medkit_use
+anm = item_anm_medkit_army_hud
+cam = itemuse_anm_effects\aptechka_use.anm
+tm = 6000
+tm_use = 4500
+helm = true
+
+[medkit_scientic]:booster,medical_base
+$spawn 				= "food and drugs\medkit_scientic"
+visual				= dynamics\devices\dev_aptechka\dev_aptechka_mid.ogf
+inv_name			= st_medkit_science
+inv_name_short			= st_medkit_science
+description			= st_medkit_science_descr
+inv_weight			= 0.1
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x			= 23
+inv_grid_y			= 12
+cost				= 8000
+boost_time				= 120
+boost_health_restore	= 0.0008
+boost_radiation_restore	= 0.00005
+eat_alcohol				= -2.0
+quick_num				= 1
+;use_sound			= interface\inv_medkit
+
+use1_functor                             = items_manager.inv_item_dismantle_menu
+use1_action_functor                      = items_manager.inv_item_dismantle
+
+; Script Animation Settings:
+snd = interface\item_usage\medkit_use
+anm = item_anm_medkit_scientic_hud
+cam = itemuse_anm_effects\aptechka_use.anm
+tm = 6000
+tm_use = 4500
+helm = true
+
+[bandage]:booster,medical_base
+$spawn 				= "food and drugs\bandage"
+visual				= dynamics\devices\dev_bandage\dev_bandage.ogf
+description			= st_bandage_descr
+inv_name			= st_bandage
+inv_name_short		= st_bandage
+inv_weight			= 0.025
+cost				= 400
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 24
+inv_grid_y			= 12
+boost_time = 5
+boost_bleeding_restore = 0.012
+wounds_heal_perc        = 0.2
+quick_num				= 1
+;use_sound			= interface\inv_bandage_3p7
+
+; Script Animation Settings:
+snd = interface\item_usage\bandage_use
+anm = item_anm_bandage_hud
+cam = itemuse_anm_effects\bint_use.anm
+tm = 3700
+tm_use = 3300
+helm = true
+
+[stimpack]:booster,medical_base	; will be stimpack
+$spawn 				= "food and drugs\stimpack"
+visual				= dynamics\equipments\medical\stim1.ogf
+inv_name			= st_stim_impro
+inv_name_short			= st_stim_impro
+description			= st_stim_impro_descr
+inv_weight			= 0.08
+inv_grid_width     = 1
+inv_grid_height    = 1
+inv_grid_x         = 25
+inv_grid_y			= 12
+cost				= 3000
+boost_time				= 20.0   ; х1 
+boost_health_restore	= 0.0018 ;    от medkit
+boost_radiation_restore	= 0.0
+;use_sound			= interface\inv_stim_4p3
+eat_alcohol				= -0.1 ; при 0.6 начинает двоиться
+eat_satiety 			= 0.0
+quick_num				= 1
+
+; Script Animation Settings:
+snd = interface\item_usage\antirad_use
+anm = item_anm_stimpack_hud
+cam = itemuse_anm_effects\antirad_use.anm
+tm = 4600
+tm_use = 4100
+helm = true
+
+[stimpack_army]:booster,medical_base
+$spawn 				= "food and drugs\stimpack_army"
+visual				= dynamics\equipments\medical\stim2.ogf
+inv_name			= st_stim_military
+inv_name_short			= st_stim_military
+description			= st_stim_military_descr
+inv_weight			= 0.094
+inv_grid_width     = 1
+inv_grid_height    = 1
+inv_grid_x         = 26
+inv_grid_y			= 12
+cost				= 6100
+boost_time				= 20
+boost_health_restore	= 0.0036
+boost_bleeding_restore	= 0.002
+;use_sound			= interface\inv_stim_4p3
+eat_alcohol				= -0.2
+eat_satiety 			= 0.0
+quick_num				= 1
+
+; Script Animation Settings:
+snd = interface\item_usage\antirad_use
+anm = item_anm_stimpack_army_hud
+cam = itemuse_anm_effects\antirad_use.anm
+tm = 4600
+tm_use = 4100
+helm = true
+
+[stimpack_scientic]:booster,medical_base
+$spawn 				= "food and drugs\stimpack_scientic"
+visual				= dynamics\equipments\medical\stim3.ogf
+inv_name			= st_stim_scientic
+inv_name_short		= st_stim_scientic
+description			= st_stim_scientic_descr
+inv_weight			= 0.2
+inv_grid_width     = 1
+inv_grid_height    = 1
+inv_grid_x         = 27
+inv_grid_y			= 12
+cost				= 10000
+boost_time				= 20
+boost_health_restore	= 0.0052
+boost_bleeding_restore	= 0.0025
+boost_radiation_restore	= 0.00025
+eat_alcohol				= -1.3
+eat_satiety 			= 0.192
+;use_sound			= interface\inv_stim_4p3
+quick_num				= 1
+
+; Script Animation Settings:
+snd = interface\item_usage\antirad_use
+anm = item_anm_stimpack_scientic_hud
+cam = itemuse_anm_effects\antirad_use.anm
+tm = 4600
+tm_use = 4100
+helm = true
+
+[tetanus]:booster,medical_base ;антибиотик
+$spawn 					= "food and drugs\antirad"
+visual					= dynamics\equipments\medical\rebirth.ogf
+inv_name				= st_tetanus
+inv_name_short			= st_tetanus
+description				= st_tetanus_descr
+inv_weight				= 0.046
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x				= 27
+inv_grid_y				= 13
+cost					= 500
+eat_health				= -0.01
+eat_alcohol				= -5.0
+;use_sound				= interface\inv_syringe
+
+; Script Animation Settings:
+snd = interface\item_usage\injector_using
+anm = item_anm_morphine_hud
+cam = itemuse_anm_effects\antirad_use.anm
+tm = 7500
+tm_use = 6600
+helm = true
+
+[glucose]:booster,medical_base ; (Glucose shot large)
+$spawn 					= "food and drugs\antirad"
+visual					= dynamics\devices\glucose_shots\glucose.ogf
+inv_name				= st_glucose
+inv_name_short			= st_glucose
+description				= st_glucose_descr
+inv_weight				= 0.021
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x				= 28
+inv_grid_y				= 13
+cost					= 1100
+boost_time				= 320
+eat_satiety 			= 0.364
+eat_sleepiness			= -0.2
+boost_power_restore		= 0.00190
+;use_sound				= interface\inv_syringe
+
+; Script Animation Settings:
+snd = interface\item_usage\syringe1
+anm = item_anm_syringe_def_hud
+cam = itemuse_anm_effects\antirad.anm
+tm = 7200
+tm_use = 6500
+helm = true
+
+[glucose_s]:booster,medical_base ; (Glucose shot small)
+$spawn 					= "food and drugs\antirad"
+visual					= dynamics\devices\glucose_shots\glucose_s.ogf
+inv_name				= st_glucose_s
+inv_name_short			= st_glucose_s
+description				= st_glucose_s_descr
+inv_weight				= 0.0134
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x				= 29
+inv_grid_y				= 13
+cost					= 460
+boost_time				= 160
+eat_satiety 			= 0.152
+eat_sleepiness			= -0.1
+boost_power_restore		= 0.00150
+;use_sound				= interface\inv_syringe
+
+; Script Animation Settings:
+snd = interface\item_usage\syringe1
+anm = item_anm_syringe_def_hud
+cam = itemuse_anm_effects\antirad.anm
+tm = 7200
+tm_use = 6500
+helm = true
+
+
+[salicidic_acid]:booster,medical_base
+$spawn 					= "devices\pda"
+visual					= dynamics\equipments\medical\rebirth.ogf
+description				= st_salicidic_acid_descr
+inv_name				= st_salicidic_acid
+inv_name_short			= st_salicidic_acid
+inv_weight				= 0.076	;0.2
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x				= 27
+inv_grid_y				= 14
+cost					= 1200
+attach_angle_offset		= -0.287979, 1.560923, 1.544060
+attach_position_offset	= 0.096910, -0.013594, 0.107925
+attach_bone_name		= bip01_r_hand
+auto_attach				= false
+// should be deleted after update
+bone_name				= bip01_r_hand
+position_offset			= 0.0,0.0,0.0
+angle_offset			= 1.570790,1.570790,3.92699
+boost_time				= 30
+boost_bleeding_restore	= 0.0015
+eat_alcohol				= 0.1
+eat_satiety				= -0.084
+eat_health				= 0.05
+;use_sound			= interface\inv_syringe
+
+; Script Animation Settings:
+snd = interface\item_usage\syringe2
+anm = item_anm_syringer_guns_hud
+cam = itemuse_anm_effects\antirad.anm
+tm = 3200
+tm_use = 2600
+helm = true
+
+[morphine]:booster,medical_base
+$spawn 				= "devices\pda"
+visual				= dynamics\equipments\medical\rebirth.ogf
+description			= st_morphine_descr
+inv_name			= st_morphine
+inv_name_short			= st_morphine
+inv_weight			= 0.074
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x			= 28
+inv_grid_y			= 14
+cost				= 1100
+attach_angle_offset		= -0.287979, 1.560923, 1.544060
+attach_position_offset	= 0.096910, -0.013594, 0.107925
+attach_bone_name		= bip01_r_hand
+auto_attach				= false
+// should be deleted after update
+bone_name				= bip01_r_hand
+position_offset			 = 0.0,0.0,0.0
+angle_offset			 = 1.570790,1.570790,3.92699
+boost_time				= 120
+eat_alcohol				= 0.300
+eat_satiety				= -0.110
+eat_sleepiness				= 0.0
+eat_health				= 0.05
+;use_sound			= interface\inv_syringe
+
+; Script Animation Settings:
+snd = interface\item_usage\injector_using
+anm = item_anm_morphine_hud
+cam = itemuse_anm_effects\antirad_use.anm
+tm = 3200
+tm_use = 2600
+helm = true
+
+[adrenalin]:booster,medical_base
+$spawn 				= "food and drugs\adrenalin"
+inv_name			= st_adrenalin
+inv_name_short			= st_adrenalin
+visual				= dynamics\equipments\medical\rebirth.ogf
+description			= st_adrenalin_descr
+cost				= 8000
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 28
+inv_grid_y			= 12
+inv_weight			= 0.052
+attach_angle_offset		= 0.000000, 0.000000, 0.000000
+attach_position_offset	= 0.087266, -0.078540, 0.052360
+attach_bone_name		= bip01_r_hand
+auto_attach				= false
+boost_time				= 3600
+boost_power_restore		= 0.00876
+eat_alcohol				= -1.0
+eat_satiety				= 0.110
+eat_sleep 				= -0.06
+;use_sound				= interface\inv_syringe
+quick_num				= 1
+
+; Script Animation Settings:
+snd = interface\item_usage\injector_using
+anm = item_anm_morphine_hud
+cam = itemuse_anm_effects\antirad_use.anm
+tm = 3200
+tm_use = 2600
+helm = true

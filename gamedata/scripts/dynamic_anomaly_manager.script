@@ -1,0 +1,345 @@
+----------------------------------------------------------------------------------------------------------------------
+-- Файл:        		DYNAMIC_ANOMALY_MANAGER.SCRIPT
+-- Описание:    		Скрипт - менеджер динамических аномалий. Отвечает за их спавн и удаление после выброса.
+-- Создан:      		12.09.2021
+-- Последняя редакция:	20.01.2022
+-- Автор:       		ARTLantist
+-- Copyright:   		ARTLantist
+----------------------------------------------------------------------------------------------------------------------
+
+random_anomaly_id = {}
+random_anomaly_b = {}
+all_mob_id = {}
+local ini = ini_file( "plugins\\dynamic_anomaly_manager.ltx" )
+
+function on_game_start()
+	RegisterScriptCallback( "actor_on_first_update", on_game_load )
+end
+
+function on_game_load()
+	spawn_anomalies_current_level()
+end
+
+-- Spawn dynamic anomalies:
+function spawn_anomalies_current_level()
+
+	local level_name = level.name( )
+	if ( (not level_name) or (level_name == "") ) then
+		return
+	end
+	
+	local level_list = utils.collect_section(ini,"location_list",true)
+	if not level_list[level_name] then 
+		return
+	end
+	
+	if ( utils.load_var( db.actor, ("dinamic_anomalies_spawned_" .. level_name), false ) == true ) then
+		return
+	end
+	
+	local smart_list = {}
+	for name,v in pairs(sim_board.get_sim_board().smarts_by_names) do
+		local smart_level = alife():level_name(game_graph():vertex(v.m_game_vertex_id):level_id())
+		if (smart_level == level_name) then
+			table.insert(smart_list,name)
+		end
+	end
+	
+	if ( (not smart_list) or (#smart_list < 1) ) then
+		return
+	end
+
+	local anomaly_number = r_float_ex(ini, level_name.."_".."field_properties", "anomaly_number" )
+	if ( (not anomaly_number) or (anomaly_number == 0) ) then
+		return
+	end
+	anomaly_number = anomaly_number + level.get_game_difficulty()
+
+	local anomaly_list = utils.collect_section( ini, level_name.."_".."anomaly_types" )
+	if ( (not anomaly_list) or (#anomaly_list < 1) ) then
+		return
+	end
+	
+	local sr_no_spawn = r_string_ex(ini, level_name.."_".."field_properties", "sr_no_spawn" )
+
+	local max_offset_x = r_float_ex(ini, "location_offset", "max_offset_x" )
+	local max_offset_y = r_float_ex(ini, "location_offset", "max_offset_y" )
+	local max_offset_z = r_float_ex(ini, "location_offset", "max_offset_z" )
+
+	for i, smart_name in pairs( smart_list ) do
+		
+			spawn_anomaly_field( smart_name, anomaly_list, anomaly_number, max_offset_x, max_offset_y, max_offset_z, sr_no_spawn )
+
+	end
+
+	utils.save_var( db.actor, ("dinamic_anomalies_spawned_" .. level_name), true )
+
+end
+
+-- Spawn an anomaly field:
+function spawn_anomaly_field( smart_name, anomaly_list, num_anoms, max_offset_x, max_offset_y, max_offset_z, sr_no_spawn )
+
+	local smart = sim_board.get_sim_board().smarts_by_names[smart_name]
+	if not ( smart ) then
+		return
+	end
+
+	local radius = 3
+	for i = 1, ( num_anoms ) do
+		local anom_type = anomaly_list[math.random( #anomaly_list )]
+
+		if (anom_type == "zone_mine_acidic_weak") then radius = 2
+		elseif (anom_type == "zone_mine_gravitational_weak") then radius = 3
+		elseif (anom_type == "zone_mine_gravitational_strong") then radius = 4
+		elseif (anom_type == "zone_mine_chemical_weak") then radius = 2
+		elseif (anom_type == "zone_mine_chemical_average") then radius = 2
+		elseif (anom_type == "zone_mine_chemical_strong") then radius = 2
+		end
+		
+		local pos = generate_position( smart_name, max_offset_x, max_offset_y, max_offset_z, sr_no_spawn )
+		if ( pos ) then
+			local s_obj = spawn_anomaly( anom_type, radius, pos, smart.m_level_vertex_id, smart.m_game_vertex_id )
+			random_anomaly_id[s_obj.id] = s_obj.id
+			random_anomaly_b[s_obj.id] = true
+		end
+	end
+
+end
+
+-- Generate positional data:
+function generate_position( smart_name, max_offset_x, max_offset_y, max_offset_z, sr_no_spawn )
+
+	local smart = sim_board.get_sim_board().smarts_by_names[smart_name]
+	if not ( smart ) then
+		return
+	end
+
+	local pos = vector( ):set( 0, 0, 0 )
+	local valid_lvid = false
+	
+	local offset_x = (max_offset_x * math.random( ))
+	if (math.random( ) > 0.5) then
+		offset_x = 0-offset_x
+	end
+	local pos_x = (smart.position.x + offset_x)
+
+	local offset_y = (max_offset_y * math.random( ))
+	if (math.random( ) > 0.5) then
+		offset_y = 0-offset_y
+	end
+	local pos_y = (smart.position.y + offset_y)
+
+	local offset_z = (max_offset_z * math.random( ))
+	if (math.random( ) > 0.5) then
+		offset_z = 0-offset_z
+	end
+	local pos_z = (smart.position.z + offset_z)
+
+	pos = vector( ):set( pos_x, pos_y, pos_z )
+	local lvid = level.vertex_id( pos )
+	if ( lvid < 4294967295 ) then
+		pos = level.vertex_position( lvid )
+		valid_lvid = true
+	end
+
+	if (valid_lvid ~= true) then
+		return
+	end
+	local zone = db.zone_by_name[sr_no_spawn]
+	if not zone then
+		local story_name = story_objects.get_story_objects_registry():get(sr_no_spawn)
+		zone = story_name
+	end
+	if zone and not zone:inside(pos) then
+		return pos
+	else
+		return generate_position( smart_name, max_offset_x, max_offset_y, max_offset_z, sr_no_spawn )
+	end
+end
+
+-- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+function spawn_anomaly(section,a_radius,pos,lv,gv)
+	if gv==nil then gv=db.actor:game_vertex_id() end
+	if lv==nil then lv=db.actor:level_vertex_id() end
+	if pos==nil then pos=db.actor:position() end
+
+	local p_obj = alife():create(section,pos,lv,gv)
+
+	local packet = net_packet()
+	packet:w_begin(0)
+	p_obj:STATE_Write(packet)
+	packet:r_seek(2)
+
+	local game_vertex_id = packet:r_u16()
+	local cse_alife_object__unk1_f32 = packet:r_float()
+	local cse_alife_object__unk2_u32 = packet:r_s32()
+	local level_vertex_id = packet:r_s32()
+	local object_flags = packet:r_s32()
+	local custom_data = packet:r_stringZ()
+	local story_id = packet:r_s32()
+	local cse_alife_object__unk3_u32 = packet:r_s32()
+
+	local shape_count = packet:r_u8()
+	for i=1,shape_count do
+		local shape_type = packet:r_u8()
+		if shape_type == 0 then
+			local center = packet:r_vec3()
+			local radius = packet:r_float()
+		else
+			local box = packet:r_matrix()
+		end
+	end
+
+	local restrictor_type = packet:r_u8()
+	local cse_alife_custom_zone__unk1_f32 = packet:r_float()
+	local cse_alife_custom_zone__unk2_u32 = packet:r_s32()
+	local on_off_mode_enabled_time = packet:r_s32()
+	local on_off_mode_disabled_time = packet:r_s32()
+	local on_off_mode_shift_time = packet:r_s32()
+	local offline_interactive_radius = packet:r_float()
+	local artefact_spawn_places_count = packet:r_u16()
+	local cse_alife_anomalous_zone__unk1_u32 = packet:r_s32()
+	local last_spawn_time_present = packet:r_u8()
+
+	packet:w_u16(game_vertex_id)
+	packet:w_float(cse_alife_object__unk1_f32)
+	packet:w_s32(cse_alife_object__unk2_u32)
+	packet:w_s32(level_vertex_id)
+	packet:w_s32(object_flags)
+	
+	packet:w_stringZ(custom_data)
+	packet:w_s32(story_id)
+	packet:w_s32(cse_alife_object__unk3_u32)
+
+	packet:w_u8(1)
+	packet:w_u8(0)
+	local sphere_center = vector()
+	sphere_center:set(0, 0, 0)
+	packet:w_vec3(sphere_center)
+	radius = a_radius
+	packet:w_float(radius)
+
+	packet:w_u8(restrictor_type)
+
+	packet:w_float(cse_alife_custom_zone__unk1_f32)
+	cse_alife_custom_zone__unk2_u32 = bit_not(0)
+	packet:w_s32(cse_alife_custom_zone__unk2_u32)
+
+	packet:w_float(offline_interactive_radius)
+	packet:w_u16(artefact_spawn_places_count)
+	packet:w_s32(cse_alife_anomalous_zone__unk1_u32)
+
+	p_obj:STATE_Read(packet, packet:w_tell()-packet:r_tell())
+	return p_obj
+end
+
+function release()
+	update_all_mob_table()
+	local level_list = utils.collect_section(ini,"location_list")
+	if ( (not level_list) or (#level_list < 1) ) then
+		return
+	end
+	for i = 1,#level_list do
+		utils.save_var( db.actor, ("dinamic_anomalies_spawned_" .. level_list[i]), false )
+	end
+	
+	remove_restriction_for_all_mobs()
+	for k,v in pairs(random_anomaly_id) do
+		local se_obj = alife():object(v)
+		if se_obj then
+			alife():release(se_obj, true)
+		end
+	end
+	random_anomaly_id = {}
+	random_anomaly_b = {}
+end
+
+function remove_restriction_for_all_mobs()
+	for k,v in pairs(all_mob_id) do
+		local mob = alife():object(v)
+		if mob then
+			clear_in_restriction(mob.id)
+			clear_out_restriction(mob.id)
+		end
+	end
+end
+
+function clear_in_restriction(idNPC)
+	soNPC = idNPC and alife():object(idNPC)
+	if not soNPC then return end
+	
+	local pk = get_netpk(soNPC,1)
+    if pk:isOk() then
+		local data = pk:get()
+		if (data.dynamic_in_restrictions) then
+			local tRestrLeft,idRestr = {},nil
+			for idx,idRestr in ipairs(data.dynamic_in_restrictions) do
+				local soRestr = idRestr and alife():object(idRestr)
+				if soRestr then
+					if IsAnomaly(soRestr) then
+						alife():remove_in_restriction(soNPC, idRestr)
+					else
+						table.insert(tRestrLeft, idRestr)
+					end
+				end
+			end
+			data.dynamic_in_restrictions = tRestrLeft
+			pk:set(data)
+		end
+	end
+end
+
+function clear_out_restriction(idNPC)
+	soNPC = idNPC and alife():object(idNPC)
+	if not soNPC then return end
+	
+	local pk = get_netpk(soNPC,1)
+    if pk:isOk() then
+		local data = pk:get()
+		if (data.dynamic_out_restrictions) then
+			local tRestrLeft,idRestr = {},nil
+			for idx,idRestr in ipairs(data.dynamic_out_restrictions) do
+				local soRestr = idRestr and alife():object(idRestr)
+				if soRestr then
+					if IsAnomaly(soRestr) then
+						alife():remove_in_restriction(soNPC, idRestr)
+					else
+						table.insert(tRestrLeft, idRestr)
+					end
+				end
+			end
+			
+			data.dynamic_out_restrictions = tRestrLeft
+			pk:set(data)
+		end
+	end
+end
+
+function update_all_mob_table()
+	for i=1,65534 do
+		local sobj = alife():object(i)
+		if sobj and (IsMonster(sobj) or IsStalker(sobj)) then
+			all_mob_id[sobj.id] = sobj.id
+		end
+	end
+end
+
+function save(packet)
+	i = 0
+	for k,v in pairs(random_anomaly_id) do
+		i = i + 1
+	end
+	packet:w_u16(i)
+	for k,v in pairs(random_anomaly_id) do
+		packet:w_u32( k )
+	end
+end
+
+function load(reader)
+	random_anomaly_id = {}
+	n = reader:r_u16()
+	for i = 1,n do
+		local k = reader:r_u32()
+		random_anomaly_id[k] = k
+	end
+end

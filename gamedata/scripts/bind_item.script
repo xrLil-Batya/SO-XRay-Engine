@@ -1,0 +1,54 @@
+function bind(obj)
+    obj:bind_object(item_binder(obj))
+end
+--------------------------------------------------------------------------------
+-- Class "item_binder"
+--------------------------------------------------------------------------------
+class "item_binder" (object_binder)
+-- Class constructor
+function item_binder:__init(obj) super(obj)
+
+end
+-- Class update
+function item_binder:update(delta)
+    object_binder.update(self, delta)
+	
+	if self.first_call == true then
+	
+		SendScriptCallback("item_on_first_update",self.object)
+		
+		self.first_call = false
+	end
+	
+	SendScriptCallback("item_on_update",self.object,delta)
+	
+end
+-- Reload object
+function item_binder:reload(section)
+    object_binder.reload(self, section)
+end
+-- Reinitialize object
+function item_binder:reinit()
+    object_binder.reinit(self)
+end
+-- Net spawn
+function item_binder:net_spawn(se_abstract)
+    if not(object_binder.net_spawn(self, se_abstract)) then
+        return false
+    end
+	
+	self.first_call = true
+    return true
+end
+-- Net destroy
+function item_binder:net_destroy()
+	object_binder.net_destroy(self)
+end
+-- Save
+function item_binder:save(stpk)
+	object_binder.save(self, stpk)
+end
+-- Load
+function item_binder:load(stpk)
+	object_binder.load(self, stpk)
+end

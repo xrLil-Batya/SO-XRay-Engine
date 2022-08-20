@@ -1,0 +1,113 @@
+----------------------------------------------------------------------------------------------------------------------
+-- Файл:        		AXR_ALIFE_IMITATION.SCRIPT
+-- Описание:    		Скрипт имитации жизни сталкеров.
+-- Создан:      		30.12.2021
+-- Последняя редакция:	03.01.2022
+-- Автор:       		ARTLantist
+-- Copyright:   		ARTLantist
+----------------------------------------------------------------------------------------------------------------------
+
+local enabled_info_var = 0
+local last_time_update = 0
+local MIN_TIME = 1100*1000
+local MAX_TIME = 1500*1000
+
+function on_game_start()
+	RegisterScriptCallback("actor_on_update",update)
+end
+
+function update()
+-- если нет инфопоршня на разрешение симуляции, то вырубаем всё и останавливаем скрипт
+	if not db.actor:has_info("info_human_sim_start") then
+		clear_info_walk()
+		return
+	end
+-- проверка, что после последнего обновления поршней прошло 3-4 часа игрового времени, если прошло, то меняем поршень
+	if last_time_update < time_global() then
+	
+		last_time_update = last_time_update + math.random(MIN_TIME,MAX_TIME)
+
+		update_var()
+		if enabled_info_var > 0 then
+			clear_info_walk()
+		end
+		generate_info_walk()
+		give_info_walk()
+		
+	end
+	
+end
+
+-- обновление состояния переменной enabled_info_var
+function update_var()
+	if db.actor:has_info("info_human_sim_walk_1st") then
+		enabled_info_var = 1
+	elseif db.actor:has_info("info_human_sim_walk_2nd") then
+		enabled_info_var = 2
+	elseif db.actor:has_info("info_human_sim_walk_3rd") then
+		enabled_info_var = 3
+	elseif db.actor:has_info("info_human_sim_walk_4th") then
+		enabled_info_var = 4
+	else
+		enabled_info_var = 0
+	end
+end
+
+-- генерация случайного значения enabled_info_var для дальнейшего установления инфопоршня
+function generate_info_walk()
+	local rnd = math.random(1,4)
+-- если новое число равно старому enabled_info_var, нужно поменять
+	if rnd == enabled_info_var then
+		if rnd == 4 then
+			rnd = rnd - 1
+		else
+			rnd = rnd + 1
+		end
+	end
+	enabled_info_var = rnd
+end
+
+-- конечное действие - выдача поршня, соответственно enabled_info_var
+function give_info_walk()
+	if enabled_info_var == 1 then
+		give_info("info_human_sim_walk_1st")
+		news_manager.send_tip(db.actor,"sim_walk_1st")
+	elseif enabled_info_var == 2 then
+		give_info("info_human_sim_walk_2nd")
+		news_manager.send_tip(db.actor,"sim_walk_2nd")
+	elseif enabled_info_var == 3 then
+		give_info("info_human_sim_walk_3rd")
+		news_manager.send_tip(db.actor,"sim_walk_3rd")
+	elseif enabled_info_var == 4 then
+		give_info("info_human_sim_walk_4th")
+		news_manager.send_tip(db.actor,"sim_walk_4th")
+	end
+end
+
+-- вырубаем все инфопоршни
+function clear_info_walk()
+	if db.actor:has_info("info_human_sim_walk_1st") then
+		disable_info("info_human_sim_walk_1st")
+	end
+	if db.actor:has_info("info_human_sim_walk_2nd") then
+		disable_info("info_human_sim_walk_2nd")
+	end
+	if db.actor:has_info("info_human_sim_walk_3rd") then
+		disable_info("info_human_sim_walk_3rd")
+	end
+	if db.actor:has_info("info_human_sim_walk_4th") then
+		disable_info("info_human_sim_walk_4th")
+	end
+end
+
+
+function save(packet)
+	local cur_tm = time_global()
+	packet:w_u32(last_time_update - cur_tm)
+end
+
+function load(reader)
+	local cur_tm = time_global()
+	local t = reader:r_u32()
+	last_time_update = t + cur_tm
+end

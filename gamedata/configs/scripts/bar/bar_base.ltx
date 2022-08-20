@@ -1,0 +1,29 @@
+[logic@bar_bar_guard]
+suitable = {=check_npc_name(sim_default_duty_1)} true
+prior = 200
+active = walker@guard_door
+
+[walker@guard_door]
+path_walk = bar_bar_guard_door_walk
+path_look = bar_bar_guard_door_look
+use_camp = false
+meet = meet@guard
+combat_ignore_cond = true
+combat_ignore_keep_when_attacked = true
+invulnerable = true
+gather_items_enabled = false
+help_wounded_enabled = false
+corpse_detection_enabled = false
+
+[meet@guard]
+close_snd_hello = bar_guard_stop
+close_snd_bye = nil
+close_anim = nil
+close_victim = actor 
+far_anim = nil
+far_victim = nil
+close_distance = 0
+far_distance = 2
+close_snd_distance = 3
+abuse = false
+use = false

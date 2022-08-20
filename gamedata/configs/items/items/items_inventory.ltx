@@ -1,0 +1,246 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;; Inventory equipments ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[bouch_small]:identity_immunities
+GroupControlSection = spawn_group 
+discovery_dependency = 
+$spawn = "devices\inventory\bouch_small" 
+cform = skeleton 
+class = II_ATTCH 
+visual = dynamics\equipments\item_podsumok.ogf 
+cost = 3000 
+inv_name = st_bouch_small
+inv_name_short = st_bouch_small
+description = st_bouch_small_descr 
+inv_weight = 0.11 
+inv_grid_width = 1 
+inv_grid_height = 1 
+inv_grid_x = 8 
+inv_grid_y = 16 
+attach_angle_offset = 0.000000, -1.204452, -1.262921 
+attach_position_offset = 0.081856, -0.035081, 0.011694 
+attach_bone_name = bip01_l_hand 
+auto_attach = false 
+repair_part_bonus = 0.04
+slot = 13
+default_to_ruck	= true
+sort_in_armor = true
+
+[bouch_dual]:bouch_small
+visual = dynamics\equipments\trade\rope.ogf 
+cost = 10000 
+inv_name = st_bouch_dual
+inv_name_short = st_bouch_dual
+description = st_bouch_dual_descr 
+inv_weight = 0.27 
+inv_grid_width = 1 
+inv_grid_height = 1 
+inv_grid_x = 9 
+inv_grid_y = 16 
+repair_part_bonus = 0.09
+slot = 13
+
+[zayaz_b]:bouch_small
+visual = dynamics\equipments\trade\rope.ogf 
+cost = 12000 
+inv_name = st_zayaz_1
+inv_name_short = st_zayaz_1
+description = st_zayaz_1_descr 
+inv_weight = 1.86 
+inv_grid_width = 2
+inv_grid_height = 3
+inv_grid_x = 0
+inv_grid_y = 14 
+slot = 12
+med1_count = 2
+med2_count = 2
+
+[zayaz_a]:bouch_small
+visual = dynamics\equipments\trade\rope.ogf 
+cost = 20000 
+inv_name = st_zayaz_2
+inv_name_short = st_zayaz_2
+description = st_zayaz_2_descr 
+inv_weight = 2.34 
+inv_grid_width = 2
+inv_grid_height = 2
+inv_grid_x = 2
+inv_grid_y = 14 
+slot = 12
+med1_count = 2
+med2_count = 2
+
+
+[zayaz_h]:bouch_small
+visual = dynamics\equipments\trade\rope.ogf 
+cost = 26000 
+inv_name = st_zayaz_3
+inv_name_short = st_zayaz_3
+description = st_zayaz_3_descr 
+inv_weight = 2.98 
+inv_grid_width = 2
+inv_grid_height = 3
+inv_grid_x = 4
+inv_grid_y = 14 
+slot = 12
+med1_count = 1
+med2_count = 4
+
+
+[zayaz_t]:bouch_small 
+visual = dynamics\equipments\trade\rope.ogf 
+cost = 35000 
+inv_name = st_zayaz_4
+inv_name_short = st_zayaz_4
+description = st_zayaz_4_descr 
+inv_weight = 4.52 
+inv_grid_width = 2
+inv_grid_height = 3
+inv_grid_x = 6
+inv_grid_y = 14
+slot = 12
+med1_count = 3
+med2_count = 4
+
+[art_belt1]:bouch_small
+visual = dynamics\equipments\belt_1_art.ogf 
+cost = 2000 
+inv_name = st_art_belt_1
+inv_name_short = st_art_belt_1
+description = st_art_belt_1_descr 
+inv_weight = 0.46 
+inv_grid_width = 3 
+inv_grid_height = 1 
+inv_grid_x = 15 
+inv_grid_y = 12 
+artefact_count = 1
+slot = 16
+sort_in_artefact = true
+
+[art_belt2]:bouch_small
+visual = dynamics\equipments\belt_2_art.ogf 
+cost = 5000 
+inv_name = st_art_belt_2
+inv_name_short = st_art_belt_2
+description = st_art_belt_2_descr 
+inv_weight = 0.77 
+inv_grid_width = 3 
+inv_grid_height = 1 
+inv_grid_x = 12
+inv_grid_y = 13 
+artefact_count = 2
+slot = 16
+sort_in_artefact = true
+
+[art_belt3]:bouch_small
+visual = dynamics\equipments\belt_3_art.ogf 
+cost = 11000 
+inv_name = st_art_belt_3
+inv_name_short = st_art_belt_3
+description = st_art_belt_3_descr 
+inv_weight = 1.08 
+inv_grid_width = 3 
+inv_grid_height = 1 
+inv_grid_x = 15
+inv_grid_y = 13 
+artefact_count = 3
+slot = 16
+sort_in_artefact = true
+
+[art_belt4]:bouch_small
+visual = dynamics\equipments\belt_4_art.ogf 
+cost = 18000 
+inv_name = st_art_belt_4
+inv_name_short = st_art_belt_4
+description = st_art_belt_4_descr 
+inv_weight = 1.39 
+inv_grid_width = 3 
+inv_grid_height = 1 
+inv_grid_x = 10 
+inv_grid_y = 16 
+artefact_count = 4
+slot = 16
+sort_in_artefact = true
+
+[art_belt5]:bouch_small
+visual = dynamics\equipments\belt_5_art.ogf 
+cost = 26000 
+inv_name = st_art_belt_5
+inv_name_short = st_art_belt_5
+description = st_art_belt_5_descr 
+inv_weight = 1.71
+inv_grid_width = 3 
+inv_grid_height = 1 
+inv_grid_x = 13 
+inv_grid_y = 16 
+artefact_count = 5
+slot = 16
+sort_in_artefact = true
+
+
+[beadspread]:booster
+visual									 = dynamics\equipments\trade\bedspread.ogf
+description								 = st_beadspread_descr
+inv_name								 = st_beadspread
+inv_name_short							 = st_beadspread
+inv_grid_width							 = 2
+inv_grid_height							 = 1
+inv_grid_x								 = 16
+inv_grid_y								 = 16
+cost									 = 300
+inv_weight								 = 0.95
+sort_in_misc 							 = true
+use1_functor                             = items_manager.inv_item_dismantle_menu
+use1_action_functor                      = items_manager.inv_item_dismantle
+
+[itm_sleepbag]:booster
+GroupControlSection                      = spawn_group
+discovery_dependency                     =
+$spawn                                   = "food and drugs\antirad"
+$prefetch                                = 32
+class                                    = II_ANTIR
+cform                                    = skeleton
+visual                                   = dynamics\equipments\item_sleepbag.ogf
+inv_weight                               = 2.28
+description                              = st_itm_sleepbag_descr
+inv_name                                 = st_itm_sleepbag_name
+inv_name_short                           = st_itm_sleepbag_name
+inv_grid_width							 = 3
+inv_grid_height							 = 2
+inv_grid_x								 = 14
+inv_grid_y								 = 10
+cost                                     = 1600
+eat_health                               = 0
+eat_satiety                              = 0
+eat_power                                = 0
+eat_radiation                            = 0
+eat_alcohol                              = 0
+wounds_heal_perc                         = 0
+animation_slot                           = 4
+hud                                      = wpn_vodka_hud
+placeable_section                        = ph_sleepbag    ;Section of placeable physics object
+effect_type								 = sleepbag
+sort_in_misc 							 = true
+use1_functor                             = items_manager.inv_item_dismantle_menu
+use1_action_functor                      = items_manager.inv_item_dismantle
+
+[compression_bag]:booster
+GroupControlSection                      = spawn_group
+discovery_dependency                     =
+$spawn                                   = "devices\roubles"
+$prefetch                                = 16
+visual                                   = dynamics\equipments\sumka2.ogf
+description                              = st_compression_bag_descr
+inv_name                                 = st_compression_bag
+inv_name_short                           = st_compression_bag
+inv_grid_width                           = 2
+inv_grid_height                          = 2
+inv_grid_x                               = 16
+inv_grid_y                               = 14
+cost                                     = 500
+inv_weight                               = 0.54
+effect_type								 = sleepbag
+sort_in_misc 							 = true
+use1_functor                             = items_manager.inv_item_dismantle_menu
+use1_action_functor                      = items_manager.inv_item_dismantle

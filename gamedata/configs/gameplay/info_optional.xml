@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding="windows-1251"?>
+
+<game_information_portions>
+	<info_portion id="info_mutant_spawn_basic"></info_portion>
+	<info_portion id="info_mutant_spawn_medium"></info_portion>
+	<info_portion id="info_mutant_spawn_hard"></info_portion>
+	<info_portion id="info_sleep_pe"></info_portion>
+	<info_portion id="info_sleep_start_game"></info_portion>
+	<info_portion id="info_human_sim_start"></info_portion>
+	<info_portion id="info_human_sim_walk_1st"></info_portion>
+	<info_portion id="info_human_sim_walk_2nd"></info_portion>
+	<info_portion id="info_human_sim_walk_3rd"></info_portion>
+	<info_portion id="info_human_sim_walk_4th"></info_portion>
+	
+	<info_portion id="info_fst_space_restrictor_to_escape_1_enabled"></info_portion>
+	<info_portion id="info_esc_space_restrictor_to_forest_1_enabled"></info_portion>
+	<info_portion id="info_esc_space_restrictor_to_garbage_1_enabled"></info_portion>
+	<info_portion id="info_esc_space_restrictor_to_garbage_2_enabled"></info_portion>
+	<info_portion id="info_gar_space_restrictor_to_escape_1_enabled"></info_portion>
+	<info_portion id="info_gar_space_restrictor_to_escape_2_enabled"></info_portion>
+</game_information_portions>

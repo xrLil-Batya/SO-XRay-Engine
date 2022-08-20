@@ -1,0 +1,191 @@
+class "ui_itm_arts" (CUIScriptWnd)
+
+function ui_itm_arts:__init(owner,object) super()
+	self.owner = owner
+	self.object = object
+	self.section = object:section()
+	
+	self:InitControls()
+	self:InitCallBacks()
+end
+
+function ui_itm_arts:__finalize()
+end
+
+function ui_itm_arts:FillPartsList()
+	self.ListArts:RemoveAll()
+	
+	local function fill_list(actor,itm)
+		if (itm) then
+			local itm_sec = itm:section()
+			if IsArtefact(itm) and not IsMutant(itm) and not IsInventory(itm) and not ((string.find(itm_sec, "(lead.-_box)",3))
+			or (string.find(itm_sec, "(af.-_iam)",3))
+			or (string.find(itm_sec, "(af.-_aac)",3))
+			or (string.find(itm_sec, "(af.-_aam)",3))) then
+				local item_name = game.translate_string(system_ini():r_string(itm_sec, "inv_name"))
+				self:AddItemTo_ListArts(item_name, itm)
+			end
+		end
+	end
+	db.actor:iterate_inventory(fill_list,db.actor)
+end
+
+function ui_itm_arts:InitControls()
+	local xml = CScriptXmlInit()
+	self:SetWndRect(Frect():set(0,0,1024,768))
+	self:SetWndPos(vector2():set(290,160))
+	xml:ParseFile("ui_itm_arts.xml")
+	self.ArtWindow = xml:InitStatic("ArtWindow", self)
+	self.ArtWindow:SetWndPos(vector2():set(0, 0))
+	self:Register(xml:Init3tButton("ArtWindow:btn_ok", self.ArtWindow), "btn_ok")
+	xml:InitFrame("ArtWindow:ListArts_frame", self.ArtWindow)
+	self.ListArts = xml:InitListBox("ArtWindow:ListArts", self.ArtWindow)
+	self.ListArts:ShowSelectedItem(true)
+	self:Register(self.ListArts, "ListArts")
+	self:Register(xml:Init3tButton("ArtWindow:btn_quit", self.ArtWindow), "btn_quit")
+	
+	self.picture			= xml:InitStatic("ArtWindow:icon",self.ArtWindow)
+	self.picture_parts		= xml:InitStatic("ArtWindow:icon_parts",self.ArtWindow)
+	
+	if self.section == "lead_box" then
+		self.pic = xml:InitStatic("ArtWindow:icon_tool_lead", self.ArtWindow)
+	else
+		self.pic = xml:InitStatic("ArtWindow:icon_tool", self.ArtWindow)
+	end
+	local inv_grid_width = system_ini():r_float(self.section,"inv_grid_width")
+	local inv_grid_height = system_ini():r_float(self.section,"inv_grid_height")
+	local inv_grid_x = system_ini():r_float(self.section,"inv_grid_x")
+	local inv_grid_y = system_ini():r_float(self.section,"inv_grid_y")
+
+	local x1 = inv_grid_x*50
+	local y1 = inv_grid_y*50
+
+	local w = inv_grid_width*50
+	local h = inv_grid_height*50
+
+	local x2 = x1 + w
+	local y2 = y1 + h
+
+	local w,h = w,h
+	w,h = w/1.2,h/1
+	self.pic:InitTexture("ui\\ui_icon_equipment")
+	self.pic:SetTextureRect(Frect():set(x1,y1,x2,y2))
+	self.pic:SetWndSize(vector2():set(w,h))
+end
+
+function ui_itm_arts:InitCallBacks()
+	self:AddCallback("btn_ok", ui_events.BUTTON_CLICKED, self.btn_ok_button_clicked, self)
+	self:AddCallback("ListArts", ui_events.LIST_ITEM_CLICKED, self.ListArts_list_item_clicked, self)
+	self:AddCallback("ListArts", ui_events.WINDOW_LBUTTON_DB_CLICK, self.ListArts_window_lbutton_db_click, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.btn_quit_button_clicked, self)
+end
+
+function ui_itm_arts:btn_ok_button_clicked()
+	if (self.ListArts) then
+		index = self.ListArts:GetSelectedIndex()
+		if (index ~= -1) then
+			item = self.ListArts:GetItemByIndex(index)
+			local se_obj = item and item.item_id and alife():object(item.item_id)
+			local obj = item and item.item_id and level.object_by_id(item.item_id)
+			if (obj) then
+				items_manager.container_add(obj, self.object)
+			else
+				return
+			end
+		end
+	end
+	
+	self:HideDialog()
+end
+
+------------------- >>>  Класс элемента списка ListArts  <<< -------------------
+
+class "ListArts_ListItem"(CUIListBoxItem)
+function ListArts_ListItem:__init() super()
+	self.text_item = self:GetTextItem()
+	self.text_item:SetFont(GetFontLetterica18Russian())
+	self.text_item:SetTextColor(GetARGB(255,216,186,140))
+end
+------------------- >>>  END  <<< -------------------
+
+function ui_itm_arts:AddItemTo_ListArts(item_name,item)    --/Добавление элемента в список ListArts
+	local _itm = ListArts_ListItem()
+	_itm.text_item:SetText(item_name)
+	_itm.text_item:SetWndSize(vector2():set(222, 18))
+ 	self.ListArts:AddExistingItem(_itm)
+	
+	if (item) then
+		local sec = item:section()
+		_itm.item_id = item:id()
+		
+		local inv_grid_width = system_ini():r_float(sec,"inv_grid_width")
+		local inv_grid_height = system_ini():r_float(sec,"inv_grid_height")
+		local inv_grid_x = system_ini():r_float(sec,"inv_grid_x")
+		local inv_grid_y = system_ini():r_float(sec,"inv_grid_y")
+
+		_itm.x1 = inv_grid_x*50
+		_itm.y1 = inv_grid_y*50
+
+		_itm.width = inv_grid_width*50
+		_itm.height = inv_grid_height*50
+
+		_itm.x2 = _itm.x1 + _itm.width
+		_itm.y2 = _itm.y1 + _itm.height
+	end
+end
+
+function ui_itm_arts:ListArts_list_item_clicked()
+	if self.ListArts:GetSize()==0 then return end
+
+	local item = self.ListArts:GetSelectedItem()
+	if not (item) then
+		self.picture_parts:SetTextureRect(Frect():set(0,0,0,0))
+		return
+	end
+
+	local se_item = item.item_id and alife():object(item.item_id)
+	if (se_item == nil or not db.actor:object(se_item:section_name())) then
+		self.ListArts:RemoveItem(item)
+		return
+	end
+	
+	local sec = se_item:section_name()
+
+	local w,h = item.width,item.height
+	w,h = item.width/1.2,item.height/1
+	self.picture_parts:InitTexture("ui\\ui_icon_equipment")
+	self.picture_parts:SetTextureRect(Frect():set(item.x1,item.y1,item.x2,item.y2))
+	self.picture_parts:SetWndSize(vector2():set(w,h))
+
+	if not (self.picture_parts.x) then
+		local pos = self.picture_parts:GetWndPos()
+		self.picture_parts.x = pos.x
+		self.picture_parts.y = pos.y
+	end
+
+	self.picture_parts:SetWndPos(vector2():set(self.picture_parts.x-w/2, self.picture_parts.y-h/2))
+end
+
+function ui_itm_arts:ListArts_window_lbutton_db_click()
+	self:btn_ok_button_clicked()
+end
+
+function ui_itm_arts:btn_quit_button_clicked()
+	self:HideDialog()
+end
+
+
+function ui_itm_arts:OnKeyboard(dik, keyboard_action)
+	CUIScriptWnd.OnKeyboard(self,dik,keyboard_action)
+	if (keyboard_action == ui_events.WINDOW_KEY_PRESSED) then
+		if (dik == DIK_keys.DIK_ESCAPE) then
+			self:btn_quit_button_clicked()
+		end
+	end
+	return true
+end
+
+function ui_itm_arts:Hide()
+	self:HideDialog()
+end
+

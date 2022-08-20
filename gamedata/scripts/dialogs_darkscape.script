@@ -1,0 +1,174 @@
+local count_mat = 0
+
+function give_start_eat(first_speaker, second_speaker)
+	local npc = dialogs.who_is_npc(first_speaker, second_speaker)
+    if hide_hud_inventory() then
+        npc:start_trade(db.actor)
+    end
+	dialogs.relocate_item_section(second_speaker, "conserva", "in")
+	dialogs.relocate_item_section(second_speaker, "bread", "in")
+	dialogs.relocate_item_section(second_speaker, "mineral_water", "in")
+	dialogs.relocate_item_section(second_speaker, "medkit", "in")
+	hours_need_sleep = 0
+end
+
+function give_actor_info_ate(s_obj)
+	if s_obj and s_obj.section_name and s_obj:section_name()=="medkit" and not has_alife_info("info_actor_ate_medkit") then 
+		db.actor:give_info_portion("info_actor_ate_medkit")
+		if has_alife_info("info_actor_ate_water") and has_alife_info("info_actor_ate_medkit") and has_alife_info("info_actor_ate_bread") and has_alife_info("info_actor_ate_conserva") then 
+			db.actor:give_info_portion("info_actor_ate_all")
+		end
+	end
+	if s_obj and s_obj.section_name and s_obj:section_name()=="bread" and not has_alife_info("info_actor_ate_bread") then 
+		db.actor:give_info_portion("info_actor_ate_bread")
+		if has_alife_info("info_actor_ate_water") and has_alife_info("info_actor_ate_medkit") and has_alife_info("info_actor_ate_bread") and has_alife_info("info_actor_ate_conserva") then 
+			db.actor:give_info_portion("info_actor_ate_all")
+		end
+	end
+	if s_obj and s_obj.section_name and s_obj:section_name()=="conserva" and not has_alife_info("info_actor_ate_conserva") then 
+		db.actor:give_info_portion("info_actor_ate_conserva")
+		if has_alife_info("info_actor_ate_water") and has_alife_info("info_actor_ate_medkit") and has_alife_info("info_actor_ate_bread") and has_alife_info("info_actor_ate_conserva") then 
+			db.actor:give_info_portion("info_actor_ate_all")
+		end
+	end
+	if s_obj and s_obj.section_name and s_obj:section_name()=="mineral_water" and not has_alife_info("info_actor_ate_water") then 
+		db.actor:give_info_portion("info_actor_ate_water")
+		if has_alife_info("info_actor_ate_water") and has_alife_info("info_actor_ate_medkit") and has_alife_info("info_actor_ate_bread") and has_alife_info("info_actor_ate_conserva") then 
+			db.actor:give_info_portion("info_actor_ate_all")
+		end
+	end
+
+end
+
+function give_start_knife(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "wpn_knife", "in")
+end
+
+function actor_take_materials(obj)
+	if obj:section()=="copper_coil" then 
+		count_mat = count_mat+1
+	end
+	if obj:section()=="textolite" then 
+		count_mat = count_mat+1
+	end
+	if obj:section()=="transistors" then 
+		count_mat = count_mat+1
+	end
+	if obj:section()=="capacitors" then 
+		count_mat = count_mat+1
+	end
+	if count_mat == 5 and not has_alife_info("info_actor_have_materials") then
+		db.actor:give_info_portion("info_actor_have_materials")
+	end
+end
+
+function actor_drop_materials(obj)
+	if obj:section()=="copper_coil" then 
+		count_mat = count_mat-1
+	end
+	if obj:section()=="textolite" then 
+		count_mat = count_mat-1
+	end
+	if obj:section()=="transistors" then 
+		count_mat = count_mat-1
+	end
+	if obj:section()=="capacitors" then 
+		count_mat = count_mat-1
+	end
+	if count_mat < 5 and has_alife_info("info_actor_have_materials") then
+		disable_info("info_actor_have_materials")
+	end
+end
+
+function remove_actor_materials(first_speaker, second_speaker)
+	local obj = db.actor:object("copper_coil")
+	if obj ~= nil then
+		dialogs.relocate_item_section(first_speaker, "copper_coil", "out")
+	end
+	obj = db.actor:object("copper_coil")
+	if obj ~= nil then
+		dialogs.relocate_item_section(first_speaker, "copper_coil", "out")
+	end
+	obj = db.actor:object("textolite")
+	if obj ~= nil then
+		dialogs.relocate_item_section(first_speaker, "textolite", "out")
+	end
+	obj = db.actor:object("transistors")
+	if obj ~= nil then
+		dialogs.relocate_item_section(first_speaker, "transistors", "out")
+	end
+	obj = db.actor:object("capacitors")
+	if obj ~= nil then
+		dialogs.relocate_item_section(first_speaker, "capacitors", "out")
+	end
+	dialogs.relocate_item_section(second_speaker, "drug_coagulant_3", "in")
+	dialogs.relocate_item_section(second_speaker, "corn", "in")
+end
+
+function give_actor_devices_start_1(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "dosimeter", "in")
+	dialogs.relocate_item_section(second_speaker, "detector_simple", "in")
+	dialogs.relocate_item_section(second_speaker, "tushonka", "in")
+	dialogs.relocate_item_section(second_speaker, "bread", "in")
+	dialogs.relocate_item_section(second_speaker, "mineral_water", "in")
+end
+
+function give_actor_devices_start_2(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "lead_box", "in")
+	dialogs.relocate_item_section(second_speaker, "antirad", "in")
+end
+
+function medusa_have(obj)
+	if obj:section()=="af_medusa" and not has_alife_info("info_voron_artefact_have") then 
+		db.actor:give_info_portion("info_voron_artefact_have")
+	end
+end
+
+function update_infos()
+	if has_alife_info("info_trader_artefact_start") and not has_alife_info("info_trader_artefact_finish") then 
+		update_have_medusa()
+	end
+end
+
+function update_have_medusa()
+	local ini = system_ini()
+	local cnt = db.actor:object_count()
+	local have
+	for i=0, cnt-1 do
+		local item = db.actor:object(i)
+		if item and item:section()=="af_medusa" then
+			have = true
+		end
+	end
+	if have == true then
+		db.actor:give_info_portion("info_trader_artefact_have")
+	else
+		disable_info("info_trader_artefact_have")
+	end
+end
+
+function give_actor_antirad_after_art(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "drug_coagulant_3", "in")
+	dialogs.relocate_item_section(second_speaker, "antirad", "in")
+end
+
+function remove_actor_art(first_speaker, second_speaker)
+	local obj = db.actor:object("af_medusa")
+	if obj ~= nil then
+		dialogs.relocate_item_section(first_speaker, "af_medusa", "out")
+	end
+end
+
+function give_actor_tt_after_art(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "wpn_tt33", "in")
+	dialogs.relocate_item_section(second_speaker, "ammo_7.62x25_p", "in", 3)
+	dialogs.relocate_item_section(second_speaker, "breadold", "in", 2)
+	dialogs.relocate_item_section(second_speaker, "drug_charcoal_5", "in")
+end
+
+function corpse_tt(first_speaker, second_speaker)
+	local obj = db.actor:object("wpn_tt33")
+	if obj ~= nil then
+		obj:set_condition(0.86)
+	end
+end

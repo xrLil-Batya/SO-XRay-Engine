@@ -1,0 +1,256 @@
+;============ FOG FOREST ============
+[fst_space_restrictor_to_escape_1]
+enable = true												;Включен/выключен переход, можно использовать как список условий {+info_fst_space_restrictor_to_escape_1_enabled} true, false
+spot = level_changer                                  		;Строка из map_spots.xml для отметки перехода на глобальной карте
+text = st_level_changer_to_escape_descr						;Текст, высвечивающийся в диалоговом окне
+hint = st_space_restrictor_to_escape_descr					;Описание отметки на карте из ui_st_sr_teleport.xml
+path = fst_space_restrictor_to_escape_1_drop                ;Waypoint для телепортации актора при нажатии "Да"
+reject_path = fst_level_changer_to_escape_1_reject_way      ;Waypoint для телепортации актора при нажатии "Нет"
+autosave = true												;Делать автосейв при нажатии "Да"
+reject_on_disabled = true									;Поддержка выключенного перехода
+warning = st_level_changer_warning_descr					;Описание при выключенном переходе из ui_st_sr_teleport.xml
+
+[fst_space_restrictor_to_rostok_factory_1]
+enable = true
+spot = level_changer
+text = st_level_changer_to_rostok_factory_descr
+hint = st_space_restrictor_to_rostok_factory_descr
+path = fst_space_restrictor_to_rostok_factory_1_drop
+reject_path = fst_level_changer_to_rostok_factory_1_reject_way
+autosave = true
+reject_on_disabled = true
+warning = st_level_changer_warning_descr
+
+
+;============ ESCAPE ============
+[esc_space_restrictor_to_forest_1]
+enable = true
+spot = level_changer
+text = st_level_changer_to_forest_descr
+hint = st_space_restrictor_to_forest_descr
+path = esc_space_restrictor_to_forest_1_drop
+reject_path = esc_level_changer_to_forest_1_reject_way
+autosave = true
+reject_on_disabled = true
+warning = st_level_changer_warning_descr
+
+[esc_space_restrictor_to_garbage_1]
+enable = true
+spot = level_changer
+text = st_level_changer_to_garbage_descr
+hint = st_space_restrictor_to_garbage_descr
+path = esc_space_restrictor_to_garbage_1_drop
+reject_path = esc_level_changer_to_garbage_1_reject_way
+autosave = true
+reject_on_disabled = true
+warning = st_level_changer_warning_descr
+
+[esc_space_restrictor_to_garbage_2]
+enable = true
+spot = level_changer
+text = st_level_changer_to_garbage_descr
+hint = st_space_restrictor_to_garbage_descr
+path = esc_space_restrictor_to_garbage_2_drop
+reject_path = esc_level_changer_to_garbage_2_reject_way
+autosave = true
+reject_on_disabled = true
+warning = st_level_changer_warning_descr
+
+[esc_space_restrictor_to_embankment_1]
+enable = true
+spot = level_changer
+text = st_level_changer_to_embankment_descr
+hint = st_space_restrictor_to_embankment_descr
+path = esc_space_restrictor_to_embankment_1_drop
+reject_path = esc_level_changer_to_embankment_1_reject_way
+autosave = true
+reject_on_disabled = true
+warning = st_level_changer_warning_descr
+
+
+;============ GARBAGE ============
+[gar_space_restrictor_to_escape_1]
+enable = true
+spot = level_changer
+text = st_level_changer_to_escape_descr
+hint = st_space_restrictor_to_escape_descr
+path = gar_space_restrictor_to_escape_1_drop
+reject_path = gar_level_changer_to_escape_1_reject_way
+autosave = true
+reject_on_disabled = true
+warning = st_level_changer_warning_descr
+
+[gar_space_restrictor_to_escape_2]
+enable = true
+spot = level_changer
+text = st_level_changer_to_escape_descr
+hint = st_space_restrictor_to_escape_descr
+path = gar_space_restrictor_to_escape_2_drop
+reject_path = gar_level_changer_to_escape_2_reject_way
+autosave = true
+reject_on_disabled = true
+warning = st_level_changer_warning_descr
+
+[gar_space_restrictor_to_agroprom_1]
+enable = true
+spot = level_changer
+text = st_level_changer_to_agroprom_descr
+hint = st_space_restrictor_to_agroprom_descr
+path = gar_space_restrictor_to_agroprom_1_drop
+reject_path = gar_level_changer_to_agroprom_1_reject_way
+autosave = true
+reject_on_disabled = true
+warning = st_level_changer_warning_descr
+
+[gar_space_restrictor_to_agroprom_2]
+enable = true
+spot = level_changer
+text = st_level_changer_to_agroprom_descr
+hint = st_space_restrictor_to_agroprom_descr
+path = gar_space_restrictor_to_agroprom_2_drop
+reject_path = gar_level_changer_to_agroprom_2_reject_way
+autosave = true
+reject_on_disabled = true
+warning = st_level_changer_warning_descr
+
+[gar_space_restrictor_to_darkvalley_1]
+enable = true
+spot = level_changer
+text = st_level_changer_to_darkvalley_descr
+hint = st_space_restrictor_to_darkvalley_descr
+path = gar_space_restrictor_to_darkvalley_1_drop
+reject_path = gar_level_changer_to_darkvalley_1_reject_way
+autosave = true
+reject_on_disabled = true
+warning = st_level_changer_warning_descr
+
+[gar_space_restrictor_to_darkvalley_2]
+enable = true
+spot = level_changer
+text = st_level_changer_to_darkvalley_descr
+hint = st_space_restrictor_to_darkvalley_descr
+path = gar_space_restrictor_to_darkvalley_2_drop
+reject_path = gar_level_changer_to_darkvalley_2_reject_way
+autosave = true
+reject_on_disabled = true
+warning = st_level_changer_warning_descr
+
+
+;============ AGROPROM ============
+[agr_space_restrictor_to_garbage_1]
+enable = true
+spot = level_changer
+text = st_level_changer_to_garbage_descr
+hint = st_space_restrictor_to_garbage_descr
+path = agr_space_restrictor_to_garbage_1_drop
+reject_path = agr_level_changer_to_garbage_1_reject_way
+autosave = true
+reject_on_disabled = true
+warning = st_level_changer_warning_descr
+
+[agr_space_restrictor_to_garbage_2]
+enable = true
+spot = level_changer
+text = st_level_changer_to_garbage_descr
+hint = st_space_restrictor_to_garbage_descr
+path = agr_space_restrictor_to_garbage_2_drop
+reject_path = agr_level_changer_to_garbage_2_reject_way
+autosave = true
+reject_on_disabled = true
+warning = st_level_changer_warning_descr
+
+[agr_space_restrictor_to_agroprom_undeground_2]
+enable = true
+spot = level_changer
+text = st_level_changer_to_agroprom_undeground_descr
+hint = st_space_restrictor_to_agroprom_undeground_descr
+path = agr_space_restrictor_to_agroprom_undeground_2_drop
+reject_path = agr_level_changer_to_agroprom_undeground_2_reject_way
+autosave = true
+reject_on_disabled = true
+warning = st_level_changer_warning_descr
+
+[agr_space_restrictor_to_agroprom_undeground_5]
+enable = true
+spot = level_changer
+text = st_level_changer_to_agroprom_undeground_descr
+hint = st_space_restrictor_to_agroprom_undeground_descr
+path = agr_space_restrictor_to_agroprom_undeground_5_drop
+reject_path = agr_level_changer_to_agroprom_undeground_5_reject_way
+autosave = true
+reject_on_disabled = true
+warning = st_level_changer_warning_descr
+
+
+;============ EMBANKMENT ============
+[emb_space_restrictor_to_escape_1]
+enable = true
+spot = level_changer
+text = st_level_changer_to_escape_descr
+hint = st_space_restrictor_to_escape_descr
+path = emb_space_restrictor_to_escape_1_drop
+reject_path = emb_level_changer_to_escape_1_reject_way
+autosave = true
+reject_on_disabled = true
+warning = st_level_changer_warning_descr
+
+
+;============ AGROPROM UNDERGROUND ============
+[agru_space_restrictor_to_agroprom_2]
+enable = true
+spot = level_changer
+text = st_level_changer_to_agroprom_descr
+hint = st_space_restrictor_to_agroprom_descr
+path = agru_space_restrictor_to_agroprom_2_drop
+reject_path = agru_level_changer_to_agroprom_2_reject_way
+autosave = true
+reject_on_disabled = true
+warning = st_level_changer_warning_descr
+
+[agru_space_restrictor_to_agroprom_5]
+enable = true
+spot = level_changer
+text = st_level_changer_to_agroprom_descr
+hint = st_space_restrictor_to_agroprom_descr
+path = agru_space_restrictor_to_agroprom_5_drop
+reject_path = agru_level_changer_to_agroprom_5_reject_way
+autosave = true
+reject_on_disabled = true
+warning = st_level_changer_warning_descr
+
+
+;============ ROSTOK FACTORY ============
+[rosf_space_restrictor_to_forest_1]
+enable = true
+spot = level_changer
+text = st_level_changer_to_forest_descr
+hint = st_space_restrictor_to_forest_descr
+path = rosf_space_restrictor_to_forest_1_drop
+reject_path = rosf_level_changer_to_forest_1_reject_way
+autosave = true
+reject_on_disabled = true
+warning = st_level_changer_warning_descr
+
+
+;============ DARK VALLEY ============
+[val_space_restrictor_to_garbage_1]
+enable = true
+spot = level_changer
+text = st_level_changer_to_garbage_descr
+hint = st_space_restrictor_to_garbage_descr
+path = val_space_restrictor_to_garbage_1_drop
+reject_path = val_level_changer_to_garbage_1_reject_way
+autosave = true
+reject_on_disabled = true
+warning = st_level_changer_warning_descr
+
+[val_space_restrictor_to_garbage_2]
+enable = true
+spot = level_changer
+text = st_level_changer_to_garbage_descr
+hint = st_space_restrictor_to_garbage_descr
+path = val_space_restrictor_to_garbage_2_drop
+reject_path = val_level_changer_to_garbage_2_reject_way
+autosave = true
+reject_on_disabled = true
+warning = st_level_changer_warning_descr

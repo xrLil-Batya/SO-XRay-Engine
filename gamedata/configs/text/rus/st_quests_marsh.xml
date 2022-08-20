@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<string_table>
+	<string id="nayti_informaciu_name">
+		<text>Судьба «Чистого Неба»: найти информацию</text>
+	</string>
+	<string id="osmotret_mestnost_text">
+		<text>Осмотреть местность и найти какую-нибудь информацию о «Чистом Небе»</text>
+	</string>
+	<string id="otpravitsya_k_wyshke_text">
+		<text>Отправиться к точке, указанной в найденном ПДА и осмотреться</text>
+	</string>
+	<string id="go_with_csky_to_church_text">
+		<text>Продолжить сбор сведений о «Чистом Небе»</text>
+	</string>
+	<string id="pogovorit_s_comandirom_otryada_text">
+		<text>Поговорить с командиром отряда</text>
+	</string>
+	<string id="zahvat_ryb_hutor_name">
+		<text>Опорная точка: оказать помощь</text>
+	</string>
+	<string id="zahvat_ryb_hutor_text">
+		<text>Помочь отряду «Чистого Неба» захватить Рыбацкий хутор</text>
+	</string>
+	<string id="popast_to_csky_base_text">
+		<text>Найти способ попасть на базу «Чистого Неба»</text>
+	</string>
+	<string id="actor_na_csky_base_text">
+		<text>Поговорить с обитателями базы и больше разузнать о судьбе «Чистого Неба»</text>
+	</string>
+</string_table>

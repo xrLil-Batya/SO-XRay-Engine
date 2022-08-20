@@ -1,0 +1,10 @@
+[logic]
+active = ph_idle@use
+
+[ph_idle@use]
+nonscript_usable = true
+tips = campfire_zone_tip
+on_use = ph_idle@wait %=turn_on_campfire%
+
+[ph_idle@wait]
+on_timer = 4000 | ph_idle@use

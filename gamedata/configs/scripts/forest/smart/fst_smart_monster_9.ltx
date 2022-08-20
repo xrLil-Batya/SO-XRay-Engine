@@ -1,0 +1,13 @@
+; смарт сразу за деревней
+
+[smart_terrain]
+squad_id = 18
+max_population = 1
+respawn_params = respawn@smart_monster_9
+
+[respawn@smart_monster_9]
+spawn_mix_boar_flesh@smart_monster_9
+
+[spawn_mix_boar_flesh@smart_monster_9]
+spawn_squads = {+info_mutant_spawn_hard +info_mutant_spawn_medium +info_mutant_spawn_basic} fst_smart_monster_9_squad_3, {-info_mutant_spawn_hard +info_mutant_spawn_medium +info_mutant_spawn_basic} fst_smart_monster_9_squad_2, {-info_mutant_spawn_hard -info_mutant_spawn_medium +info_mutant_spawn_basic} fst_smart_monster_9_squad
+spawn_num = 1

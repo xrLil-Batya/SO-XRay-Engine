@@ -1,0 +1,7 @@
+[logic]
+active = sr_idle@spawn_ivlev
+
+[sr_idle@spawn_ivlev]
+on_info = {+talk_with_saharov_about_ivlev} sr_idle@nil %=spawn_corpse(dead_ivlev:ivlev_dead:0)%
+
+[sr_idle@nil] 

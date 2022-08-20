@@ -1,0 +1,1167 @@
+----------------------------------------------------------------------------------------------------------------------
+-- Файл:        		ITEMS_MANAGER.SCRIPT
+-- Описание:    		Скрипт - менеджер предметов
+-- Создан:      		03.02.2020
+-- Последняя редакция:	03.07.2022
+-- Автор:       		ARTLantist
+-- Copyright:   		ARTLantist
+----------------------------------------------------------------------------------------------------------------------
+
+local MutantLootDecayTime = 12000
+
+local con_weight
+
+local art_cond
+local art_weight
+local art_health_restore
+local art_rad_restore
+local art_satiety_restore
+local art_power_restore
+local art_bleeding_restore
+local art_psyhealth_restore
+local art_additional_weight
+local art_walk_accel
+local art_jump_speed
+
+local art_burn_immunity
+local art_strike_immunity
+local art_shock_immunity
+local art_wound_immunity
+local art_radiation_immunity
+local art_telepatic_immunity
+local art_chemical_burn_immunity
+local art_explosion_immunity
+local art_fire_wound_immunity
+
+local obj_id
+TorchType = -1
+
+function on_game_start()
+	
+	RegisterScriptCallback("actor_on_update",actor_on_update)
+	--RegisterScriptCallback("actor_on_item_drop",actor_on_item_drop)
+	RegisterScriptCallback("actor_on_item_use",actor_on_item_use)
+	RegisterScriptCallback("actor_on_item_take",actor_on_item_take)
+	--RegisterScriptCallback("actor_on_item_take_from_box",actor_on_item_take_from_box)
+	RegisterScriptCallback("physic_object_on_use_callback",physic_object_on_use_callback)
+	RegisterScriptCallback("CUIActorMenu_OnItemDropped",on_item_drag_dropped)
+	RegisterScriptCallback("on_key_press",on_key_press)
+end
+
+--------------------------------------------------------------------------------------------------------------
+-- 											ON KEY PRESS
+--------------------------------------------------------------------------------------------------------------
+function on_key_press(key)
+	
+	-- Dosimeter use
+	if (key == key_bindings.kDOSIMETER) then
+		dosimeter_rad()
+	end
+end
+
+--------------------------------------------------------------------------------------------------------------
+-- 											UPDATE ITEM MANAGER
+--------------------------------------------------------------------------------------------------------------
+function actor_on_update(delta)
+	local ini = system_ini()
+	
+end
+--------------------------------------------------------------------------------------------------------------
+-- 											ITEM TAKE CALLBACK MANAGER
+--------------------------------------------------------------------------------------------------------------
+
+function actor_on_item_take(obj)
+	if IsArtefact(obj) then
+		if (obj:get_artefact_rank() > 0) then
+			obj:set_artefact_rank(0)
+		end
+		if (obj:get_artefact_hit_on_take() > 0) then
+			obj:set_artefact_hit_on_take(0)
+		else
+		end
+	end
+	set_artefact_states(obj)
+end
+
+--------------------------------------------------------------------------------------------------------------
+-- 											ITEM USE CALLBACK MANAGER
+--------------------------------------------------------------------------------------------------------------
+function actor_on_item_use(obj)
+	--[[if not obj then return end
+		local psy_hit 					= hit();
+		psy_hit.power 					= 0.5;
+		psy_hit.direction 				= vector():set( 0, 0, 0 );
+		psy_hit.impulse 				= 0;
+		psy_hit.draftsman 				= db.actor; 
+		psy_hit.type 					= hit.burn;
+		db.actor:hit					(psy_hit);]]--
+	local s_obj = alife():object(obj:id())
+-- DRUGS USE
+	-- caffeine x5
+	if(s_obj)and(s_obj:section_name()=="caffeine_5")then
+    	alife():create("caffeine_4", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+	if(s_obj)and(s_obj:section_name()=="caffeine_4")then
+    	alife():create("caffeine_3", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+	if(s_obj)and(s_obj:section_name()=="caffeine_3")then
+    	alife():create("caffeine_2", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+	end
+	if(s_obj)and(s_obj:section_name()=="caffeine_2")then
+    	alife():create("caffeine", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+			-- DRUGS
+		-- drug_charcoal x5
+	if(s_obj)and(s_obj:section_name()=="drug_charcoal_5")then
+    	alife():create("drug_charcoal_4", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+	if(s_obj)and(s_obj:section_name()=="drug_charcoal_4")then
+    	alife():create("drug_charcoal_3", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+	if(s_obj)and(s_obj:section_name()=="drug_charcoal_3")then
+    	alife():create("drug_charcoal_2", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+	if(s_obj)and(s_obj:section_name()=="drug_charcoal_2")then
+    	alife():create("drug_charcoal", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+		-- drug_coagulant x5
+	if(s_obj)and(s_obj:section_name()=="drug_coagulant_5")then
+    	alife():create("drug_coagulant_4", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+	end
+	if(s_obj)and(s_obj:section_name()=="drug_coagulant_4")then
+    	alife():create("drug_coagulant_3", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+	end
+	if(s_obj)and(s_obj:section_name()=="drug_coagulant_3")then
+    	alife():create("drug_coagulant_2", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+	if(s_obj)and(s_obj:section_name()=="drug_coagulant_2")then
+    	alife():create("drug_coagulant", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+		-- drug_psy_blockade x5
+	if(s_obj)and(s_obj:section_name()=="drug_psy_blockade_5")then
+    	alife():create("drug_psy_blockade_4", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+	if(s_obj)and(s_obj:section_name()=="drug_psy_blockade_4")then
+    	alife():create("drug_psy_blockade_3", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+	if(s_obj)and(s_obj:section_name()=="drug_psy_blockade_3")then
+    	alife():create("drug_psy_blockade_2", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+	if(s_obj)and(s_obj:section_name()=="drug_psy_blockade_2")then
+    	alife():create("drug_psy_blockade", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+		-- drug_antidot x3
+	if(s_obj)and(s_obj:section_name()=="drug_antidot_3")then
+    	alife():create("drug_antidot_2", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+	if(s_obj)and(s_obj:section_name()=="drug_antidot_2")then
+    	alife():create("drug_antidot", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+		-- drug_radioprotector x2
+	if(s_obj)and(s_obj:section_name()=="drug_radioprotector_2")then
+    	alife():create("drug_radioprotector", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+	
+-- DRINK USE
+		-- vodka x3
+	if(s_obj)and(s_obj:section_name()=="vodka_3")then
+    	alife():create("vodka_2", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+	if(s_obj)and(s_obj:section_name()=="vodka_2")then
+    	alife():create("vodka", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+		-- vodka_quality x3
+	if(s_obj)and(s_obj:section_name()=="vodka_quality_3")then
+    	alife():create("vodka_quality_2", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+	if(s_obj)and(s_obj:section_name()=="vodka_quality_2")then
+    	alife():create("vodka_quality", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+		-- mineral_water x3
+	if(s_obj)and(s_obj:section_name()=="mineral_water_3")then
+    	alife():create("mineral_water_2", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+	if(s_obj)and(s_obj:section_name()=="mineral_water_2")then
+    	alife():create("mineral_water", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+		-- bottle_metal x3
+	if(s_obj)and(s_obj:section_name()=="bottle_metal_3")then
+    	alife():create("bottle_metal_2", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+	if(s_obj)and(s_obj:section_name()=="bottle_metal_2")then
+    	alife():create("bottle_metal", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+		-- flask x3
+	if(s_obj)and(s_obj:section_name()=="flask_3")then
+    	alife():create("flask_2", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+	if(s_obj)and(s_obj:section_name()=="flask_2")then
+    	alife():create("flask", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+	
+-- FOOD USE
+		-- ration_ukr x6
+	if(s_obj)and(s_obj:section_name()=="ration_ukr_6")then
+    	alife():create("ration_ukr_5", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+	if(s_obj)and(s_obj:section_name()=="ration_ukr_5")then
+    	alife():create("ration_ukr_4", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+	if(s_obj)and(s_obj:section_name()=="ration_ukr_4")then
+    	alife():create("ration_ukr_3", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+	if(s_obj)and(s_obj:section_name()=="ration_ukr_3")then
+    	alife():create("ration_ukr_2", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+	if(s_obj)and(s_obj:section_name()=="ration_ukr_2")then
+    	alife():create("ration_ukr", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+		-- mre x3
+	if(s_obj)and(s_obj:section_name()=="mre_3")then
+    	alife():create("mre_2", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+	if(s_obj)and(s_obj:section_name()=="mre_2")then
+    	alife():create("mre", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+	
+-- MEDICINE USE
+		-- bandage
+	if(s_obj)and(s_obj:section_name()=="bandage")then
+    end
+	
+-- CIGARETTES USE
+		-- cigarettes x3
+	if(s_obj)and(s_obj:section_name()=="cigarettes_3")then
+    	alife():create("cigarettes_2", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+	if(s_obj)and(s_obj:section_name()=="cigarettes_2")then
+    	alife():create("cigarettes", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+		-- tobacco x3
+	if(s_obj)and(s_obj:section_name()=="tobacco_3")then
+    	alife():create("tobacco_2", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+	if(s_obj)and(s_obj:section_name()=="tobacco_2")then
+    	alife():create("tobacco", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+		-- hand_rolling_tobacco x3
+	if(s_obj)and(s_obj:section_name()=="hand_rolling_tobacco_3")then
+    	alife():create("hand_rolling_tobacco_2", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+	if(s_obj)and(s_obj:section_name()=="hand_rolling_tobacco_2")then
+    	alife():create("hand_rolling_tobacco", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+		-- cigarettes_lucky x3
+	if(s_obj)and(s_obj:section_name()=="cigarettes_lucky_3")then
+    	alife():create("cigarettes_lucky_2", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+	if(s_obj)and(s_obj:section_name()=="cigarettes_lucky_2")then
+    	alife():create("cigarettes_lucky", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+		-- cigarettes_russian x3
+	if(s_obj)and(s_obj:section_name()=="cigarettes_russian_3")then
+    	alife():create("cigarettes_russian_2", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+	if(s_obj)and(s_obj:section_name()=="cigarettes_russian_2")then
+    	alife():create("cigarettes_russian", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+    end
+	
+-- REPAIRKIT USE	
+	if(obj)and(IsRepair(obj))then
+		local hud = get_hud()
+		if (hud) then
+			hud:HideActorMenu()
+			local ui = ui_itm_repair and ui_itm_repair.ui_repair_kit(hud,obj,obj:section())
+			if (ui) then
+				ui:ShowDialog(true)
+				ui:FillList()
+			end
+		end
+		return
+    end
+
+-- SLEEP/COMPRESSION BAGS USE
+	if(obj)and(obj:section()=="itm_sleepbag")then
+		local sec = obj:section()
+		local pos = db.actor:position()
+		pos:add(device().cam_dir:mul(0.8))
+		pos.y = db.actor:position().y
+		local se_obj = alife():create("ph_sleepbag",pos,db.actor:level_vertex_id(),db.actor:game_vertex_id())
+		if (se_obj) then
+			local rot = device().cam_dir:getH()
+			se_obj.angle = vector():set(0,rot,0)
+		end
+		local compr = alife():create("compression_bag",db.actor:position(),0,0,0)
+		level.map_add_object_spot_ser(se_obj.id, "ui_pda2_actor_sleep_location", game.translate_string("st_itm_sleepbag_name"))
+		return
+	end
+	
+	if(obj)and(obj:section()=="compression_bag")then
+		for i=1,65535 do
+			local s = alife():object(i)
+			if s then
+				local ob = level.object_by_id(s.id)
+				if ob then
+					local slbag = ob:section()
+					if slbag == "ph_sleepbag" and ob:position():distance_to(db.actor:position()) < 1 then
+						level.map_remove_object_spot(s.id, "ui_pda2_actor_sleep_location")
+						alife():create("itm_sleepbag",db.actor:position(),0,0,0)
+						alife():release(s,true)
+						break
+					end
+				end
+			end
+		end
+		return	
+	end
+
+-- WOODSTOVE USE
+	if(obj)and(obj:section()=="wood_stove")then
+		local sec = obj:section()
+		local pos = db.actor:position()
+		pos:add(device().cam_dir:mul(1.0))
+		pos.y = db.actor:position().y
+		local se_obj = alife():create("ph_woodstove",pos,db.actor:level_vertex_id(),db.actor:game_vertex_id())
+		if (se_obj) then
+			local rot = device().cam_dir:getH() - 180.0
+			se_obj.angle = vector():set(0,rot,0)
+		end
+		return
+	end
+	
+-- FIELDCOOKER USE
+	if(obj)and(obj:section()=="fieldcooker")then
+		local sec = obj:section()
+		local pos = db.actor:position()
+		pos:add(device().cam_dir:mul(1.0))
+		pos.y = db.actor:position().y
+		local se_obj = alife():create("ph_fieldcooker",pos,db.actor:level_vertex_id(),db.actor:game_vertex_id())
+		if (se_obj) then
+			local rot = device().cam_dir:getH()
+			se_obj.angle = vector():set(0,rot,0)
+		end
+		return
+	end
+end
+
+--------------------------------------------------------------------------------------------------------------
+-- 											BIND PHYSIC OBJECT USE CALLBACK
+--------------------------------------------------------------------------------------------------------------
+
+function physic_object_on_use_callback(obj,who)
+	if (obj:section() == "ph_sleepbag") then
+		local hud = get_hud()
+		if (hud) then
+			hud:HideActorMenu()
+		end
+		ui_sleep_dialog.sleep()
+		give_info("sleep_active")
+	end
+	
+	if (obj:section() == "ph_woodstove") then
+		local hud = get_hud()
+		hud:HideActorMenu()
+		local ui = ui_itm_cooking and ui_itm_cooking.ui_cooking(hud,obj)
+		if (ui) then
+			ui:ShowDialog(true)
+			ui:FillList()
+		end
+	end
+	
+	if (obj:section() == "ph_fieldcooker") then
+		local hud = get_hud()
+		hud:HideActorMenu()
+		local ui = ui_itm_cooking and ui_itm_cooking.ui_cooking(hud,obj)
+		if (ui) then
+			ui:ShowDialog(true)
+			ui:FillList()
+		end
+	end
+end
+
+--------------------------------------------------------------------------------------------------------------
+-- 											MONSTERS MANAGER
+--------------------------------------------------------------------------------------------------------------
+
+function monster_use(obj)	
+	local st = db.storage[obj:id()]
+	if (st and st.death_time and game.get_game_time():diffSec(st.death_time) > MutantLootDecayTime) then
+		SetHudMsg(game.translate_string("st_body_corpsed"),3)
+	else
+		local hud = get_hud()
+		if (hud) then
+			ui_mutant_loot.ui_loot(hud,obj)
+		end
+	end
+end
+	
+function loot_mutant(obj,cls,t,npc)
+	if not obj then return end
+	if not cls then 
+		cls = obj:clsid()
+	end
+	
+	local mutant_id = game.translate_string(system_ini():r_string(obj:section(),"species"))
+	
+	local ini = ini_file("plugins\\itms_manager.ltx")
+	if mutant_id == "pseudodog" then
+		if cls == clsid.pseudodog_s then
+			mutant_id = "pseudodog"
+		elseif cls == clsid.psy_dog_s then
+			mutant_id = "psydog"
+		end
+	end
+	local loot_table = utils.collect_section(ini,mutant_id)
+	local loot
+	for i=1,#loot_table do	
+		loot = utils.str_explode(loot_table[i],",")
+		if (loot and loot[1] and loot[2]) then
+		
+			if not (loot[3]) then
+				loot[3] = 1
+			end
+			
+			local kh = 1
+			if (db.actor:item_in_slot(BACKPACK_SLOT) ~= nil and db.actor:item_in_slot(BACKPACK_SLOT):section() == "kit_hunt") then
+				kh = 1.75
+			end
+			
+			loot[2] = tonumber(loot[2])
+			for i=1,loot[2] do
+				local rnd = math.random()
+				if (rnd <= tonumber(loot[3]*kh)) then
+					if (t) then
+						local item_section = loot[1]
+						if not (t[item_section]) then
+							t[item_section] = {}
+						end
+						t[item_section].count = t[item_section].count and t[item_section].count + 1 or 1
+					end
+					if npc and npc:id() ~= db.actor:id() then
+						alife():create(loot[1],npc:position(),0,0,npc:id())
+					end
+				end
+			end	
+		end
+	end
+end
+
+--------------------------------------------------------------------------------------------------------------
+-- 											ITEMS DROPPED IN INVENTORY
+--------------------------------------------------------------------------------------------------------------
+
+function on_item_drag_dropped(itm1,itm2,from_slot,to_slot)
+	drag_ammo_in_weapon(itm1,itm2,from_slot,to_slot)
+	on_ammo_drag_dropped(itm1,itm2,from_slot,to_slot)
+	on_consumable_drag_dropped(itm1,itm2,from_slot,to_slot)
+end
+
+function drag_ammo_in_weapon(itm1,itm2,from_slot,to_slot)
+	if (IsAmmo(itm1) and IsWeapon(itm2) and not IsKnife(itm2)) then
+	
+		sec1 = itm1:section()
+		sec2 = itm2:section()
+		
+		local in_slot = false
+		for i=1,12 do
+			itm_slot = db.actor:item_in_slot(i)
+			if (itm_slot and itm_slot:id() == itm2:id()) then
+				in_slot = true
+				break
+			end
+		end
+		
+		local count_types = 0
+		local sect0
+		local sect1
+		local sect2
+		local type_a
+		local ammo_name
+		local ammo_suitable
+		local ini = system_ini()
+		if ini:line_exist(itm2:section(), "ammo_class") then
+			local conf = ini:r_string(itm2:section(), "ammo_class")
+			local ammos = {}
+			for s in string.gfind(conf, "%s*([^,]+)%s*") do
+				table.insert(ammos, s)
+			end
+		
+			sect0 = ammos[1]
+			if sect0 and system_ini():section_exist(sect0) then
+				count_types = 1
+				sect1 = ammos[2]
+				if sect1 and system_ini():section_exist(sect1) then
+					count_types = 2
+					sect2 = ammos[3]
+					if sect2 and system_ini():section_exist(sect2) then
+						count_types = 3
+					end
+				end
+			end
+			
+			for i=1, count_types do
+				if sec1 == ammos[i] then
+					type_a = i-1
+					ammo_name = ammos[(itm2:get_ammo_type()+1)]
+					if ammo_name and system_ini():section_exist(ammo_name) then
+						ammo_suitable = true
+					end
+				end
+			end
+		end
+		
+		if ammo_suitable and in_slot then
+			local ammo_box_size = itm1:ammo_get_count()
+			local wpn_ammo_size = itm2:get_ammo_in_magazine()
+			local wpn_ammo_max = system_ini():r_u32(sec2, "ammo_mag_size")
+			
+			local one_shot
+			if ini:line_exist(itm2:section(), "tri_state_reload") then
+				one_shot = (system_ini():r_string(sec2, "tri_state_reload") == "on")
+			else
+				one_shot = (system_ini():r_string(sec2, "class") == "WP_BM16")
+			end
+
+			local same_ammo = itm2:get_ammo_type() 
+						
+			if (same_ammo ~= type_a) then
+			
+				if (wpn_ammo_size > 0) then
+					alife():create_ammo(ammo_name,db.actor:position(),db.actor:level_vertex_id(),db.actor:game_vertex_id(),0,wpn_ammo_size)
+					itm2:unload_magazine()
+					wpn_ammo_size = 0
+				end
+				
+				itm2:set_ammo_type(type_a)
+			end
+						
+			local ammo_to_wpn = wpn_ammo_max-wpn_ammo_size
+			if (one_shot) then 
+				ammo_to_wpn = clamp(ammo_to_wpn,0,1)
+			end
+						
+			local ammo_from_box = clamp(ammo_to_wpn,0,ammo_box_size)
+			
+			if (ammo_from_box > 0) then
+				if (ammo_box_size > ammo_from_box) then
+					itm1:ammo_set_count(ammo_box_size-ammo_from_box)
+				else
+					alife():release(alife():object(itm1:id()), true)
+				end
+				itm2:set_ammo_elapsed(wpn_ammo_size+ammo_from_box)
+				
+				if (one_shot) then 
+					local snd = sound_object("interface\\inv_shotgun_load")
+					snd:play(db.actor,0,sound_object.s2d)
+				else
+					local reload_type = "rifle_reload"
+					if (system_ini():r_string(sec2, "repair_type") == "pistol") then reload_type = "pistol_reload" end
+					local snd = sound_object(r_string_ex(system_ini(),sec2, "snd_reload"))
+					snd:play(db.actor,0,sound_object.s2d)
+					actor_effects.use_item(reload_type)
+				end
+			end
+		end
+		
+	end
+end
+
+function on_ammo_drag_dropped(itm1,itm2,from_slot,to_slot)
+
+	local sec1 = itm1:section()
+	local sec2 = itm2:section()
+	
+	if (IsArtefact(itm1) and IsContainer(itm2)) then
+		container_add(itm1,itm2)
+	elseif (IsArtefact(itm2) and IsContainer(itm1)) then 
+		container_add(itm2,itm1)
+	end
+	
+	if (IsAmmo(itm1) and IsAmmo(itm2)) and (sec1 == sec2) then
+		
+		local ammo1 = itm1:ammo_get_count()
+		local ammo2 = itm2:ammo_get_count()
+		local box1 = itm1:ammo_box_size()
+		local box2 = itm2:ammo_box_size()
+		
+		local fill = clamp(box2-ammo2,0,ammo1)
+			
+		if (fill > 0) then
+			itm2:ammo_set_count(ammo2+fill)
+			itm1:ammo_set_count(ammo1-fill)
+			local snd = sound_object("interface\\inv_stack_"..(math.random(4)))
+			snd:play(db.actor,0,sound_object.s2d)
+		end 
+			
+		if (fill == ammo1) then
+			alife():release(alife():object(itm1:id()), true)
+		end
+	end
+	
+end
+	
+function on_consumable_drag_dropped(itm1,itm2,from_slot,to_slot)
+	
+	local sec_1 = itm1:section()
+	local sec_2 = itm2:section()
+	local sec1 = sec_1
+	local sec2 = sec_2
+	local nsec1 = sec_1
+	local nsec2 = sec_2
+	local cnt1 = 1
+	local ncnt1 = 1
+	local cnt2 = 1
+	local ncnt2 = 1
+	if IsArtefact(itm1) and IsArtefact(itm2) then
+		return
+	end
+	cnt1 = string.find(sec_1,"_",-2) or 0
+	if (string.sub(sec_1,-1) == "p") or (string.sub(sec_1,-1) == "s") or (string.sub(sec_1,-1) == "r") or (string.sub(sec_1,-1) == "a") or (string.sub(sec_1,-1) == "b") or (string.sub(sec_1,-1) == "h") or (string.sub(sec_1,-1) == "e") then
+		cnt1 = 0
+	end
+	sec1 = string.sub(sec_1,0,cnt1-1)
+	cnt1 = tonumber(string.sub(sec_1,cnt1+1)) or 1
+	ncnt1 = cnt1
+	
+	cnt2 = string.find(sec_2,"_",-2) or 0
+	if (string.sub(sec_2,-1) == "p") or (string.sub(sec_2,-1) == "s") or (string.sub(sec_2,-1) == "r") or (string.sub(sec_2,-1) == "a") or (string.sub(sec_2,-1) == "b") or (string.sub(sec_2,-1) == "h") or (string.sub(sec_2,-1) == "e") then
+		cnt2 = 0
+	end
+	sec2 = string.sub(sec_2,0,cnt2-1)
+	cnt2 = tonumber(string.sub(sec_2,cnt2+1)) or 1
+	ncnt2 = cnt2
+	
+	if (sec1 ~= sec2) then return end
+	
+	for i = 1, cnt1 do
+	
+		ncnt2 = cnt2+i
+		ncnt1 = cnt1-i
+		
+		if (system_ini():section_exist(sec2.."_"..ncnt2) and (ncnt1 >= 0)) then
+			nsec2 = sec2.."_"..ncnt2
+			nsec1 = sec1.."_"..ncnt1
+			
+			if (string.find(nsec1,"_1",-2)) then
+				nsec1 = sec1
+			elseif (string.find(nsec1,"_0",-2) and not system_ini():section_exist(nsec1)) then
+				nsec1 = nil
+			end
+		end
+	end
+	
+	if (nsec1 ~= sec_1) and (nsec2 ~= sec_2) then
+		alife():release(alife():object(itm1:id()), true)
+		alife():release(alife():object(itm2:id()), true)
+		
+		alife():create(nsec2, db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+		if (nsec1) then
+			alife():create(nsec1, db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+		end
+		local snd = sound_object("interface\\inv_stack_"..(math.random(4)))
+		snd:play(db.actor,0,sound_object.s2d)
+		
+	end
+end
+
+--------------------------------------------------------------------------------------------------------------
+-- 											ARTEFACT CONTAINER MANAGER
+--------------------------------------------------------------------------------------------------------------
+
+function container_fill_menu(itm)
+	
+	local p = itm:parent()
+	if not (p and p:id() == db.actor:id()) then return end
+		
+	local sec = itm:section()
+	if ((sec == "lead_box") or (sec == "af_iam") or (sec == "af_aam") or (sec == "af_aac"))
+	then return game.translate_string("st_ui_container_place") end
+end
+
+function container_remove_menu(itm)
+	
+	local p = itm:parent()
+	if not (p and p:id() == db.actor:id()) then return end
+
+	local sec = itm:section()
+	if (string.find(sec, "(lead.-_box)",3))
+	or (string.find(sec, "(af.-_iam)",3))
+	or (string.find(sec, "(af.-_aac)",3))
+	or (string.find(sec, "(af.-_aam)",3))
+	then return game.translate_string("st_ui_container_remove") end
+	
+end
+
+function container_fill(itm)
+
+	local p = itm:parent()
+	if not (p and p:id() == db.actor:id()) then return end
+
+	local hud = get_hud()
+	local ui = ui_itm_arts and ui_itm_arts.ui_itm_arts(hud,itm)
+	if (ui) then
+		hud:HideActorMenu()
+		ui:ShowDialog(true)
+		ui:FillPartsList()
+	end
+end
+
+function container_remove(con)
+
+	local p = con:parent()
+	local ini = system_ini()
+	if not (p and p:id() == db.actor:id()) then return end
+
+	local se_obj = alife():object(con:id())
+	if (se_obj) then
+		local break_con
+		local break_arty
+		local sec = con:section()
+		
+		if (string.find(sec, "(lead.-_box)",3)) then
+			break_con = "lead_box"
+			break_arty = sec:gsub("_lead_box", "")	
+		elseif (string.find(sec, "(af.-_iam)",3)) then
+			break_con = "af_iam"
+			break_arty = sec:gsub("_af_iam", "")
+		elseif (string.find(sec, "(af.-_aac)",3)) then
+			break_con = "af_aac"
+			break_arty = sec:gsub("_af_aac", "")	
+		elseif (string.find(sec, "(af.-_aam)",3)) then
+			break_con = "af_aam"
+			break_arty = sec:gsub("_af_aam", "")	
+		end
+		art_cond = con:condition()
+		
+		if (break_con and break_arty) then
+			local new_se_obj = alife():create(break_arty, db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+			if new_se_obj then
+				obj_id = new_se_obj.id
+				art_rad_restore = r_float_ex(ini,new_se_obj:section_name(), "radiation_restore_speed")
+				art_health_restore = con:get_artefact_health_restore_speed()
+				art_satiety_restore = con:get_artefact_satiety_restore_speed()
+				art_power_restore = con:get_artefact_power_restore_speed()
+				art_bleeding_restore = con:get_artefact_bleeding_restore_speed()
+				art_psyhealth_restore = con:get_artefact_psyhealth_restore_speed()
+				art_additional_weight = con:get_artefact_additional_weight()
+				art_walk_accel = con:get_artefact_walk_accel()
+				art_jump_speed = con:get_artefact_jump_speed()
+				art_burn_immunity = con:get_artefact_burn_immunity()
+				art_strike_immunity = con:get_artefact_strike_immunity()
+				art_shock_immunity = con:get_artefact_shock_immunity()
+				art_wound_immunity = con:get_artefact_wound_immunity()
+				art_radiation_immunity = con:get_artefact_radiation_immunity()
+				art_telepatic_immunity = con:get_artefact_telepatic_immunity()
+				art_chemical_burn_immunity = con:get_artefact_chemical_burn_immunity()
+				art_explosion_immunity = con:get_artefact_explosion_immunity()
+				art_fire_wound_immunity = con:get_artefact_fire_wound_immunity()
+			end
+			
+			alife():create(break_con, db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+			actor_effects.use_item(break_con)
+			alife():release(se_obj)
+		end
+	end
+end
+
+function container_add(art,con)
+
+	local se_art = alife():object(art:id())
+	local se_con = alife():object(con:id())
+	
+	local sec = con:section()
+	if sec == "lead_box" then
+		xr_sound.set_sound_play(db.actor:id(),"inv_lead_close")
+	elseif sec == "af_iam" then
+		xr_sound.set_sound_play(db.actor:id(),"inv_iam_close")
+	elseif sec == "af_aac" then
+		xr_sound.set_sound_play(db.actor:id(),"inv_aac_close")
+	elseif sec == "af_aam" then
+		xr_sound.set_sound_play(db.actor:id(),"inv_aam_close")
+	end
+		
+	-- Set stats
+	art_cond = art:condition()
+	art_weight = art:weight()
+	con_weight = con:weight()
+	art_rad_restore = art:get_artefact_radiation_restore_speed()
+	art_health_restore = art:get_artefact_health_restore_speed()
+	art_satiety_restore = art:get_artefact_satiety_restore_speed()
+	art_power_restore = art:get_artefact_power_restore_speed()
+	art_bleeding_restore = art:get_artefact_bleeding_restore_speed()
+	art_psyhealth_restore = art:get_artefact_psyhealth_restore_speed()
+	art_additional_weight = art:get_artefact_additional_weight()
+	art_walk_accel = art:get_artefact_walk_accel()
+	art_jump_speed = art:get_artefact_jump_speed()
+	art_burn_immunity = art:get_artefact_burn_immunity()
+	art_strike_immunity = art:get_artefact_strike_immunity()
+	art_shock_immunity = art:get_artefact_shock_immunity()
+	art_wound_immunity = art:get_artefact_wound_immunity()
+	art_radiation_immunity = art:get_artefact_radiation_immunity()
+	art_telepatic_immunity = art:get_artefact_telepatic_immunity()
+	art_chemical_burn_immunity = art:get_artefact_chemical_burn_immunity()
+	art_explosion_immunity = art:get_artefact_explosion_immunity()
+	art_fire_wound_immunity = art:get_artefact_fire_wound_immunity()
+	
+	local antirad = r_float_ex(system_ini(),con:section(), "antirad")
+	if art_rad_restore > 0 then
+		art_rad_restore = art_rad_restore + antirad
+		if art_rad_restore < 0 then
+			art_rad_restore = 0
+		end
+	end
+	-- End 
+	if (se_art and se_con) then
+		local new_con = art:section().."_"..con:section()
+		if system_ini():section_exist(new_con) then
+			local new_se_obj = alife():create(new_con, db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+			if new_se_obj then
+				obj_id = new_se_obj.id
+			end
+			alife():release(se_art)
+			alife():release(se_con)
+			actor_effects.use_item(sec)
+		end
+	end
+end
+
+function set_artefact_states(art)
+	local s_obj = alife():object(art:id())
+	if (s_obj) and (s_obj.id == obj_id) then
+		art:set_condition(art_cond)
+		if (art_weight > 0 and con_weight > 0) then
+			art:set_weight(art_weight+con_weight)
+		end
+		art:set_artefact_radiation_restore_speed(art_rad_restore)
+		art:set_artefact_health_restore_speed(art_health_restore)
+		art:set_artefact_satiety_restore_speed(art_satiety_restore)
+		art:set_artefact_power_restore_speed(art_power_restore)
+		art:set_artefact_bleeding_restore_speed(art_bleeding_restore)
+		art:set_artefact_psyhealth_restore_speed(art_psyhealth_restore)
+		art:set_artefact_additional_weight(art_additional_weight)
+		art:set_artefact_walk_accel(art_walk_accel)
+		art:set_artefact_jump_speed(art_jump_speed)
+		art:set_artefact_burn_immunity(art_burn_immunity)
+		art:set_artefact_strike_immunity(art_strike_immunity)
+		art:set_artefact_shock_immunity(art_shock_immunity)
+		art:set_artefact_wound_immunity(art_wound_immunity)
+		art:set_artefact_radiation_immunity(art_radiation_immunity)
+		art:set_artefact_telepatic_immunity(art_telepatic_immunity)
+		art:set_artefact_chemical_burn_immunity(art_chemical_burn_immunity)
+		art:set_artefact_explosion_immunity(art_explosion_immunity)
+		art:set_artefact_fire_wound_immunity(art_fire_wound_immunity)
+		
+		obj_id = nil
+		art_cond = 0
+		art_weight = 0
+		con_weight = 0
+		art_rad_restore = 0
+		art_health_restore = 0
+		art_satiety_restore = 0
+		art_power_restore = 0
+		art_bleeding_restore = 0
+		art_psyhealth_restore = 0
+		art_additional_weight = 0
+		art_walk_accel = 0
+		art_jump_speed = 0
+		art_burn_immunity = 0
+		art_strike_immunity = 0
+		art_shock_immunity = 0
+		art_wound_immunity = 0
+		art_radiation_immunity = 0
+		art_telepatic_immunity = 0
+		art_chemical_burn_immunity = 0
+		art_explosion_immunity = 0
+		art_fire_wound_immunity = 0
+	end
+end
+
+--------------------------------------------------------------------------------------------------------------
+-- 											SCRIPT PROPERTIES BOX ITEMS MANAGER
+--------------------------------------------------------------------------------------------------------------
+
+-- DOSIMETER
+function inv_dosimeter_rad_menu(itm)
+	
+	local p = itm:parent()
+	if not (p and p:id() == db.actor:id()) then return end
+
+	local sec = itm:section()
+	if (sec=="dosimeter")
+	or (sec=="geiger")
+	or (sec=="anomaly_elite")
+	then return game.translate_string("st_use") end
+	
+end	
+function inv_dosimeter_rad(itm)
+	local p = itm:parent()
+	if not (p and p:id() == db.actor:id()) then return end
+	
+	local dos_txt = ""
+	
+	if itm == nil then
+		items_condition.show_message_battery_low("dosimeter_not")
+		return
+	end
+	
+	if itm:condition() <= 0.04 then
+		items_condition.show_message_battery_low("dosimeter_low")
+		return
+	end
+	
+	local s_obj = alife():object(itm:id())
+	if s_obj and s_obj:section_name()=="dosimeter" then 
+	    if db.actor.radiation == 0 then 
+			dos_txt = game.translate_string("st_radiation_none")
+	    end
+	    if db.actor.radiation < 0.0767 and db.actor.radiation > 0 then 
+			dos_txt = game.translate_string("st_radiation_easy")
+	    end
+		if db.actor.radiation < 0.23 and db.actor.radiation > 0.0767 then 
+			dos_txt = game.translate_string("st_radiation_normal")
+	    end
+		if db.actor.radiation > 0.23 then 
+			dos_txt = game.translate_string("st_radiation_hard")
+	    end
+	end
+	if s_obj and (s_obj:section_name()=="geiger" or s_obj:section_name()=="anomaly_elite") then
+		dos_txt = string.format("%s%s%u%s%s",game.translate_string("st_level_of_rad"),": ",math.floor(db.actor.radiation*10000)," ",game.translate_string("st_msv"))
+	end
+	local snd = sound_object("interface\\inv_dozimetr")
+	snd:play(db.actor,0,sound_object.s2d)
+	SetHudMsg(dos_txt,3)
+	axr_battery.remove_condition_use_battery(itm)
+end
+
+function dosimeter_rad()
+	local obj = db.actor:item_in_slot(ZAYAZ_DOSIMETER)
+	local dos_txt = ""
+	
+	if obj:condition() <= 0.02 then
+		items_condition.show_message_battery_low("dosimeter_low")
+		return
+	end
+	
+	local s_obj = alife():object(obj:id())
+	if s_obj and s_obj:section_name()=="dosimeter" then 
+	    if db.actor.radiation == 0 then 
+			dos_txt = game.translate_string("st_radiation_none")
+	    end
+	    if db.actor.radiation < 0.0767 and db.actor.radiation > 0 then 
+			dos_txt = game.translate_string("st_radiation_easy")
+	    end
+		if db.actor.radiation < 0.23 and db.actor.radiation > 0.0767 then 
+			dos_txt = game.translate_string("st_radiation_normal")
+	    end
+		if db.actor.radiation > 0.23 then 
+			dos_txt = game.translate_string("st_radiation_hard")
+	    end
+	end
+	if s_obj and (s_obj:section_name()=="geiger" or s_obj:section_name()=="anomaly_elite") then 
+		dos_txt = string.format("%s%s%u%s%s",game.translate_string("st_level_of_rad"),": ",math.floor(db.actor.radiation*10000)," ",game.translate_string("st_msv"))
+	end
+	
+	SetHudMsg(dos_txt,3)
+	local snd = sound_object("interface\\inv_dozimetr")
+	snd:play(db.actor,0,sound_object.s2d)
+	axr_battery.remove_condition_use_battery(obj)
+end
+
+
+-- AMMO SORT
+function inv_item_sort_ammo_menu(itm)
+
+	local p = itm:parent()
+	if not (p and p:id() == db.actor:id()) then return end
+	
+	return game.translate_string("st_item_sort")
+end
+
+function inv_item_sort_ammo(itm)
+
+	local p = itm:parent()
+	if not (p and p:id() == db.actor:id()) then return end
+	
+	local section = itm:section()
+	local se_itm = alife():object(itm:id())
+	alife():release(se_itm)
+	
+	local max_ammo = math.random(1,5)
+	
+	
+	local ammo_list = {
+		"ammo_9x18_fmj",
+		"ammo_9x19_fmj",
+		"ammo_11.43x23_fmj",
+		"ammo_357_hp_mag",
+		"ammo_5.45x39_fmj",
+		"ammo_5.56x45_ss190",
+		"ammo_9x39_pab9",
+		"ammo_7.62x39_fmj",
+		"ammo_7.62x51_fmj",
+		"ammo_7.62x25_p",
+		"ammo_7.92x33_fmj",
+		"ammo_7.62x54_7h1",
+		"ammo_7.62x54_ap",
+	}
+	
+	for i = 1, max_ammo do
+		local ammo = ammo_list[math.random(#ammo_list)]
+		if (ammo) then		
+			create_ammo(ammo,db.actor:position(),db.actor:level_vertex_id(),db.actor:game_vertex_id(),0,1)
+		end
+	end
+	
+end
+
+
+-- OPEN CRAFT MENU
+function inv_item_craft_menu(itm)
+
+	local p = itm:parent()
+	if not (p and p:id() == db.actor:id()) then return end
+
+	return game.translate_string("st_use")
+end
+
+function inv_item_craft(itm)
+
+	local p = itm:parent()
+	if not (p and p:id() == db.actor:id()) then return end
+	sec = itm:section()
+	local hud = get_hud()
+	local ui = ui_itm_craft and ui_itm_craft.ui_craft(hud,sec)
+	if (ui) then
+		hud:HideActorMenu()
+		ui:ShowDialog(true)
+		ui:FillCraftList()
+	end
+end
+
+-- DISMANTLE ITEM
+function inv_item_dismantle_menu(itm)
+
+	local p = itm:parent()
+	if not (p and p:id() == db.actor:id()) then return end
+
+	return game.translate_string("st_item_dismantle")
+end
+
+function inv_item_dismantle(itm)
+
+	local p = itm:parent()
+	if not (p and p:id() == db.actor:id()) then return end
+
+	local section = itm:section()
+	local condition = itm:condition()
+	local se_itm = alife():object(itm:id())
+	alife():release(se_itm)
+	
+	local pos = db.actor:position()
+	local lvid = db.actor:level_vertex_id()
+	local gvid = db.actor:game_vertex_id()
+	local actor = db.actor:id()
+	
+	if (section == "compression_bag") then
+		if (math.random() < 1.0) then alife():create("textile_patch_m", pos, lvid, gvid, actor) end
+		if (math.random() < 0.5) then alife():create("rope", pos, lvid, gvid, actor) end
+		
+	elseif (section == "helm_cloth_mask") then
+		if (math.random() < 1.0) then alife():create("textile_patch_m", pos, lvid, gvid, actor) end
+		
+	elseif (section == "itm_sleepbag") then
+		if (math.random() < 1.0) then alife():create("textile_patch_b", pos, lvid, gvid, actor) end
+		if (math.random() < 0.5) then alife():create("textile_patch_b", pos, lvid, gvid, actor) end
+		if (math.random() < 1.0) then alife():create("textile_patch_m", pos, lvid, gvid, actor) end
+		if (math.random() < 0.5) then alife():create("textile_patch_m", pos, lvid, gvid, actor) end
+		if (math.random() < 0.25) then alife():create("synthrope", pos, lvid, gvid, actor) end
+		
+	elseif (section == "backpack_basic") then
+	    if (math.random() < 1.0) then alife():create("textile_patch_b", pos, lvid, gvid, actor) end
+		if (math.random() < 1.0) then alife():create("textile_patch_m", pos, lvid, gvid, actor) end
+		if (math.random() < 0.25) then alife():create("synthrope", pos, lvid, gvid, actor) end
+		
+	elseif (section == "backpack_light") then
+		if (math.random() < 1.0) then alife():create("textile_patch_m", pos, lvid, gvid, actor) end
+		if (math.random() < condition) then alife():create("textile_patch_b", pos, lvid, gvid, actor) end
+		if (math.random() < condition) then alife():create("textile_patch_b", pos, lvid, gvid, actor) end
+		if (math.random() < condition) then alife():create("rope", pos, lvid, gvid, actor) end
+		if (math.random() < condition) then alife():create("synthrope", pos, lvid, gvid, actor) end
+		
+	elseif (section == "backpack_heavy") then
+		if (math.random() < 1.0) then alife():create("textile_patch_m", pos, lvid, gvid, actor) end
+		if (math.random() < condition) then alife():create("textile_patch_m", pos, lvid, gvid, actor) end
+		if (math.random() < condition) then alife():create("textile_patch_m", pos, lvid, gvid, actor) end
+		if (math.random() < 1.0) then alife():create("textile_patch_b", pos, lvid, gvid, actor) end
+		if (math.random() < condition) then alife():create("textile_patch_b", pos, lvid, gvid, actor) end
+		if (math.random() < condition) then alife():create("rope", pos, lvid, gvid, actor) end
+		if (math.random() < condition) then alife():create("rope", pos, lvid, gvid, actor) end
+		if (math.random() < condition) then alife():create("synthrope", pos, lvid, gvid, actor) end
+		if (math.random() < condition) then alife():create("synthrope", pos, lvid, gvid, actor) end
+		
+	elseif (section == "kit_hunt") then
+		if (math.random() < 1.0) then alife():create("textile_patch_m", pos, lvid, gvid, actor) end
+		if (math.random() < condition) then alife():create("textile_patch_m", pos, lvid, gvid, actor) end
+		if (math.random() < 1.0) then alife():create("textile_patch_b", pos, lvid, gvid, actor) end
+		if (math.random() < condition) then alife():create("textile_patch_b", pos, lvid, gvid, actor) end
+		if (math.random() < condition) then alife():create("rope", pos, lvid, gvid, actor) end
+		if (math.random() < condition) then alife():create("rope", pos, lvid, gvid, actor) end
+		if (math.random() < condition) then alife():create("synthrope", pos, lvid, gvid, actor) end
+		if (math.random() < condition) then alife():create("synthrope", pos, lvid, gvid, actor) end
+		
+	elseif (section == "boots") then
+		if (math.random() < 1.0) then alife():create("textile_patch_e", pos, lvid, gvid, actor) end
+		if (math.random() < 0.1) then alife():create("synthrope", pos, lvid, gvid, actor) end
+			
+	elseif (section == "radio") or
+	(section == "headlamp") then
+		if (math.random() < 1.0) then alife():create("copper_coil", pos, lvid, gvid, actor) end
+		if (math.random() < 0.05) then alife():create("copper_coil", pos, lvid, gvid, actor) end
+		if (math.random() < 0.5) then alife():create("batteries_dead", pos, lvid, gvid, actor) end
+
+	elseif (section == "tarpaulin") then
+		if (math.random() < 1.0) then alife():create("textile_patch_m", pos, lvid, gvid, actor) end
+		if (math.random() < 1.0) then alife():create("textile_patch_m", pos, lvid, gvid, actor) end
+		if (math.random() < 1.0) then alife():create("textile_patch_m", pos, lvid, gvid, actor) end
+		
+	elseif (section == "detector_simple") then
+		if (math.random() < 0.75) then alife():create("capacitors", pos, lvid, gvid, actor) end
+		if (math.random() < 1.0) then alife():create("copper_coil", pos, lvid, gvid, actor) end
+		if (math.random() < 0.75) then alife():create("transistors", pos, lvid, gvid, actor) end
+		
+	elseif (section == "detector_advanced") then
+		if (math.random() < 0.75) then alife():create("capacitors", pos, lvid, gvid, actor) end
+		if (math.random() < 1.0) then alife():create("copper_coil", pos, lvid, gvid, actor) end
+		if (math.random() < 0.75) then alife():create("transistors", pos, lvid, gvid, actor) end
+		if (math.random() < 0.75) then alife():create("textolite", pos, lvid, gvid, actor) end
+		
+	elseif (section == "detector_elite") then
+		if (math.random() < 0.75) then alife():create("capacitors", pos, lvid, gvid, actor) end
+		if (math.random() < 1.0) then alife():create("copper_coil", pos, lvid, gvid, actor) end
+		if (math.random() < 0.75) then alife():create("transistors", pos, lvid, gvid, actor) end
+		if (math.random() < 0.75) then alife():create("transistors", pos, lvid, gvid, actor) end
+		if (math.random() < 0.75) then alife():create("textolite", pos, lvid, gvid, actor) end
+		
+	elseif (section == "detector_scientific") then
+		if (math.random() < 0.75) then alife():create("capacitors", pos, lvid, gvid, actor) end
+		if (math.random() < 0.75) then alife():create("capacitors", pos, lvid, gvid, actor) end
+		if (math.random() < 1.0) then alife():create("copper_coil", pos, lvid, gvid, actor) end
+		if (math.random() < 0.75) then alife():create("transistors", pos, lvid, gvid, actor) end
+		if (math.random() < 0.75) then alife():create("transistors", pos, lvid, gvid, actor) end
+		if (math.random() < 0.75) then alife():create("textolite", pos, lvid, gvid, actor) end
+		
+	elseif (section == "dosimeter") then
+		if (math.random() < 0.3) then alife():create("capacitors", pos, lvid, gvid, actor) end
+		if (math.random() < 1.0) then alife():create("batteries_dead", pos, lvid, gvid, actor) end
+		
+	elseif (section == "geiger") then
+		if (math.random() < 0.5) then alife():create("capacitors", pos, lvid, gvid, actor) end
+		if (math.random() < 1.0) then alife():create("batteries", pos, lvid, gvid, actor) end
+		
+	elseif (section == "anomaly_elite") then
+		if (math.random() < 0.5) then alife():create("capacitors", pos, lvid, gvid, actor) end
+		if (math.random() < 0.5) then alife():create("transistors", pos, lvid, gvid, actor) end
+		if (math.random() < 1.0) then alife():create("batteries", pos, lvid, gvid, actor) end
+	end
+end
+

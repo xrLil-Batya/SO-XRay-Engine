@@ -1,0 +1,207 @@
+--[[
+Callback and module manager for easy plug-in based script management
+by Alundaio
+
+1/31/2016
+axr_main now auto-executes any script that has on_game_load method. To create a new module, simply
+add a on_game_start function
+--]]
+
+-------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------------
+
+-- Valid Callbacks (named intercepts to avoid namespace conflicts)
+-- You must register a callback before or during on_game_load (ie. bind_actor net_spawn)
+-- All unused callbacks will have their table deleted from intercepts (see on_game_load for implementation)
+local intercepts = {
+	
+	-- actor_menu_inventory.script 
+	CUIActorMenu_OnItemDropped		= {},
+	CUIActorMenu_OnItemFocusReceive = {},
+	
+	-- actor_menu.script 
+	TrdWndOpened					= {},
+	TrdWndClosed					= {},
+	
+	-- bind_heli.script 
+	heli_on_hit_callback			= {},
+
+	-- bind_monster.script
+	monster_on_update				= {},
+	monster_on_hit_callback			= {},
+	monster_on_net_spawn			= {},
+	monster_on_death_callback		= {},
+	monster_on_actor_use_callback   = {},
+
+	-- bind_physic_object.script
+	physic_object_on_hit_callback 	= {},
+	physic_object_on_use_callback 	= {},
+	
+	-- bind_artefact.script
+	artefact_on_first_update		= {},
+	artefact_on_update				= {},
+	
+	-- bind_item.script
+	item_on_first_update			= {},
+	item_on_update					= {},
+
+	-- bind_stalker.script
+	on_game_load					= {},
+	actor_on_net_destroy			= {},
+	actor_on_first_update			= {},
+	actor_on_update					= {},
+	actor_on_item_take				= {},
+	actor_on_item_take_from_box 	= {},
+	actor_on_item_drop				= {},
+	actor_on_item_use				= {},
+	actor_on_use_inventory_object	= {},
+	actor_on_trade					= {},
+	actor_on_save					= {},
+	actor_on_load					= {},
+	actor_on_init					= {},
+	actor_on_reinit					= {},
+	actor_on_info_callback			= {},
+	actor_item_to_belt				= {},
+	actor_item_to_ruck				= {},
+	actor_item_to_slot				= {},
+	on_key_press					= {},
+	on_key_release					= {},
+	on_key_hold						= {},
+	actor_on_weapon_fired			= {},
+	actor_on_weapon_zoom_in			= {},
+	actor_on_weapon_zoom_out		= {},
+	actor_on_weapon_jammed			= {},
+	actor_on_weapon_no_ammo			= {},
+
+	-- se_actor.script
+	se_actor_on_register			= {},
+	se_actor_on_unregister			= {},
+	se_actor_on_STATE_Write			= {},
+	se_actor_on_STATE_Read			= {},
+
+	-- se_stalker.script
+	se_stalker_on_spawn				= {},
+
+	-- sim_board.script
+	squad_on_npc_creation			= {},
+	fill_start_position				= {},
+	
+	-- sim_squad_scripted.script
+	squad_on_npc_death				= {},
+	squad_on_update					= {},
+	squad_on_add_npc				= {},
+	squad_on_register				= {},
+	squad_on_unregister				= {},
+
+	-- smart_terrain.script 
+	smart_terrain_on_update			= {},
+	
+	-- state_mgr_weapon.script
+	npc_on_weapon_strapped			= {},
+	npc_on_weapon_unstrapped		= {},
+	npc_on_weapon_drop				= {},
+	
+	-- ui_main_menu.script
+	main_menu_on_keyboard			= {},
+	main_menu_on_init				= {},
+	main_menu_on_quit				= {},
+
+	-- ui_mm_opt_main.script 
+	opt_menu_on_init				= {},
+	opt_menu_on_accept				= {},
+	opt_menu_on_set_values			= {},
+
+	-- xr_corpse_detection.script
+	npc_on_get_all_from_corpse 		= {},
+
+	-- xr_hear.script
+	npc_on_hear_callback			= {},
+	
+	-- xr_logic.script
+	on_pstor_save_all				= {},
+	on_pstor_load_all				= {},
+	
+	-- xr_motivator.script
+	npc_on_use 						= {},
+	npc_on_item_take 				= {},
+	npc_on_item_drop 				= {},
+	npc_on_net_spawn				= {},
+	npc_on_net_destroy 				= {},
+	npc_on_update					= {},
+	npc_on_hit_callback				= {},
+	npc_on_death_callback			= {},
+	npc_on_item_take_from_box		= {},
+	
+}
+
+-----------------------------------------------------------
+-- Global Callback Register
+-- param 1 - name as type<string> (ie. intercepts[name])
+-- param 2 - function to execute as type<function> or userdata with name as function
+-----------------------------------------------------------
+function callback_set(name,func_or_userdata)
+	if (intercepts[name]) then
+		intercepts[name][func_or_userdata] = true
+	end
+end
+
+function callback_unset(name,func_or_userdata)
+	if (intercepts[name]) then
+		intercepts[name][func_or_userdata] = nil
+	end
+end
+
+function make_callback(name,...)
+	if (intercepts[name]) then
+		for func_or_userdata,v in pairs(intercepts[name]) do 
+			if (type(func_or_userdata) == "function") then 
+				func_or_userdata(...)
+			elseif (func_or_userdata[name]) then
+				func_or_userdata[name](func_or_userdata,...)
+			end
+		end
+	end
+end
+
+--------------------------------------------------------------------------------------------------------------------
+-- ON GAME START
+--------------------------------------------------------------------------------------------------------------------
+function on_game_start()
+	local start_game_functions = {
+	"actor_effects",
+	"axr_alife_imitation",
+	"axr_artmod",
+	"axr_battery",
+	"axr_conditions",
+	"dynamic_anomaly_manager",
+	"dynamic_news_manager",
+	"items_condition",
+	"items_manager",
+	"axr_rnd_npc_spawner",
+	"sleep_manager",
+	"campfire_manager",
+	"dxr_scopes",
+	"ui_pda_encyclopedia",
+	}
+	for i=1,#start_game_functions do
+		if (_G[start_game_functions[i] ] and _G[start_game_functions[i] ].on_game_start) then
+			_G[start_game_functions[i] ].on_game_start()
+		end
+	end
+end
+
+--------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------
+function actor_on_weapon_zoom_in()
+	local wpn = db.actor:active_item()
+	scoped_weapon_is_zoomed = wpn and IsWeapon(wpn) and wpn:weapon_is_scope()
+	binoc_is_zoomed = wpn and (wpn:section() == "wpn_binoc_inv")
+	weapon_is_zoomed = true
+end 
+
+function actor_on_weapon_zoom_out()
+	scoped_weapon_is_zoomed = false
+	binoc_is_zoomed = false
+	weapon_is_zoomed = false
+end

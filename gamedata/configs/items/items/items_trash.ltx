@@ -1,0 +1,555 @@
+[rope]:identity_immunities 
+GroupControlSection = spawn_group 
+discovery_dependency = 
+$spawn = "food and drugs\harmonica_a" 
+cform = skeleton 
+class = II_ATTCH 
+visual = dynamics\equipments\trade\rope.ogf 
+cost = 200 
+inv_name = st_rope 
+inv_name_short = st_rope 
+description = st_rope_descr 
+inv_weight = 0.12 
+inv_grid_width = 1 
+inv_grid_height = 1 
+inv_grid_x = 18 
+inv_grid_y = 6
+attach_angle_offset = 0.000000, -1.204452, -1.262921 
+attach_position_offset = 0.081856, -0.035081, 0.011694 
+attach_bone_name = bip01_l_hand 
+auto_attach = false 
+repair_part_bonus = 0.03
+sort_in_misc = true
+
+[ammo_bad]:rope
+$spawn 				= "devices\roubles"
+$prefetch 			= 16
+visual				= dynamics\equipments\trade\ammo.ogf
+description			= st_ammo_bad_descr
+inv_name			= st_ammo_bad
+inv_name_short			= st_ammo_bad
+inv_grid_width			= 2
+inv_grid_height			= 1
+inv_grid_x			= 19
+inv_grid_y			= 6
+cost				= 100
+
+inv_weight			= 0.15
+attach_angle_offset		= -0.287979, 1.560923, 1.544060
+attach_position_offset		= 0.096910, -0.013594, 0.107925
+attach_bone_name		= bip01_r_hand
+auto_attach				= false
+
+use1_functor                             = items_manager.inv_item_sort_ammo_menu
+use1_action_functor                      = items_manager.inv_item_sort_ammo
+
+[old_book]:rope
+visual				= dynamics\equipments\trade\old_book.ogf
+description			= st_old_book_descr
+inv_name			= st_old_book
+inv_name_short			= st_old_book
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x			= 21
+inv_grid_y			= 6
+cost				= 100
+
+inv_weight			= 0.224
+repair_part_bonus	 	= 0.02
+
+[jar]:rope ;банка с хламом
+visual				= dynamics\workshop_room\banka_kraski_1.ogf
+description			= st_jar_descr
+inv_name			= st_jar
+inv_name_short			= st_jar
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x			= 22
+inv_grid_y			= 6
+cost				= 100
+
+inv_weight			= 0.58
+
+[grooming]:rope ;набор для стрижки
+visual				= dynamics\equipments\trade\grooming.ogf
+description			= st_grooming_descr
+inv_name			= st_grooming
+inv_name_short			= st_grooming
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x			= 23
+inv_grid_y			= 6
+cost				= 200
+inv_weight			= 0.13
+repair_part_bonus	 	= 0.02
+
+[spareparts]:rope ;оруж.запчасти
+visual				= dynamics\equipments\trade\parts.ogf
+description			= st_wpn_spareparts_descr
+inv_name			= st_wpn_spareparts
+inv_name_short		= st_wpn_spareparts
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x			= 24
+inv_grid_y			= 6
+cost				= 500
+inv_weight			= 0.86
+repair_part_bonus	 	= 0.10
+
+[headlamp]:rope ;лом. фонарь
+visual				= dynamics\devices\dev_torch_light\dev_torch_light2.ogf
+description			= st_headlamp_descr
+inv_name			= st_headlamp
+inv_name_short		= st_headlamp
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 25
+inv_grid_y			= 6
+cost				= 300
+inv_weight			= 0.2
+
+use1_functor                             = items_manager.inv_item_dismantle_menu
+use1_action_functor                      = items_manager.inv_item_dismantle
+
+[cards]:rope
+visual				= dynamics\equipments\trade\cards.ogf
+description			= st_cards_descr
+inv_name			= st_cards
+inv_name_short			= st_cards
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x			= 26
+inv_grid_y			= 6
+cost				= 200
+inv_weight			= 0.11
+
+[boots]:rope
+visual				= dynamics\equipments\trade\boots.ogf
+description			= st_boots_descr
+inv_name			= st_boots
+inv_name_short			= st_boots
+inv_grid_width			= 2
+inv_grid_height			= 2
+inv_grid_x			= 28
+inv_grid_y			= 5
+cost				= 1000
+inv_weight			= 1.68
+repair_part_bonus	 	= 0.04
+
+use1_functor                             = items_manager.inv_item_dismantle_menu
+use1_action_functor                      = items_manager.inv_item_dismantle
+
+[swiss]:rope ;перочиный нож
+visual				= dynamics\equipments\trade\swiss.ogf
+description			= st_swiss_descr
+inv_name			= st_swiss
+inv_name_short			= st_swiss
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x			= 27
+inv_grid_y			= 6
+cost				= 400
+inv_weight			= 0.1
+repair_part_bonus	 	= 0.02
+
+[walkie]:rope ;рация
+visual              = dynamics\devices\dev_fmradio\dev_fmradio.ogf
+description			= st_walkie_descr
+inv_name			= st_walkie
+inv_name_short			= st_walkie
+inv_grid_width			= 1
+inv_grid_height			= 2
+inv_grid_x			= 30
+inv_grid_y			= 5
+cost				= 300
+inv_weight			= 0.42
+
+use1_functor                             = items_manager.inv_item_dismantle_menu
+use1_action_functor                      = items_manager.inv_item_dismantle
+
+[mirror]:rope ;зеркало
+visual				= dynamics\equipments\trade\mirror.ogf
+description			= st_mirror_descr
+inv_name			= st_mirror
+inv_name_short			= st_mirror
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x			= 31
+inv_grid_y			= 6
+cost				= 40
+inv_weight			= 0.09
+
+[welding_goggles]:rope ;свар. очки
+visual				= dynamics\equipments\trade\goggles.ogf
+description			= st_welding_goggles_descr
+inv_name			= st_welding_goggles
+inv_name_short			= st_welding_goggles
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x			= 32
+inv_grid_y			= 6
+cost				= 100
+inv_weight			= 0.382
+
+[jewelry_box]:rope ;шкат. с драгоценностями
+visual				= dynamics\equipments\trade\jbox.ogf
+description			= st_jewelry_box_descr
+inv_name			= st_jewelry_box
+inv_name_short			= st_jewelry_box
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x			= 32
+inv_grid_y			= 7
+cost				= 6000
+inv_weight			= 0.22
+
+[book1]:rope
+visual				= dynamics\equipments\trade\book1.ogf
+description			= st_book1_descr
+inv_name			= st_book1
+inv_name_short			= st_book1
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x			= 34
+inv_grid_y			= 6
+cost				= 60
+inv_weight			= 0.18
+repair_part_bonus	 	= 0.02
+
+[book2]:rope
+visual				= dynamics\equipments\trade\book2.ogf
+description			= st_book2_descr
+inv_name			= st_book2
+inv_name_short			= st_book2
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x			= 35
+inv_grid_y			= 6
+cost				= 60
+
+inv_weight			= 0.22
+attach_angle_offset		= -0.287979, 1.560923, 1.544060
+attach_position_offset		= 0.096910, -0.013594, 0.107925
+attach_bone_name		= bip01_r_hand
+auto_attach				= false
+repair_part_bonus	 	= 0.02
+
+[book3]:rope
+visual				= dynamics\equipments\trade\book3.ogf
+description			= st_drugnotes_descr
+inv_name			= st_drugnotes
+inv_name_short			= st_drugnotes
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x			= 36
+inv_grid_y			= 6
+cost				= 1000
+inv_weight			= 0.17
+repair_part_bonus	 	= 0.02
+
+[picture_woman]:rope ;фото женщины
+visual				= dynamics\equipments\trade\photo.ogf
+description			= st_picture_woman_descr
+inv_name			= st_picture_woman
+inv_name_short			= st_picture_woman
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x			= 18
+inv_grid_y			= 7
+cost				= 40
+inv_weight			= 0.02
+repair_part_bonus	 	= 0.01
+
+[flashlight_broken]:rope ;арм.фонарь
+visual				= dynamics\equipments\trade\torch.ogf
+description			= st_flashlight_broken_descr
+inv_name			= st_flashlight_broken
+inv_name_short			= st_flashlight_broken
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x			= 19
+inv_grid_y			= 7
+cost				= 300
+inv_weight			= 0.180
+
+use1_functor                             = items_manager.inv_item_dismantle_menu
+use1_action_functor                      = items_manager.inv_item_dismantle
+
+[underwear]:rope ;нижнее бельё
+visual				= dynamics\equipments\sumka1.ogf
+description			= st_underwear_descr
+inv_name			= st_underwear
+inv_name_short			= st_underwear
+inv_grid_width			= 2
+inv_grid_height			= 1
+inv_grid_x			= 20
+inv_grid_y			= 7
+cost				= 300
+inv_weight			= 0.18
+repair_part_bonus	 	= 0.03
+
+use1_functor                             = items_manager.inv_item_dismantle_menu
+use1_action_functor                      = items_manager.inv_item_dismantle
+
+[roubles]:rope ;монеты
+visual				= dynamics\equipments\dev_money.ogf
+description			= st_roubles_descr
+inv_name			= st_roubles
+inv_name_short			= st_roubles
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x			= 22
+inv_grid_y			= 7
+cost				= 200
+inv_weight			= 0.015
+dont_stack                               = false
+
+[porn]:rope ;плейбой
+visual				= dynamics\equipments\trade\porn.ogf
+description			= st_porn_descr
+inv_name			= st_porn
+inv_name_short		= st_porn
+inv_weight			= 0.22
+inv_grid_width     = 1
+inv_grid_height    = 2
+inv_grid_x         = 33
+inv_grid_y         = 4
+cost				= 500
+repair_part_bonus	 	= 0.01
+;use_sound			= interface\inv_journal
+
+[porn2]:porn ;газета
+visual				= dynamics\equipments\trade\porn2.ogf
+description			= st_porn2_descr
+inv_name			= st_porn2
+inv_name_short		= st_porn2
+inv_weight			= 0.05
+inv_grid_width     = 2
+inv_grid_height    = 1
+inv_grid_x         = 23
+inv_grid_y         = 7
+cost				= 100
+repair_part_bonus	 	= 0.01
+
+[survivalguide]:rope ;инстр. по выживанию
+visual				= dynamics\equipments\trade\survivalguide.ogf
+description			= st_survivalguide_descr
+inv_name			= st_survivalguide
+inv_name_short			= st_survivalguide
+inv_weight			= 0.23	;0.2
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x			= 25
+inv_grid_y			= 7
+cost				= 300
+repair_part_bonus	 	= 0.03
+
+[tarpaulin]:rope ;кам. брезент
+visual					= dynamics\equipments\trade\tarp.ogf
+cost					= 900
+inv_name				= st_tarpaulin
+inv_name_short			= st_tarpaulin
+description				= st_tarpaulin_descr
+inv_weight				= 0.8
+inv_grid_width			= 2
+inv_grid_height			= 1
+inv_grid_x				= 31
+inv_grid_y				= 5
+repair_part_bonus	 	= 0.05
+
+use1_functor                             = items_manager.inv_item_dismantle_menu
+use1_action_functor                      = items_manager.inv_item_dismantle
+
+[synthrope]:rope ;синт. нить
+visual                  = dynamics\equipments\trade\synthwire.ogf
+cost					= 300
+inv_name				= st_synthrope
+inv_name_short				= st_synthrope
+description				= st_synthrope_descr
+inv_weight				= 0.02
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x				= 26
+inv_grid_y				= 7
+repair_part_bonus	 	= 0.04
+
+[cutlery]:rope ;стол. приборы
+visual					= dynamics\equipments\trade\cutlery.ogf
+cost					= 100
+inv_name				= st_cutlery
+inv_name_short			= st_cutlery
+description				= st_cutlery_descr
+inv_weight				= 0.2
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x				= 27
+inv_grid_y				= 7
+repair_part_bonus	 	= 0.02
+
+[radio]:rope ;белое радио
+visual                  = dynamics\equipments\trade\radio.ogf
+cost					= 300
+inv_name				= st_radio
+inv_name_short				= st_radio
+description				= st_radio_descr
+inv_weight				= 0.4
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x				= 28
+inv_grid_y				= 7
+
+use1_functor                             = items_manager.inv_item_dismantle_menu
+use1_action_functor                      = items_manager.inv_item_dismantle
+
+[radio2]:rope ;чёрное радио
+visual                  = dynamics\equipments\trade\radio.ogf
+cost					= 300
+inv_name				= st_radio2
+inv_name_short				= st_radio2
+description				= st_radio2_descr
+inv_weight				= 0.33
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x				= 29
+inv_grid_y				= 7
+
+use1_functor                             = items_manager.inv_item_dismantle_menu
+use1_action_functor                      = items_manager.inv_item_dismantle
+
+[grease]:rope ;пром.смазка
+visual				= dynamics\repair\grease.ogf
+radius				= 68; 50
+description			= st_grease_descr
+inv_name			= st_grease
+inv_name_short			= st_grease
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x			= 30
+inv_grid_y			= 7
+cost				= 900
+inv_weight			= 0.341
+repair_part_bonus	 	= 0.06
+
+[steel_wool]:rope ;стальная пряжа
+visual				= dynamics\repair\steel_wool.ogf
+radius				= 68; 50
+description			= st_steel_wool_descr
+inv_name			= st_steel_wool
+inv_name_short			= st_steel_wool
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x			= 31
+inv_grid_y			= 7
+cost				= 700
+inv_weight			= 0.224
+repair_part_bonus	 	= 0.05
+
+[textile_patch_b]:rope ; (Basic textile patch)
+description			= st_textile_patch_b_descr
+inv_name			= st_textile_patch_b
+inv_name_short			= st_textile_patch_b
+visual				= dynamics\repair\textile_patch_b.ogf
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x			= 32
+inv_grid_y			= 7
+cost				= 200
+inv_weight			= 0.08
+repair_part_bonus	 	= 0.03
+
+[textile_patch_m]:rope ; (Mil spec textile patch)
+description			= st_textile_patch_m_descr
+inv_name			=  st_textile_patch_m
+inv_name_short			= st_textile_patch_m
+visual				= dynamics\repair\textile_patch_m.ogf
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x			= 33
+inv_grid_y			= 7
+cost				= 300
+inv_weight			= 0.283
+repair_part_bonus	 	= 0.04
+
+[textile_patch_e]:rope ; (Enforced textile patch)
+description			= st_textile_patch_e_descr
+inv_name			=  st_textile_patch_e
+inv_name_short			= st_textile_patch_e
+visual				= dynamics\repair\textile_patch_e.ogf
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x			= 34
+inv_grid_y			= 7
+cost				= 800
+inv_weight			= 0.466
+repair_part_bonus	 	= 0.06
+
+[copper_coil]:rope ;медная проволока
+$spawn = "devices\trash\copper_coil" 
+inv_weight          = 0.1
+cost				= 500
+
+description                              = jup_b200_tech_materials_wire_descr
+visual                                   = dynamics\equipments\quest\materials_wire.ogf
+inv_name                                 = jup_b200_tech_materials_wire
+inv_name_short                           = jup_b200_tech_materials_wire
+inv_grid_width                           = 1
+inv_grid_height                          = 1
+inv_grid_x                               = 12
+inv_grid_y                               = 7
+
+[textolite]:rope 
+$spawn = "devices\trash\textolite" 
+inv_weight          = 0.05
+cost				= 1100
+
+description                              = jup_b200_tech_materials_textolite_descr
+visual                                   = dynamics\equipments\quest\materials_textolite.ogf
+inv_name                                 = jup_b200_tech_materials_textolite
+inv_name_short                           = jup_b200_tech_materials_textolite 
+inv_grid_width                           = 1
+inv_grid_height                          = 1
+inv_grid_x                               = 14
+inv_grid_y                               = 7
+
+[transistors]:rope
+$spawn = "devices\trash\transistors" 
+inv_weight          = 0.15
+cost				= 1800
+
+description                              = jup_b200_tech_materials_transistor_descr
+visual                                   = dynamics\equipments\quest\box_transistors.ogf
+inv_name                                 = jup_b200_tech_materials_transistor
+inv_name_short                           = jup_b200_tech_materials_transistor
+inv_grid_width                           = 1
+inv_grid_height                          = 1
+inv_grid_x                               = 15
+inv_grid_y                               = 7
+
+[capacitors]:rope ;конденсоры
+$spawn = "devices\trash\capacitors" 
+inv_weight          = 0.15
+cost				= 1800
+
+description                              = jup_b200_tech_materials_capacitor_descr
+visual                                   = dynamics\equipments\quest\box_condensers.ogf
+inv_name                                 = jup_b200_tech_materials_capacitor
+inv_name_short                           = jup_b200_tech_materials_capacitor
+inv_grid_width                           = 1
+inv_grid_height                          = 1
+inv_grid_x                               = 15
+inv_grid_y                               = 6
+
+[colophony]:rope ;канифоль
+$spawn = "devices\trash\colophony" 
+inv_weight          = 0.1
+cost				= 900
+
+description                              = jup_b200_tech_materials_acetone_descr
+visual                                   = dynamics\equipments\quest\box_kanifol.ogf
+inv_name                                 = jup_b200_tech_materials_acetone
+inv_name_short                           = jup_b200_tech_materials_acetone
+inv_grid_width                           = 1
+inv_grid_height                          = 1
+inv_grid_x                               = 13
+inv_grid_y                               = 7
+

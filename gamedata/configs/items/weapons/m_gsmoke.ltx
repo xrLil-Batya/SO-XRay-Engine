@@ -1,0 +1,111 @@
+[grenade_smoke]:identity_immunities,weapon_probability,default_weapon_params, wpn_binoc_sounds
+$prefetch                                = 128
+$spawn                                   = "weapons\grenades\gd-05"
+// should be deleted after update        = 
+GroupControlSection                      = spawn_group
+angle_offset                             = 1.570790,1.570790,3.92699
+animation_slot                           = 7
+attach_angle_offset                      = 0,0,0
+attach_bone_name                         = 
+attach_position_offset                   = -0.053,-0.089,0.0
+blast                                    = 0
+blast_impulse                            = 0
+blast_impulse_factor                     = 0
+blast_r                                  = 0
+bone_name                                = bip01_r_hand
+cform                                    = skeleton
+class                                    = G_F1
+control_inertion_factor                  = 1
+cost                                     = 600
+default_to_ruck							 = true
+description                              = st_grenade_smoke_descr
+destroy_time                             = 3000
+detonation_threshold_hit                 = 200
+discovery_dependency                     = 
+ef_weapon_type                           = 4
+explode_duration                         = 12
+explode_particles                        = explosions\explosion_dym
+force_const                              = 25
+force_grow_speed                         = 15
+force_max                                = 30
+force_min                                = 10
+frag_hit                                 = 0
+frag_hit_impulse                         = 0
+fragment_speed                           = 50
+frags                                    = 0
+frags_r                                  = 0
+grenade_remove_time                      = 60000
+hit_type_blast                           = strike
+hit_type_frag                            = fire_wound
+hud                                      = grenade_smoke_hud
+inv_grid_height                          = 1
+inv_grid_width                           = 1
+inv_grid_x                               = 11
+inv_grid_y                               = 37
+inv_name                                 = st_grenade_smoke
+inv_name_short                           = st_grenade_smoke
+inv_weight                               = 0.15
+kill_msg_height                          = 23
+kill_msg_width                           = 14
+kill_msg_x                               = 240
+kill_msg_y                               = 123
+light_color                              = 0.9,0.6,0.5
+light_range                              = 2.0
+light_time                               = 2.85
+position_offset                          = 0.0,0.0,0.0
+reload_dof                               = 0.0, 0.5, 5, 1.7
+single_handed                            = 1
+slot									 = 29
+snd_checkout = weapons\grenade\pull_01
+snd_checkout1 = weapons\grenade\pull_02
+snd_explode                              = weapons\explo\smoke_01
+snd_explode1                              = weapons\explo\smoke_02
+snd_explode2                              = weapons\explo\smoke_03
+snd_explode3                              = weapons\explo\smoke_04
+sprint_allowed                           = true
+third_person_throw_point_offset          = -0.05,0.848,0.706
+throw_dir                                = 0,0,1
+throw_point                              = 0.4, 0.3, 0.1
+up_throw_factor                          = 0
+visual                                   = dynamics\weapons\wpn_grenades\wpn_gsmoke.ogf
+wallmark_section                         = explosion_marks
+wm_size                                  = 0.1
+zoom_dof                                 = 0.5, 1.0, 180
+
+[grenade_smoke_hud]:hud_base
+attach_place_idx			= 0
+item_visual				= dynamics\weapons\wpn_grenades\wpn_gsmoke_hud.ogf
+
+fire_point					= 0,0,0
+fire_bone					= wpn_body
+
+hands_position				= -0.0965,-0.163,0.139
+hands_orientation				= -4.4,1.0,-2.0
+
+hands_position_16x9				= -0.0965,-0.163,0.139
+hands_orientation_16x9			= -4.4,1.0,-2.0
+
+item_position 				= -0.001,0.004,0.0
+item_orientation		 		= 18.5,1.5,0.0
+
+aim_hud_offset_pos				= 0,0,0
+aim_hud_offset_rot				= 0,0,0
+
+gl_hud_offset_pos				= 0,0,0
+gl_hud_offset_rot				= 0,0,0
+
+lean_hud_offset_pos				= 0,0,0
+lean_hud_offset_rot				= 0,0,0
+
+anm_show					= lancew_f1_draw
+anm_hide					= lancew_f1_holster
+anm_idle					= lancew_f1_idle, idle_1
+anm_bore					= lancew_f1_no_reload
+anm_idle_moving				= lancew_f1_moving, moving
+anm_idle_sprint				= lancew_f1_sprint, sprint
+anm_throw_begin				= lancew_f1_throw_begin, throw_begin
+anm_throw_idle				= lancew_f1_throw_idle, throw_idle
+anm_throw				= lancew_f1_throw, throw
+
+throw_point				= 0.0,0.4,0.3
+throw_dir					= 0,0,1

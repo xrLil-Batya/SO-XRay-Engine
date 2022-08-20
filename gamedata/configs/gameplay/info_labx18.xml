@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding="windows-1251"?>
+
+<game_information_portions>
+   - <!--  Кодовые двери --> 
+ <info_portion id="dar_door1_closed" /> 
+ <info_portion id="dar_door2_closed" /> 
+ <info_portion id="dar_password_info1">
+ <article>dar_password_info1</article> 
+ <article>dar_password_info11</article> 
+
+<info_portion id="dar_open_door1" /> 
+<info_portion id="dar_open_door2" /> 
+
+<info_portion id="dar_codelock1_unlock" /> 
+<info_portion id="dar_codelock2_unlock" /> 
+</game_information_portions>

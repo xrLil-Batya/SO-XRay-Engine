@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding="windows-1251"?>
+
+<game_information_portions>
+   <!--   ворота  --> 
+  <info_portion id="red_forest_open" /> 
+  <info_portion id="red_forest_open2" /> 
+  
+</game_information_portions>

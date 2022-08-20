@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<ui_craft>
+    <Main x="99" y="150" width="563" height="509" stretch="1">
+        <texture>ui_craft_window</texture>
+		
+		<icon_tool x="424" y="396" width="80" height="40" stretch="1">
+		</icon_tool>
+
+		<caption_tool x="367" y="337" width="200" height="50" complex_mode="1">
+			<text font="letterica16" align="c"/>
+		</caption_tool>
+			
+		<caption_craft_title x="266" y="25" width="108" height="50" complex_mode="1">
+			<text font="letterica16" align="c">ui_st_inv_craft</text>
+		</caption_craft_title>
+			
+		<caption_material_title x="24" y="25" width="108" height="50" complex_mode="1">
+			<text font="letterica16" align="c">ui_st_inv_materials</text>
+		</caption_material_title>
+			
+        <list_craft_frame x="272" y="50" width="265" height="260"/>
+		<list_craft x="272" y="50" width="265" height="260" item_height="18" can_select="1" always_show_scroll="0">
+			<font font="letterica16"/>
+		</list_craft>
+			
+		<caption_part1 x="0" y="140" width="230" height="30">
+			<text font="letterica16" align="c"/>
+		</caption_part1>
+			
+		<icon_part1 x="40" y="90" width="40" height="40" stretch="1">
+		</icon_part1>
+
+		<caption_part2 x="0" y="225" width="230" height="30">
+			<text font="letterica16" align="c"/>
+		</caption_part2>
+			
+		<icon_part2 x="40" y="175" width="40" height="40" stretch="1">
+		</icon_part2>
+			
+		<caption_part3 x="0" y="310" width="230" height="30">
+			<text font="letterica16" align="c"/>
+		</caption_part3>
+			
+		<icon_part3 x="40" y="260" width="40" height="40" stretch="1">
+		</icon_part3>
+			
+		<caption_part4 x="0" y="395" width="230" height="30">
+			<text font="letterica16" align="c"/>
+		</caption_part4>
+			
+		<icon_part4 x="40" y="345" width="40" height="40" stretch="1">
+		</icon_part4>
+		
+        <btn_ok x="43" y="430" width="80" height="29">
+            <texture>ui_button_ordinary</texture>
+            <text font="graffiti22" align="c">Создать</text>
+            <text_color>
+	        <e color ="ui_6"/>
+	        <t color ="ui_black"/>
+	        <d color ="ui_5"/>
+	        <h color ="ui_black"/>
+            </text_color>
+        </btn_ok>
+        <btn_quit x="148" y="430" width="80" height="29">
+            <texture>ui_button_ordinary</texture>
+            <text font="graffiti22" align="c">Выход</text>
+            <text_color>
+	        <e color ="ui_6"/>
+	        <t color ="ui_black"/>
+	        <d color ="ui_5"/>
+	        <h color ="ui_black"/>
+            </text_color>
+        </btn_quit>
+    </Main>
+</ui_craft>

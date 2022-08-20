@@ -1,0 +1,378 @@
+local smart_table = {
+					"zat_stalker_base_smart",
+					"jup_b41",
+					"jup_a6",
+					"pri_a16",
+					"mar_smart_terrain_csky_base",
+					}
+
+local eatable_visuals = {
+	["actors\\stalker_hero\\stalker_hero_1"] = true,
+	["actors\\stalker_hero\\stalker_hero_novice_1"] = true,
+	["actors\\stalker_hero\\stalker_hero_stalker_1"] = true,
+	["actors\\stalker_hero\\stalker_hero_dolg_1"] = true,
+	["actors\\stalker_hero\\stalker_hero_dolg_2"] = true,
+	["actors\\stalker_hero\\stalker_hero_freedom_1"] = true,
+	["actors\\stalker_hero\\stalker_hero_freedom_2"] = true,
+	["actors\\stalker_hero\\stalker_hero_specops"] = true,
+	["actors\\stalker_hero\\stalker_hero_military"] = true,
+	["actors\\stalker_hero\\stalker_hero_neutral_nauchniy"] = true,
+	["actors\\stalker_hero\\stalker_hero_cs_heavy"] = true,
+	["actors\\stalker_hero\\stalker_hero_exo"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_1_mask"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_1a_mask"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_1b_mask"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_1c_mask"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_1d_mask"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_1e_mask"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_1f_mask"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_1g_mask"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_1h_mask"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_1i_mask"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_2"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_2a"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_2b"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_2c"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_2d"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_3"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_3_mask"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_3a"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_3a_mask"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_3b"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_3b_mask"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_3c"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_3c_mask"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_3d"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_3d_mask"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_3e"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_3e_mask"] = true,
+	["actors\\stalker_dolg\\stalker_dolg_2_mask"] = true,
+	["actors\\stalker_dolg\\stalker_dolg_2a_mask"] = true,
+	["actors\\stalker_dolg\\stalker_dolg_2b_mask"] = true,
+	["actors\\stalker_dolg\\stalker_dolg_2c_mask"] = true,
+	["actors\\stalker_dolg\\stalker_dolg_2d_mask"] = true,
+	["actors\\stalker_freedom\\stalker_freedom_1_mask"] = true,
+	["actors\\stalker_freedom\\stalker_freedom_1a_mask"] = true,
+	["actors\\stalker_freedom\\stalker_freedom_1b_mask"] = true,
+	["actors\\stalker_freedom\\stalker_freedom_2_mask"] = true,
+	["actors\\stalker_freedom\\stalker_freedom_2a_mask"] = true,
+	["actors\\stalker_freedom\\stalker_freedom_2b_mask"] = true,
+	["actors\\stalker_freedom\\stalker_freedom_2c_mask"] = true,
+	["actors\\stalker_freedom\\stalker_freedom_2d_mask"] = true,
+	["actors\\stalker_freedom\\stalker_freedom_3"] = true,
+	["actors\\stalker_freedom\\stalker_freedom_3a"] = true,
+	["actors\\stalker_hunter\\stalker_hunter_1a_mask"] = true,
+	["actors\\stalker_hunter\\stalker_hunter_1b_mask"] = true,
+	["actors\\stalker_hunter\\stalker_hunter_1c_mask"] = true,
+	["actors\\stalker_hunter\\stalker_hunter_1d_mask"] = true,
+	["actors\\stalker_hunter\\stalker_hunter_1e_mask"] = true,
+	["actors\\stalker_hunter\\stalker_hunter_2a_mask"] = true,
+	["actors\\stalker_hunter\\stalker_hunter_2b_mask"] = true,
+	["actors\\stalker_hunter\\stalker_hunter_2c_mask"] = true,
+	["actors\\stalker_hunter\\stalker_hunter_2d_mask"] = true,
+	["actors\\stalker_hunter\\stalker_hunter_3a"] = true,
+	["actors\\stalker_hunter\\stalker_hunter_3b"] = true,
+	["actors\\stalker_hunter\\stalker_hunter_3c"] = true,
+	["actors\\stalker_hunter\\stalker_hunter_3d"] = true,
+	["actors\\stalker_hunter\\stalker_hunter_3e"] = true,
+	["actors\\stalker_merc\\stalker_merc_2_mask"] = true,
+	["actors\\stalker_merc\\stalker_merc_2a_mask"] = true,
+	["actors\\stalker_merc\\stalker_merc_2b_mask"] = true,
+	["actors\\stalker_merc\\stalker_merc_2c_mask"] = true,
+	["actors\\stalker_merc\\stalker_merc_2d_mask"] = true,
+	["actors\\stalker_merc\\stalker_merc_2e_mask"] = true,
+	["actors\\stalker_merc\\stalker_merc_2f_mask"] = true,
+	["actors\\stalker_nebo\\stalker_nebo_1"] = true,
+	["actors\\stalker_nebo\\stalker_nebo_1a"] = true,
+	["actors\\stalker_nebo\\stalker_nebo_1b"] = true,
+	["actors\\stalker_nebo\\stalker_nebo_1c"] = true,
+	["actors\\stalker_nebo\\stalker_nebo_1d"] = true,
+	["actors\\stalker_nebo\\stalker_nebo_a"] = true,
+	["actors\\stalker_nebo\\stalker_nebo_a2"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_1_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_1a_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_1b_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_1c_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_1d_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_1e_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_1f_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_1g_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_1h_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_2_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_2a_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_2b_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_2c_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_2d_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_2e_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_2f_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_2g_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_2h_mask"] = true,
+	["actors\\stalker_soldier\\stalker_soldier_1"] = true,
+	["actors\\stalker_soldier\\stalker_soldier_1a"] = true,
+	["actors\\stalker_soldier\\stalker_soldier_1b"] = true,
+	["actors\\stalker_soldier\\stalker_soldier_1c"] = true,
+	["actors\\stalker_soldier\\stalker_soldier_1d"] = true,
+	["actors\\stalker_soldier\\stalker_soldier_2"] = true,
+	["actors\\stalker_soldier\\stalker_soldier_2a"] = true,
+	["actors\\stalker_soldier\\stalker_soldier_2b"] = true,
+	["actors\\stalker_soldier\\stalker_soldier_2c"] = true,
+	["actors\\stalker_soldier\\stalker_soldier_2d"] = true,
+}
+
+local harmonica_visuals = {
+	["actors\\stalker_hero\\stalker_hero_1"] = true,
+	["actors\\stalker_hero\\stalker_hero_novice_1"] = true,
+	["actors\\stalker_hero\\stalker_hero_stalker_1"] = true,
+	["actors\\stalker_hero\\stalker_hero_dolg_1"] = true,
+	["actors\\stalker_hero\\stalker_hero_dolg_2"] = true,
+	["actors\\stalker_hero\\stalker_hero_freedom_1"] = true,
+	["actors\\stalker_hero\\stalker_hero_freedom_2"] = true,
+	["actors\\stalker_hero\\stalker_hero_specops"] = true,
+	["actors\\stalker_hero\\stalker_hero_military"] = true,
+	["actors\\stalker_hero\\stalker_hero_neutral_nauchniy"] = true,
+	["actors\\stalker_hero\\stalker_hero_cs_heavy"] = true,
+	["actors\\stalker_hero\\stalker_hero_exo"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_1_mask"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_1a_mask"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_1b_mask"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_1c_mask"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_1d_mask"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_1e_mask"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_1f_mask"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_1g_mask"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_1h_mask"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_1i_mask"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_2"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_2a"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_2b"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_2c"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_2d"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_3"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_3_mask"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_3a"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_3a_mask"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_3b"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_3b_mask"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_3c"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_3c_mask"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_3d"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_3d_mask"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_3e"] = true,
+	["actors\\stalker_bandit\\stalker_bandit_3e_mask"] = true,
+	["actors\\stalker_dolg\\stalker_dolg_2_mask"] = true,
+	["actors\\stalker_dolg\\stalker_dolg_2a_mask"] = true,
+	["actors\\stalker_dolg\\stalker_dolg_2b_mask"] = true,
+	["actors\\stalker_dolg\\stalker_dolg_2c_mask"] = true,
+	["actors\\stalker_dolg\\stalker_dolg_2d_mask"] = true,
+	["actors\\stalker_freedom\\stalker_freedom_1_mask"] = true,
+	["actors\\stalker_freedom\\stalker_freedom_1a_mask"] = true,
+	["actors\\stalker_freedom\\stalker_freedom_1b_mask"] = true,
+	["actors\\stalker_freedom\\stalker_freedom_2_mask"] = true,
+	["actors\\stalker_freedom\\stalker_freedom_2a_mask"] = true,
+	["actors\\stalker_freedom\\stalker_freedom_2b_mask"] = true,
+	["actors\\stalker_freedom\\stalker_freedom_2c_mask"] = true,
+	["actors\\stalker_freedom\\stalker_freedom_2d_mask"] = true,
+	["actors\\stalker_freedom\\stalker_freedom_3"] = true,
+	["actors\\stalker_freedom\\stalker_freedom_3a"] = true,
+	["actors\\stalker_hunter\\stalker_hunter_1a_mask"] = true,
+	["actors\\stalker_hunter\\stalker_hunter_1b_mask"] = true,
+	["actors\\stalker_hunter\\stalker_hunter_1c_mask"] = true,
+	["actors\\stalker_hunter\\stalker_hunter_1d_mask"] = true,
+	["actors\\stalker_hunter\\stalker_hunter_1e_mask"] = true,
+	["actors\\stalker_hunter\\stalker_hunter_2a_mask"] = true,
+	["actors\\stalker_hunter\\stalker_hunter_2b_mask"] = true,
+	["actors\\stalker_hunter\\stalker_hunter_2c_mask"] = true,
+	["actors\\stalker_hunter\\stalker_hunter_2d_mask"] = true,
+	["actors\\stalker_hunter\\stalker_hunter_3a"] = true,
+	["actors\\stalker_hunter\\stalker_hunter_3b"] = true,
+	["actors\\stalker_hunter\\stalker_hunter_3c"] = true,
+	["actors\\stalker_hunter\\stalker_hunter_3d"] = true,
+	["actors\\stalker_hunter\\stalker_hunter_3e"] = true,
+	["actors\\stalker_merc\\stalker_merc_2_mask"] = true,
+	["actors\\stalker_merc\\stalker_merc_2a_mask"] = true,
+	["actors\\stalker_merc\\stalker_merc_2b_mask"] = true,
+	["actors\\stalker_merc\\stalker_merc_2c_mask"] = true,
+	["actors\\stalker_merc\\stalker_merc_2d_mask"] = true,
+	["actors\\stalker_merc\\stalker_merc_2e_mask"] = true,
+	["actors\\stalker_merc\\stalker_merc_2f_mask"] = true,
+	["actors\\stalker_nebo\\stalker_nebo_1"] = true,
+	["actors\\stalker_nebo\\stalker_nebo_1a"] = true,
+	["actors\\stalker_nebo\\stalker_nebo_1b"] = true,
+	["actors\\stalker_nebo\\stalker_nebo_1c"] = true,
+	["actors\\stalker_nebo\\stalker_nebo_1d"] = true,
+	["actors\\stalker_nebo\\stalker_nebo_a"] = true,
+	["actors\\stalker_nebo\\stalker_nebo_a2"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_1_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_1a_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_1b_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_1c_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_1d_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_1e_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_1f_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_1g_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_1h_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_2_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_2a_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_2b_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_2c_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_2d_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_2e_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_2f_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_2g_mask"] = true,
+	["actors\\stalker_neutral\\stalker_neutral_2h_mask"] = true,
+	["actors\\stalker_soldier\\stalker_soldier_1"] = true,
+	["actors\\stalker_soldier\\stalker_soldier_1a"] = true,
+	["actors\\stalker_soldier\\stalker_soldier_1b"] = true,
+	["actors\\stalker_soldier\\stalker_soldier_1c"] = true,
+	["actors\\stalker_soldier\\stalker_soldier_1d"] = true,
+	["actors\\stalker_soldier\\stalker_soldier_2"] = true,
+	["actors\\stalker_soldier\\stalker_soldier_2a"] = true,
+	["actors\\stalker_soldier\\stalker_soldier_2b"] = true,
+	["actors\\stalker_soldier\\stalker_soldier_2c"] = true,
+	["actors\\stalker_soldier\\stalker_soldier_2d"] = true,
+}
+
+--------------------------------------------------------------------------------
+-- Predicate functions for xr_animpoint actions --------------------------------
+--------------------------------------------------------------------------------
+function const_predicate_true(id)
+	return true
+end
+
+function animpoint_predicate_bread(id)
+	if(db.storage[id] and not db.storage[id].need_sleep and db.storage[id].object and eatable_visuals[db.storage[id].object:get_visual_name()]) == true then
+		return true
+	end
+	return false
+end
+
+function animpoint_predicate_kolbasa(id)
+	if(db.storage[id] and not db.storage[id].need_sleep and db.storage[id].object and eatable_visuals[db.storage[id].object:get_visual_name()]) then
+		return true
+	end
+	return false
+end
+
+function animpoint_predicate_vodka(id)
+	if(db.storage[id] and not db.storage[id].need_sleep and db.storage[id].object and eatable_visuals[db.storage[id].object:get_visual_name()]) then
+		return true
+	end
+	return false
+end
+
+function animpoint_predicate_energy(id)
+	if(db.storage[id] and not db.storage[id].need_sleep and db.storage[id].object and eatable_visuals[db.storage[id].object:get_visual_name()]) then
+		return true
+	end
+	return false
+end
+
+function animpoint_predicate_guitar(id, is_in_camp)
+	if (is_in_camp == true and db.storage[id] and not db.storage[id].need_sleep and db.storage[id].object) then
+		return true
+	end
+	return false
+end
+
+function animpoint_predicate_harmonica(id, is_in_camp)
+	if (is_in_camp == true and db.storage[id] and not db.storage[id].need_sleep and db.storage[id].object and harmonica_visuals[db.storage[id].object:get_visual_name()]) then
+		return true
+	end
+	return false
+end
+
+
+function animpoint_predicate_weapon(id)
+	return true
+end
+
+function animpoint_predicate_need_sleep(id, camp)
+	local npc = db.storage[id] and db.storage[id].object
+	if (npc and not db.storage[id].need_sleep and level.get_time_hours() < 5 or level.get_time_hours() > 20) then
+		if (db.storage[id].check_sleep and time_global() < db.storage[id].check_sleep) then
+			return db.storage[id].need_sleep == true
+		end
+
+		db.storage[id].check_sleep = time_global() + 320000
+
+		if (math.random(100) > 10) then
+			db.storage[id].need_sleep = true
+			return true
+		end
+
+		db.storage[id].need_sleep = false
+	end
+	return false
+end
+
+--------------------------------------------------------------------------------
+-- Associative table (smartcover - animation) ----------------------------------
+--------------------------------------------------------------------------------
+associations = {
+	animpoint_stay_wall	= {
+ 							{name = "animpoint_stay_wall", predicate = xr_animpoint_predicates.const_predicate_true},
+							{name = "animpoint_stay_wall_eat_bread", predicate = xr_animpoint_predicates.animpoint_predicate_bread},
+							{name = "animpoint_stay_wall_eat_kolbasa", predicate = xr_animpoint_predicates.animpoint_predicate_kolbasa},
+							{name = "animpoint_stay_wall_drink_vodka", predicate = xr_animpoint_predicates.animpoint_predicate_vodka},
+							{name = "animpoint_stay_wall_drink_energy", predicate = xr_animpoint_predicates.animpoint_predicate_energy},
+							{name = "animpoint_stay_wall_weapon", predicate = xr_animpoint_predicates.animpoint_predicate_weapon},
+							},
+	animpoint_stay_table = {
+ 							{name = "animpoint_stay_table", predicate = xr_animpoint_predicates.const_predicate_true},
+							{name = "animpoint_stay_table_eat_bread", predicate = xr_animpoint_predicates.animpoint_predicate_bread},
+							{name = "animpoint_stay_table_eat_kolbasa", predicate = xr_animpoint_predicates.animpoint_predicate_kolbasa},
+							{name = "animpoint_stay_table_drink_vodka", predicate = xr_animpoint_predicates.animpoint_predicate_vodka},
+							{name = "animpoint_stay_table_drink_energy", predicate = xr_animpoint_predicates.animpoint_predicate_energy},
+							{name = "animpoint_stay_table_weapon", predicate = xr_animpoint_predicates.animpoint_predicate_weapon},
+							 },
+	animpoint_sit_high = {
+ 							{name = "animpoint_sit_high", predicate = xr_animpoint_predicates.const_predicate_true},
+							{name = "animpoint_sit_high_eat_bread", predicate = xr_animpoint_predicates.animpoint_predicate_bread},
+							{name = "animpoint_sit_high_eat_kolbasa", predicate = xr_animpoint_predicates.animpoint_predicate_kolbasa},
+							{name = "animpoint_sit_high_drink_vodka", predicate = xr_animpoint_predicates.animpoint_predicate_vodka},
+							{name = "animpoint_sit_high_drink_energy", predicate = xr_animpoint_predicates.animpoint_predicate_energy},
+							{name = "animpoint_sit_high_harmonica", predicate = xr_animpoint_predicates.animpoint_predicate_harmonica},
+						 },
+	animpoint_sit_normal = {
+ 							{name = "animpoint_sit_normal", predicate = xr_animpoint_predicates.const_predicate_true},
+							{name = "animpoint_sit_normal_eat_bread", predicate = xr_animpoint_predicates.animpoint_predicate_bread},
+							{name = "animpoint_sit_normal_eat_kolbasa", predicate = xr_animpoint_predicates.animpoint_predicate_kolbasa},
+							{name = "animpoint_sit_normal_drink_vodka", predicate = xr_animpoint_predicates.animpoint_predicate_vodka},
+							{name = "animpoint_sit_normal_drink_energy", predicate = xr_animpoint_predicates.animpoint_predicate_energy},
+							{name = "animpoint_sit_normal_guitar", predicate = xr_animpoint_predicates.animpoint_predicate_guitar},
+							 },
+	animpoint_sit_low = {
+							{name = "animpoint_sit_low", predicate = xr_animpoint_predicates.const_predicate_true},
+							{name = "animpoint_sit_low_eat_bread", predicate = xr_animpoint_predicates.animpoint_predicate_bread},
+							{name = "animpoint_sit_low_eat_kolbasa", predicate = xr_animpoint_predicates.animpoint_predicate_kolbasa},
+							{name = "animpoint_sit_low_drink_vodka", predicate = xr_animpoint_predicates.animpoint_predicate_vodka},
+							{name = "animpoint_sit_low_drink_energy", predicate = xr_animpoint_predicates.animpoint_predicate_energy},
+							{name = "animpoint_sit_low_guitar", predicate = xr_animpoint_predicates.animpoint_predicate_guitar},
+							{name = "animpoint_sit_low_harmonica", predicate = xr_animpoint_predicates.animpoint_predicate_harmonica},
+						},
+
+        animpoint_sit_ass = {
+							{name = "animpoint_sit_ass_sleep", predicate = xr_animpoint_predicates.animpoint_predicate_need_sleep},
+							{name = "animpoint_sit_ass", predicate = xr_animpoint_predicates.const_predicate_true},
+							{name = "animpoint_sit_ass_eat_bread", predicate = xr_animpoint_predicates.animpoint_predicate_bread},
+							{name = "animpoint_sit_ass_eat_kolbasa", predicate = xr_animpoint_predicates.animpoint_predicate_kolbasa},
+							{name = "animpoint_sit_ass_drink_vodka", predicate = xr_animpoint_predicates.animpoint_predicate_vodka},
+							{name = "animpoint_sit_ass_drink_energy", predicate = xr_animpoint_predicates.animpoint_predicate_energy},
+							{name = "animpoint_sit_ass_guitar", predicate = xr_animpoint_predicates.animpoint_predicate_guitar},
+							{name = "animpoint_sit_ass_harmonica", predicate = xr_animpoint_predicates.animpoint_predicate_harmonica},
+						},
+
+	animpoint_sit_knee = {
+							{name = "animpoint_sit_knee_sleep", predicate = xr_animpoint_predicates.animpoint_predicate_need_sleep},
+							{name = "animpoint_sit_knee", predicate = xr_animpoint_predicates.const_predicate_true},
+							{name = "animpoint_sit_knee_eat_bread", predicate = xr_animpoint_predicates.animpoint_predicate_bread},
+							{name = "animpoint_sit_knee_eat_kolbasa", predicate = xr_animpoint_predicates.animpoint_predicate_kolbasa},
+							{name = "animpoint_sit_knee_drink_vodka", predicate = xr_animpoint_predicates.animpoint_predicate_vodka},
+							{name = "animpoint_sit_knee_drink_energy", predicate = xr_animpoint_predicates.animpoint_predicate_energy},
+							{name = "animpoint_sit_knee_guitar", predicate = xr_animpoint_predicates.animpoint_predicate_guitar},
+							{name = "animpoint_sit_knee_harmonica", predicate = xr_animpoint_predicates.animpoint_predicate_harmonica},
+						},		
+	walker_camp		  = {	{name = "play_guitar", predicate = xr_animpoint_predicates.animpoint_predicate_guitar},
+							{name = "play_harmonica", predicate = xr_animpoint_predicates.animpoint_predicate_harmonica}
+						}
+}

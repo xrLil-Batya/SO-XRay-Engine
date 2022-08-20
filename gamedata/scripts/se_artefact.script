@@ -1,0 +1,142 @@
+class "se_artefact"	(cse_alife_item_artefact)
+
+function se_artefact:__init (section) super (section)
+end
+
+function se_artefact:on_register()
+	cse_alife_item_artefact.on_register(self)
+	-- Проверяем кастомдату обьекта на наличие стори айди.
+	story_objects.check_spawn_ini_for_story_id(self)
+end
+
+function se_artefact:on_unregister()
+	unregister_story_object_by_id(self.id)
+	cse_alife_item_artefact.on_unregister(self)
+end
+--------------------
+function se_artefact:can_switch_offline ()
+	if alife():actor() and (alife():actor().position:distance_to(self.position) <= 150) then
+		return false
+	end
+	return cse_alife_item_artefact.can_switch_offline (self)
+end
+--------------------
+function se_artefact:can_switch_online ()
+	return cse_alife_item_artefact.can_switch_online (self)
+end
+------------------
+--[[function se_artefact:STATE_Read(packet,size)
+	cse_alife_item_artefact.STATE_Read(self,packet,size)
+	self.offline_condition			 = packet:r_float() or 0
+	self.weight			 			 = packet:r_float() or 0
+	self.health_restore_speed		 = packet:r_float() or 0
+	self.radiation_restore_speed	 = packet:r_float() or 0
+	self.satiety_restore_speed		 = packet:r_float() or 0
+	self.power_restore_speed		 = packet:r_float() or 0
+	self.bleeding_restore_speed		 = packet:r_float() or 0
+	self.psyhealth_restore_speed	 = packet:r_float() or 0
+	self.additional_inventory_weight = packet:r_float() or 0
+	self.burn_immunity				 = packet:r_float() or 0
+	self.strike_immunity			 = packet:r_float() or 0
+	self.shock_immunity				 = packet:r_float() or 0
+	self.wound_immunity				 = packet:r_float() or 0
+	self.radiation_immunity			 = packet:r_float() or 0
+	self.telepatic_immunity			 = packet:r_float() or 0
+	self.chemical_burn_immunity		 = packet:r_float() or 0
+	self.explosion_immunity			 = packet:r_float() or 0
+	self.fire_wound_immunity		 = packet:r_float() or 0
+	self.generate					 = packet:r_bool() or nil
+end
+
+function se_artefact:STATE_Write(packet)
+	if (self.generate == nil) then
+		local val = 0
+		local ini = ini_file("plugins\\itms_manager.ltx")
+		local NotArtefact = utils.collect_section(ini,"not_artefact",true)
+		local sysini = system_ini()
+		local section = self:section_name()
+		local norand = false
+		if NotArtefact[section] then norand = 1 end
+		local antirad = r_string_ex(sysini,section,"antirad",0)
+		local weight = r_string_ex(sysini,section,"inv_weight",0)
+		if (antirad == 0) then weight = 0 end
+	
+		if (string.find(section, "(lead.-_box)",3)) then
+			section = section:gsub("_lead_box", "")			
+		elseif (string.find(section, "(af.-_iam)",3)) then
+			section = section:gsub("_af_iam", "")
+		elseif (string.find(section, "(af.-_aac)",3)) then
+			section = section:gsub("_af_aac", "")
+		elseif (string.find(section, "(af.-_aam)",3)) then
+			section = section:gsub("_af_aam", "")
+		end
+		
+		local hit_absorbation_sect = sysini:r_string_ex(section,"hit_absorbation_sect")
+		
+		val = r_float_ex(sysini,section,"inv_weight",0)*(norand or math.random(75,125)/100)
+		self.weight = val + weight
+		val = r_float_ex(sysini,section,"health_restore_speed",0)*(norand or math.random(50,150)/100)
+		self.health_restore_speed = val
+		val = r_float_ex(sysini,section,"radiation_restore_speed",0)*(norand or math.random(70,130)/100)
+		self.radiation_restore_speed = val
+		val = r_float_ex(sysini,section,"satiety_restore_speed",0)*(norand or math.random(50,150)/100)
+		self.satiety_restore_speed = val
+		val = r_float_ex(sysini,section,"power_restore_speed",0)*(norand or math.random(50,150)/100)
+		self.power_restore_speed = val
+		val = r_float_ex(sysini,section,"psyhealth_restore_speed",0)*(norand or math.random(50,150)/100)
+		self.psyhealth_restore_speed = val
+		val = r_float_ex(sysini,section,"bleeding_restore_speed",0)*(norand or math.random(50,150)/100)
+		self.bleeding_restore_speed = val
+		val = r_float_ex(sysini,section,"additional_inventory_weight",0)*(norand or math.random(70,130)/100)
+		self.additional_inventory_weight = val
+
+		val = r_float_ex(sysini,hit_absorbation_sect,"burn_immunity",0)*(norand or math.random(70,130)/100)
+		self.burn_immunity = val
+		val = r_float_ex(sysini,hit_absorbation_sect,"strike_immunity",0)*(norand or math.random(70,130)/100)
+		self.strike_immunity = val
+		val = r_float_ex(sysini,hit_absorbation_sect,"shock_immunity",0)*(norand or math.random(70,130)/100)
+		self.shock_immunity = val
+		val = r_float_ex(sysini,hit_absorbation_sect,"wound_immunity",0)*(norand or math.random(70,130)/100)
+		self.wound_immunity = val
+		val = r_float_ex(sysini,hit_absorbation_sect,"radiation_immunity",0)*(norand or math.random(70,130)/100)
+		self.radiation_immunity = val
+		val = r_float_ex(sysini,hit_absorbation_sect,"telepatic_immunity",0)*(norand or math.random(70,130)/100)
+		self.telepatic_immunity = val
+		val = r_float_ex(sysini,hit_absorbation_sect,"chemical_burn_immunity",0)*(norand or math.random(70,130)/100)
+		self.chemical_burn_immunity = val
+		val = r_float_ex(sysini,hit_absorbation_sect,"explosion_immunity",0)*(norand or math.random(70,130)/100)
+		self.explosion_immunity = val
+		val = r_float_ex(sysini,hit_absorbation_sect,"fire_wound_immunity",0)*(norand or math.random(70,130)/100)
+		self.fire_wound_immunity = val
+		
+		self.generate = true
+	end
+	
+	cse_alife_item_artefact.STATE_Write(self,packet)
+	local obj = level.object_by_id(self.id)
+	if (obj) then
+		packet:w_float(obj:condition())
+	else
+		packet:w_float(self.offline_condition or 1.0)
+	end
+	
+	packet:w_float(self.weight or 0)
+	packet:w_float(self.health_restore_speed or 0)
+	packet:w_float(self.radiation_restore_speed or 0)
+	packet:w_float(self.satiety_restore_speed or 0)
+	packet:w_float(self.power_restore_speed or 0)
+	packet:w_float(self.bleeding_restore_speed or 0)
+	packet:w_float(self.psyhealth_restore_speed or 0)
+	packet:w_float(self.additional_inventory_weight or 0)
+	packet:w_float(self.burn_immunity or 0)
+	packet:w_float(self.strike_immunity or 0)
+	packet:w_float(self.shock_immunity or 0)
+	packet:w_float(self.wound_immunity or 0)
+	packet:w_float(self.radiation_immunity or 0)
+	packet:w_float(self.telepatic_immunity or 0)
+	packet:w_float(self.chemical_burn_immunity or 0)
+	packet:w_float(self.explosion_immunity or 0)
+	packet:w_float(self.fire_wound_immunity or 0)
+	packet:w_bool(self.generate or true)
+
+end]]--

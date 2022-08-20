@@ -1,0 +1,12 @@
+medkit = 1, prob=0.05 \n
+stimpack = 1, prob=0.01 \n
+bandage = 1, prob=0.15 \n
+antirad	= 1, prob=0.1 \n
+caffeine_5 = 1, prob=0.2 \n
+drug_charcoal_5 = 1, prob=0.1 \n
+drug_charcoal_3 = 1, prob=0.2 \n
+drug_coagulant_4 = 1, prob=0.15 \n
+drug_booster = 1, prob=0.05 \n
+adrenalin = 1, prob=0.01 \n
+drug_antidot = 1, prob=0.1 \n
+drug_radioprotector = 1, prob=0.1 \n

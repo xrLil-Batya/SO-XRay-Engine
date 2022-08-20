@@ -1,0 +1,23 @@
+[smart_terrain]
+squad_id = 24
+max_population = 3
+arrive_dist = 100
+spawn_point = esc_zhd_base_default_spawn
+respawn_params = respawn@jd
+
+[respawn@jd]
+spawn_stalker@jd
+
+[spawn_stalker@jd]
+spawn_squads = esc_zhd_base_squad
+spawn_num = {!squad_exist(esc_zhd_base_squad)} 1, 0
+
+[exclusive]
+;guarders day jobs
+esc_zhd_base_guarder_1 = escape\esc_zhd_base_guarders.ltx
+esc_zhd_base_guarder_2 = escape\esc_zhd_base_guarders.ltx
+esc_zhd_base_guarder_3 = escape\esc_zhd_base_guarders.ltx
+esc_zhd_base_guarder_4 = escape\esc_zhd_base_guarders.ltx
+esc_zhd_base_guarder_5 = escape\esc_zhd_base_guarders.ltx
+esc_zhd_base_guarder_6 = escape\esc_zhd_base_guarders.ltx
+esc_zhd_base_guarder_7 = escape\esc_zhd_base_guarders.ltx

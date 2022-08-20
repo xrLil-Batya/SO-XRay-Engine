@@ -1,0 +1,1216 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Artefacts
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;===============================================================================================================
+;===============================================================================================================
+;========================= Модификаты ==========================================================================
+;===============================================================================================================
+;===============================================================================================================
+
+
+;------------------------------------------------------------------------------------------
+;========================= 00.Симбион ================================================
+;------------------------------------------------------------------------------------------
+
+[af_simbion]:af_base
+$spawn 				= "artefacts\gravitational_simbion"
+class   			= ARTEFACT
+
+visual				= dynamics\artefacts\af_dummy_glassbeads.ogf
+description			= st_af_babka_1_descr
+inv_name			= st_af_babka_1_name
+inv_name_short		= st_af_babka_1_name
+inv_weight			= 1.22
+
+inv_grid_x			= 36
+inv_grid_y			= 38
+
+cost				= 40000
+
+jump_height			= .01
+
+particles					= artefact\artefact_ameba
+det_show_particles			= artefact\af_acidic_show
+det_hide_particles			= artefact\af_acidic_hide
+
+af_rank				= 3
+art_level			= 5
+
+lights_enabled = true
+
+trail_light_color 		= 0.9,0.4,0.2
+trail_light_range 		= 2.0
+
+;скорость уменьшения состояния артефакта и возможность его удаления при достижении 5%
+degradate						   = true
+degradate_speed					   = 0.000017
+
+;скорости увеличения (уменьшения)
+health_restore_speed		= 0.0005834
+radiation_restore_speed		= 0
+satiety_restore_speed		= 0
+power_restore_speed			= 0
+bleeding_restore_speed		= 0
+psyhealth_restore_speed		= 0.0005834
+
+additional_inventory_weight		= 0
+additional_inventory_weight2	= 0
+
+hit_absorbation_sect = af_simbion_absorbation
+
+[af_simbion_absorbation]
+burn_immunity 			= 0
+strike_immunity 		= 0
+shock_immunity 			= 0
+wound_immunity 			= 0
+radiation_immunity 		= 0
+telepatic_immunity 		= 0.175
+chemical_burn_immunity 	= 0
+explosion_immunity 		= 0
+fire_wound_immunity  	= 0
+
+
+;===============================================================================================================
+;========================= Линейка Маминых Бус =================================================================
+;===============================================================================================================
+
+
+;------------------------------------------------------------------------------------------
+;========================= 01.Бабкины бусы ================================================
+;------------------------------------------------------------------------------------------
+
+[af_babka_1]:af_base
+$spawn 				= "artefacts\gravitational_babka_1"
+class   			= ARTEFACT
+
+visual				= dynamics\artefacts\af_dummy_glassbeads.ogf
+description			= st_af_babka_1_descr
+inv_name			= st_af_babka_1_name
+inv_name_short		= st_af_babka_1_name
+inv_weight			= 0.95
+
+inv_grid_x			= 31
+inv_grid_y			= 34
+
+cost				= 40000
+
+jump_height			= .01
+
+particles				           = artefact\af_gravi_idle  
+det_show_particles		           = artefact\af_gravi_show  
+det_hide_particles		           = artefact\af_gravi_hide
+
+af_rank				= 3
+art_level			= 5
+
+lights_enabled = true
+
+trail_light_color 		= 0.9,0.4,0.2
+trail_light_range 		= 2.0
+
+;скорость уменьшения состояния артефакта и возможность его удаления при достижении 5%
+degradate						   = true
+degradate_speed					   = 0.000012
+
+;скорости увеличения (уменьшения)
+health_restore_speed		= 0
+radiation_restore_speed		= 0.000107
+satiety_restore_speed		= 0
+power_restore_speed			= 0
+bleeding_restore_speed		= 0
+
+additional_inventory_weight		= 7.986
+additional_inventory_weight2	= 7.986
+
+hit_absorbation_sect = af_babka_1_absorbation
+
+[af_babka_1_absorbation]
+burn_immunity 			= 0
+strike_immunity 		= 0
+shock_immunity 			= 0
+wound_immunity 			= 0
+radiation_immunity 		= 0
+telepatic_immunity 		= 0.15
+chemical_burn_immunity 	= -0.2
+explosion_immunity 		= 0
+fire_wound_immunity  	= 0.30
+
+
+;------------------------------------------------------------------------------------------
+;========================= 02.Бусы прабабки ===============================================
+;------------------------------------------------------------------------------------------
+
+[af_babka_2]:af_babka_1
+$spawn 				= "artefacts\gravitational_babka_2"
+class   			= ARTEFACT
+
+visual				= dynamics\artefacts\af_dummy_glassbeads.ogf
+description			= st_af_babka_2_descr
+inv_name			= st_af_babka_2_name
+inv_name_short		= st_af_babka_2_name
+inv_weight			= 1.35
+
+inv_grid_x			= 32
+
+cost				= 52000
+
+art_level			= 6
+
+;скорости увеличения (уменьшения)
+radiation_restore_speed		= 0.000077
+
+additional_inventory_weight		= 10.178
+additional_inventory_weight2	= 10.178
+
+hit_absorbation_sect = af_babka_2_absorbation
+
+[af_babka_2_absorbation]:af_babka_1_absorbation
+telepatic_immunity 		= 0.175
+chemical_burn_immunity 	= -0.15
+fire_wound_immunity  	= 0.35
+
+
+;------------------------------------------------------------------------------------------
+;========================= 03.Бусы бабки бюрера ===========================================
+;------------------------------------------------------------------------------------------
+
+[af_babka_3]:af_babka_1
+$spawn 				= "artefacts\gravitational_babka_3"
+class   			= ARTEFACT
+
+visual				= dynamics\artefacts\af_dummy_glassbeads.ogf
+description			= st_af_babka_3_descr
+inv_name			= st_af_babka_3_name
+inv_name_short		= st_af_babka_3_name
+inv_weight			= 1.71
+
+inv_grid_x			= 33
+
+cost				= 64000
+
+art_level			= 7
+
+;скорости увеличения (уменьшения)
+radiation_restore_speed		= 0.000047
+
+additional_inventory_weight		= 12.164
+additional_inventory_weight2	= 12.164
+
+hit_absorbation_sect = af_babka_3_absorbation
+
+[af_babka_3_absorbation]:af_babka_1_absorbation
+telepatic_immunity 		= 0.2
+chemical_burn_immunity 	= -0.15
+fire_wound_immunity  	= 0.4
+
+
+;------------------------------------------------------------------------------------------
+;========================= 04.Бусы прабабки бюрера ========================================
+;------------------------------------------------------------------------------------------
+
+[af_babka_4]:af_babka_1
+$spawn 				= "artefacts\gravitational_babka_4"
+class   			= ARTEFACT
+
+visual				= dynamics\artefacts\af_dummy_glassbeads.ogf
+description			= st_af_babka_4_descr
+inv_name			= st_af_babka_4_name
+inv_name_short		= st_af_babka_4_name
+inv_weight			= 2.01
+
+inv_grid_x			= 34
+
+cost				= 80000
+
+art_level			= 8
+
+radiation_restore_speed		= 0
+additional_inventory_weight		= 14.197
+additional_inventory_weight2	= 14.197
+
+hit_absorbation_sect = af_babka_4_absorbation
+
+[af_babka_4_absorbation]:af_babka_1_absorbation
+telepatic_immunity 		= 0.225
+chemical_burn_immunity 	= 0
+fire_wound_immunity  	= 0.45
+
+
+;===============================================================================================================
+;========================= Линейка Колобка =====================================================================
+;===============================================================================================================
+
+
+;------------------------------------------------------------------------------------------
+;========================= 05.Стальной колобок ============================================
+;------------------------------------------------------------------------------------------
+
+[af_kolob_1]:af_base
+$spawn 				= "artefacts\gravitational_kolob_1"
+class   			= ARTEFACT
+
+visual				= dynamics\artefacts\artefact_electra1.ogf
+description			= st_af_kolob_1_descr
+inv_name			= st_af_kolob_1_name
+inv_name_short		= st_af_kolob_1_name
+inv_weight			= 0.89
+
+inv_grid_x			= 31
+inv_grid_y			= 35
+
+cost				= 40000
+
+jump_height			= .01
+
+particles				           = artefact\af_gravi_idle  
+det_show_particles		           = artefact\af_gravi_show  
+det_hide_particles		           = artefact\af_gravi_hide
+
+af_rank				= 3
+art_level			= 5
+
+lights_enabled = true
+
+trail_light_color 		= 0.9,0.4,0.2
+trail_light_range 		= 2.0
+
+;скорость уменьшения состояния артефакта и возможность его удаления при достижении 5%
+degradate						   = true
+degradate_speed					   = 0.000012
+
+;скорости увеличения (уменьшения)
+health_restore_speed		= 0
+radiation_restore_speed		= 0.000122
+satiety_restore_speed		= 0
+power_restore_speed			= 0
+bleeding_restore_speed		= 0
+
+additional_inventory_weight		= 0
+additional_inventory_weight2	= 0
+
+hit_absorbation_sect = af_kolob_1_absorbation
+
+[af_kolob_1_absorbation]
+burn_immunity 			= 0
+strike_immunity 		= 0.15
+shock_immunity 			= 0
+wound_immunity 			= 0.15
+radiation_immunity 		= 0.015
+telepatic_immunity 		= -0.2
+chemical_burn_immunity 	= 0
+explosion_immunity 		= 0
+fire_wound_immunity  	= 0
+
+
+;------------------------------------------------------------------------------------------
+;========================= 06.Титановый колобок ===========================================
+;------------------------------------------------------------------------------------------
+
+[af_kolob_2]:af_kolob_1
+$spawn 				= "artefacts\gravitational_kolob_2"
+class   			= ARTEFACT
+
+visual				= dynamics\artefacts\artefact_electra1.ogf
+description			= st_af_kolob_2_descr
+inv_name			= st_af_kolob_2_name
+inv_name_short		= st_af_kolob_2_name
+inv_weight			= 1.25
+
+inv_grid_x			= 32
+
+cost				= 52000
+
+art_level			= 6
+
+;скорости увеличения (уменьшения)
+radiation_restore_speed		= 0.000092
+
+hit_absorbation_sect = af_kolob_2_absorbation
+
+[af_kolob_2_absorbation]:af_kolob_1_absorbation
+strike_immunity 		= 0.175
+wound_immunity 			= 0.175
+radiation_immunity 		= 0.0175
+telepatic_immunity 		= -0.15
+
+;------------------------------------------------------------------------------------------
+;========================= 07. Алмазный колобок ===========================================
+;------------------------------------------------------------------------------------------
+
+[af_kolob_3]:af_kolob_1
+$spawn 				= "artefacts\gravitational_kolob_3"
+class   			= ARTEFACT
+
+visual				= dynamics\artefacts\artefact_electra1.ogf
+description			= st_af_kolob_3_descr
+inv_name			= st_af_kolob_3_name
+inv_name_short		= st_af_kolob_3_name
+inv_weight			= 1.65
+
+inv_grid_x			= 33
+
+cost				= 64000
+
+art_level			= 7
+
+;скорости увеличения (уменьшения)
+radiation_restore_speed		= 0.000061
+
+hit_absorbation_sect = af_kolob_3_absorbation
+
+[af_kolob_3_absorbation]:af_kolob_1_absorbation
+strike_immunity 		= 0.2
+wound_immunity 			= 0.2
+radiation_immunity 		= 0.02
+telepatic_immunity 		= -0.15
+
+;------------------------------------------------------------------------------------------
+;========================= 08. Младший брат гиганта =======================================
+;------------------------------------------------------------------------------------------
+
+[af_kolob_4]:af_kolob_1
+$spawn 				= "artefacts\gravitational_kolob_4"
+class   			= ARTEFACT
+
+visual				= dynamics\artefacts\artefact_electra1.ogf
+description			= st_af_kolob_4_descr
+inv_name			= st_af_kolob_4_name
+inv_name_short		= st_af_kolob_4_name
+inv_weight			= 2.02
+
+inv_grid_x			= 34
+
+cost				= 80000
+
+art_level			= 8
+
+;скорости увеличения (уменьшения)
+radiation_restore_speed		= 0
+
+hit_absorbation_sect = af_kolob_4_absorbation
+
+[af_kolob_4_absorbation]:af_kolob_1_absorbation
+strike_immunity 		= 0.225
+wound_immunity 			= 0.225
+radiation_immunity 		= 0.0225
+telepatic_immunity 		= 0
+
+
+;===============================================================================================================
+;========================= Линейка Дикобраза ===================================================================
+;===============================================================================================================
+
+
+;------------------------------------------------------------------------------------------
+;========================= 09. Дикобраз ===================================================
+;------------------------------------------------------------------------------------------
+
+[af_dkbrz_1]:af_base
+$spawn 				= "artefacts\gravitational_dkbrz_1"
+class   			= ARTEFACT
+
+visual				= dynamics\artefacts\af_fuzz_kolobok.ogf
+description			= st_af_dkbrz_1_descr
+inv_name			= st_af_dkbrz_1_name
+inv_name_short		= st_af_dkbrz_1_name
+inv_weight			= 0.96
+
+inv_grid_x			= 31
+inv_grid_y			= 40
+
+cost				= 40000
+
+jump_height			= .01
+
+particles				           = artefact\af_gravi_idle  
+det_show_particles		           = artefact\af_gravi_show  
+det_hide_particles		           = artefact\af_gravi_hide
+
+af_rank				= 3
+art_level			= 5
+
+lights_enabled = true
+
+trail_light_color 		= 0.9,0.4,0.2
+trail_light_range 		= 2.0
+
+;скорость уменьшения состояния артефакта и возможность его удаления при достижении 5%
+degradate						   = true
+degradate_speed					   = 0.000012
+
+;скорости увеличения (уменьшения)
+health_restore_speed		= 0
+radiation_restore_speed		= -0.000108
+satiety_restore_speed		= 0
+power_restore_speed			= -0.0073
+bleeding_restore_speed		= -0.0005
+
+additional_inventory_weight		= 0
+additional_inventory_weight2	= 0
+jump_speed						   = 0.7
+
+hit_absorbation_sect = af_dkbrz_1_absorbation
+
+[af_dkbrz_1_absorbation]
+burn_immunity 			= 0
+strike_immunity 		= 0
+shock_immunity 			= 0
+wound_immunity 			= 0
+radiation_immunity 		= 0
+telepatic_immunity 		= 0
+chemical_burn_immunity 	= 0.15
+explosion_immunity 		= 0
+fire_wound_immunity  	= 0
+
+
+;------------------------------------------------------------------------------------------
+;========================= 10.Электрический дикобраз ======================================
+;------------------------------------------------------------------------------------------
+
+[af_dkbrz_2]:af_dkbrz_1
+$spawn 				= "artefacts\gravitational_dkbrz_2"
+class   			= ARTEFACT
+
+visual				= dynamics\artefacts\af_fuzz_kolobok.ogf
+description			= st_af_dkbrz_2_descr
+inv_name			= st_af_dkbrz_2_name
+inv_name_short		= st_af_dkbrz_2_name
+inv_weight			= 1.34
+
+inv_grid_x			= 32
+
+cost				= 52000
+
+art_level			= 6
+
+particles				           = artefact\af_electra_idle 
+det_show_particles		           = artefact\af_electra_show 
+det_hide_particles		           = artefact\af_electra_hide 
+
+;скорости увеличения (уменьшения)
+radiation_restore_speed		= -0.000124
+power_restore_speed			= -0.0055
+bleeding_restore_speed		= -0.00025
+
+jump_speed						   = 0.8
+hit_absorbation_sect = af_dkbrz_2_absorbation
+
+[af_dkbrz_2_absorbation]:af_dkbrz_1_absorbation
+chemical_burn_immunity 		= 0.175
+
+;------------------------------------------------------------------------------------------
+;========================= 11.Сопливый дикобраз ===========================================
+;------------------------------------------------------------------------------------------
+
+[af_dkbrz_3]:af_dkbrz_1
+$spawn 				= "artefacts\gravitational_dkbrz_3"
+class   			= ARTEFACT
+
+visual				= dynamics\artefacts\af_fuzz_kolobok.ogf
+description			= st_af_dkbrz_3_descr
+inv_name			= st_af_dkbrz_3_name
+inv_name_short		= st_af_dkbrz_3_name
+inv_weight			= 1.76
+
+inv_grid_x			= 33
+
+cost				= 64000
+
+art_level			= 7
+
+particles					= artefact\af_acidic_idle
+det_show_particles			= artefact\af_acidic_show
+det_hide_particles			= artefact\af_acidic_hide
+
+;скорости увеличения (уменьшения)
+radiation_restore_speed		= -0.000139
+power_restore_speed			= -0.0036
+bleeding_restore_speed		= 0.000334
+
+jump_speed						   = 0.9
+hit_absorbation_sect = af_dkbrz_3_absorbation
+
+[af_dkbrz_3_absorbation]:af_dkbrz_1_absorbation
+chemical_burn_immunity 		= 0.2
+
+
+;------------------------------------------------------------------------------------------
+;========================= 12.Каменный дикобраз ===========================================
+;------------------------------------------------------------------------------------------
+
+[af_dkbrz_4]:af_dkbrz_1
+$spawn 				= "artefacts\gravitational_dkbrz_4"
+class   			= ARTEFACT
+
+visual				= dynamics\artefacts\af_fuzz_kolobok.ogf
+description			= st_af_dkbrz_4_descr
+inv_name			= st_af_dkbrz_4_name
+inv_name_short		= st_af_dkbrz_4_name
+inv_weight			= 2.01
+
+inv_grid_x			= 34
+
+cost				= 80000
+
+art_level			= 8
+
+;скорости увеличения (уменьшения)
+radiation_restore_speed		= -0.000155
+power_restore_speed			= 0
+bleeding_restore_speed		= 0.000834
+
+jump_speed						   = 1.0
+hit_absorbation_sect = af_dkbrz_4_absorbation
+
+[af_dkbrz_4_absorbation]:af_dkbrz_1_absorbation
+chemical_burn_immunity 		= 0.225
+
+
+;===============================================================================================================
+;========================= Линейка Лунного света ===============================================================
+;===============================================================================================================
+
+
+;------------------------------------------------------------------------------------------
+;========================= 13. Слёзы электры ==============================================
+;------------------------------------------------------------------------------------------
+
+[af_moonl_1]:af_base
+$spawn 				= "artefacts\electric_moonl_1"
+class   			= ARTEFACT
+
+visual				= dynamics\artefacts\af_electra_flash.ogf
+description			= st_af_moonl_1_descr
+inv_name			= st_af_moonl_1_name
+inv_name_short		= st_af_moonl_1_name
+inv_weight			= 0.87
+
+inv_grid_x			= 31
+inv_grid_y			= 38
+
+cost				= 40000
+
+jump_height			= .01
+
+particles				           = artefact\af_electra_idle 
+det_show_particles		           = artefact\af_electra_show 
+det_hide_particles		           = artefact\af_electra_hide 
+
+af_rank				= 3
+art_level			= 5
+
+lights_enabled = true
+
+trail_light_color 		= 0.9,0.4,0.2
+trail_light_range 		= 2.0
+
+;скорость уменьшения состояния артефакта и возможность его удаления при достижении 5%
+degradate						   = true
+degradate_speed					   = 0.000012
+
+;скорости увеличения (уменьшения)
+health_restore_speed		= 0
+radiation_restore_speed		= 0.000106
+satiety_restore_speed		= 0
+power_restore_speed			= 0.0155
+bleeding_restore_speed		= 0
+
+additional_inventory_weight		= 0
+additional_inventory_weight2	= 0
+
+hit_absorbation_sect = af_moonl_1_absorbation
+
+[af_moonl_1_absorbation]
+burn_immunity 			= 0.15
+strike_immunity 		= -0.2
+shock_immunity 			= 0.15
+wound_immunity 			= -0.2
+radiation_immunity 		= 0
+telepatic_immunity 		= 0
+chemical_burn_immunity 	= 0
+explosion_immunity 		= 0
+fire_wound_immunity  	= 0
+
+
+;------------------------------------------------------------------------------------------
+;========================= 14.Слёзы огня ==================================================
+;------------------------------------------------------------------------------------------
+
+[af_moonl_2]:af_moonl_1
+$spawn 				= "artefacts\electric_moonl_2"
+class   			= ARTEFACT
+
+visual				= dynamics\artefacts\af_electra_flash.ogf
+description			= st_af_moonl_2_descr
+inv_name			= st_af_moonl_2_name
+inv_name_short		= st_af_moonl_2_name
+inv_weight			= 1.33
+
+inv_grid_x			= 32
+
+cost				= 52000
+
+art_level			= 6
+
+;скорости увеличения (уменьшения)
+radiation_restore_speed		= 0.000076
+power_restore_speed			= 0.0164
+
+hit_absorbation_sect = af_moonl_2_absorbation
+
+[af_moonl_2_absorbation]:af_moonl_1_absorbation
+burn_immunity 			= 0.175
+strike_immunity 		= -0.15
+shock_immunity 			= 0.175
+wound_immunity 			= -0.15
+
+;------------------------------------------------------------------------------------------
+;========================= 15.Слёзы химеры ================================================
+;------------------------------------------------------------------------------------------
+
+[af_moonl_3]:af_moonl_1
+$spawn 				= "artefacts\electric_moonl_3"
+class   			= ARTEFACT
+
+visual				= dynamics\artefacts\artefact_electra4.ogf
+description			= st_af_moonl_3_descr
+inv_name			= st_af_moonl_3_name
+inv_name_short		= st_af_moonl_3_name
+inv_weight			= 1.65
+
+inv_grid_x			= 33
+
+cost				= 64000
+
+art_level			= 7
+
+;скорости увеличения (уменьшения)
+radiation_restore_speed		= 0.000046
+power_restore_speed			= 0.0173
+
+hit_absorbation_sect = af_moonl_3_absorbation
+
+[af_moonl_3_absorbation]:af_moonl_1_absorbation
+burn_immunity 			= 0.2
+strike_immunity 		= -0.15
+shock_immunity 			= 0.2
+wound_immunity 			= -0.15
+
+
+;------------------------------------------------------------------------------------------
+;========================= 16.Слеза гиганта ===============================================
+;------------------------------------------------------------------------------------------
+
+[af_moonl_4]:af_moonl_1
+$spawn 				= "artefacts\electric_moonl_4"
+class   			= ARTEFACT
+
+visual				= dynamics\artefacts\artefact_electra4.ogf
+description			= st_af_moonl_4_descr
+inv_name			= st_af_moonl_4_name
+inv_name_short		= st_af_moonl_4_name
+inv_weight			= 2.05
+
+inv_grid_x			= 34
+
+cost				= 80000
+
+art_level			= 8
+
+;скорости увеличения (уменьшения)
+radiation_restore_speed		= 0
+power_restore_speed			= 0.0182
+
+hit_absorbation_sect = af_moonl_4_absorbation
+
+[af_moonl_4_absorbation]:af_moonl_1_absorbation
+burn_immunity 			= 0.225
+strike_immunity 		= 0
+shock_immunity 			= 0.225
+wound_immunity 			= 0
+
+
+;===============================================================================================================
+;========================= Линейка Пустышки ====================================================================
+;===============================================================================================================
+
+
+;------------------------------------------------------------------------------------------
+;========================= 17.Огненная пустышка ===========================================
+;------------------------------------------------------------------------------------------
+
+[af_dummy_1]:af_base
+$spawn 				= "artefacts\thermal_dummy_1"
+class   			= ARTEFACT
+
+visual				= dynamics\artefacts\artefact_pustishka.ogf
+description			= st_af_dummy_1_descr
+inv_name			= st_af_dummy_1_name
+inv_name_short		= st_af_dummy_1_name
+inv_weight			= 0.95
+
+inv_grid_x			= 31
+inv_grid_y			= 36
+
+cost				= 40000
+
+jump_height			= .01
+
+particles					       = artefact\af_thermal_idle 
+det_show_particles		           = artefact\af_thermal_show 
+det_hide_particles		           = artefact\af_thermal_hide
+
+af_rank				= 3
+art_level			= 5
+
+lights_enabled = true
+
+trail_light_color 		= 0.9,0.4,0.2
+trail_light_range 		= 2.0
+
+;скорость уменьшения состояния артефакта и возможность его удаления при достижении 5%
+degradate						   = true
+degradate_speed					   = 0.000012
+
+;скорости увеличения (уменьшения)
+health_restore_speed		= 0
+radiation_restore_speed		= 0.000107
+satiety_restore_speed		= 0
+power_restore_speed			= 0
+bleeding_restore_speed		= 0
+
+additional_inventory_weight		= 0
+additional_inventory_weight2	= 0
+
+hit_absorbation_sect = af_dummy_1_absorbation
+
+[af_dummy_1_absorbation]
+burn_immunity 			= 0.15
+strike_immunity 		= 0
+shock_immunity 			= 0.15
+wound_immunity 			= 0
+radiation_immunity 		= 0.015
+telepatic_immunity 		= 0
+chemical_burn_immunity 	= 0
+explosion_immunity 		= -0.2
+fire_wound_immunity  	= -0.4
+
+
+;------------------------------------------------------------------------------------------
+;========================= 18.Яркая пустышка ==============================================
+;------------------------------------------------------------------------------------------
+
+[af_dummy_2]:af_dummy_1
+$spawn 				= "artefacts\thermal_dummy_2"
+class   			= ARTEFACT
+
+visual				= dynamics\artefacts\artefact_pustishka.ogf
+description			= st_af_dummy_2_descr
+inv_name			= st_af_dummy_2_name
+inv_name_short		= st_af_dummy_2_name
+inv_weight			= 1.35
+
+inv_grid_x			= 32
+
+cost				= 52000
+
+art_level			= 6
+
+;скорости увеличения (уменьшения)
+radiation_restore_speed		= 0.000076
+psyhealth_restore_speed			   = 0.0005
+
+hit_absorbation_sect = af_dummy_2_absorbation
+
+[af_dummy_2_absorbation]:af_dummy_1_absorbation
+burn_immunity 			= 0
+shock_immunity 			= 0.175
+radiation_immunity 		= 0.0175
+explosion_immunity 		= -0.15
+fire_wound_immunity  	= -0.3
+
+;------------------------------------------------------------------------------------------
+;========================= 19.Лунная пустышка =============================================
+;------------------------------------------------------------------------------------------
+
+[af_dummy_3]:af_dummy_1
+$spawn 				= "artefacts\thermal_dummy_3"
+class   			= ARTEFACT
+
+visual				= dynamics\artefacts\artefact_pustishka.ogf
+description			= st_af_dummy_3_descr
+inv_name			= st_af_dummy_3_name
+inv_name_short		= st_af_dummy_3_name
+inv_weight			= 1.65
+
+inv_grid_x			= 33
+
+cost				= 64000
+
+art_level			= 7
+
+;скорости увеличения (уменьшения)
+radiation_restore_speed		= 0.000046
+power_restore_speed			       = 0.0073
+
+hit_absorbation_sect = af_dummy_3_absorbation
+
+[af_dummy_3_absorbation]:af_dummy_1_absorbation
+burn_immunity 			= 0
+shock_immunity 			= 0.2
+radiation_immunity 		= 0.02
+explosion_immunity 		= -0.15
+fire_wound_immunity  	= -0.3
+
+
+;------------------------------------------------------------------------------------------
+;========================= 20.Пудинг ======================================================
+;------------------------------------------------------------------------------------------
+
+[af_dummy_4]:af_dummy_1
+$spawn 				= "artefacts\thermal_dummy_4"
+class   			= ARTEFACT
+
+visual				= dynamics\artefacts\artefact_pustishka.ogf
+description			= st_af_dummy_4_descr
+inv_name			= st_af_dummy_4_name
+inv_name_short		= st_af_dummy_4_name
+inv_weight			= 2.05
+
+inv_grid_x			= 34
+
+cost				= 80000
+
+art_level			= 8
+
+;скорости увеличения (уменьшения)
+radiation_restore_speed		= 0 
+
+hit_absorbation_sect = af_dummy_4_absorbation
+
+[af_dummy_4_absorbation]:af_dummy_1_absorbation
+burn_immunity 			= 0.225
+shock_immunity 			= 0.225
+radiation_immunity 		= 0.0225
+explosion_immunity 		= 0
+fire_wound_immunity  	= 0
+
+
+;===============================================================================================================
+;========================= Линейка Плёнки ======================================================================
+;===============================================================================================================
+
+
+;------------------------------------------------------------------------------------------
+;========================= 21.Шкура =======================================================
+;------------------------------------------------------------------------------------------
+
+[af_pell_1]:af_base
+$spawn 				= "artefacts\acidic_pell_1"
+class   			= ARTEFACT
+
+visual				= dynamics\artefacts\artefact_pustishka.ogf
+description			= st_af_pell_1_descr
+inv_name			= st_af_pell_1_name
+inv_name_short		= st_af_pell_1_name
+inv_weight			= 0.97
+
+inv_grid_x			= 31
+inv_grid_y			= 39
+
+cost				= 40000
+
+jump_height			= .01
+
+particles					       = artefact\af_acidic_idle 
+det_show_particles		           = artefact\af_acidic_show 
+det_hide_particles		           = artefact\af_acidic_hide 
+
+af_rank				= 3
+art_level			= 5
+
+lights_enabled = true
+
+trail_light_color 		= 0.9,0.4,0.2
+trail_light_range 		= 2.0
+
+;скорость уменьшения состояния артефакта и возможность его удаления при достижении 5%
+degradate						   = true
+degradate_speed					   = 0.000012
+
+;скорости увеличения (уменьшения)
+health_restore_speed		= 0
+radiation_restore_speed		= 0.000092
+satiety_restore_speed		= 0
+power_restore_speed			= 0
+bleeding_restore_speed		= -0.0005
+psyhealth_restore_speed			   = 0.000834
+
+additional_inventory_weight		= 0
+additional_inventory_weight2	= 0
+
+hit_absorbation_sect = af_pell_1_absorbation
+
+[af_pell_1_absorbation]
+burn_immunity 			= 0
+strike_immunity 		= 0
+shock_immunity 			= 0
+wound_immunity 			= 0
+radiation_immunity 		= 0
+telepatic_immunity 		= 0.15
+chemical_burn_immunity 	= 0.15
+explosion_immunity 		= 0
+fire_wound_immunity  	= 0
+
+;------------------------------------------------------------------------------------------
+;========================= 22.Чешуя =======================================================
+;------------------------------------------------------------------------------------------
+
+[af_pell_2]:af_pell_1
+$spawn 				= "artefacts\acidic_pell_2"
+class   			= ARTEFACT
+
+visual				= dynamics\artefacts\artefact_pustishka.ogf
+description			= st_af_pell_2_descr
+inv_name			= st_af_pell_2_name
+inv_name_short		= st_af_pell_2_name
+inv_weight			= 1.49
+
+inv_grid_x			= 32
+
+cost				= 52000
+
+art_level			= 6
+
+;скорости увеличения (уменьшения)
+radiation_restore_speed		= 0.000061
+bleeding_restore_speed		= -0.00033
+psyhealth_restore_speed			   = 0.001
+
+hit_absorbation_sect = af_pell_2_absorbation
+
+[af_pell_2_absorbation]:af_pell_1_absorbation
+telepatic_immunity 		= 0.175
+chemical_burn_immunity 	= 0.175
+
+;------------------------------------------------------------------------------------------
+;========================= 23.Панцирь =====================================================
+;------------------------------------------------------------------------------------------
+
+[af_pell_3]:af_pell_1
+$spawn 				= "artefacts\acidic_pell_3"
+class   			= ARTEFACT
+
+visual				= dynamics\artefacts\artefact_pustishka.ogf
+description			= st_af_pell_3_descr
+inv_name			= st_af_pell_3_name
+inv_name_short		= st_af_pell_3_name
+inv_weight			= 1.99
+
+inv_grid_x			= 33
+
+cost				= 64000
+
+art_level			= 7
+
+;скорости увеличения (уменьшения)
+radiation_restore_speed		= 0.000031
+bleeding_restore_speed		= -0.000167
+psyhealth_restore_speed		= 0.001167
+
+hit_absorbation_sect = af_pell_3_absorbation
+
+[af_pell_3_absorbation]:af_pell_1_absorbation
+telepatic_immunity 		= 0.2
+chemical_burn_immunity 	= 0.2
+
+;------------------------------------------------------------------------------------------
+;========================= 24.Скальп контролёра ===========================================
+;------------------------------------------------------------------------------------------
+
+[af_pell_4]:af_pell_1
+$spawn 				= "artefacts\acidic_pell_4"
+class   			= ARTEFACT
+
+visual				= dynamics\artefacts\artefact_pustishka.ogf
+description			= st_af_pell_4_descr
+inv_name			= st_af_pell_4_name
+inv_name_short		= st_af_pell_4_name
+inv_weight			= 2.15
+
+inv_grid_x			= 34
+
+cost				= 80000
+
+art_level			= 8
+
+;скорости увеличения (уменьшения)
+radiation_restore_speed		= 0
+bleeding_restore_speed		= 0
+psyhealth_restore_speed			   = 0.001335
+
+hit_absorbation_sect = af_pell_4_absorbation
+
+[af_pell_4_absorbation]:af_pell_1_absorbation
+telepatic_immunity 		= 0.225
+chemical_burn_immunity 	= 0.225
+
+
+;===============================================================================================================
+;========================= Линейка Души ========================================================================
+;===============================================================================================================
+
+
+;------------------------------------------------------------------------------------------
+;========================= 25.Капля души ==================================================
+;------------------------------------------------------------------------------------------
+
+[af_soul_1]:af_base
+$spawn 				= "artefacts\acidic_soul_1"
+class   			= ARTEFACT
+
+visual				= dynamics\artefacts\artefact_myasorubka3.ogf
+description			= st_af_soul_1_descr
+inv_name			= st_af_soul_1_name
+inv_name_short		= st_af_soul_1_name
+inv_weight			= 0.95
+
+inv_grid_x			= 31
+inv_grid_y			= 37
+
+cost				= 40000
+
+jump_height			= .01
+
+particles					       = artefact\af_acidic_idle 
+det_show_particles		           = artefact\af_acidic_show 
+det_hide_particles		           = artefact\af_acidic_hide  
+
+af_rank				= 3
+art_level			= 5
+
+lights_enabled = true
+
+trail_light_color 		= 0.9,0.4,0.2
+trail_light_range 		= 2.0
+
+;скорость уменьшения состояния артефакта и возможность его удаления при достижении 5%
+degradate						   = true
+degradate_speed					   = 0.000012
+
+;скорости увеличения (уменьшения)
+health_restore_speed		= 0.00025
+radiation_restore_speed		= -0.000062
+satiety_restore_speed		= 0
+power_restore_speed			= -0.0073
+bleeding_restore_speed		= 0
+
+additional_inventory_weight		= 0
+additional_inventory_weight2	= 0
+
+hit_absorbation_sect = af_soul_1_absorbation
+
+[af_soul_1_absorbation]
+burn_immunity 			= 0.15
+strike_immunity 		= 0
+shock_immunity 			= -0.2
+wound_immunity 			= 0
+radiation_immunity 		= 0
+telepatic_immunity 		= 0
+chemical_burn_immunity 	= 0
+explosion_immunity 		= 0
+fire_wound_immunity  	= 0
+
+;------------------------------------------------------------------------------------------
+;========================= 26.Огненная душа ===============================================
+;------------------------------------------------------------------------------------------
+
+[af_soul_2]:af_soul_1
+$spawn 				= "artefacts\acidic_soul_2"
+class   			= ARTEFACT
+
+visual				= dynamics\artefacts\artefact_myasorubka3.ogf
+description			= st_af_soul_2_descr
+inv_name			= st_af_soul_2_name
+inv_name_short		= st_af_soul_2_name
+inv_weight			= 1.24
+
+inv_grid_x			= 32
+
+cost				= 52000
+
+art_level			= 6
+
+;скорости увеличения (уменьшения)
+health_restore_speed		= 0.000334
+radiation_restore_speed		= -0.000093
+power_restore_speed			       = -0.0073
+
+hit_absorbation_sect = af_soul_2_absorbation
+
+[af_soul_2_absorbation]:af_soul_1_absorbation
+shock_immunity 			= -0.15
+telepatic_immunity		= 0.175
+
+;------------------------------------------------------------------------------------------
+;========================= 27.Кристальная душа ============================================
+;------------------------------------------------------------------------------------------
+
+[af_soul_3]:af_soul_1
+$spawn 				= "artefacts\acidic_soul_3"
+class   			= ARTEFACT
+
+visual				= dynamics\artefacts\artefact_myasorubka3.ogf
+description			= st_af_soul_3_descr
+inv_name			= st_af_soul_3_name
+inv_name_short		= st_af_soul_3_name
+inv_weight			= 1.65
+
+inv_grid_x			= 33
+
+cost				= 64000 
+
+art_level			= 7
+
+;скорости увеличения (уменьшения)
+health_restore_speed		= 0.0005
+radiation_restore_speed		= -0.000124
+power_restore_speed			       = -0.0073
+psyhealth_restore_speed			   = 0.0005
+
+hit_absorbation_sect = af_soul_3_absorbation
+
+[af_soul_3_absorbation]:af_soul_1_absorbation
+shock_immunity 			= -0.1
+
+;------------------------------------------------------------------------------------------
+;========================= 28.Кристальная душа бенгала ====================================
+;------------------------------------------------------------------------------------------
+
+[af_soul_4]:af_soul_1
+$spawn 				= "artefacts\acidic_soul_4"
+class   			= ARTEFACT
+
+visual				= dynamics\artefacts\artefact_myasorubka3.ogf
+description			= st_af_soul_4_descr
+inv_name			= st_af_soul_4_name
+inv_name_short		= st_af_soul_4_name
+inv_weight			= 2.07
+
+inv_grid_x			= 34
+
+cost				= 80000 
+
+art_level			= 8
+
+;скорости увеличения (уменьшения)
+health_restore_speed		= 0.000667
+radiation_restore_speed		= -0.000155
+power_restore_speed			       = 0
+psyhealth_restore_speed			   = 0.000834
+
+hit_absorbation_sect = af_soul_4_absorbation
+
+[af_soul_4_absorbation]:af_soul_1_absorbation
+shock_immunity 			= 0

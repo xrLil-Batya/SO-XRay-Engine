@@ -1,0 +1,17 @@
+function on_game_start()
+
+	local function actor_on_first_update()
+		update_settings()
+		bLevelUnderground = level_weathers.bLevelUnderground
+		level_name = level.name()
+		
+		-- Loading droplets val
+		local droplet = alife_storage_manager.get_state().r2_drops_control or {0,0}
+		droplet_pwr = clamp(droplet[1],0,1)
+		exec_console_cmd(strformat("r2_rain_drops_debug_intensity %s", droplet_pwr))
+		
+	end
+	
+	RegisterScriptCallback("actor_on_first_update",actor_on_first_update)
+	RegisterScriptCallback("actor_on_update",actor_on_update)
+end 

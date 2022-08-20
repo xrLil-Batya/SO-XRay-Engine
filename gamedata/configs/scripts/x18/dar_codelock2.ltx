@@ -1,0 +1,9 @@
+[logic]
+active = ph_code@lock
+
+[ph_code@lock]
+code = 411635
+on_code = {=actor_has_item(lab_codes_document)} %+dar_codelock2_unlock%
+
+;on_code = %+dar_codelock2_unlock%
+;on_code = {+dar_password_info2} %+dar_codelock2_unlock%

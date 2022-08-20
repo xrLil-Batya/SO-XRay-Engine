@@ -1,0 +1,28 @@
+[logic]
+active = sr_idle@line_0
+
+[sr_idle@line_0]
+on_info = {+agru_leader_dolg_task_complete} sr_timer %=anim_obj_down(agru_door)%
+
+[sr_timer]
+type = dec
+start_value = 50000
+on_value = 0 | sr_idle@line_1
+on_actor_in_zone = agru_go_out_zone | %=del_cs_text() =play_sound(water_stream) =run_postprocess(fade_in_out) =disable_ui% sr_idle@line_2
+
+[sr_idle@line_1]
+on_info = sr_idle@line_end %=run_postprocess(alcohol)%
+
+[sr_idle@line_end]
+on_game_timer = 22 | sr_idle@line_5 %=kill_actor%
+
+[sr_idle@line_2]
+on_game_timer = 22 | sr_idle@line_3 %=teleport_actor(agru_teleport_point_walk:agru_teleport_point_look) +agru_stop_siren%
+
+[sr_idle@line_3]
+on_game_timer = 20 | sr_idle@line_4
+
+[sr_idle@line_4]
+on_game_timer = 10 | sr_idle@line_5 %=enable_ui +agru_teleport_complete%
+
+[sr_idle@line_5]

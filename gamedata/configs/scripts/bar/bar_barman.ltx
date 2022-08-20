@@ -1,0 +1,81 @@
+[logic@bar_barman]
+suitable = {=check_npc_name(bar_barman)} true
+trade = misc\trade\trade_csky_barmen.ltx
+prior = 200
+active = walker@at_hole
+can_select_weapon = false
+level_spot = trader
+
+[walker@at_hole]
+path_walk = bar_barman_hole_walk
+path_look = bar_barman_hole_look
+use_camp = false
+meet = meet@at_hole
+danger = danger
+on_info = {=actor_in_zone(bar_barman_meet_zone_1)} walker@zone_1
+on_info2 = {=actor_in_zone(bar_barman_meet_zone_2)} walker@zone_2
+on_info3 = {=actor_in_zone(bar_barman_meet_zone_3)} walker@zone_3
+combat_ignore_cond = true
+combat_ignore_keep_when_attacked = true
+gather_items_enabled = false
+help_wounded_enabled = false
+corpse_detection_enabled = false
+
+[walker@zone_1]
+path_walk = barman_zone_1_walk
+path_look = barman_zone_1_look
+use_camp = false
+meet = meet@at_hole
+danger = danger
+on_actor_not_in_zone = bar_barman_meet_zone_1|walker@at_hole
+combat_ignore_cond = true
+combat_ignore_keep_when_attacked = true
+gather_items_enabled = false
+help_wounded_enabled = false
+corpse_detection_enabled = false
+
+[walker@zone_2]
+path_walk = barman_zone_2_walk
+path_look = barman_zone_2_look
+use_camp = false
+meet = meet@at_hole
+danger = danger
+on_actor_not_in_zone = bar_barman_meet_zone_2|walker@at_hole
+combat_ignore_cond = true
+combat_ignore_keep_when_attacked = true
+gather_items_enabled = false
+help_wounded_enabled = false
+corpse_detection_enabled = false
+
+[walker@zone_3]
+path_walk = barman_zone_3_walk
+path_look = barman_zone_3_look
+use_camp = false
+meet = meet@at_hole
+danger = danger
+on_actor_not_in_zone = bar_barman_meet_zone_3|walker@at_hole
+combat_ignore_cond = true
+combat_ignore_keep_when_attacked = true
+gather_items_enabled = false
+help_wounded_enabled = false
+corpse_detection_enabled = false
+
+
+[meet@at_hole]
+close_snd_hello = bar_barmen_hello
+close_snd_bye = nil
+close_anim = nil
+close_victim = actor
+far_anim = nil
+far_victim = nil
+close_distance = 0
+far_distance = 0
+close_snd_distance = 3
+;meet_dialog = mar_csky_barman_intro_dialog
+abuse = false
+use = {=actor_enemy} false, true
+allow_break = false
+meet_on_talking = false
+
+[danger]
+ignore_distance = 0

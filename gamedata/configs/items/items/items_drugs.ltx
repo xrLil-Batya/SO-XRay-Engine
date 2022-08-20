@@ -1,0 +1,373 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;; DRUGS ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[drug_base]
+move_to_bouch = true
+move_to_cargo_belt = true
+sort_in_armor = true
+sort_in_consumables = true
+slot = 26
+use_script_anim 	= true ;переменная для предметов со скриптовыми анимациями - отключает съедание предмета, для дальнейшего его съедания в конце анимации.
+
+[caffeine]:booster,drug_base ;x5
+$spawn 				= "food and drugs\caffeine"
+visual				= dynamics\devices\dev_caffeine\dev_caffeine.ogf
+inv_name			= st_caffeine
+inv_name_short		= st_caffeine
+description			= st_caffeine_descr
+inv_weight			= 0.003
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x		= 18
+inv_grid_y		= 13
+cost			= 100
+use_condition   = false
+max_uses        = 1
+eat_alcohol 			= -0.1
+eat_sleep 				= -0.1
+;use_sound				= interface\inv_eat_pills_effect
+
+; Script Animation Settings:
+snd = interface\item_usage\pills_use
+anm = item_anm_caffeine_hud
+cam = itemuse_anm_effects\tabletki_use.anm
+tm = 3700
+tm_use = 3200
+helm = false
+
+[caffeine_2]:caffeine
+$spawn 				= "food and drugs\caffeine_2"
+cost				= 200
+inv_weight			= 0.005
+inv_grid_y			= 14
+
+[caffeine_3]:caffeine
+$spawn 				= "food and drugs\caffeine_3"
+cost				= 300
+inv_weight			= 0.007
+inv_grid_y			= 15
+
+[caffeine_4]:caffeine
+$spawn 				= "food and drugs\caffeine_4"
+cost				= 400
+inv_weight			= 0.009
+inv_grid_y			= 16
+
+[caffeine_5]:caffeine
+$spawn 				= "food and drugs\caffeine_5"
+cost				= 500
+inv_weight			= 0.011
+inv_grid_y			= 17
+
+
+[drug_charcoal]:booster,drug_base ;уголь
+$spawn 				= "food and drugs\drug_charcoal"
+visual				= dynamics\equipments\medical\drug_sleeping_pills.ogf
+inv_name			= st_drug_charcoal
+inv_name_short		= st_drug_charcoal
+description			= st_drug_charcoal_descr
+inv_weight			= 0.003
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 19
+inv_grid_y			= 13
+cost				= 200
+use_condition       = false
+max_uses            = 1
+eat_alcohol			= -0.75
+;use_sound			= interface\inv_eat_pills_2
+
+; Script Animation Settings:
+snd = interface\item_usage\pills_use
+anm = item_anm_drug_charcoal_hud
+cam = itemuse_anm_effects\tabletki_use.anm
+tm = 3700
+tm_use = 3200
+helm = false
+
+[drug_charcoal_2]:drug_charcoal
+$spawn 				= "food and drugs\drug_charcoal_2"
+cost				= 400
+inv_weight			= 0.005
+inv_grid_y			= 14
+
+[drug_charcoal_3]:drug_charcoal
+$spawn 				= "food and drugs\drug_charcoal_3"
+cost				= 600
+inv_weight			= 0.007
+inv_grid_y			= 15
+
+[drug_charcoal_4]:drug_charcoal
+$spawn 				= "food and drugs\drug_charcoal_4"
+cost				= 800
+inv_weight			= 0.009
+inv_grid_y			= 16
+
+[drug_charcoal_5]:drug_charcoal
+$spawn 				= "food and drugs\drug_charcoal_5"
+cost				= 1000
+inv_weight			= 0.011
+inv_grid_y			= 17
+
+
+[antirad]:booster,drug_base
+$spawn 				= "food and drugs\antirad"
+visual				= dynamics\devices\dev_antirad\dev_antirad.ogf
+inv_name			= st_antirad
+inv_name_short		= st_antirad
+description			= st_antirad_descr
+inv_weight			= 0.02
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 24
+inv_grid_y			= 13
+cost				= 1200
+eat_satiety 		= -0.125
+eat_alcohol			= 0.3
+boost_time			= 60.0
+boost_radiation_restore	= 0.000128
+;use_sound			= interface\inv_syringe
+eat_health			= 0.0
+quick_num			= 1
+
+; Script Animation Settings:
+snd = interface\item_usage\antirad_use
+anm = item_anm_antirad_hud
+cam = itemuse_anm_effects\antirad_use.anm
+tm = 4600
+tm_use = 4100
+helm = true
+
+
+[drug_booster]:booster,drug_base
+$spawn 				= "food and drugs\drug_booster"
+visual				= dynamics\equipments\medical\drug_booster.ogf
+inv_name			= st_drug_booster
+inv_name_short		= st_drug_booster
+description			= st_drug_booster_descr
+inv_weight			= 0.18
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 26
+inv_grid_y			= 13
+cost				= 1000
+boost_time			= 3600
+boost_max_weight	= 11.320
+;use_sound			= interface\inv_drink_flask_effect
+quick_num				= 1
+
+; Script Animation Settings:
+snd = interface\item_usage\vodka_use
+anm = item_anm_booster_weight_hud
+cam = itemuse_anm_effects\vodka_use.anm
+tm = 4300
+tm_use = 3800
+helm = false
+
+
+[drug_coagulant]:booster,drug_base ;поливитамины
+$spawn 				= "food and drugs\drug_coagulant"
+visual				= dynamics\equipments\medical\drug_coagulant.ogf
+inv_name			= st_drug_coagulant
+inv_name_short		= st_drug_coagulant
+description			= st_drug_coagulant_descr
+inv_weight			= 0.003
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 20
+inv_grid_y			= 13
+cost				= 400
+use_condition       = false
+max_uses            = 1
+boost_time			= 180
+boost_health_restore	= 0.00005 ;9% хп за полное время
+eat_alcohol			= -0.1
+;use_sound			= interface\inv_eat_pills
+
+; Script Animation Settings:
+snd = interface\item_usage\pills_use
+anm = item_anm_drug_coagulant_hud
+cam = itemuse_anm_effects\tabletki_use.anm
+tm = 3700
+tm_use = 3200
+helm = false
+
+[drug_coagulant_2]:drug_coagulant
+$spawn 				= "food and drugs\drug_coagulant_2"
+cost				= 800
+inv_weight			= 0.005
+inv_grid_y			= 14
+
+[drug_coagulant_3]:drug_coagulant
+$spawn 				= "food and drugs\drug_coagulant_3"
+cost				= 1200
+inv_weight			= 0.007
+inv_grid_y			= 15
+
+[drug_coagulant_4]:drug_coagulant
+$spawn 				= "food and drugs\drug_coagulant_4"
+cost				= 1600
+inv_weight			= 0.009
+inv_grid_y			= 16
+
+[drug_coagulant_5]:drug_coagulant
+$spawn 				= "food and drugs\drug_coagulant_5"
+cost				= 2000
+inv_weight			= 0.011
+inv_grid_y			= 17
+
+
+[drug_psy_blockade]:booster,drug_base
+$spawn 				= "food and drugs\drug_psy_blockade"
+visual				= dynamics\equipments\medical\drug_psy_blockade.ogf
+inv_name			= st_drug_psy_blockade
+inv_name_short		= st_drug_psy_blockade
+description			= st_drug_psy_blockade_descr
+inv_weight			= 0.003
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 21
+inv_grid_y			= 13
+cost				= 800
+use_condition       = false
+max_uses            = 1
+boost_time			= 350
+boost_telepat_protection 	= 0.10
+eat_satiety 		= -0.051
+eat_alcohol			= 0.1
+;use_sound			= interface\inv_eat_pills_effect
+
+; Script Animation Settings:
+snd = interface\item_usage\pills_use
+anm = item_anm_drug_psy_blocade_hud
+cam = itemuse_anm_effects\tabletki_use.anm
+tm = 3700
+tm_use = 3200
+helm = false
+
+[drug_psy_blockade_2]:drug_psy_blockade
+$spawn 				= "food and drugs\drug_psy_blockade_2"
+cost				= 1600
+inv_weight			= 0.005
+inv_grid_y			= 14
+
+[drug_psy_blockade_3]:drug_psy_blockade
+$spawn 				= "food and drugs\drug_psy_blockade_3"
+cost				= 2400
+inv_weight			= 0.007
+inv_grid_y			= 15
+
+[drug_psy_blockade_4]:drug_psy_blockade
+$spawn 				= "food and drugs\drug_psy_blockade_4"
+cost				= 3200
+inv_weight			= 0.009
+inv_grid_y			= 16
+
+[drug_psy_blockade_5]:drug_psy_blockade
+$spawn 				= "food and drugs\drug_psy_blockade_5"
+cost				= 4000
+inv_weight			= 0.011
+inv_grid_y			= 17
+
+
+[drug_antidot]:booster,drug_base ;x3
+$spawn 				= "food and drugs\drug_antidot"
+visual				= dynamics\equipments\medical\drug_antidot.ogf
+inv_name			= st_drug_antidot
+inv_name_short		= st_drug_antidot
+description			= st_drug_antidot_descr
+inv_weight			= 0.004
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 22
+inv_grid_y			= 13
+cost				= 1000
+use_condition       = false
+max_uses            = 1
+boost_time			= 1800
+boost_chemburn_protection 	= 0.10
+eat_satiety 		= -0.055
+eat_alcohol			= -1.0
+eat_health			= -0.03
+;use_sound			= interface\inv_eat_pills_2
+
+; Script Animation Settings:
+snd = interface\item_usage\pills_use
+anm = item_anm_drug_antidot_hud
+cam = itemuse_anm_effects\tabletki_use.anm
+tm = 3700
+tm_use = 3200
+helm = false
+
+[drug_antidot_2]:drug_antidot
+$spawn 				= "food and drugs\drug_antidot_2"
+cost				= 2000
+inv_weight			= 0.007
+inv_grid_y			= 14
+
+[drug_antidot_3]:drug_antidot
+$spawn 				= "food and drugs\drug_antidot_3"
+cost				= 3000
+inv_weight			= 0.01
+inv_grid_y			= 15
+
+
+[drug_radioprotector]:booster,drug_base ;x2
+$spawn 				= "food and drugs\drug_radioprotector"
+visual				= dynamics\equipments\medical\drug_radioprotector.ogf
+inv_name			= st_drug_radioprotector
+inv_name_short		= st_drug_radioprotector
+description			= st_drug_radioprotector_descr
+inv_weight			= 0.005
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 23
+inv_grid_y			= 13
+cost				= 1000
+use_condition       = false
+max_uses            = 1
+boost_time			= 2820
+boost_radiation_protection	= 0.0001
+eat_satiety 		= -0.07
+eat_health			= -0.01
+eat_alcohol			= 0.1
+;use_sound			= interface\inv_eat_pills_2
+
+; Script Animation Settings:
+snd = interface\item_usage\pills_use
+anm = item_anm_drug_radioprotector_hud
+cam = itemuse_anm_effects\tabletki_use.anm
+tm = 3700
+tm_use = 3200
+helm = false
+
+[drug_radioprotector_2]:drug_radioprotector
+$spawn 				= "food and drugs\drug_radioprotector_2"
+cost				= 2000
+inv_weight			= 0.01
+inv_grid_y			= 14
+
+
+[drug_anabiotic]:booster,drug_base
+$spawn 				= "food and drugs\drug_anabiotic"
+visual				= dynamics\equipments\medical\drug_anabiotic.ogf
+inv_name			= st_drug_anabiotic
+inv_name_short		= st_drug_anabiotic
+description			= st_drug_anabiotic_descr
+inv_weight			= 0.012
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 25
+inv_grid_y			= 13
+cost				= 9000
+;use_sound			= interface\inv_eat_pills_2
+eat_alcohol			= 0.5
+
+; Script Animation Settings:
+snd = interface\item_usage\antirad_use
+anm = item_anm_antirad_hud
+cam = itemuse_anm_effects\antirad_use.anm
+tm = 4600
+tm_use = 4100
+helm = true
+

@@ -1,0 +1,106 @@
+----------------------------------------------------------------------------------------------------------------------
+-- Файл:        		SLEEP_MANAGER.SCRIPT
+-- Описание:    		Скрипт - менеджер сна.
+-- Создан:      		18.08.2021
+-- Последняя редакция:	27.06.2022
+-- Автор:       		ARTLantist
+-- Copyright:   		ARTLantist
+----------------------------------------------------------------------------------------------------------------------
+
+local actor_sleep = 24.0
+
+function on_game_start()
+	RegisterScriptCallback("actor_on_update",sleep_manager_update)
+	RegisterScriptCallback("actor_on_item_use",actor_on_item_use)
+end
+
+function actor_on_item_use(obj)
+	local eat_sleep = r_float_ex(system_ini(),obj:section(),"eat_sleep",0)*(-100)
+	if eat_sleep > 0 then
+		set_sleep(eat_sleep)
+	end
+end
+
+function start_game_stamina()
+	if db.actor.power > 0.3 then
+		db.actor.power = 0.3 - db.actor.power
+	end
+end
+
+function sleep_manager_update(delta)
+	if (not has_alife_info("info_actor_sleep")) then
+		--start_game_stamina()
+	end
+	if (not has_alife_info("actor_is_sleeping")) then
+		actor_sleep = actor_sleep -(delta/(60*60*100))
+	end
+	if (actor_sleep <= 9) then
+		db.actor.power = (-0.003*(1-(actor_sleep/24))*delta/100)
+	end
+	if (actor_sleep <= 6) then
+		if not has_alife_info("info_sleep_pe") then
+			level.add_pp_effector("dualeye.ppe", 162, true)
+			news_manager.send_tip(db.actor, game.translate_string("st_sleep_need"))
+			db.actor:give_info_portion("info_sleep_pe")
+		end
+	end
+	if (actor_sleep <= 1 and not has_alife_info("sleep_active")) then
+		actor_need_sleep()
+		give_info("sleep_active")
+	end
+	if (actor_sleep > 8 and has_alife_info("info_sleep_pe")) then
+		level.remove_pp_effector(162)
+		disable_info("info_sleep_pe")
+	end
+end
+
+function change_sleep(value)
+	actor_sleep = value
+	if actor_sleep > 24 then
+		actor_sleep = 24
+	elseif actor_sleep < 0 then
+		actor_sleep = 0
+	end
+end
+
+function set_sleep(value)
+	actor_sleep = actor_sleep + value
+	if actor_sleep > 24 then
+		actor_sleep = 24
+	elseif actor_sleep < 0 then
+		actor_sleep = 0
+	end
+end
+
+function get_sleep()
+	return actor_sleep
+end
+-- Called from Engine!
+function get_sleep_float()
+	return actor_sleep/24
+end
+
+function actor_need_sleep()
+	xr_effects.disable_ui_lite_with_imput(db.actor, nil)
+	level.add_cam_effector("camera_effects\\sleep.anm", 10, false, "sleep_manager.sleep_callback")
+	level.add_pp_effector("sleep_fade.ppe", 11, false)
+	db.actor:give_info_portion("actor_is_sleeping")
+	_G.mus_vol = get_console():get_float("snd_volume_music")
+	_G.amb_vol = get_console():get_float("snd_volume_eff")
+	get_console():execute("snd_volume_music 0")
+	get_console():execute("snd_volume_eff 0")
+end
+
+function sleep_callback()
+	level.add_cam_effector("camera_effects\\sleep.anm", 10, false, "ui_sleep_dialog.dream_callback2")
+	local hours = 12
+	level.change_game_time(0,hours,0)
+	level_weathers.get_weather_manager():forced_weather_change()
+	surge_manager.get_surge_manager().time_forwarded = true
+	if(surge_manager.is_started() and level_weathers.get_weather_manager().weather_fx) then
+		level.stop_weather_fx()
+		level_weathers.get_weather_manager():forced_weather_change()
+	end	
+    printf("dream_callback: time forwarded on [%d]", hours)
+	set_sleep(24)
+end

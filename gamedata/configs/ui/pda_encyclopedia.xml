@@ -1,0 +1,172 @@
+<w>
+	<main_wnd x="0" y="0" width="1024" height="768"/>
+	
+<!-- engine static -->
+
+	<background x="28" y="41" width="764" height="667" stretch="1">
+        <texture>ui_inGame2_pda_buttons_background</texture>
+	</background>
+	
+	<center_caption x="35" y="262" width="80" height="23">
+		<text align="c" vert_align="c" font="letterica16" r="100" g="100" b="100"/>
+	</center_caption>
+
+	<down_background x="28" y="245" width="764" height="463" stretch="1">
+		<texture>ui_inGame2_pda_buttons_background</texture>
+		<auto_frameline x="6" y="15" width="753" height="23" vertical="0">
+			<texture>ui_inGame2_pda_ranking_center_caption</texture>
+		</auto_frameline>
+	</down_background>
+
+    <buttons_background x="48" y="93" width="724" height="99" stretch="1">
+        <texture>ui_inGame2_pda_ranking_icon_over</texture>
+		<auto_static x="5" y="1" width="210" height="23" stretch="1">
+			<text align="l" vert_align="c" font="letterica18" r="220" g="220" b="220">st_pda_buttons_background</text>
+		</auto_static>
+    </buttons_background>
+    <buttons_over x="51" y="118" width="718" height="70" stretch="1">
+        <texture>ui_inGame2_pda_ranking_icon_over</texture>
+    </buttons_over>
+
+    <categories_background x="48" y="202" width="250" height="498" stretch="1">
+        <texture>ui_inGame2_pda_ranking_icon_over</texture>
+    </categories_background>
+    <categories_over x="51" y="227" width="244" height="469" stretch="1">
+        <texture>ui_inGame2_pda_ranking_icon_over</texture>
+    </categories_over>
+
+    <descriptions_background x="308" y="202" width="464" height="498" stretch="1">
+        <texture>ui_inGame2_pda_ranking_icon_over</texture>
+    </descriptions_background>
+    <descriptions_over x="311" y="227" width="458" height="469" stretch="1">
+        <texture>ui_inGame2_pda_ranking_icon_over</texture>
+    </descriptions_over>
+	
+    <notes_button x="112" y="121" width="137" height="27" stretch="1" hint="st_pda_notes_hint">
+			<text align="c" vert_align="c" x="0" y="0" width="157" height="27" font="letterica16">pda_notes_button</text>
+            <texture>ui_inGame2_pda_button</texture>
+			<text_color>
+				<t r="255" g="255" b="255"/>
+				<d r="255" g="255" b="255"/>
+				<e r="200" g="200" b="200"/>
+				<h r="170" g="170" b="170"/>
+			</text_color>
+    </notes_button>
+	
+    <barter_button x="230" y="121" width="137" height="27" stretch="1" hint="st_pda_barter_hint">
+			<text align="c" vert_align="c" x="0" y="0" width="157" height="27" font="letterica16">pda_barter_button</text>
+            <texture>ui_inGame2_pda_button</texture>
+			<text_color>
+				<t r="255" g="255" b="255"/>
+				<d r="255" g="255" b="255"/>
+				<e r="200" g="200" b="200"/>
+				<h r="170" g="170" b="170"/>
+			</text_color>
+    </barter_button>
+	
+    <gived_info_button x="348" y="121" width="137" height="27" stretch="1" hint="st_pda_gived_info_hint">
+			<text align="c" vert_align="c" x="0" y="0" width="157" height="27" font="letterica16">pda_gived_info_button</text>
+            <texture>ui_inGame2_pda_button</texture>
+			<text_color>
+				<t r="255" g="255" b="255"/>
+				<d r="255" g="255" b="255"/>
+				<e r="200" g="200" b="200"/>
+				<h r="170" g="170" b="170"/>
+			</text_color>
+    </gived_info_button>
+	
+    <passwords_button x="466" y="121" width="137" height="27" stretch="1" hint="st_pda_passwords_hint">
+			<text align="c" vert_align="c" x="0" y="0" width="157" height="27" font="letterica16">pda_passwords_button</text>
+            <texture>ui_inGame2_pda_button</texture>
+			<text_color>
+				<t r="255" g="255" b="255"/>
+				<d r="255" g="255" b="255"/>
+				<e r="200" g="200" b="200"/>
+				<h r="170" g="170" b="170"/>
+			</text_color>
+    </passwords_button>
+	
+    <recipes_button x="584" y="121" width="137" height="27" stretch="1" hint="st_pda_recipes_hint">
+			<text align="c" vert_align="c" x="0" y="0" width="157" height="27" font="letterica16">pda_recipes_button</text>
+            <texture>ui_inGame2_pda_button</texture>
+			<text_color>
+				<t r="255" g="255" b="255"/>
+				<d r="255" g="255" b="255"/>
+				<e r="200" g="200" b="200"/>
+				<h r="170" g="170" b="170"/>
+			</text_color>
+    </recipes_button>
+	
+    <anomalis_button x="90" y="149" width="137" height="27" stretch="1" hint="st_pda_anomalis_hint">
+			<text align="c" vert_align="c" x="0" y="0" width="157" height="27" font="letterica16">pda_anomalis_button</text>
+            <texture>ui_inGame2_pda_button</texture>
+			<text_color>
+				<t r="255" g="255" b="255"/>
+				<d r="255" g="255" b="255"/>
+				<e r="200" g="200" b="200"/>
+				<h r="170" g="170" b="170"/>
+			</text_color>
+    </anomalis_button>
+	
+    <arts_button x="208" y="149" width="137" height="27" stretch="1" hint="st_pda_arts_hint">
+			<text align="c" vert_align="c" x="0" y="0" width="157" height="27" font="letterica16">pda_arts_button</text>
+            <texture>ui_inGame2_pda_button</texture>
+			<text_color>
+				<t r="255" g="255" b="255"/>
+				<d r="255" g="255" b="255"/>
+				<e r="200" g="200" b="200"/>
+				<h r="170" g="170" b="170"/>
+			</text_color>
+    </arts_button>
+	
+    <monsters_button x="326" y="149" width="137" height="27" stretch="1" hint="st_pda_monsters_hint">
+			<text align="c" vert_align="c" x="0" y="0" width="157" height="27" font="letterica16">pda_monsters_button</text>
+            <texture>ui_inGame2_pda_button</texture>
+			<text_color>
+				<t r="255" g="255" b="255"/>
+				<d r="255" g="255" b="255"/>
+				<e r="200" g="200" b="200"/>
+				<h r="170" g="170" b="170"/>
+			</text_color>
+    </monsters_button>
+	
+    <locs_button x="444" y="149" width="137" height="27" stretch="1" hint="st_pda_locs_hint">
+			<text align="c" vert_align="c" x="0" y="0" width="157" height="27" font="letterica16">pda_locs_button</text>
+            <texture>ui_inGame2_pda_button</texture>
+			<text_color>
+				<t r="255" g="255" b="255"/>
+				<d r="255" g="255" b="255"/>
+				<e r="200" g="200" b="200"/>
+				<h r="170" g="170" b="170"/>
+			</text_color>
+    </locs_button>
+	
+    <recipes_m_button x="562" y="149" width="137" height="27" stretch="1" hint="st_pda_recipes_m_hint">
+			<text align="c" vert_align="c" x="0" y="0" width="157" height="27" font="letterica16">pda_recipes_m_button</text>
+            <texture>ui_inGame2_pda_button</texture>
+			<text_color>
+				<t r="255" g="255" b="255"/>
+				<d r="255" g="255" b="255"/>
+				<e r="200" g="200" b="200"/>
+				<h r="170" g="170" b="170"/>
+			</text_color>
+    </recipes_m_button>
+	
+<!-- engine dinamic -->
+
+	<categories_caption x="53" y="203" width="238" height="23" complex_mode="1">
+		<text align="l" vert_align="c" font="letterica18" r="220" g="220" b="220"/>
+	</categories_caption>
+	<descriptions_caption x="313" y="203" width="452" height="23" complex_mode="1">
+		<text align="l" vert_align="c" font="letterica18" r="220" g="220" b="220"/>
+	</descriptions_caption>
+	
+	<list_categories x="53" y="227" width="240" height="469" item_height="18" can_select="1" always_show_scroll="0">
+		<font align="l" vert_align="c" font="letterica16" r="220" g="220" b="220" />
+	</list_categories>
+	
+	<list_descriptions x="313" y="227" width="454" height="469" complex_mode="1">
+		<text align="l" font="letterica16" r="220" g="220" b="220"/>
+	</list_descriptions>
+	
+</w>

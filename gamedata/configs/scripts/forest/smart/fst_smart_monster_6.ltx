@@ -1,0 +1,13 @@
+; смарт возле перехода на кордон
+
+[smart_terrain]
+squad_id = 15
+max_population = 1
+respawn_params = respawn@smart_monster_6
+
+[respawn@smart_monster_6]
+spawn_dog@smart_monster_6
+
+[spawn_dog@smart_monster_6]
+spawn_squads = {+info_mutant_spawn_hard +info_mutant_spawn_medium +info_mutant_spawn_basic} fst_smart_monster_6_squad_3, {-info_mutant_spawn_hard +info_mutant_spawn_medium +info_mutant_spawn_basic} fst_smart_monster_6_squad_2, {-info_mutant_spawn_hard -info_mutant_spawn_medium +info_mutant_spawn_basic} fst_smart_monster_6_squad
+spawn_num = 1

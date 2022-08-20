@@ -1,0 +1,60 @@
+[dont_spawn_character_supplies]
+
+[logic@val_freedom_leader]
+suitable = {=check_npc_name(val_freedom_leader)} true
+prior = 200
+active = walker@main
+on_death = death
+
+[death]
+on_info = %+val_freedom_leader_ded%
+
+[walker@main]
+;danger = danger_condition
+path_walk = freedom_leader_walker_1_walk
+path_look = freedom_leader_walker_1_look
+def_state_standing = wait
+out_restr = val_out_restrictor_freedom_leader
+meet = meet
+on_info = {+val_spawn_attack_freedom_2 -val_strike_antenna_done -val_killer_base_is_no_more} walker@silent, {+val_killer_base_is_no_more} walker@last
+combat_ignore_cond = true
+combat_ignore_keep_when_attacked = true
+invulnerable = true
+corpse_detection_enabled = false
+gather_items_enabled = false
+help_wounded_enabled = false
+
+[walker@silent]
+danger = danger_condition
+path_walk = val_smart_terrain_freedom_leader_walker_1_walk
+path_look = val_smart_terrain_freedom_leader_walker_1_look
+def_state_standing = wait
+faction = freedom
+out_restr = val_out_restrictor_freedom_leader
+meet = no_meet
+on_info = {+val_strike_antenna_done} walker@main, {+val_killer_base_is_no_more} walker@last
+invulnerable = true
+
+[walker@last]
+danger = danger_condition
+path_walk = val_smart_terrain_freedom_leader_walker_1_walk
+path_look = val_smart_terrain_freedom_leader_walker_1_look
+def_state_standing = wait
+faction = freedom
+out_restr = val_out_restrictor_freedom_leader
+meet = meet
+
+[danger_condition]
+ignore_distance_corpse = 0
+ignore_distance_hit = 0
+ignore_distance_grenade = 0
+ignore_distance_sound = 0
+
+[meet]
+;meet_state 	= 3|nil@nil
+close_snd_hello = val_freedom_leader_meet
+close_snd_bye 	= val_freedom_leader_meet_bye
+;quest_npc = true
+;use = true
+;use_wpn = true
+trade_enable = false

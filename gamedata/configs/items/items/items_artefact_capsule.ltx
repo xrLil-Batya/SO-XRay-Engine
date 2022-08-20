@@ -1,0 +1,188 @@
+;===============================================================================================================
+;===============================================================================================================
+;========================= Капсулы артефактов ==================================================================
+;===============================================================================================================
+;===============================================================================================================
+
+;------------------------------------------------------------------------------------------
+;========================= Капсулы обычных артов ==========================================
+;------------------------------------------------------------------------------------------
+
+[af_capsule_base]:af_base
+$spawn 				= "artefacts\af_capsule"
+class   			= ARTEFACT
+
+visual				= dynamics\anomaly\capsule.ogf
+description			= st_af_capsule_descr
+inv_name			= st_af_capsule_name
+inv_name_short		= st_af_capsule_name
+inv_weight			= 2.3
+
+inv_grid_x			= 37
+inv_grid_y			= 36
+
+cost				= 18000
+
+jump_height			= .01
+
+particles				           = anomaly2\artefact\artefact_puxx
+
+af_rank				= 3
+
+art_level 			= 3
+
+lights_enabled = true
+
+trail_light_color 		= 0.9,0.4,0.2
+trail_light_range 		= 2.0
+
+;скорость уменьшения состояния артефакта и возможность его удаления при достижении 5%
+degradate						   = true
+degradate_speed					   = 0.000002
+
+;скорости увеличения (уменьшения)
+health_restore_speed		= 0
+radiation_restore_speed		= 0.000427
+satiety_restore_speed		= 0
+power_restore_speed			= 0
+bleeding_restore_speed		= 0
+
+additional_inventory_weight		= 0
+additional_inventory_weight2	= 0
+
+hit_absorbation_sect = af_capsule_base_absorbation
+
+[af_capsule_base_absorbation]
+burn_immunity 			= 0
+strike_immunity 		= 0
+shock_immunity 			= 0
+wound_immunity 			= 0
+radiation_immunity 		= 0
+telepatic_immunity 		= 0
+chemical_burn_immunity 	= 0
+explosion_immunity 		= 0
+fire_wound_immunity  	= 0
+
+
+[af_night_star_capsule]:af_capsule_base
+[af_night_star_d1_capsule]:af_capsule_base
+[af_night_star_d2_capsule]:af_capsule_base
+[af_night_star_d3_capsule]:af_capsule_base
+[af_night_star_d4_capsule]:af_capsule_base
+[af_night_star_d5_capsule]:af_capsule_base
+[af_dummy_glassbeads_capsule]:af_capsule_base
+
+[af_gold_fish_capsule]:af_capsule_base
+[af_gold_fish_d1_capsule]:af_capsule_base
+[af_gold_fish_d2_capsule]:af_capsule_base
+[af_gold_fish_d3_capsule]:af_capsule_base
+[af_gold_fish_d4_capsule]:af_capsule_base
+[af_gold_fish_d5_capsule]:af_capsule_base
+[af_fuzz_kolobok_capsule]:af_capsule_base
+
+[af_cristall_capsule]:af_capsule_base
+[af_cristall_d1_capsule]:af_capsule_base
+[af_cristall_d2_capsule]:af_capsule_base
+[af_cristall_d3_capsule]:af_capsule_base
+[af_cristall_d4_capsule]:af_capsule_base
+[af_cristall_d5_capsule]:af_capsule_base
+[af_dummy_dummy_capsule]:af_capsule_base
+
+[af_soul_capsule]:af_capsule_base
+[af_soul_d1_capsule]:af_capsule_base
+[af_soul_d2_capsule]:af_capsule_base
+[af_soul_d3_capsule]:af_capsule_base
+[af_soul_d4_capsule]:af_capsule_base
+[af_soul_d5_capsule]:af_capsule_base
+[af_glass_capsule]:af_capsule_base
+
+[af_electra_moonlight_capsule]:af_capsule_base
+[af_electra_moonlight_d1_capsule]:af_capsule_base
+[af_electra_moonlight_d2_capsule]:af_capsule_base
+[af_electra_moonlight_d3_capsule]:af_capsule_base
+[af_electra_moonlight_d4_capsule]:af_capsule_base
+[af_electra_moonlight_d5_capsule]:af_capsule_base
+[af_dummy_battery_capsule]:af_capsule_base
+
+[af_ameba_mica_capsule]:af_capsule_base
+[af_ameba_mica_d1_capsule]:af_capsule_base
+[af_ameba_mica_d2_capsule]:af_capsule_base
+[af_ameba_mica_d3_capsule]:af_capsule_base
+[af_ameba_mica_d4_capsule]:af_capsule_base
+[af_ameba_mica_d5_capsule]:af_capsule_base
+[af_pellicle_capsule]:af_capsule_base
+
+[af_rusty_sea-urchin_capsule]:af_capsule_base
+[af_rusty_sea-urchin_d1_capsule]:af_capsule_base
+[af_rusty_sea-urchin_d2_capsule]:af_capsule_base
+[af_rusty_sea-urchin_d3_capsule]:af_capsule_base
+[af_rusty_sea-urchin_d4_capsule]:af_capsule_base
+[af_rusty_sea-urchin_d5_capsule]:af_capsule_base
+[af_dummy_spring_capsule]:af_capsule_base
+
+;------------------------------------------------------------------------------------------
+;========================= Капсулы маятников ==============================================
+;------------------------------------------------------------------------------------------
+
+[af_m_capsule_base]:af_base
+$spawn 				= "artefacts\af_capsule"
+class   			= ARTEFACT
+
+visual				= dynamics\anomaly\m_capsule.ogf
+description			= st_af_m_capsule_descr
+inv_name			= st_af_capsule_name
+inv_name_short		= st_af_capsule_name
+inv_weight			= 3.62
+
+inv_grid_x			= 38
+inv_grid_y			= 36
+
+cost				= 55000
+
+jump_height			= .01
+
+particles				           = anomaly2\artefact\artefact_puxx
+
+af_rank				= 3
+art_level 			= 9
+
+lights_enabled = true
+
+trail_light_color 		= 0.9,0.4,0.2
+trail_light_range 		= 2.0
+
+;скорость уменьшения состояния артефакта и возможность его удаления при достижении 5%
+degradate						   = true
+degradate_speed					   = 0.000002
+
+;скорости увеличения (уменьшения)
+health_restore_speed		= 0
+radiation_restore_speed		= 0.000521
+satiety_restore_speed		= 0
+power_restore_speed			= 0
+bleeding_restore_speed		= 0
+
+additional_inventory_weight		= 0
+additional_inventory_weight2	= 0
+
+hit_absorbation_sect = af_m_capsule_base_absorbation
+
+[af_m_capsule_base_absorbation]
+burn_immunity 			= 0
+strike_immunity 		= 0
+shock_immunity 			= 0
+wound_immunity 			= 0
+radiation_immunity 		= 0
+telepatic_immunity 		= 0
+chemical_burn_immunity 	= 0
+explosion_immunity 		= 0
+fire_wound_immunity  	= 0
+
+
+[af_mayatnik_tuman_capsule]:af_m_capsule_base
+[af_mayatnik_les_capsule]:af_m_capsule_base
+[af_mayatnik_radar_capsule]:af_m_capsule_base
+[af_mayatnik_nicola_capsule]:af_m_capsule_base
+[af_mayatnik_prip_capsule]:af_m_capsule_base
+[af_mayatnik_chernob_capsule]:af_m_capsule_base
+

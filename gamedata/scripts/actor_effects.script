@@ -1,0 +1,1110 @@
+local upd_time = 0
+local effect_outfit = "none"
+local effect_helm = "none"
+local effect_backpack = "none"
+
+local time_disabled = 0
+
+local item_in_use = {}
+local item_not_in_use = true
+local item_fx = {
+-- Анимация отсутствует. Просто закрываем инвентарь
+	none = {
+		[220] = "xr_effects.disable_ui_inventory(db.actor, nil)",
+	},
+-- Анимации надевания брони, шлема, рюкзака и разгрузки
+	outfit = {
+		[0] = "actor_effects.hide_weapon_effect(true)",
+		[1] = "xr_effects.disable_ui_lite_with_imput(db.actor, nil)",
+		[2] = "xr_effects.play_inv_repair_sewing_kit()",
+		[379] = "xr_effects.disable_nv(db.actor, nil)",
+		[380] = "xr_effects.disable_ui_inventory(db.actor, nil)",
+		[550] = "level.add_cam_effector('camera_effects\\\\item_use_fast.anm', 8063, false,'')",
+		[2900] = "level.add_pp_effector('surge_fade.ppe', 8023, false)",
+		[3020] = "level.add_cam_effector('camera_effects\\\\item_use_slow.anm', 8064, false,'')",		
+		[6000] = "level.remove_pp_effector(8023)",
+		[7001] = "xr_effects.enable_ui_lite(db.actor, nil)",
+		[7003] = "xr_effects.enable_nv_and_imput(db.actor, nil)",
+		[7004] = "actor_effects.hide_weapon_effect(false)"
+	},
+	helmet = {
+		[0] = "actor_effects.hide_weapon_effect(true)",
+		[1] = "xr_effects.disable_ui_lite_with_imput(db.actor, nil)",
+		[2] = "xr_effects.disable_nv(db.actor, nil)",
+		[4] = "xr_effects.disable_nv(db.actor, nil)",
+		[5] = "level.add_cam_effector('camera_effects\\\\item_use_fast.anm', 8053, false,'')",
+		[7] = "level.add_cam_effector('camera_effects\\\\item_use_slow.anm', 8054, false,'')",
+		[380] = "xr_effects.disable_ui_inventory(db.actor, nil)",
+		[1701] = "xr_effects.enable_ui_lite(db.actor, nil)",
+		[2500] = "xr_effects.enable_imput(db.actor, nil)",
+		[2503] = "actor_effects.hide_weapon_effect(false)"
+	},
+-- Анимации ремонтных наборов
+	sh_stones = {
+		[0] = "actor_effects.hide_weapon_effect(true)",
+		[1] = "xr_effects.disable_ui_lite_with_imput(db.actor, nil)",
+		[550] = "level.add_cam_effector('camera_effects\\\\item_use_fast.anm', 8063, false,'')",
+		[1040] = "xr_effects.disable_ui_inventory(db.actor, nil)",
+		[1460] = "xr_effects.play_inv_repair_kit_with_brushes()",
+		[3020] = "level.add_cam_effector('camera_effects\\\\item_use.anm', 8064, false,'')",
+		[7681] = "xr_effects.enable_ui_lite(db.actor, nil)",
+		[9080] = "xr_effects.enable_imput(db.actor, nil)",
+		[9680] = "actor_effects.hide_weapon_effect(false)"
+	},
+	glue = {
+		[0] = "actor_effects.hide_weapon_effect(true)",
+		[1] = "xr_effects.disable_ui_lite_with_imput(db.actor, nil)",
+		[550] = "level.add_cam_effector('camera_effects\\\\item_use_fast.anm', 8063, false,'')",
+		[1040] = "xr_effects.disable_ui_inventory(db.actor, nil)",
+		[1460] = "xr_effects.play_inv_repair_sewing_kit_fast()",
+		[3020] = "level.add_cam_effector('camera_effects\\\\item_use.anm', 8064, false,'')",
+		[7681] = "xr_effects.enable_ui_lite(db.actor, nil)",
+		[9080] = "xr_effects.enable_imput(db.actor, nil)",
+		[9680] = "actor_effects.hide_weapon_effect(false)"
+	},
+	cleaning_kit = {
+		[0] = "actor_effects.hide_weapon_effect(true)",
+		[1] = "xr_effects.disable_ui_lite_with_imput(db.actor, nil)",
+		[550] = "level.add_cam_effector('camera_effects\\\\item_use_fast.anm', 8063, false,'')",
+		[1040] = "xr_effects.disable_ui_inventory(db.actor, nil)",
+		[1460] = "xr_effects.play_inv_repair_brushes()",
+		[3020] = "level.add_cam_effector('camera_effects\\\\item_use.anm', 8064, false,'')",
+		[7681] = "xr_effects.enable_ui_lite(db.actor, nil)",
+		[9080] = "xr_effects.enable_imput(db.actor, nil)",
+		[9680] = "actor_effects.hide_weapon_effect(false)"
+	},
+	repair_kit = {
+		[0] = "actor_effects.hide_weapon_effect(true)",
+		[1] = "xr_effects.disable_ui_lite_with_imput(db.actor, nil)",
+		[2] = "level.add_pp_effector('slow_fade.ppe', 8023, false)",
+		[379] = "xr_effects.disable_nv(db.actor, nil)",
+		[380] = "xr_effects.disable_ui_inventory(db.actor, nil)",
+		[550] = "level.add_cam_effector('camera_effects\\\\item_use_fast.anm', 8024, false,'')",
+		[800] = "xr_effects.play_inv_repair_kit_with_brushes()",
+		[3020] = "level.add_cam_effector('camera_effects\\\\item_use_slow.anm', 8025, false,'')",
+		[6500] = "_G.mus_vol = math.max(get_console():get_float('snd_volume_music'),_G.mus_vol or 0) _G.amb_vol = math.max(get_console():get_float('snd_volume_eff'),_G.amb_vol or 0) get_console():execute('snd_volume_music 0') get_console():execute('snd_volume_eff 0')",
+		[10300] = "get_console():execute('snd_volume_music '..tostring(_G.mus_vol)) get_console():execute('snd_volume_eff '..tostring(_G.amb_vol))",
+		[10301] = "xr_effects.enable_ui_lite(db.actor, nil)",
+		[12200] = "xr_effects.enable_nv_and_imput(db.actor, nil)",
+		[12800] = "actor_effects.hide_weapon_effect(false)"
+	},
+	sewing_kit = {
+		[0] = "actor_effects.hide_weapon_effect(true)",
+		[1] = "xr_effects.disable_ui_lite_with_imput(db.actor, nil)",
+		[2] = "level.add_pp_effector('slow_fade.ppe', 8023, false)",
+		[379] = "xr_effects.disable_nv(db.actor, nil)",
+		[380] = "xr_effects.disable_ui_inventory(db.actor, nil)",
+		[550] = "level.add_cam_effector('camera_effects\\\\item_use_fast.anm', 8024, false,'')",
+		[800] = "xr_effects.play_inv_repair_sewing_kit()",
+		[3020] = "level.add_cam_effector('camera_effects\\\\item_use_slow.anm', 8025, false,'')",
+		[6500] = "_G.mus_vol = math.max(get_console():get_float('snd_volume_music'),_G.mus_vol or 0) _G.amb_vol = math.max(get_console():get_float('snd_volume_eff'),_G.amb_vol or 0) get_console():execute('snd_volume_music 0') get_console():execute('snd_volume_eff 0')",
+		[10300] = "get_console():execute('snd_volume_music '..tostring(_G.mus_vol)) get_console():execute('snd_volume_eff '..tostring(_G.amb_vol))",
+		[10301] = "xr_effects.enable_ui_lite(db.actor, nil)",
+		[12200] = "xr_effects.enable_nv_and_imput(db.actor, nil)",
+		[12800] = "actor_effects.hide_weapon_effect(false)"
+	},
+-- Анимации готовки мяса
+	matches_campfire = {
+		[0] = "actor_effects.hide_weapon_effect(true)",
+		[1] = "xr_effects.disable_ui_lite_with_imput(db.actor, nil)",
+		[10] = "level.add_cam_effector('camera_effects\\\\item_use_fast.anm', 8063, false,'')",
+		[100] = "xr_effects.play_inv_matches()",
+		[1040] = "xr_effects.disable_ui_inventory(db.actor, nil)",
+		[3000] = "campfire_manager.campfire_on_anim()",
+		[3581] = "xr_effects.enable_ui_lite(db.actor, nil)",
+		[3582] = "xr_effects.enable_imput(db.actor, nil)",
+		[3583] = "actor_effects.hide_weapon_effect(false)",
+	},
+	matches_campfire_no_light = {
+		[0] = "actor_effects.hide_weapon_effect(true)",
+		[1] = "xr_effects.disable_ui_lite_with_imput(db.actor, nil)",
+		[10] = "level.add_cam_effector('camera_effects\\\\item_use_fast.anm', 8063, false,'')",
+		[100] = "xr_effects.play_inv_matches()",
+		[1040] = "xr_effects.disable_ui_inventory(db.actor, nil)",
+		[3581] = "xr_effects.enable_ui_lite(db.actor, nil)",
+		[3582] = "xr_effects.enable_imput(db.actor, nil)",
+		[3583] = "actor_effects.hide_weapon_effect(false)",
+		[4000] = "xr_effects.play_matches_no_light()",
+	},
+	matches_candle = {
+		[0] = "actor_effects.hide_weapon_effect(true)",
+		[1] = "xr_effects.disable_ui_lite_with_imput(db.actor, nil)",
+		[10] = "level.add_cam_effector('camera_effects\\\\item_use_fast.anm', 8063, false,'')",
+		[100] = "xr_effects.play_inv_matches()",
+		[1040] = "xr_effects.disable_ui_inventory(db.actor, nil)",
+		[3000] = "campfire_manager.candle_on_anim()",
+		[3581] = "xr_effects.enable_ui_lite(db.actor, nil)",
+		[3582] = "xr_effects.enable_imput(db.actor, nil)",
+		[3583] = "actor_effects.hide_weapon_effect(false)",
+	},
+	a_cooking = {
+		[0] = "actor_effects.hide_weapon_effect(true)",
+		[1] = "xr_effects.disable_ui_inventory(db.actor, nil)",
+		[2] = "xr_effects.disable_ui_lite_with_imput(db.actor, nil)",
+		[3] = "level.add_pp_effector('slow_fade.ppe', 8023, false)",
+		[379] = "xr_effects.disable_nv(db.actor, nil)",
+		[550] = "level.add_cam_effector('camera_effects\\\\item_use_fast.anm', 8024, false,'')",
+		[800] = "xr_effects.play_inv_cooking_stove()",
+		[3020] = "level.add_cam_effector('camera_effects\\\\item_use_slow.anm', 8025, false,'')",
+		[6500] = "_G.mus_vol = math.max(get_console():get_float('snd_volume_music'),_G.mus_vol or 0) _G.amb_vol = math.max(get_console():get_float('snd_volume_eff'),_G.amb_vol or 0) get_console():execute('snd_volume_music 0') get_console():execute('snd_volume_eff 0')",
+		[10300] = "get_console():execute('snd_volume_music '..tostring(_G.mus_vol)) get_console():execute('snd_volume_eff '..tostring(_G.amb_vol))",
+		[10301] = "xr_effects.enable_ui_lite(db.actor, nil)",
+		[12200] = "xr_effects.enable_nv_and_imput(db.actor, nil)",
+		[12800] = "actor_effects.hide_weapon_effect(false)"
+	},
+	a_wood_stove = {
+		[0] = "actor_effects.hide_weapon_effect(true)",
+		[1] = "xr_effects.disable_ui_inventory(db.actor, nil)",
+		[2] = "xr_effects.disable_ui_lite_with_imput(db.actor, nil)",
+		[3] = "level.add_pp_effector('slow_fade.ppe', 8023, false)",
+		[379] = "xr_effects.disable_nv(db.actor, nil)",
+		[550] = "level.add_cam_effector('camera_effects\\\\item_use_fast.anm', 8024, false,'')",
+		[800] = "xr_effects.play_inv_cooking_stove()",
+		[3020] = "level.add_cam_effector('camera_effects\\\\item_use_slow.anm', 8025, false,'')",
+		[6500] = "_G.mus_vol = math.max(get_console():get_float('snd_volume_music'),_G.mus_vol or 0) _G.amb_vol = math.max(get_console():get_float('snd_volume_eff'),_G.amb_vol or 0) get_console():execute('snd_volume_music 0') get_console():execute('snd_volume_eff 0')",
+		[10300] = "get_console():execute('snd_volume_music '..tostring(_G.mus_vol)) get_console():execute('snd_volume_eff '..tostring(_G.amb_vol))",
+		[10301] = "xr_effects.enable_ui_lite(db.actor, nil)",
+		[12200] = "xr_effects.enable_nv_and_imput(db.actor, nil)",
+		[12800] = "actor_effects.hide_weapon_effect(false)"
+	},
+	a_fieldcooker = {
+		[0] = "actor_effects.hide_weapon_effect(true)",
+		[1] = "xr_effects.disable_ui_inventory(db.actor, nil)",
+		[2] = "xr_effects.disable_ui_lite_with_imput(db.actor, nil)",
+		[3] = "level.add_pp_effector('slow_fade.ppe', 8023, false)",
+		[379] = "xr_effects.disable_nv(db.actor, nil)",
+		[550] = "level.add_cam_effector('camera_effects\\\\item_use_fast.anm', 8024, false,'')",
+		[800] = "xr_effects.play_inv_cooking_cooker()",
+		[3020] = "level.add_cam_effector('camera_effects\\\\item_use_slow.anm', 8025, false,'')",
+		[6500] = "_G.mus_vol = math.max(get_console():get_float('snd_volume_music'),_G.mus_vol or 0) _G.amb_vol = math.max(get_console():get_float('snd_volume_eff'),_G.amb_vol or 0) get_console():execute('snd_volume_music 0') get_console():execute('snd_volume_eff 0')",
+		[10300] = "get_console():execute('snd_volume_music '..tostring(_G.mus_vol)) get_console():execute('snd_volume_eff '..tostring(_G.amb_vol))",
+		[10301] = "xr_effects.enable_ui_lite(db.actor, nil)",
+		[12200] = "xr_effects.enable_nv_and_imput(db.actor, nil)",
+		[12800] = "actor_effects.hide_weapon_effect(false)"
+	},
+-- Анимация складывания/раскладывания спального мешка
+	sleepbag = {
+		[0] = "actor_effects.hide_weapon_effect(true)",
+		[1] = "xr_effects.disable_ui_lite_with_imput(db.actor, nil)",
+		[2] = "level.add_pp_effector('slow_fade.ppe', 8023, false)",
+		[3] = "level.add_pp_effector('surge_fade.ppe', 8026, false)",
+		[379] = "xr_effects.disable_nv(db.actor, nil)",
+		[380] = "xr_effects.disable_ui_inventory(db.actor, nil)",
+		[550] = "level.add_cam_effector('camera_effects\\\\item_use_fast.anm', 8024, false,'')",
+		[3020] = "level.add_cam_effector('camera_effects\\\\item_use_slow.anm', 8025, false,'')",
+		[3502] = "_G.mus_vol = math.max(get_console():get_float('snd_volume_music'),_G.mus_vol or 0) _G.amb_vol = math.max(get_console():get_float('snd_volume_eff'),_G.amb_vol or 0) get_console():execute('snd_volume_music 0') get_console():execute('snd_volume_eff 0')",
+		[10300] = "get_console():execute('snd_volume_music '..tostring(_G.mus_vol)) get_console():execute('snd_volume_eff '..tostring(_G.amb_vol))",
+		[10301] = "xr_effects.enable_ui_lite(db.actor, nil)",
+		[12200] = "xr_effects.enable_nv_and_imput(db.actor, nil)",
+		[12800] = "actor_effects.hide_weapon_effect(false)"
+	},
+-- Анимации контейнеров для артефактов
+	af_iam = {
+		[0] = "actor_effects.hide_weapon_effect(true)",
+		[1] = "xr_effects.disable_ui_inventory(db.actor, nil)",
+		[2] = "xr_effects.disable_ui_lite_with_imput(db.actor, nil)",
+		[3] = "level.add_cam_effector('camera_effects\\\\item_use.anm', 8053, false,'')",
+		[1460] = "xr_effects.play_inv_iam_open()",
+		[4351] = "xr_effects.enable_ui_lite(db.actor, nil)",
+		[5750] = "xr_effects.enable_imput(db.actor, nil)",
+		[6350] = "actor_effects.hide_weapon_effect(false)"	
+	},
+	af_aac = {
+		[0] = "actor_effects.hide_weapon_effect(true)",
+		[1] = "xr_effects.disable_ui_inventory(db.actor, nil)",
+		[2] = "xr_effects.disable_ui_lite_with_imput(db.actor, nil)",
+		[3] = "level.add_cam_effector('camera_effects\\\\item_use.anm', 8053, false,'')",
+		[1460] = "xr_effects.play_inv_aac_open()",
+		[4351] = "xr_effects.enable_ui_lite(db.actor, nil)",
+		[5750] = "xr_effects.enable_imput(db.actor, nil)",
+		[6350] = "actor_effects.hide_weapon_effect(false)"
+	},
+	af_aam = {
+		[0] = "actor_effects.hide_weapon_effect(true)",
+		[1] = "xr_effects.disable_ui_inventory(db.actor, nil)",
+		[2] = "xr_effects.disable_ui_lite_with_imput(db.actor, nil)",
+		[3] = "level.add_cam_effector('camera_effects\\\\item_use.anm', 8053, false,'')",
+		[1460] = "xr_effects.play_inv_aam_open()",
+		[4351] = "xr_effects.enable_ui_lite(db.actor, nil)",
+		[5750] = "xr_effects.enable_imput(db.actor, nil)",
+		[6350] = "actor_effects.hide_weapon_effect(false)"
+	},
+	lead_box = {
+		[0] = "actor_effects.hide_weapon_effect(true)",
+		[1] = "xr_effects.disable_ui_inventory(db.actor, nil)",
+		[2] = "xr_effects.disable_ui_lite_with_imput(db.actor, nil)",
+		[3] = "level.add_cam_effector('camera_effects\\\\item_use.anm', 8053, false,'')",
+		[1460] = "xr_effects.play_inv_lead_open()",
+		[4351] = "xr_effects.enable_ui_lite(db.actor, nil)",
+		[5750] = "xr_effects.enable_imput(db.actor, nil)",
+		[6350] = "actor_effects.hide_weapon_effect(false)"
+	},
+-- Анимации перезарядки оружия
+	pistol_reload = {
+	        [0] = "level.disable_input()",
+			[1] = "actor_effects.hide_weapon_effect(true)",
+			[2] = "xr_effects.disable_ui_inventory(db.actor, nil)",
+	        [3] = "level.add_cam_effector('camera_effects\\\\item_use_slow.anm', 8053, false,'')",
+	        [2070] = "level.enable_input()",
+	        [2071] = "actor_effects.hide_weapon_effect(false)",
+			[2072] = "level.remove_pp_effector(8053)",
+	},
+	rifle_reload = {
+	        [0] = "level.disable_input()",
+			[1] = "actor_effects.hide_weapon_effect(true)",
+			[2] = "xr_effects.disable_ui_inventory(db.actor, nil)",
+	        [3] = "level.add_cam_effector('camera_effects\\\\item_use_slow.anm', 8053, false,'')",
+	        [3070] = "level.enable_input()",
+	        [3071] = "actor_effects.hide_weapon_effect(false)",
+			[3072] = "level.remove_pp_effector(8053)",
+	}
+}
+
+local torch_anm_state = 0
+local torch_anm_start = 0
+local torch_anm_time = 0
+local mc_anm_state = 0
+local mc_anm_start = 0
+local mc_anm_time_1 = 0
+local mc_anm_time_2 = 0
+local torch_anm_sec = "anim_headlamp"
+local mc_anm_sec = "anim_mask_clean"
+local snd_headlamp = sound_object('interface\\inv_torch')
+local snd_gasmask = sound_object('interface\\inv_mask_clean_3')
+local hqt_hide_anm_speed = 3.5 -- Weapon hide speed
+local hqt_grenade_slot = 4
+local hqt_last_slot
+local hqt_state = 0
+local hide_hand_speed = 1.5
+local ini_sys = system_ini()
+
+local lowered_anm_kinds = {
+	["w_sniper"] 	= true,
+	["w_rifle"] 	= true,
+	["w_smg"]	    = true,
+	["w_shotgun"] 	= true,
+}
+
+local lowered_anm_classes = {
+	["WP_VAL"] 		= true,
+	["WP_AK74"] 	= true,
+	["WP_LR300"] 	= true,
+	["WP_BM16"] 	= true,
+	["WP_SVD"] 		= true,
+	["WP_SVU"]		= true,
+	["WP_GROZA"] 	= true,
+	["WP_ASHTG"] 	= true,
+	["WP_ASHTG"] 	= true,
+	["WP_SHOTG"] 	= true,
+	["WP_RG6"] 		= true,
+	["WP_RPG7"] 	= true,
+	["D_PDA"]		= true,
+}
+
+function on_game_start()
+	RegisterScriptCallback("actor_on_item_use",use_item_obj)
+	RegisterScriptCallback("actor_on_update",update)
+	RegisterScriptCallback("actor_on_first_update",init)
+	RegisterScriptCallback("actor_on_item_take",actor_on_item_take)
+	RegisterScriptCallback("actor_on_use_inventory_object",use_item_anim)
+	RegisterScriptCallback("monster_on_actor_use_callback",monster_on_actor_use)
+	RegisterScriptCallback("on_key_press",on_key_press)
+end
+
+function init()
+	mc_anm_time_1 = game.get_motion_length(mc_anm_sec, "anm_hide_hand", 1)
+	mc_anm_time_2 = game.get_motion_length(mc_anm_sec, "anm_wipe", 1)
+	torch_anm_time = game.get_motion_length(torch_anm_sec, "anm_switch", 1)
+	if not db.actor then return end
+	if db.actor:item_in_slot(OUTFIT_SLOT) then
+		effect_outfit = db.actor:item_in_slot(OUTFIT_SLOT):id()
+	end
+	
+	if db.actor:item_in_slot(HELMET_SLOT) then
+		effect_helm = db.actor:item_in_slot(HELMET_SLOT):id()
+	end
+	
+	if db.actor:item_in_slot(BACKPACK_SLOT) then
+		effect_backpack = db.actor:item_in_slot(BACKPACK_SLOT):id()
+	end
+end
+
+function disable_effects_timer(n)
+	time_disabled = time_global() + n
+end
+
+function use_item_obj(item)
+	if (item) then
+		use_item(item:section())
+	end
+end
+
+function use_item(name)
+
+	if item_fx[name] and (time_global() > time_disabled) then
+		local t = tostring(time_global())
+		item_not_in_use = false
+		item_in_use[t] = {}
+		for k, v in pairs(item_fx[name]) do
+			item_in_use[t][k] = v
+		end
+	else
+		local sect = r_string_ex(system_ini(),name, "effect_type","none")
+		if item_fx[sect] and (time_global() > time_disabled) then
+			local t = tostring(time_global())
+			item_not_in_use = false
+			item_in_use[t] = {}
+			for k, v in pairs(item_fx[sect]) do
+				item_in_use[t][k] = v
+			end
+		end
+	end
+end
+
+function update()
+	if db.actor then
+		local tg = time_global()
+		if tg > upd_time then
+			upd_time = tg+180
+			actor_condition()
+		end
+	
+		use_item_update()
+		outfit_update()
+	end
+end
+
+function outfit_update()
+	if not db.actor then return end
+
+	local outfit = "none"
+	if db.actor:item_in_slot(OUTFIT_SLOT) then
+		outfit = db.actor:item_in_slot(OUTFIT_SLOT):id()
+	end
+	
+	if not (outfit == effect_outfit) then
+		effect_outfit = outfit
+		if not has_alife_info("BAR_ARENA_FIGHT") then
+			use_item("outfit")
+		end
+	end
+	
+	local helm = "none"
+	if db.actor:item_in_slot(HELMET_SLOT) then
+		helm = db.actor:item_in_slot(HELMET_SLOT):id()
+	end
+	
+	if not (helm == effect_helm) then
+		effect_helm = helm
+		if not has_alife_info("BAR_ARENA_FIGHT") then
+			use_item("helmet")
+		end
+	end
+	
+	local backpack = "none"
+	if db.actor:item_in_slot(BACKPACK_SLOT) then
+		backpack = db.actor:item_in_slot(BACKPACK_SLOT):id()
+	end
+	
+	if not (backpack == effect_backpack) then
+		effect_backpack = backpack
+		if not has_alife_info("BAR_ARENA_FIGHT") and (effect_backpack ~= "none") then
+			use_item("outfit")
+		end
+	end
+end
+
+function use_item_update()
+	if item_not_in_use then
+		return
+	end
+
+	local in_use = 0
+	for k, t in pairs(item_in_use) do
+		in_use = in_use+1
+		local remove = true
+		local tg = time_global()-tonumber(k)
+		for milli, action in pairs(t) do
+			remove = false
+			if tg > milli then
+				assert(loadstring(action))()
+				item_in_use[k][milli] = nil
+			end
+		end
+		if remove then
+			in_use = in_use-1
+			item_in_use[k] = nil
+		end
+	end
+	item_not_in_use = (in_use==0)
+end
+
+function actor_condition()
+	local tg = time_global()
+	local radiation = db.actor.radiation
+	if radiation > 0 then
+		if math.random()<radiation then
+			radiation = math.random(8)
+			
+			if (db.actor:object("dosimeter") or db.actor:object("geiger") or db.actor:object("anomaly_elite")) then
+				local snd = sound_object("detectors\\geiger_"..radiation)
+				snd:play(db.actor,0,sound_object.s2d)
+			end
+		end
+	end
+
+end
+
+function hide_weapon_effect(bool)
+	if bool then
+		db.actor:hide_weapon()
+	else
+		db.actor:restore_weapon()
+	end
+end
+
+function on_key_press(key)
+	
+	-- Clean Mask
+	if (key == key_bindings.kCAM_ZOOM_IN) then
+		Hit_MaskCleaning()
+		
+	-- Toggle Torch
+	elseif (key == key_bindings.kTORCH) then
+		Hit_TorchToggle()
+		
+	-- Set Torch Mod
+	elseif (key == key_bindings.kTORCH_MOD) then
+		Hit_TorchMod()
+		
+	end
+end
+
+function Hit_TorchToggle()
+	local light = db.actor:object("device_torch")
+	local torch = db.actor:item_in_slot(FAKE_TORCH_SLOT)
+	--Если нет фонаря - то и делать дальше нечего
+	if not (torch) then return false end
+	
+	local weapon_zoomed = axr_main.weapon_is_zoomed and (not (IsPistol(db.actor:active_item(),nil)) or db.actor:active_detector())
+	local det_active = db.actor:active_detector() or nil
+	local det_hide_time = 0
+	local new_speed = 0
+	local anm_name = "script\\headlamp.anm"
+	local anm_additional_length = 0.45
+	
+	if (db.actor:active_item()) then
+		local itm = db.actor:active_item()
+		local hud = r_string_ex(ini_sys,itm:section(),"hud") or "hud_base"
+		local name = r_string_ex(ini_sys,hud,"gasmask_anm")
+		if (name) then
+			anm_name = name
+		else
+			local kind = r_string_ex(ini_sys,itm:section(),"kind") or nil
+			local class = r_string_ex(ini_sys,itm:section(),"class") or nil
+			if ((kind and lowered_anm_kinds[kind]) or (class and lowered_anm_classes[class])) then
+				anm_name = "script\\lower.anm"
+				anm_additional_length = 0.8
+			end
+		end
+		
+		if (not det_active and weapon_zoomed) then
+			if (get_console():get_bool("wpn_aim_toggle")) then
+				level.press_action(bind_to_dik(key_bindings.kWPN_ZOOM))
+			else
+				level.release_action(bind_to_dik(key_bindings.kWPN_ZOOM))
+			end
+		end
+	end
+	
+	if (det_active) then
+		if (weapon_zoomed) then
+			det_active:switch_state(2)
+			det_hide_time = (det_active:play_hud_motion("anm_zoom_hide_fast", true, 3, 1, 0) / 1000)
+			
+			if (get_console():get_bool("wpn_aim_toggle")) then
+				level.press_action(bind_to_dik(key_bindings.kWPN_ZOOM))
+			else
+				level.release_action(bind_to_dik(key_bindings.kWPN_ZOOM))
+			end
+		else
+			det_hide_time = (det_active:play_hud_motion("anm_hide_fast", true, 3, 2, 0) / 1000) + 0.1
+		end
+		
+		if (det_hide_time == 0) then 
+			det_hide_time = (det_active:play_hud_motion("anm_hide", true, 3, 3.5, 0) / 1000) + 0.1
+		end
+		
+		game.play_hud_anm(anm_name, 0, 0.25, 1, false)
+	end
+	
+	local function torch_toggle_anim_fast()
+		local time_g = time_global()
+		
+		if (torch_anm_state == 1) then
+			game.play_hud_motion(1, torch_anm_sec, "anm_switch", true, 0.75)
+			level.add_cam_effector("camera_effects\\headlamp\\headlamp.anm", 7539, false, "", 0, false)
+			torch_anm_start = time_g
+			torch_anm_state = 2
+			
+		elseif (torch_anm_state == 2) and (time_g > torch_anm_start + torch_anm_time - 350) then
+			snd_headlamp:play(db.actor,0,sound_object.s2d)
+			light:enable_torch(not light:torch_enabled())
+			torch_anm_state = 3
+			
+		elseif (torch_anm_state == 3) and (time_g > torch_anm_start + torch_anm_time + 1) then
+			torch_anm_state = 0
+			torch_anm_start = 0
+			game.only_allow_movekeys(false)
+			game.set_actor_allow_ladder(true)
+			RemoveTimeEvent(0, "play_torch_toggle")
+		end
+		
+		return false
+	end
+	
+	local function torch_toggle_anim()
+		local time_g = time_global()
+		
+		if (torch_anm_state == 1) then
+			if (det_active) then
+				det_active:switch_state(3)
+				db.actor:force_hide_detector()
+			else
+				game.play_hud_anm(anm_name, 0, 1, 1, false)
+			end
+				
+			game.play_hud_motion(1, mc_anm_sec, "anm_hide_hand", true, hide_hand_speed)
+			new_speed = game.set_hud_anm_time(anm_name, ((torch_anm_time + mc_anm_time_1) / 1000) + anm_additional_length)
+			torch_anm_start = time_g
+			torch_anm_state = 2
+			
+		elseif (torch_anm_state == 2) and (time_g > torch_anm_start + mc_anm_time_1 - 10) then
+			game.play_hud_motion(1, torch_anm_sec, "anm_switch", true, 1)
+			level.add_cam_effector("camera_effects\\headlamp\\headlamp.anm", 7539, false, "", 0, false)
+			torch_anm_state = 3
+			
+		elseif (torch_anm_state == 3) and (time_g > torch_anm_start + mc_anm_time_1 + torch_anm_time - 550) then
+			snd_headlamp:play(db.actor,0,sound_object.s2d)
+			light:enable_torch(not light:torch_enabled())
+			torch_anm_state = 4
+			
+		elseif (torch_anm_state == 4) and (time_g > torch_anm_start + mc_anm_time_1 + torch_anm_time + 15) then
+			if (new_speed) then game.play_hud_anm(anm_name, 2, new_speed, 1, false, true) end
+			if (det_active) then db.actor:show_detector(true) end
+			torch_anm_state = 5
+			
+		elseif (torch_anm_state == 5) and (time_g > torch_anm_start + mc_anm_time_1 + torch_anm_time + (anm_additional_length * 1000 + 100)) then
+			torch_anm_state = 0
+			torch_anm_start = 0
+			game.only_allow_movekeys(false)
+			game.set_actor_allow_ladder(true)
+			RemoveTimeEvent(0, "play_torch_toggle")
+		end
+		
+		return false
+	end
+	
+	torch_anm_state = 1
+	game.only_allow_movekeys(true)
+	game.set_actor_allow_ladder(false)
+	
+	if (not db.actor:active_item() and not det_active) then
+		CreateTimeEvent(0, "play_torch_toggle", det_hide_time, torch_toggle_anim_fast)
+	else
+		CreateTimeEvent(0, "play_torch_toggle", det_hide_time, torch_toggle_anim)
+	end
+end
+
+function Hit_TorchMod()
+	local light = db.actor:object("device_torch")
+	local torch = db.actor:item_in_slot(FAKE_TORCH_SLOT)
+	--Если нет фонаря - то и делать дальше нечего
+	if not (torch) then
+		return false
+	end
+	--Если фонарь не включен - то режимы не переключить
+	if not (light:torch_enabled()) then return end
+	
+	local weapon_zoomed = axr_main.weapon_is_zoomed and (not (IsPistol(db.actor:active_item(),nil)) or db.actor:active_detector())
+	local det_active = db.actor:active_detector() or nil
+	local det_hide_time = 0
+	local new_speed = 0
+	local anm_name = "script\\headlamp.anm"
+	local anm_additional_length = 0.45
+	
+	if (db.actor:active_item()) then
+		local itm = db.actor:active_item()
+		local hud = r_string_ex(ini_sys,itm:section(),"hud") or "hud_base"
+		local name = r_string_ex(ini_sys,hud,"gasmask_anm")
+		if (name) then
+			anm_name = name
+		else
+			local kind = r_string_ex(ini_sys,itm:section(),"kind") or nil
+			local class = r_string_ex(ini_sys,itm:section(),"class") or nil
+			if ((kind and lowered_anm_kinds[kind]) or (class and lowered_anm_classes[class])) then
+				anm_name = "script\\lower.anm"
+				anm_additional_length = 0.8
+			end
+		end
+		
+		if (not det_active and weapon_zoomed) then
+			if (get_console():get_bool("wpn_aim_toggle")) then
+				level.press_action(bind_to_dik(key_bindings.kWPN_ZOOM))
+			else
+				level.release_action(bind_to_dik(key_bindings.kWPN_ZOOM))
+			end
+		end
+	end
+	
+	if (det_active) then
+		if (weapon_zoomed) then
+			det_active:switch_state(2)
+			det_hide_time = (det_active:play_hud_motion("anm_zoom_hide_fast", true, 3, 1, 0) / 1000)
+			
+			if (get_console():get_bool("wpn_aim_toggle")) then
+				level.press_action(bind_to_dik(key_bindings.kWPN_ZOOM))
+			else
+				level.release_action(bind_to_dik(key_bindings.kWPN_ZOOM))
+			end
+		else
+			det_hide_time = (det_active:play_hud_motion("anm_hide_fast", true, 3, 2, 0) / 1000) + 0.1
+		end
+		
+		if (det_hide_time == 0) then 
+			det_hide_time = (det_active:play_hud_motion("anm_hide", true, 3, 3.5, 0) / 1000) + 0.1
+		end
+		
+		game.play_hud_anm(anm_name, 0, 0.25, 1, false)
+	end
+	
+	local function torch_mod_anim_fast()
+		local time_g = time_global()
+		
+		if (torch_anm_state == 1) then
+			game.play_hud_motion(1, torch_anm_sec, "anm_switch", true, 0.75)
+			level.add_cam_effector("camera_effects\\headlamp\\headlamp.anm", 7539, false, "", 0, false)
+			torch_anm_start = time_g
+			torch_anm_state = 2
+			
+		elseif (torch_anm_state == 2) and (time_g > torch_anm_start + torch_anm_time - 350) then
+			snd_headlamp:play(db.actor,0,sound_object.s2d)
+			light:torch_set_mod()
+			torch_anm_state = 3
+			
+		elseif (torch_anm_state == 3) and (time_g > torch_anm_start + torch_anm_time + 1) then
+			torch_anm_state = 0
+			torch_anm_start = 0
+			game.only_allow_movekeys(false)
+			game.set_actor_allow_ladder(true)
+			RemoveTimeEvent(0, "play_torch_mod")
+		end
+		return false
+	end
+	
+	local function torch_mod_anim()
+		local time_g = time_global()
+		
+		if (torch_anm_state == 1) then
+			if (det_active) then
+				det_active:switch_state(3)
+				db.actor:force_hide_detector()
+			else
+				game.play_hud_anm(anm_name, 0, 1, 1, false)
+			end
+				
+			game.play_hud_motion(1, mc_anm_sec, "anm_hide_hand", true, hide_hand_speed)
+			new_speed = game.set_hud_anm_time(anm_name, ((torch_anm_time + mc_anm_time_1) / 1000) + anm_additional_length)
+			torch_anm_start = time_g
+			torch_anm_state = 2
+			
+		elseif (torch_anm_state == 2) and (time_g > torch_anm_start + mc_anm_time_1 - 10) then
+			game.play_hud_motion(2, torch_anm_sec, "anm_switch", true, 1)
+			level.add_cam_effector("camera_effects\\headlamp\\headlamp.anm", 7539, false, "", 0, false)
+			torch_anm_state = 3
+			
+		elseif (torch_anm_state == 3) and (time_g > torch_anm_start + mc_anm_time_1 + torch_anm_time - 550) then
+			snd_headlamp:play(db.actor,0,sound_object.s2d)
+			light:torch_set_mod()
+			torch_anm_state = 4
+			
+		elseif (torch_anm_state == 4) and (time_g > torch_anm_start + mc_anm_time_1 + torch_anm_time + 15) then
+			if (new_speed) then game.play_hud_anm(anm_name, 2, new_speed, 1, false, true) end
+			if (det_active) then db.actor:show_detector(true) end
+			torch_anm_state = 5
+			
+		elseif (torch_anm_state == 5) and (time_g > torch_anm_start + mc_anm_time_1 + torch_anm_time + (anm_additional_length * 1000 + 100)) then
+			torch_anm_state = 0
+			torch_anm_start = 0
+			game.only_allow_movekeys(false)
+			game.set_actor_allow_ladder(true)
+			RemoveTimeEvent(0, "play_torch_mod")
+		end
+		return false
+	end
+	
+	torch_anm_state = 1
+	game.only_allow_movekeys(true)
+	game.set_actor_allow_ladder(false)
+	
+	if (not db.actor:active_item() and not det_active) then
+		CreateTimeEvent(0, "play_torch_mod", det_hide_time, torch_mod_anim_fast)
+	else
+		CreateTimeEvent(0, "play_torch_mod", det_hide_time, torch_mod_anim)
+	end
+end
+
+function Hit_MaskCleaning()
+
+	local weapon_zoomed = axr_main.weapon_is_zoomed and (not (IsPistol(db.actor:active_item(),nil)) or db.actor:active_detector())
+	local det_active = db.actor:active_detector() or nil
+	local det_hide_time = 0
+	local new_speed = 0
+	local anm_name = "script\\gasmask.anm"
+	local anm_additional_length = 0.45
+	
+	if (db.actor:active_item()) then
+		local itm = db.actor:active_item()
+		local hud = r_string_ex(ini_sys,itm:section(),"hud") or "hud_base"
+		local name = r_string_ex(ini_sys,hud,"gasmask_anm")
+		if (name) then
+			anm_name = name
+		else
+			local kind = r_string_ex(ini_sys,itm:section(),"kind") or nil
+			local class = r_string_ex(ini_sys,itm:section(),"class") or nil
+			if ((kind and lowered_anm_kinds[kind]) or (class and lowered_anm_classes[class])) then
+				anm_name = "script\\lower.anm"
+				anm_additional_length = 0.75
+			end
+		end
+		
+		if (not det_active and weapon_zoomed) then
+			if (get_console():get_bool("wpn_aim_toggle")) then
+				level.press_action(bind_to_dik(key_bindings.kWPN_ZOOM))
+			else
+				level.release_action(bind_to_dik(key_bindings.kWPN_ZOOM))
+			end
+		end
+	end
+	
+	if (det_active) then
+		if (weapon_zoomed) then
+			det_active:switch_state(2)
+			det_hide_time = (det_active:play_hud_motion("anm_zoom_hide_fast", true, 3, 1, 0) / 1000)
+			
+			if (get_console():get_bool("wpn_aim_toggle")) then
+				level.press_action(bind_to_dik(key_bindings.kWPN_ZOOM))
+			else
+				level.release_action(bind_to_dik(key_bindings.kWPN_ZOOM))
+			end
+		else
+			det_hide_time = (det_active:play_hud_motion("anm_hide_fast", true, 3, 2, 0) / 1000) + 0.1
+		end
+		
+		if (det_hide_time == 0) then 
+			det_hide_time = (det_active:play_hud_motion("anm_hide", true, 3, 3.5, 0) / 1000) + 0.1
+		end
+		
+		game.play_hud_anm(anm_name, 0, 0.25, 1, false)
+	end
+	
+	local function mask_cleaning_anim_fast()
+		local time_g = time_global()
+		
+		if (mc_anm_state == 1) then
+			game.play_hud_motion(1, mc_anm_sec, "anm_wipe", false, 1)
+			snd_gasmask:play(db.actor,0,sound_object.s2d)
+			level.add_cam_effector("camera_effects\\gasmask\\gasmask_swipe1.anm", 7538, false, "", 0, false)
+			mc_anm_start = time_g
+			mc_anm_state = 2
+			
+		elseif (mc_anm_state == 2) and (time_g > mc_anm_start + mc_anm_time_2 - 400) then
+			--level_environment.droplets_reset()
+			mc_anm_state = 3
+			
+		elseif (mc_anm_state == 3) and (time_g > mc_anm_start + mc_anm_time_2 + 1) then
+			mc_anm_state = 0
+			mc_anm_start = 0
+			game.only_allow_movekeys(false)
+			game.set_actor_allow_ladder(true)
+			RemoveTimeEvent(0, "play_mask_cleaning")
+			
+		end
+		
+		return false
+	end
+	
+	local function mask_cleaning_anim()
+		local time_g = time_global()
+		
+		if (mc_anm_state == 1) then
+			if (det_active) then
+				det_active:switch_state(3)
+				db.actor:force_hide_detector()
+			else
+				game.play_hud_anm(anm_name, 0, 1, 1, false)
+			end
+			
+			game.play_hud_motion(1, mc_anm_sec, "anm_hide_hand", true, hide_hand_speed)
+			new_speed = game.set_hud_anm_time(anm_name, ((mc_anm_time_1 + mc_anm_time_2) / 1000) + anm_additional_length)
+			mc_anm_start = time_g
+			mc_anm_state = 2
+			
+		elseif (mc_anm_state == 2) and (time_g > mc_anm_start + mc_anm_time_1 - 10) then
+			game.play_hud_motion(1, mc_anm_sec, "anm_wipe", false, 1)
+			snd_gasmask:play(db.actor,0,sound_object.s2d)
+			level.add_cam_effector("camera_effects\\gasmask\\gasmask_swipe1.anm", 7538, false, "", 0, false)
+			mc_anm_state = 3
+			
+		elseif (mc_anm_state == 3) and (time_g > mc_anm_start + mc_anm_time_1 + mc_anm_time_2 - 400) then
+			--level_environment.droplets_reset()
+			mc_anm_state = 4
+			
+		elseif (mc_anm_state == 4) and (time_g > mc_anm_start + mc_anm_time_1 + mc_anm_time_2 + 15) then
+			if (new_speed) then game.play_hud_anm(anm_name, 2, new_speed, 1, false, true) end
+			if (det_active) then db.actor:show_detector(true) end
+			mc_anm_state = 5
+			
+		elseif (mc_anm_state == 5) and (time_g > mc_anm_start + mc_anm_time_1 + mc_anm_time_2 + (anm_additional_length * 1000 + 100)) then
+			mc_anm_state = 0
+			mc_anm_start = 0
+			game.only_allow_movekeys(false)
+			game.set_actor_allow_ladder(true)
+			RemoveTimeEvent(0, "play_mask_cleaning")
+		end
+		
+		return false
+	end
+	
+	mc_anm_state = 1
+	game.only_allow_movekeys(true)
+	game.set_actor_allow_ladder(false)
+	
+	if (not db.actor:active_item() and not det_active) then
+		CreateTimeEvent(0, "play_mask_cleaning", det_hide_time, mask_cleaning_anim_fast)
+	else
+		CreateTimeEvent(0, "play_mask_cleaning", det_hide_time, mask_cleaning_anim)
+	end
+end
+
+---------------------------------------------------------
+-- 			Анимации использования предметов
+---------------------------------------------------------
+local active_slot,anim_exist_tm,wpn,item_usage_snd,monster_usage_snd,item,anim_use_time,obj_m,used_monster = nil
+used_item,ea_flag,fake_monster,det_active,anim_section, anm_start_time = nil
+
+function use_item_anim(obj)
+	local weapon_zoomed = axr_main.weapon_is_zoomed and (not (IsPistol(db.actor:active_item(),nil)) or db.actor:active_detector())
+	if weapon_zoomed then return end
+	used_item = obj:section()
+	obj_m = obj
+	hide_hud_inventory()
+	anim_section = r_string_ex(ini_sys, used_item, "anm")
+	anim_prepare()
+end
+
+function anim_prepare()
+	game.only_allow_movekeys(true)
+	anm_start_time = time_global() + 200
+	local wpn = db.actor:active_item()
+	local det = db.actor:active_detector()
+	local wht = 0
+	local dht = 0
+	if (wpn) then
+		wht = wpn:play_hud_motion("anm_hide", true, 3, 1, 0) + 100
+	end
+	if (det) then
+		dht = det:play_hud_motion("anm_hide", true, 3, 1, 0) + 1000
+	end
+	if (wht > dht) then
+		anm_start_time = anm_start_time + wht
+	elseif (dht > wht) then
+		anm_start_time = anm_start_time + dht
+	end
+	hide_det()
+	hide_weapon_effect(true)
+	anim_exist_tm = nil
+	CreateTimeEvent("ea_object_update", "item_update", 0.12, item_update)
+end
+
+function start_anim(anim_section_hud)
+	RemoveTimeEvent("ea_object_update", "item_update")
+	local speed = r_float_ex(ini_sys,used_item or "nothing", "speed",1)
+	game.play_hud_motion(2, anim_section_hud, "anm_ea_show", false, speed)
+	local hud_anm = used_item and r_string_ex(ini_sys, used_item, "hud_anm")
+	if hud_anm then
+		game.play_hud_anm(hud_anm, 0, 1, 1, false)
+	end
+	hud_anm = nil
+end
+
+function anim_manager_item(anim_section_hud)
+	item_usage_snd = sound_object(r_string_ex(ini_sys,used_item, "snd"))
+	item_usage_snd:play(db.actor, 0, sound_object.s2d)
+	level.add_cam_effector(r_string_ex(ini_sys,used_item, "cam"), 8555, false, "")
+	tmr = r_float_ex(ini_sys,used_item, "tm")
+	anim_exist_tm = tmr*0.001
+	tmr = r_float_ex(ini_sys,used_item, "tm_use",0)
+	if (tmr > 0) then
+		anim_use_time = tmr*0.001
+	else
+		anim_use_time = anim_exist_tm*0.537
+	end
+	CreateTimeEvent("ea_object_eater", "eat_my_obj", anim_use_time, eat_my_obj)
+	CreateTimeEvent("ea_slot_returner", "call_my_slot_back", (anim_exist_tm + 0.1), call_my_slot_back)
+	CreateTimeEvent("ea_anim_stoper", "stop_my_item_anim", anim_exist_tm, stop_my_item_anim)
+end
+
+function item_update()
+	if (db.actor:active_slot() ~= 0 or db.actor:active_detector() or (time_global() < anm_start_time)) then
+		return
+	end
+	anm_start_time = nil
+	local anim_section_hud = nil
+	-- Анимация лута монстра - все функции ниже
+	if used_monster then
+		anim_section_hud = "item_anm_harv_" .. ( wpn or "wpn_knife5" ) .. "_hud"
+		start_anim(anim_section_hud)
+		anim_manager_monster()
+		return
+	end
+	-- Анимация использования предмета
+	anim_section_hud = anim_section
+	anim_section = nil
+	start_anim(anim_section_hud)
+	anim_manager_item(anim_section_hud)
+end
+
+-- Съедаем наш использованный предмет
+function eat_my_obj()
+	if obj_m then
+		db.actor:eat(obj_m)
+	end
+	return true
+end
+
+function stop_my_item_anim()
+	used_item = nil
+	obj_m = nil
+	return true
+end
+
+-- Восстановление кнопок и возвращение активных предметов
+function call_my_slot_back()
+	game.only_allow_movekeys(false)
+	if fake_monster then
+		return true
+	end
+	hide_weapon_effect(false)
+	if det_active then det_active:switch_state(1) end
+	return true
+end
+
+-- Если есть активный детектор в руке - скрываем его
+function hide_det()
+	det_active = db.actor:active_detector() or nil
+	if det_active then det_active:switch_state(2) end
+end
+
+---------------------------------------------------------
+-- 			Анимации обыска мутантов
+---------------------------------------------------------
+
+function monster_on_actor_use(obj,who)
+	wpn = db.actor:active_item()
+	if wpn then
+		wpn = wpn:clsid() == clsid.wpn_knife_s and wpn:section() or "wpn_knife5"
+		wpn = string.gsub(wpn,"-","_")
+	end
+	knife_manager.degradate()
+	used_monster = obj
+	level.disable_input()
+	anim_prepare()
+end
+
+function anim_manager_monster()
+	recalc_actor_campos()
+	monster_usage_snd = sound_object(r_string_ex(ini_sys,"item_anm_harv_wpn_knife", "anim_sound"))
+	monster_usage_snd:play(db.actor, 0, sound_object.s2d)
+	level.add_cam_effector("itemuse_anm_effects\\harvest_skin_use.anm", 8558, false, "")
+	level.add_cam_effector("itemuse_anm_effects\\test.anm", 8559, false, "")
+	tmr = r_float_ex(ini_sys,"item_anm_harv_wpn_knife", "anim_length")
+	anim_exist_tm = tmr*0.001
+	CreateTimeEvent("ea_slot_returner", "call_my_slot_back", (anim_exist_tm + 0.5), call_my_slot_back)
+	CreateTimeEvent("ea_blood_fx", "blood_fx", (1), blood_fx)
+	CreateTimeEvent("ea_blood_fx2", "blood_fx2", (1.6), blood_fx)
+	CreateTimeEvent("ea_blood_fx3", "blood_fx3", (2.1), blood_fx)
+	CreateTimeEvent("ea_blood_fx4", "blood_fx4", (2.2), blood_fx)
+	CreateTimeEvent("ea_anim_stoper", "stop_my_monster_anim", anim_exist_tm, stop_my_monster_anim)
+end
+
+local bone_list  = {
+	[1] = "bip01_spine1",
+	[2] = "bip01_spine2",
+	[3] = "bip01_spine",
+	[4] = "bip01_pelvis",
+	[5] = "bip01_head",
+}
+function blood_fx()
+	if not used_monster or used_monster:id() == 65535  then return true end
+	local fx_pos = used_monster:bone_position(bone_list[math.random(1,5)])
+	fx_pos.y = fx_pos.y + 0.1
+	local blood_trace = vector():set(0,-1,0)
+	--wallmarks_manager():place_skeleton(used_monster, "bloody_marks", fx_pos, blood_trace, 0.2,-1)
+	--wallmarks_manager():place(blood_trace, fx_pos, 15, 0.3, "bloody_marks", used_monster,-1)
+	local hit_fx = particles_object("hit_fx\\hit_flesh_01")
+	hit_fx:play_at_pos(fx_pos)
+	local hit_fx2 = particles_object("hit_fx\\hit_flesh_02a")
+	hit_fx2:play_at_pos(fx_pos)
+	local hit_fx3 = particles_object("hit_fx\\hit_knife_flesh_00")
+	hit_fx3:play_at_pos(fx_pos)
+	return true
+end
+
+function stop_my_monster_anim()
+	level.enable_input()
+	if used_monster:id() == 65535 then
+		used_monster = nil
+		return true
+	end
+	fake_monster = used_monster
+	used_monster = nil
+	items_manager.monster_use(fake_monster)
+	return true
+end
+
+--addaptive camera for mutant skinning
+function recalc_actor_campos()
+	local pm = used_monster:bone_position('bip01_spine1')
+	pm.y = pm.y + 0.8
+	db.actor:actor_look_at_point(pm)
+end
+
+-- Анимация складывания вырезанной части монстра в рюкзак
+local skin_anim, harv_usage_snd
+function actor_on_item_take(item)
+	local ltx = ini_file("items\\items\\items_animations\\anims_loot_list.ltx")
+	
+	if (fake_monster) then
+		fake_monster = nil
+		level.disable_input()
+		local sect = item:section()
+		local item_sect_index = ltx:section_exist(sect) and r_string_ex(ltx, sect, "indx"):match("(.+),(.+)") or math.random(14)
+		local anim_section_name = "item_anm_harv_meat_"..item_sect_index.."_hud"
+		harv_usage_snd = sound_object("interface\\item_usage\\harvest_use_success")
+		harv_usage_snd:play(db.actor, 0, sound_object.s2d)
+		game.play_hud_motion(2, anim_section_name, "anm_ea_show", true, 0.75)
+		level.add_cam_effector("itemuse_anm_effects\\harvest_loot.anm", 8560, false, "")
+		CreateTimeEvent("restore_knife", "restor_knife", 1.8 , restore_knife)
+		skin_anim = true
+		item_sect_index ,anim_section_name ,sect = nil
+	end
+end
+
+function restore_knife()
+	hide_weapon_effect(false)
+	if det_active then det_active:switch_state(1) end
+	skin_anim = nil
+	level.enable_input()
+	return true
+end

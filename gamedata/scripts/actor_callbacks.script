@@ -1,0 +1,27 @@
+
+
+-- called from engine!
+function CUIActorMenu_OnItemDropped(itm1,itm2,from_slot,to_slot)
+	if (itm1 and itm2) then
+		SendScriptCallback("CUIActorMenu_OnItemDropped",itm1,itm2,from_slot,to_slot)
+	end
+	
+	return true
+end
+
+-- called from engine!
+function CUIActorMenu_OnItemFocusReceive(itm)
+	SendScriptCallback("CUIActorMenu_OnItemFocusReceive",itm)
+end
+
+-- Not Callbacks - Save manager
+-- called from engine!
+function SaveManager_can_save()
+	local can_save = campfire_manager.campfire_save()
+	if (can_save) then
+		return true
+	else
+		news_manager.send_tip(db.actor, game.translate_string("st_not_save"))
+		return false
+	end
+end

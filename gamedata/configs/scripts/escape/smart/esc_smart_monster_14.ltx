@@ -1,0 +1,13 @@
+; смарт между камнями южнее северного кпп
+
+[smart_terrain]
+squad_id = 22
+max_population = 2
+respawn_params = respawn@esc_smart_monster_14
+
+[respawn@esc_smart_monster_14]
+spawn_mix_dog_psevdodog@esc_smart_monster_14
+
+[spawn_mix_dog_psevdodog@esc_smart_monster_14]
+spawn_squads = {+info_mutant_spawn_hard +info_mutant_spawn_medium +info_mutant_spawn_basic} esc_smart_monster_14_squad_3, {-info_mutant_spawn_hard +info_mutant_spawn_medium +info_mutant_spawn_basic} esc_smart_monster_14_squad_2, {-info_mutant_spawn_hard -info_mutant_spawn_medium +info_mutant_spawn_basic} esc_smart_monster_14_squad
+spawn_num = {+info_mutant_spawn_basic} 1, 0

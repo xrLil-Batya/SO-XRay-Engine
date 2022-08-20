@@ -1,0 +1,17 @@
+[logic]
+active = ph_door@locked
+
+[ph_door@locked]
+locked = true
+closed = true
+on_info = {+con_codelock_unlock} ph_door@open %+con_open_door%
+; =play_snd(device\door_servomotor)%
+tip_open = 
+tip_close = 
+on_use = %+con_door_closed%
+
+[ph_door@open]
+locked = false
+closed = false
+tip_open = 
+tip_close = 

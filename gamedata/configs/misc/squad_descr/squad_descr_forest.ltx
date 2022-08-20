@@ -1,0 +1,351 @@
+;************************************************************************************************
+;			HUMANS SQUADS
+;************************************************************************************************
+
+;Лесопилка охотников
+[fst_sawmill_squad]:online_offline_group
+faction = renegade
+npc_random = sim_default_renegade_0, sim_default_renegade_0, sim_default_renegade_2, sim_default_renegade_4
+npc_in_squad = 5, 7
+target_smart = fst_sawmill
+spawn_point = fst_sawmill_default_spawnpoint
+story_id = fst_sawmill_squad
+
+[fst_sawmill_voron]:online_offline_group
+faction = renegade
+npc = fst_voron
+target_smart = fst_sawmill
+spawn_point = fst_sawmill_voron_spawnpoint
+story_id = fst_sawmill_voron
+
+[fst_sawmill_quest_hunters]:online_offline_group
+faction = renegade
+npc = fst_gonta, fst_crab, fst_vobla
+target_smart = fst_sawmill
+spawn_point = fst_sawmill_quest_hunters_spawnpoint
+story_id = fst_sawmill_quest_hunters
+
+[fst_sawmill_trader]:online_offline_group
+faction = renegade
+npc = fst_trader
+target_smart = fst_sawmill
+spawn_point = fst_sawmill_trader_spawnpoint
+story_id = fst_sawmill_trader
+
+[fst_sawmill_technic]:online_offline_group
+faction = renegade
+npc = fst_technic
+target_smart = fst_sawmill
+spawn_point = fst_sawmill_technic_spawnpoint
+story_id = fst_sawmill_technic
+
+[fst_sawmill_walker_1_squad]:online_offline_group
+faction = renegade
+npc_random = sim_default_renegade_0, sim_default_renegade_1, sim_default_renegade_2
+npc_in_squad = 1, 2
+target_smart = {=is_day +info_human_sim_walk_1st} fst_village, {=is_day +info_human_sim_walk_2nd} fst_smart_human_3, {=is_day +info_human_sim_walk_3rd} fst_smart_human_2, {=is_day +info_human_sim_walk_4th} fst_smart_human_6, fst_sawmill
+story_id = fst_sawmill_walker_1_squad
+
+[fst_sawmill_walker_2_squad]:online_offline_group
+faction = renegade
+npc_random = sim_default_renegade_0, sim_default_renegade_1, sim_default_renegade_2
+npc_in_squad = 1, 2
+target_smart = {=is_day +info_human_sim_walk_1st} fst_smart_human_2, {=is_day +info_human_sim_walk_2nd} fst_smart_human_3, {=is_day +info_human_sim_walk_3rd} fst_sawmill, {=is_day +info_human_sim_walk_4th} fst_smart_human_5, fst_sawmill
+story_id = fst_sawmill_walker_2_squad
+
+[fst_sawmill_walker_3_squad]:online_offline_group
+faction = renegade
+npc_random = sim_default_renegade_0, sim_default_renegade_1, sim_default_renegade_2
+npc_in_squad = 1, 2
+target_smart = {=is_day +info_human_sim_walk_1st} fst_smart_human_3, {=is_day +info_human_sim_walk_2nd} fst_smart_human_6, {=is_day +info_human_sim_walk_3rd} fst_smart_human_4, {=is_day +info_human_sim_walk_4th} fst_village, fst_sawmill
+story_id = fst_sawmill_walker_3_squad
+
+[fst_sawmill_walker_4_squad]:online_offline_group
+faction = renegade
+npc_random = sim_default_renegade_0, sim_default_renegade_1, sim_default_renegade_2
+npc_in_squad = 1, 2
+target_smart = {=is_day +info_human_sim_walk_1st} fst_smart_human_5, {=is_day +info_human_sim_walk_2nd} fst_smart_human_1, {=is_day +info_human_sim_walk_3rd} fst_smart_human_4, {=is_day +info_human_sim_walk_4th} fst_smart_human_6, fst_sawmill
+story_id = fst_sawmill_walker_4_squad
+
+;Заброшенная деревня
+[fst_village_squad]:online_offline_group
+faction = stalker
+npc_random = sim_default_stalker_0, sim_default_stalker_1, sim_default_stalker_2
+npc_in_squad = 4, 6
+target_smart = fst_village
+story_id = fst_village_squad
+
+[fst_village_walker_1_squad]:online_offline_group
+faction = renegade
+npc_random = sim_default_stalker_1, sim_default_stalker_2, sim_default_stalker_3
+npc_in_squad = 1, 2
+target_smart = {=is_day +info_human_sim_walk_1st} fst_smart_human_3, {=is_day +info_human_sim_walk_2nd} fst_sawmill, {=is_day +info_human_sim_walk_3rd} fst_smart_human_1, {=is_day +info_human_sim_walk_4th} fst_smart_human_5, fst_village
+story_id = fst_village_walker_1_squad
+
+[fst_village_walker_2_squad]:online_offline_group
+faction = renegade
+npc_random = sim_default_stalker_1, sim_default_stalker_2, sim_default_stalker_3
+npc_in_squad = 1, 2
+target_smart = {=is_day +info_human_sim_walk_1st} fst_smart_human_4, {=is_day +info_human_sim_walk_2nd} fst_smart_human_1, {=is_day +info_human_sim_walk_3rd} fst_smart_human_5, {=is_day +info_human_sim_walk_4th} fst_smart_human_3, fst_village
+story_id = fst_village_walker_2_squad
+
+[fst_village_walker_3_squad]:online_offline_group
+faction = renegade
+npc_random = sim_default_stalker_1, sim_default_stalker_2, sim_default_stalker_3
+npc_in_squad = 1, 2
+target_smart = {=is_day +info_human_sim_walk_1st} fst_smart_human_5, {=is_day +info_human_sim_walk_2nd} fst_smart_human_6, {=is_day +info_human_sim_walk_3rd} fst_sawmill, {=is_day +info_human_sim_walk_4th} fst_smart_human_4, fst_village
+story_id = fst_village_walker_3_squad
+
+[fst_village_walker_4_squad]:online_offline_group
+faction = renegade
+npc_random = sim_default_stalker_1, sim_default_stalker_2, sim_default_stalker_3
+npc_in_squad = 1, 2
+target_smart = {=is_day +info_human_sim_walk_1st} fst_smart_human_6, {=is_day +info_human_sim_walk_2nd} fst_smart_human_2, {=is_day +info_human_sim_walk_3rd} fst_smart_human_1, {=is_day +info_human_sim_walk_4th} fst_smart_human_5, fst_village
+story_id = fst_village_walker_4_squad
+
+[fst_village_walker_5_squad]:online_offline_group
+faction = renegade
+npc_random = sim_default_stalker_1, sim_default_stalker_2, sim_default_stalker_3
+npc_in_squad = 1, 2
+target_smart = {=is_day +info_human_sim_walk_1st} fst_smart_human_1, {=is_day +info_human_sim_walk_2nd} fst_smart_human_2, {=is_day +info_human_sim_walk_3rd} fst_smart_human_5, {=is_day +info_human_sim_walk_4th} fst_smart_human_3, fst_village
+story_id = fst_village_walker_5_squad
+
+;КПП бандитов
+[fst_kpp_bandits_squad]:online_offline_group
+faction = bandit
+npc_random = sim_default_bandit_0, sim_default_bandit_1, sim_default_bandit_2, sim_default_bandit_2, sim_default_bandit_3, sim_default_bandit_3
+npc_in_squad = 9, 9
+target_smart = fst_kpp
+spawn_point = fst_kpp_default_spawnpoint
+story_id = fst_kpp_bandits_squad
+
+;Лагерь у аномалии
+[fst_smart_human_1_squad]:online_offline_group
+faction = renegade
+npc_random = sim_default_renegade_0, sim_default_renegade_0, sim_default_renegade_2, sim_default_renegade_4
+npc_in_squad = 2, 2
+target_smart = {!is_day} fst_sawmill, fst_smart_human_1
+story_id = fst_smart_human_1_squad
+
+
+;************************************************************************************************
+;			MUTANTS SQUADS
+;************************************************************************************************
+
+[fst_smart_monster_1_squad]:online_offline_group
+faction = monster_vegetarian
+npc_random = boar_normal
+npc_in_squad = 3, 5
+target_smart = fst_smart_monster_1
+story_id = fst_smart_monster_1_squad
+
+[fst_smart_monster_1_squad_2]:online_offline_group
+faction = monster_vegetarian
+npc_random = boar_normal, boar_strong
+npc_in_squad = 4, 5
+target_smart = fst_smart_monster_1
+story_id = fst_smart_monster_1_squad_2
+
+[fst_smart_monster_1_squad_3]:online_offline_group
+faction = monster_vegetarian
+npc_random = boar_strong
+npc_in_squad = 5, 6
+target_smart = fst_smart_monster_1
+story_id = fst_smart_monster_1_squad_3
+
+
+[fst_smart_monster_2_squad]:online_offline_group
+faction = monster_predatory_day
+npc_random = dog_weak_red, dog_weak_white, dog_weak_brown, dog_weak_bulterier, dog_normal_red, dog_normal_white, dog_normal_brown, dog_normal_bulterier, dog_strong_red, dog_strong_white, dog_strong_brown, dog_strong_bulterier
+npc_in_squad = 4, 5
+target_smart = fst_smart_monster_2
+story_id = fst_smart_monster_2_squad
+
+[fst_smart_monster_2_squad_2]:online_offline_group
+faction = monster_predatory_day
+npc_random = dog_normal_red, dog_normal_white, dog_normal_brown, dog_normal_bulterier, dog_strong_red, dog_strong_white, dog_strong_brown, dog_strong_bulterier, dog_strong_black
+npc_in_squad = 5, 6
+target_smart = fst_smart_monster_2
+story_id = fst_smart_monster_2_squad_2
+
+[fst_smart_monster_2_squad_3]:online_offline_group
+faction = monster_predatory_day
+npc_random = dog_strong_red, dog_strong_white, dog_strong_brown, dog_strong_bulterier, dog_strong_black
+npc_in_squad = 6, 8
+target_smart = fst_smart_monster_2
+story_id = fst_smart_monster_2_squad_3
+
+
+[fst_smart_monster_3_squad]:online_offline_group
+faction = monster_predatory_day
+npc_random = zombie_1, zombie_2, zombie_3, zombie_4, zombie_5, zombie_6
+npc_in_squad = 3, 4
+target_smart = fst_smart_monster_3
+story_id = fst_smart_monster_3_squad
+
+[fst_smart_monster_3_squad_2]:online_offline_group
+faction = monster_predatory_day
+npc_random = zombie_1, zombie_2, zombie_3, zombie_4, zombie_5, zombie_6, zombie_ghost
+npc_in_squad = 4, 5
+target_smart = fst_smart_monster_3
+story_id = fst_smart_monster_3_squad_2
+
+[fst_smart_monster_3_squad_3]:online_offline_group
+faction = monster_predatory_day
+npc_random = zombie_1, zombie_2, zombie_3, zombie_4, zombie_5, zombie_6, zombie_ghost
+npc_in_squad = 5, 7
+target_smart = fst_smart_monster_3
+story_id = fst_smart_monster_3_squad_3
+
+
+[fst_smart_monster_4_squad]:online_offline_group
+faction = monster_vegetarian
+npc_random = flesh_01_weak, flesh_02_weak, flesh_01_normal, flesh_02_normal
+npc_in_squad = 3, 4
+target_smart = fst_smart_monster_4
+story_id = fst_smart_monster_4_squad
+
+[fst_smart_monster_4_squad_2]:online_offline_group
+faction = monster_vegetarian
+npc_random = flesh_01_normal, flesh_02_normal, flesh_01_strong, flesh_02_strong
+npc_in_squad = 4, 6
+target_smart = fst_smart_monster_4
+story_id = fst_smart_monster_4_squad_2
+
+[fst_smart_monster_4_squad_3]:online_offline_group
+faction = monster_vegetarian
+npc_random = flesh_01_strong, flesh_02_strong
+npc_in_squad = 5, 7
+target_smart = fst_smart_monster_4
+story_id = fst_smart_monster_4_squad_3
+
+
+[fst_smart_monster_5_squad]:online_offline_group
+faction = monster_predatory_day
+npc_random = cat_weak_a, cat_weak_b, cat_weak_c, cat_weak_d, cat_weak_e, cat_normal_a, cat_normal_b, cat_normal_c, cat_normal_d, cat_normal_e
+npc_in_squad = 2, 4
+target_smart = fst_smart_monster_5
+story_id = fst_smart_monster_5_squad
+
+[fst_smart_monster_5_squad_2]:online_offline_group
+faction = monster_predatory_day
+npc_random = cat_normal_a, cat_normal_b, cat_normal_c, cat_normal_d, cat_normal_e, cat_strong_a, cat_strong_b, cat_strong_c
+npc_in_squad = 3, 5
+target_smart = fst_smart_monster_5
+story_id = fst_smart_monster_5_squad_2
+
+[fst_smart_monster_5_squad_3]:online_offline_group
+faction = monster_predatory_day
+npc_random = cat_strong_a, cat_strong_b, cat_strong_c, cat_strong_d, cat_strong_e
+npc_in_squad = 4, 6
+target_smart = fst_smart_monster_5
+story_id = fst_smart_monster_5_squad_3
+
+
+[fst_smart_monster_6_squad]:online_offline_group
+faction = monster_predatory_day
+npc_random = dog_weak_red, dog_weak_white, dog_weak_brown, dog_weak_bulterier, dog_normal_red, dog_normal_white, dog_normal_brown, dog_normal_bulterier, dog_strong_red, dog_strong_white, dog_strong_brown, dog_strong_bulterier
+npc_in_squad = 4, 5
+target_smart = fst_smart_monster_6
+story_id = fst_smart_monster_6_squad
+
+[fst_smart_monster_6_squad_2]:online_offline_group
+faction = monster_predatory_day
+npc_random = dog_normal_red, dog_normal_white, dog_normal_brown, dog_normal_bulterier, dog_strong_red, dog_strong_white, dog_strong_brown, dog_strong_bulterier, dog_strong_black
+npc_in_squad = 5, 6
+target_smart = fst_smart_monster_6
+story_id = fst_smart_monster_6_squad_2
+
+[fst_smart_monster_6_squad_3]:online_offline_group
+faction = monster_predatory_day
+npc_random = dog_strong_red, dog_strong_white, dog_strong_brown, dog_strong_bulterier, dog_strong_black
+npc_in_squad = 6, 8
+target_smart = fst_smart_monster_6
+story_id = fst_smart_monster_6_squad_3
+
+
+[fst_smart_monster_7_squad]:online_offline_group
+faction = monster_predatory_day
+npc_random = tushkano_normal
+npc_in_squad = 3, 5
+target_smart = fst_smart_monster_7
+story_id = fst_smart_monster_7_squad
+
+[fst_smart_monster_7_squad_2]:online_offline_group
+faction = monster_predatory_day
+npc_random = tushkano_strong
+npc_in_squad = 4, 7
+target_smart = fst_smart_monster_7
+story_id = fst_smart_monster_7_squad_2
+
+[fst_smart_monster_7_squad_3]:online_offline_group
+npc_random = cat_strong_a, cat_strong_b, cat_strong_c, cat_strong_d, cat_strong_e
+npc_in_squad = 4, 5
+target_smart = fst_smart_monster_7
+story_id = fst_smart_monster_7_squad_3
+
+
+[fst_smart_monster_8_squad]:online_offline_group
+faction = monster_predatory_day
+npc_random = dog_weak_red, dog_weak_white, dog_weak_brown, dog_weak_bulterier, dog_normal_red, dog_normal_white, dog_normal_brown, dog_normal_bulterier, dog_strong_red, dog_strong_white, dog_strong_brown, dog_strong_bulterier
+npc_in_squad = 4, 5
+target_smart = fst_smart_monster_8
+story_id = fst_smart_monster_8_squad
+
+[fst_smart_monster_8_squad_2]:online_offline_group
+faction = monster_predatory_day
+npc_random = dog_normal_red, dog_normal_white, dog_normal_brown, dog_normal_bulterier, dog_strong_red, dog_strong_white, dog_strong_brown, dog_strong_bulterier, dog_strong_black
+npc_in_squad = 5, 6
+target_smart = fst_smart_monster_8
+story_id = fst_smart_monster_8_squad_2
+
+[fst_smart_monster_8_squad_3]:online_offline_group
+faction = monster_predatory_day
+npc_random = dog_strong_red, dog_strong_white, dog_strong_brown, dog_strong_bulterier, dog_strong_black
+npc_in_squad = 6, 8
+target_smart = fst_smart_monster_8
+story_id = fst_smart_monster_8_squad_3
+
+
+[fst_smart_monster_9_squad]:online_offline_group
+faction = monster_vegetarian
+npc_random = flesh_01_normal, flesh_02_normal, boar_normal, boar_normal, boar_normal, boar_strong, boar_strong
+npc_in_squad = 4, 5
+target_smart = fst_smart_monster_9
+story_id = fst_smart_monster_9_squad
+
+[fst_smart_monster_9_squad_2]:online_offline_group
+faction = monster_vegetarian
+npc_random = flesh_01_normal, flesh_02_normal, flesh_01_strong, flesh_02_strong, boar_normal, boar_normal, boar_strong, boar_strong, boar_strong, boar_strong
+npc_in_squad = 5, 6
+target_smart = fst_smart_monster_9
+story_id = fst_smart_monster_9_squad_2
+
+[fst_smart_monster_9_squad_3]:online_offline_group
+faction = monster_vegetarian
+npc_random = flesh_01_strong, flesh_02_strong, boar_strong, boar_strong, boar_strong, boar_strong
+npc_in_squad = 6, 8
+target_smart = fst_smart_monster_9
+story_id = fst_smart_monster_9_squad_3
+
+
+[fst_smart_monster_10_squad]:online_offline_group
+faction = monster_predatory_day
+npc_random = tushkano_normal
+npc_in_squad = 3, 5
+target_smart = fst_smart_monster_10
+story_id = fst_smart_monster_10_squad
+
+[fst_smart_monster_10_squad_2]:online_offline_group
+faction = monster_predatory_day
+npc_random = tushkano_normal, tushkano_strong
+npc_in_squad = 4, 7
+target_smart = fst_smart_monster_10
+story_id = fst_smart_monster_10_squad_2
+
+[fst_smart_monster_10_squad_3]:online_offline_group
+faction = monster_predatory_day
+npc_random = tushkano_strong
+npc_in_squad = 6, 9
+target_smart = fst_smart_monster_10
+story_id = fst_smart_monster_10_squad_3

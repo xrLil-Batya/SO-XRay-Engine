@@ -1,0 +1,18 @@
+[logic]
+active = sr_idle@random
+
+[sr_idle@random]
+on_info = sr_idle@end_random_idle
+
+[sr_idle@end_random_idle]
+on_game_timer = 150 | sr_idle@end_random %=play_sound(megaphone_barman)%
+
+[sr_idle@end_random]
+on_signal = sound_end | sr_idle@pause
+
+[sr_idle@pause]
+on_timer = 25000 | sr_idle@random
+
+
+
+

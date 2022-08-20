@@ -1,0 +1,130 @@
+--'******************************************************
+--'*	Биндер объекта костра .
+--'******************************************************
+campfire_table_by_smart_names = {}
+candle_table_by_names = {}
+
+function bind(obj)
+	obj:bind_object(campfire_binder(obj))
+end
+
+class "campfire_binder" (object_binder)
+function campfire_binder:__init(obj) super(obj)
+	self.campfire = obj:get_campfire()
+end
+
+function campfire_binder:net_spawn(server_object)
+	if not object_binder.net_spawn(self, server_object) then
+		return false
+	end
+	local id = self.object:id()
+	if self.object:section() == "zone_flame_candle" then
+		local candle_name = self.object:name()
+		if candle_table_by_names[candle_name] == nil then
+			candle_table_by_names[candle_name] = {}
+		end
+		candle_table_by_names[candle_name][id] = self
+	else
+		local smart_name = string.gsub(self.object:name(), "_campfire_%d*", "")
+		if sim_board.get_sim_board().smarts_by_names[smart_name] then
+			if campfire_table_by_smart_names[smart_name] == nil then
+				campfire_table_by_smart_names[smart_name] = {}
+			end
+			campfire_table_by_smart_names[smart_name][id] = self
+		end
+	end
+	
+	return true
+end
+
+function campfire_binder:net_destroy(server_object)
+	local smart_name = string.gsub(self.object:name(), "_campfire_%d*", "")
+	if sim_board.get_sim_board().smarts_by_names[smart_name] then
+		if (campfire_table_by_smart_names[smart_name]) then 
+			campfire_table_by_smart_names[smart_name][self.object:id()] = nil
+		end
+	end
+	
+	object_binder.net_destroy(self)
+end
+
+function campfire_binder:update(delta)
+	object_binder.update(self, delta)
+end
+
+function campfire_binder:use_callback(obj, who)
+	news_manager.send_tip(db.actor, "yes")
+	--[[if not (self.object) then
+		return
+	end
+	campfire_manager.campfire_on(obj)]]--
+end
+
+function campfire_binder:is_campfire_on()
+    if not (self.campfire) then
+        return false
+    end
+    cf = self.campfire
+    
+    if (self.state ~= nil) then
+        return self.state
+    end
+	
+    self.state = cf:is_on()
+    return cf:is_on()
+end
+
+function campfire_binder:get_campfire_time()
+    if not (self.time) then
+        return 0
+    end
+    return self.time
+end
+
+function campfire_binder:turn_on_campfire()
+    if not self.campfire then return false end
+    if not self.object then return false end
+
+    self.state = true
+    self.time = game.get_game_time()
+	self.campfire:turn_on()
+	
+    return true
+end
+
+function campfire_binder:turn_off_campfire()
+    if not self.campfire then return false end
+    if not self.object then return false end
+
+    self.state = false
+	
+	self.time = game.get_game_time()
+	if (self.campfire:is_on()) then
+        self.campfire:turn_off()
+    end
+    return true
+end
+
+function turn_on_campfires_by_smart_name(smart_name)
+	local smart_campfires = campfire_table_by_smart_names[smart_name]
+	if smart_campfires ~= nil and not empty(smart_campfires) then
+		--[[for k,v in pairs (smart_campfires) do
+			local cf = v:get_campfire()
+			if (cf and not cf:is_on()) then
+				cf:turn_on()
+			end
+		end]]--
+	end
+end
+
+function turn_off_campfires_by_smart_name(smart_name)
+	local smart_campfires = campfire_table_by_smart_names[smart_name]
+	if smart_campfires ~= nil and not empty(smart_campfires) then
+		for k,v in pairs (smart_campfires) do
+			if (v) then
+				v:turn_off_campfire()
+			end
+		end
+	end
+end
+

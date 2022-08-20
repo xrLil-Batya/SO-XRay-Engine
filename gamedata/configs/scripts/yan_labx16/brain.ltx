@@ -1,0 +1,12 @@
+[logic]
+active = sr_idle
+ 
+[sr_idle]
+on_info = {=actor_on_level(l08u_brainlab) +yan_labx16_switcher_primary_off} nil, sr_timer@1
+ 
+[sr_timer@1]
+type = dec
+start_value = 240000
+on_value = 0 | %=hit_actor(0.9) =run_postprocess(postprocess_psi:5000)%
+on_info = {+yan_labx16_switcher_primary_off} %=stop_postprocess(5000)% nil 
+;string = rotebil

@@ -1,0 +1,368 @@
+----------------------------------------------------------------------------------------------------------------------
+-- Файл:        		CAMPFIRE_MANAGER.SCRIPT
+-- Описание:    		Скрипт - менеджер костров.
+-- Создан:      		16.05.2021
+-- Последняя редакция:	07.06.2022
+-- Автор:       		ARTLantist
+-- Copyright:   		ARTLantist
+----------------------------------------------------------------------------------------------------------------------
+campfires = {}
+candles = {}
+MINUTE = 60
+HOUR = MINUTE * 60
+
+function main_loop()
+	local tg = time_global()
+	if (_tmr and tg < _tmr) then 
+		return false 
+	end
+	_tmr = tg + 30000
+	
+    local rainy = rainy_is()
+    local emission = xr_conditions.surge_started()
+	for i, o in pairs(campfires) do
+	    handle_campfire_extinguish(o, rainy, emission)
+    end
+	
+	return false
+end
+
+function handle_campfire_extinguish(obj, rainy, emission)
+    local binder = get_campfire_binder(obj)
+    if (binder) then
+		local cf_on = binder:is_campfire_on()
+		if (cf_on) then
+			local cf_time = binder:get_campfire_time()
+			local timeout
+	        timeout = (HOUR * 6) / rainy
+	        if emission then
+	            timeout = timeout / 3
+	        end
+			if (cf_time == 0 or game.get_game_time():diffSec(cf_time) > timeout) then
+				turn_off_campfire(obj)
+			end
+		end
+    end
+	
+	binder = get_candle_binder(obj)
+    if (binder) then
+		local cf_on = binder:is_campfire_on()
+		if (cf_on) then
+			local cf_time = binder:get_campfire_time()
+			local timeout
+	        timeout = (HOUR * 3)
+			if (cf_time == 0 or game.get_game_time():diffSec(cf_time) > timeout) then
+				turn_off_candle(obj)
+			end
+		end
+    end
+end
+
+function on_game_start()
+	local function campfire_init()
+		for i = 1, 65534 do
+		    local s = alife():object(i)
+		    if s then
+			    local o = level.object_by_id(s.id)
+			    if o then
+				    local cf = o:get_campfire()
+				    if cf then
+                        campfires[i] = o
+				    end
+			    end
+		    end
+	    end
+        AddUniqueCall(main_loop)
+	end
+	
+	RegisterScriptCallback("actor_on_item_use",actor_on_item_use)
+	RegisterScriptCallback("actor_on_first_update", campfire_init)
+end
+
+function actor_on_item_use(obj)
+	if(obj)and(obj:section()=="cooking")then
+		campfire_cook(obj)
+	end
+	
+	if (obj:section() == "beadspread") then
+		alife():create(obj:section(),db.actor:position(),db.actor:level_vertex_id(),db.actor:game_vertex_id(),db.actor:id())
+		campfire_sleep(obj)
+	end
+end
+
+function get_campfire_binder(obj)
+    if (obj) then
+        local smart_name = string.gsub(obj:name(), "_campfire_%d*", "")
+        t = bind_campfire.campfire_table_by_smart_names[smart_name]
+        if (t) then
+            return t[obj:id()]
+        end
+    end
+end
+
+function is_campfire_on(obj)
+    local binder = get_campfire_binder(obj)
+    if (binder) then
+        return binder:is_campfire_on()
+    end
+    return false
+end
+
+function campfire_on()
+	local cf_obj = get_campfire_object_nearby(2.0)
+    if not (cf_obj and cf_obj:get_campfire()) then return end
+	
+	local matches = get_actor_matches()
+	
+	if (matches) then
+		local binder = get_campfire_binder(cf_obj)
+		if (binder) then
+			local cf_on = binder:is_campfire_on()
+			
+			if not (cf_on) then
+				local coeff
+				local rain = rainy_is()
+				if rain == 1 then coeff = 0.8
+				elseif rain == 2 then coeff = 0.35
+				elseif rain == 3 then coeff = 0.1 end
+				if ((math.random(0,1)<coeff)) then
+					actor_effects.use_item("matches_campfire")
+				else
+					actor_effects.use_item("matches_campfire_no_light")
+				end
+				degradate_matches(matches)
+			end
+		end
+	else
+		SetHudMsg(game.translate_string("st_not_matches"),3)
+	end
+end
+
+function campfire_on_anim()
+	local cf_obj = get_campfire_object_nearby(2.0)
+    if not (cf_obj and cf_obj:get_campfire()) then return end
+	
+	local binder = get_campfire_binder(cf_obj)
+	if (binder) then
+		local cf_on = binder:is_campfire_on()
+		
+		if not (cf_on) then
+			binder:turn_on_campfire()
+		end
+	end
+end
+
+function campfire_cook(obj)
+    local cf_obj = get_campfire_object_nearby(2.0)
+    if not (cf_obj and cf_obj:get_campfire()) then 
+		alife():create(obj:section(),db.actor:position(),db.actor:level_vertex_id(),db.actor:game_vertex_id(),db.actor:id())
+		return 
+	end
+
+    local binder = get_campfire_binder(cf_obj)
+    if (binder) then
+        local cf_on = binder:is_campfire_on()
+        
+        if (cf_on) then
+			local hud = get_hud()
+			local ui = ui_itm_cooking and ui_itm_cooking.ui_cooking(hud,obj)
+			if (ui) then
+				hud:HideActorMenu()
+				ui:ShowDialog(true)
+				ui:FillList()
+			end
+		else
+			alife():create(obj:section(),db.actor:position(),db.actor:level_vertex_id(),db.actor:game_vertex_id(),db.actor:id())
+		end
+	else
+		alife():create(obj:section(),db.actor:position(),db.actor:level_vertex_id(),db.actor:game_vertex_id(),db.actor:id())
+    end
+end
+
+function campfire_sleep(obj)
+    
+	local cf_obj = get_campfire_object_nearby(2.0)
+    if not (cf_obj and cf_obj:get_campfire()) then
+		return 
+	end
+
+    local binder = get_campfire_binder(cf_obj)
+    if (binder) then
+        local cf_on = binder:is_campfire_on()
+        if (cf_on) then
+			local hud = get_hud()
+			if (hud) then
+				hud:HideActorMenu()
+			end
+			ui_sleep_dialog.sleep()
+			give_info("sleep_active")
+			return
+		end
+    end
+	
+end
+
+function turn_on_campfire(obj)
+    local binder = get_campfire_binder(obj)
+    if (binder) then
+        binder:turn_on_campfire()
+    end
+end
+
+function turn_off_campfire(obj)
+    local binder = get_campfire_binder(obj)
+    if (binder) then
+        binder:turn_off_campfire()
+    end
+end
+
+function campfire_matches(obj)
+end
+
+function get_campfire_object_nearby(distance)
+	for i, o in pairs(campfires) do
+        local cf = o:get_campfire()
+		if cf and o:position():distance_to(db.actor:position()) <= distance then
+		    return o
+		end
+    end
+end
+
+function get_actor_matches()
+	local matches
+	
+	local function search_matches(actor,itm)
+		if (itm:section() == "matches") then
+			if (matches) then
+				if (itm:condition() < matches:condition()) then matches = itm end
+			else
+				matches = itm
+			end
+		end
+	end
+	
+	db.actor:iterate_inventory(search_matches, db.actor)
+	
+	return matches
+end
+
+function degradate_matches(matches)
+	local num = math.random(4,9)/100
+	if matches:section() == "zone_flame_candle" then
+		num = math.random(2,4)/100
+	end
+	local cond  = matches:condition()
+	
+	if (cond > num) then 
+		matches:set_condition(cond-num) 
+	else
+		alife():release(alife():object(matches:id()), true)
+	end
+
+end
+
+function rainy_is()
+	local rain = level.rain_factor()
+	local rainy
+	if (rain ~= nil) and (rain > 0 and rain < 0.5) then
+		rainy = math.random(1,2)
+	elseif (rain > 0.5) then
+		rainy = math.random(1,3)
+	else
+		rainy = 1
+	end
+	return rainy
+end
+
+function campfire_save()
+    
+	local cf_obj = get_campfire_object_nearby(4.0)
+    if not (cf_obj and cf_obj:get_campfire()) then
+		return 
+	end
+
+    local binder = get_campfire_binder(cf_obj)
+    if (binder) then
+        local cf_on = binder:is_campfire_on()
+        if (cf_on) then
+			return true
+		end
+    end
+	
+	binder = get_candle_binder(cf_obj)
+    if (binder) then
+        local cf_on = binder:is_campfire_on()
+        if (cf_on) then
+			return true
+		end
+    end
+	
+	return false
+end
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------- CANDLE MANAGER ------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+function candle_on()
+	local cf_obj = get_campfire_object_nearby(2.0)
+    if not (cf_obj and cf_obj:get_campfire()) then return end
+	
+	local matches = get_actor_matches()
+	
+	if (matches) then
+		local binder = get_candle_binder(cf_obj)
+		if (binder) then
+			local cf_on = binder:is_campfire_on()
+			
+			if not (cf_on) then
+				local coeff = 0.75
+				if ((math.random(0,1)<coeff)) then
+					actor_effects.use_item("matches_candle")
+				else
+					actor_effects.use_item("matches_campfire_no_light")
+				end
+				degradate_matches(matches)
+			end
+		end
+	else
+		SetHudMsg(game.translate_string("st_not_matches"),3)
+	end
+end
+
+function candle_on_anim()
+	local cf_obj = get_campfire_object_nearby(2.0)
+    if not (cf_obj and cf_obj:get_campfire()) then return end
+	
+	local binder = get_candle_binder(cf_obj)
+	if (binder) then
+		local cf_on = binder:is_campfire_on()
+		
+		if not (cf_on) then
+			binder:turn_on_campfire()
+		end
+	end
+end
+
+function get_candle_binder(obj)
+    if (obj) then
+        local candle_name = obj:name()
+        t = bind_campfire.candle_table_by_names[candle_name]
+        if (t) then
+            return t[obj:id()]
+        end
+    end
+end
+
+function turn_on_candle(obj)
+    local binder = get_candle_binder(obj)
+    if (binder) then
+        binder:turn_on_campfire()
+    end
+end
+
+function turn_off_candle(obj)
+    local binder = get_candle_binder(obj)
+    if (binder) then
+        binder:turn_off_campfire()
+    end
+end

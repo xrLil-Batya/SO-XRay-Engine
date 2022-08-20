@@ -1,0 +1,13 @@
+; смарт на западе, недалеко от терм. аномалии
+
+[smart_terrain]
+squad_id = 15
+max_population = 1
+respawn_params = respawn@esc_smart_monster_7
+
+[respawn@esc_smart_monster_7]
+spawn_boar@esc_smart_monster_7
+
+[spawn_boar@esc_smart_monster_7]
+spawn_squads = {+info_mutant_spawn_hard +info_mutant_spawn_medium +info_mutant_spawn_basic} esc_smart_monster_7_squad_3, {-info_mutant_spawn_hard +info_mutant_spawn_medium +info_mutant_spawn_basic} esc_smart_monster_7_squad_2, {-info_mutant_spawn_hard -info_mutant_spawn_medium +info_mutant_spawn_basic} esc_smart_monster_7_squad
+spawn_num = {+info_mutant_spawn_basic} 1, 0

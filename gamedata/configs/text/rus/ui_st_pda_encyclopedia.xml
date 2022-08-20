@@ -1,0 +1,903 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<string_table>
+
+	<string id="pda_encyclopedia_title">
+		<text>Личные заметки и энциклопедия о Зоне</text>
+	</string>
+	
+	<string id="pda_notes_button">
+		<text>Личные заметки</text>
+	</string>
+	<string id="pda_barter_button">
+		<text>Бартер</text>
+	</string>
+	<string id="pda_gived_info_button">
+		<text>Найденная информация</text>
+	</string>
+	<string id="pda_passwords_button">
+		<text>Пароли</text>
+	</string>
+	<string id="pda_recipes_button">
+		<text>Рецепты артефактов</text>
+	</string>
+	<string id="pda_anomalis_button">
+		<text>Аномалии</text>
+	</string>
+	<string id="pda_arts_button">
+		<text>Артефакты</text>
+	</string>
+	<string id="pda_monsters_button">
+		<text>Монстры</text>
+	</string>
+	<string id="pda_locs_button">
+		<text>Локации</text>
+	</string>
+	<string id="pda_recipes_m_button">
+		<text>Рецепты модификатов</text>
+	</string>
+	
+
+	<string id="st_pda_notes_hint">
+		<text>Показать личные заметки</text>
+	</string>
+	<string id="st_pda_barter_hint">
+		<text>Показать информацию о бартере</text>
+	</string>
+	<string id="st_pda_gived_info_hint">
+		<text>Показать найденную информацию</text>
+	</string>
+	<string id="st_pda_passwords_hint">
+		<text>Показать найденные пароли</text>
+	</string>
+	<string id="st_pda_recipes_hint">
+		<text>Показать известные рецепты артефактов</text>
+	</string>
+	<string id="st_pda_anomalis_hint">
+		<text>Показать описания аномалий</text>
+	</string>
+	<string id="st_pda_arts_hint">
+		<text>Показать описания артефактов</text>
+	</string>
+	<string id="st_pda_monsters_hint">
+		<text>Показать описания монстров</text>
+	</string>
+	<string id="st_pda_locs_hint">
+		<text>Показать описания локаций</text>
+	</string>
+	<string id="st_pda_recipes_m_hint">
+		<text>Показать известные рецепты модификатов</text>
+	</string>
+	
+	<string id="st_pda_buttons_background">
+		<text>Категории</text>
+	</string>
+	
+	
+	<string id="pda_notes">
+		<text>Личные заметки\n</text>
+	</string>
+	<string id="pda_barter">
+		<text>Бартер\n</text>
+	</string>
+	<string id="pda_gived_info">
+		<text>Найденная информация\n</text>
+	</string>
+	<string id="pda_passwords">
+		<text>Пароли\n</text>
+	</string>
+	<string id="pda_recipes">
+		<text>Рецепты артефактов\n</text>
+	</string>
+	<string id="pda_anomalis">
+		<text>Аномалии\n</text>
+	</string>
+	<string id="pda_arts">
+		<text>Артефакты\n</text>
+	</string>
+	<string id="pda_monsters">
+		<text>Монстры\n</text>
+	</string>
+	<string id="pda_locs">
+		<text>Локации\n</text>
+	</string>
+	<string id="pda_recipes_m">
+		<text>Рецепты модификатов\n</text>
+	</string>
+	
+<!-------------- Strings for Notes ------------->
+<!---------------------------------------------->
+	<string id="st_enc_notes_1">
+		<text>Первые впечатления</text>
+	</string>
+	<string id="st_enc_notes_1_descr">
+		<text>Хрен пойми, что происходит. Ничего не помню... Очнулся в каком-то лесу на территории какой-то Зоны. Ворон, охотник этот, жизнь мне спас. Хороший мужик... Рассказал, что нашёл меня какой-то Игнат. Надо бы найти его, пока что он единственная ниточка к моей памяти. Где он нашёл меня? Что вообще со мной произошло?
+		\nЗона, конечно, страшное место. Пошёл искать артефакты по наказу Ворона. Достал этот детектор, зашёл в это гиблое место - аномальную зону, и руки затряслись. Да что руки, всё тело! Не дай бог попадёшь в эту аномалию и всё - конец. Зря спасали, получается. Ворон тоже молодец, послал меня одного судьбу свою испытывать. Повезло мне или просто осторожность сыграла, но я выжил. Ещё и артефакт какой-то достал. Получил за него свой первый ствол. На удивление, пистолет в руке лежит, как что-то родное. И откуда я умею стрелять? Хотя тут, в Зоне, все ходят с оружием. Может и я в прошлом был сталкером. А может и военным... Надеюсь, когда-нибудь я это узнаю...</text>
+	</string>
+<!-------------- Strings for Barter ---------->
+<!-------------------------------------------->
+	<string id="st_enc_barter_1">
+		<text>О себе</text>
+	</string>
+	<string id="st_enc_barter_1_descr">
+		<text>Ну как-то вот так, это демонстрация раздела описания заметок, здесь должно быть много слов, иногда ещё и картинка, как-то так. Блаблаблаблаблаблаблаблаблабла фждваожфраплфоывтлмфытвимоифылвмгр куча букв м-да.</text>
+	</string>
+
+<!-------------- Strings for Gived Info ------>
+<!-------------------------------------------->
+	<string id="st_enc_gived_info_1">
+		<text>О себе</text>
+	</string>
+	<string id="st_enc_gived_info_1_descr">
+		<text>Ну как-то вот так, это демонстрация раздела описания заметок, здесь должно быть много слов, иногда ещё и картинка, как-то так. Блаблаблаблаблаблаблаблаблабла фждваожфраплфоывтлмфытвимоифылвмгр куча букв м-да.</text>
+	</string>
+
+<!-------------- Strings for Passwords ------->
+<!-------------------------------------------->
+	<string id="st_enc_passwords_1">
+		<text>О себе</text>
+	</string>
+	<string id="st_enc_passwords_1_descr">
+		<text>Ну как-то вот так, это демонстрация раздела описания заметок, здесь должно быть много слов, иногда ещё и картинка, как-то так. Блаблаблаблаблаблаблаблаблабла фждваожфраплфоывтлмфытвимоифылвмгр куча букв м-да.</text>
+	</string>
+
+<!-------------- Strings for Recipes --------->
+<!-------------------------------------------->
+	<string id="st_enc_recipes_1">
+		<text>[1]Медуза из электры</text>
+	</string>
+	<string id="st_enc_recipes_1_descr">
+		<text>%c[default]Артефакт %c[green]«Медуза» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Электра» %c[default]сразу четырёх ингредиентов:\n
+		\n • Голова тушкана
+		\n • Хвост собаки
+		\n • Копыто кабана
+		\n • «Колючка»\n
+		\nПреобразование происходит в течение %c[green]10-15 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_2">
+		<text>[1]Выверт из холодца</text>
+	</string>
+	<string id="st_enc_recipes_2_descr">
+		<text>%c[default]Артефакт %c[green]«Выверт» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Холодец» %c[default]сразу четырёх ингредиентов:\n
+		\n • Голова тушкана
+		\n • Хвост собаки
+		\n • Копыто кабана
+		\n • «Слизь»\n
+		\nПреобразование происходит в течение %c[green]10-15 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_3">
+		<text>[1]Кровь камня из воронки</text>
+	</string>
+	<string id="st_enc_recipes_3_descr">
+		<text>%c[default]Артефакт %c[green]«Кровь камня» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Воронка» %c[default]сразу четырёх ингредиентов:\n
+		\n • Хвост собаки
+		\n • Копыто кабана
+		\n • Рука зомби
+		\n • «Выверт»\n
+		\nПреобразование происходит в течение %c[green]10-15 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_4">
+		<text>[1]Бенгальский огонь из трамплина</text>
+	</string>
+	<string id="st_enc_recipes_4_descr">
+		<text>%c[default]Артефакт %c[green]«Бенгальский огонь» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Трамплин» %c[default]сразу четырёх ингредиентов:\n
+		\n • Голова тушкана
+		\n • Хвост собаки
+		\n • Копыто кабана
+		\n • «Капля»\n
+		\nПреобразование происходит в течение %c[green]10-15 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_5">
+		<text>[1]Слизь из жарки</text>
+	</string>
+	<string id="st_enc_recipes_5_descr">
+		<text>%c[default]Артефакт %c[green]«Слизь» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Жарка» %c[default]сразу четырёх ингредиентов:\n
+		\n • Голова тушкана
+		\n • Хвост собаки
+		\n • Рука зомби
+		\n • «Медуза»\n
+		\nПреобразование происходит в течение %c[green]10-15 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_6">
+		<text>[1]Колючка из киселя</text>
+	</string>
+	<string id="st_enc_recipes_6_descr">
+		<text>%c[default]Артефакт %c[green]«Колючка» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Кисель» %c[default]сразу четырёх ингредиентов:\n
+		\n • Голова тушкана
+		\n • Копыто кабана
+		\n • Рука зомби
+		\n • «Кровь камня»\n
+		\nПреобразование происходит в течение %c[green]10-15 минут Зоны.</text>
+	</string>
+	
+	<string id="st_enc_recipes_7">
+		<text>[2]Каменный цветок из карусели</text>
+	</string>
+	<string id="st_enc_recipes_7_descr">
+		<text>%c[default]Артефакт %c[green]«Каменный цветок» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Карусель» %c[default]сразу четырёх ингредиентов:\n
+		\n • Рука зомби
+		\n • Печень слепого пса
+		\n • «Кровь камня»
+		\n • «Медуза»\n
+		\nПреобразование происходит в течение %c[green]15-20 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_8">
+		<text>[2]Каменный цветок из электры</text>
+	</string>
+	<string id="st_enc_recipes_8_descr">
+		<text>%c[default]Артефакт %c[green]«Каменный цветок» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Электра» %c[default]сразу четырёх ингредиентов:\n
+		\n • Голова тушкана
+		\n • Сердце слепого пса
+		\n • «Выверт»
+		\n • «Медуза»\n
+		\nПреобразование происходит в течение %c[green]15-20 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_9">
+		<text>[2]Грави из воронки</text>
+	</string>
+	<string id="st_enc_recipes_9_descr">
+		<text>%c[default]Артефакт %c[green]«Грави» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Воронка» %c[default]сразу четырёх ингредиентов:\n
+		\n • Копыто кабана
+		\n • Рука зомби
+		\n • «Медуза»
+		\n • «Выверт»\n
+		\nПреобразование происходит в течение %c[green]15-20 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_10">
+		<text>[2]Грави из жарки</text>
+	</string>
+	<string id="st_enc_recipes_10_descr">
+		<text>%c[default]Артефакт %c[green]«Грави» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Жарка» %c[default]сразу четырёх ингредиентов:\n
+		\n • Хвост собаки
+		\n • Копыто кабана
+		\n • «Капля»
+		\n • «Выверт»\n
+		\nПреобразование происходит в течение %c[green]15-20 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_11">
+		<text>[2]Ломоть мяса из трамплина</text>
+	</string>
+	<string id="st_enc_recipes_11_descr">
+		<text>%c[default]Артефакт %c[green]«Ломоть мяса» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Трамплин» %c[default]сразу четырёх ингредиентов:\n
+		\n • Сердце слепого пса
+		\n • Клык кабана
+		\n • «Медуза»
+		\n • «Кровь камня»\n
+		\nПреобразование происходит в течение %c[green]15-20 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_12">
+		<text>[2]Ломоть мяса из киселя</text>
+	</string>
+	<string id="st_enc_recipes_12_descr">
+		<text>%c[default]Артефакт %c[green]«Ломоть мяса» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Кисель» %c[default]сразу четырёх ингредиентов:\n
+		\n • Рука зомби
+		\n • Сердце слепого пса
+		\n • «Капля»
+		\n • «Кровь камня»\n
+		\nПреобразование происходит в течение %c[green]15-20 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_13">
+		<text>[2]Вспышка из жарки</text>
+	</string>
+	<string id="st_enc_recipes_13_descr">
+		<text>%c[default]Артефакт %c[green]«Вспышка» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Жарка» %c[default]сразу четырёх ингредиентов:\n
+		\n • Голова тушкана
+		\n • Хвост собаки
+		\n • «Колючка»
+		\n • «Бенгальский огонь»\n
+		\nПреобразование происходит в течение %c[green]15-20 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_14">
+		<text>[2]Вспышка из воронки</text>
+	</string>
+	<string id="st_enc_recipes_14_descr">
+		<text>%c[default]Артефакт %c[green]«Вспышка» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Воронка» %c[default]сразу четырёх ингредиентов:\n
+		\n • Голова тушкана
+		\n • Клык кабана
+		\n • «Кровь камня»
+		\n • «Бенгальский огонь»\n
+		\nПреобразование происходит в течение %c[green]15-20 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_15">
+		<text>[2]Слизняк из трамплина</text>
+	</string>
+	<string id="st_enc_recipes_15_descr">
+		<text>%c[default]Артефакт %c[green]«Слизняк» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Трамплин» %c[default]сразу четырёх ингредиентов:\n
+		\n • Хвост собаки
+		\n • Копыто кабана
+		\n • «Колючка»
+		\n • «Слизь»\n
+		\nПреобразование происходит в течение %c[green]15-20 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_16">
+		<text>[2]Слизняк из киселя</text>
+	</string>
+	<string id="st_enc_recipes_16_descr">
+		<text>%c[default]Артефакт %c[green]«Слизняк» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Кисель» %c[default]сразу четырёх ингредиентов:\n
+		\n • Голова тушкана
+		\n • Печень селпого пса
+		\n • «Кровь камня»
+		\n • «Слизь»\n
+		\nПреобразование происходит в течение %c[green]15-20 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_17">
+		<text>[2]Кристальная колючка из карусели</text>
+	</string>
+	<string id="st_enc_recipes_17_descr">
+		<text>%c[default]Артефакт %c[green]«Кристальная колючка» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Карусель» %c[default]сразу четырёх ингредиентов:\n
+		\n • Голова тушкана
+		\n • Хвост собаки
+		\n • «Выверт»
+		\n • «Колючка»\n
+		\nПреобразование происходит в течение %c[green]15-20 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_18">
+		<text>[2]Кристальная колючка из холодца</text>
+	</string>
+	<string id="st_enc_recipes_18_descr">
+		<text>%c[default]Артефакт %c[green]«Кристальная колючка» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Холодец» %c[default]сразу четырёх ингредиентов:\n
+		\n • Копыто кабана
+		\n • Сердце слепого пса
+		\n • «Слизь»
+		\n • «Колючка»\n
+		\nПреобразование происходит в течение %c[green]15-20 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_19">
+		<text>[2]Огненный шар из электры</text>
+	</string>
+	<string id="st_enc_recipes_19_descr">
+		<text>%c[default]Артефакт %c[green]«Огненный шар» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Электра» %c[default]сразу четырёх ингредиентов:\n
+		\n • Хвост собаки
+		\n • Клык кабана
+		\n • «Слизь»
+		\n • «Капля»\n
+		\nПреобразование происходит в течение %c[green]15-20 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_20">
+		<text>[2]Огненный шар из холодца</text>
+	</string>
+	<string id="st_enc_recipes_20_descr">
+		<text>%c[default]Артефакт %c[green]«Огненный шар» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Холодец» %c[default]сразу четырёх ингредиентов:\n
+		\n • Хвост собаки
+		\n • Рука зомби
+		\n • «Выверт»
+		\n • «Капля»\n
+		\nПреобразование происходит в течение %c[green]15-20 минут Зоны.</text>
+	</string>
+	
+	<string id="st_enc_recipes_21">
+		<text>[3]Ночная звезда из воронки</text>
+	</string>
+	<string id="st_enc_recipes_21_descr">
+		<text>%c[default]Артефакт %c[green]«Ночная звезда» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Воронка» %c[default]сразу четырёх ингредиентов:\n
+		\n • Кошачий хвост
+		\n • Стопа снорка
+		\n • «Слизняк»
+		\n • «Каменный цветок»\n
+		\nПреобразование происходит в течение %c[green]20-25 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_22">
+		<text>[3]Ночная звезда из жарки</text>
+	</string>
+	<string id="st_enc_recipes_22_descr">
+		<text>%c[default]Артефакт %c[green]«Ночная звезда» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Жарка» %c[default]сразу четырёх ингредиентов:\n
+		\n • Коготь химеры
+		\n • «Слизь»
+		\n • «Медуза»
+		\n • «Каменный цветок»\n
+		\nПреобразование происходит в течение %c[green]20-25 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_23">
+		<text>[3]Золотая рыбка из электры</text>
+	</string>
+	<string id="st_enc_recipes_23_descr">
+		<text>%c[default]Артефакт %c[green]«Золотая рыбка» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Электра» %c[default]сразу четырёх ингредиентов:\n
+		\n • Коготь химеры
+		\n • «Медуза»
+		\n • «Выверт»
+		\n • «Грави»\n
+		\nПреобразование происходит в течение %c[green]20-25 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_24">
+		<text>[3]Золотая рыбка из холодца</text>
+	</string>
+	<string id="st_enc_recipes_24_descr">
+		<text>%c[default]Артефакт %c[green]«Золотая рыбка» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Холодец» %c[default]сразу четырёх ингредиентов:\n
+		\n • Рука бюрера
+		\n • Кошачий хвост
+		\n • «Каменный цветок»
+		\n • «Грави»\n
+		\nПреобразование происходит в течение %c[green]20-25 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_25">
+		<text>[3]Душа из электры</text>
+	</string>
+	<string id="st_enc_recipes_25_descr">
+		<text>%c[default]Артефакт %c[green]«Душа» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Электра» %c[default]сразу четырёх ингредиентов:\n
+		\n • Рука бюрера
+		\n • Хвост псевдособаки
+		\n • «Слизняк»
+		\n • «Ломоть мяса»\n
+		\nПреобразование происходит в течение %c[green]20-25 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_26">
+		<text>[3]Душа из воронки</text>
+	</string>
+	<string id="st_enc_recipes_26_descr">
+		<text>%c[default]Артефакт %c[green]«Душа» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Воронка» %c[default]сразу четырёх ингредиентов:\n
+		\n • Коготь химеры
+		\n • «Слизь»
+		\n • «Кровь камня»
+		\n • «Ломоть мяса»\n
+		\nПреобразование происходит в течение %c[green]20-25 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_27">
+		<text>[3]Лунный свет из карусели</text>
+	</string>
+	<string id="st_enc_recipes_27_descr">
+		<text>%c[default]Артефакт %c[green]«Лунный свет» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Карусель» %c[default]сразу четырёх ингредиентов:\n
+		\n • Щупальца кровососа
+		\n • «Выверт»
+		\n • «Бенгальский огонь»
+		\n • «Вспышка»\n
+		\nПреобразование происходит в течение %c[green]20-25 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_28">
+		<text>[3]Лунный свет из жарки</text>
+	</string>
+	<string id="st_enc_recipes_28_descr">
+		<text>%c[default]Артефакт %c[green]«Лунный свет» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Жарка» %c[default]сразу четырёх ингредиентов:\n
+		\n • Рука бюрера
+		\n • Глаз плоти
+		\n • «Грави»
+		\n • «Вспышка»\n
+		\nПреобразование происходит в течение %c[green]20-25 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_29">
+		<text>[3]Слюда из карусели</text>
+	</string>
+	<string id="st_enc_recipes_29_descr">
+		<text>%c[default]Артефакт %c[green]«Слюда» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Карусель» %c[default]сразу четырёх ингредиентов:\n
+		\n • Рог химеры
+		\n • «Кровь камня»
+		\n • «Слизь»
+		\n • «Слизняк»\n
+		\nПреобразование происходит в течение %c[green]20-25 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_30">
+		<text>[3]Слюда из электры</text>
+	</string>
+	<string id="st_enc_recipes_30_descr">
+		<text>%c[default]Артефакт %c[green]«Слюда» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Электра» %c[default]сразу четырёх ингредиентов:\n
+		\n • Хвост псевдособаки
+		\n • Стопа снорка
+		\n • «Ломоть мяса»
+		\n • «Слизняк»\n
+		\nПреобразование происходит в течение %c[green]20-25 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_31">
+		<text>[3]Морской ёж из киселя</text>
+	</string>
+	<string id="st_enc_recipes_31_descr">
+		<text>%c[default]Артефакт %c[green]«Морской ёж» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Кисель» %c[default]сразу четырёх ингредиентов:\n
+		\n • Хвост псевдособаки
+		\n • Глаз плоти
+		\n • «Огненный шар»
+		\n • «Кристальная колючка»\n
+		\nПреобразование происходит в течение %c[green]20-25 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_32">
+		<text>[3]Морской ёж из трамплина</text>
+	</string>
+	<string id="st_enc_recipes_32_descr">
+		<text>%c[default]Артефакт %c[green]«Морской ёж» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Трамплин» %c[default]сразу четырёх ингредиентов:\n
+		\n • Сердце кровососа
+		\n • «Капля»
+		\n • «Колючка»
+		\n • «Кристальная колючка»\n
+		\nПреобразование происходит в течение %c[green]20-25 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_33">
+		<text>[3]Кристалл из карусели</text>
+	</string>
+	<string id="st_enc_recipes_33_descr">
+		<text>%c[default]Артефакт %c[green]«Кристалл» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Карусель» %c[default]сразу четырёх ингредиентов:\n
+		\n • Сердце химеры
+		\n • «Колючка»
+		\n • «Капля»
+		\n • «Огненный шар»\n
+		\nПреобразование происходит в течение %c[green]20-25 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_34">
+		<text>[3]Кристалл из холодца</text>
+	</string>
+	<string id="st_enc_recipes_34_descr">
+		<text>%c[default]Артефакт %c[green]«Кристалл» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Холодец» %c[default]сразу четырёх ингредиентов:\n
+		\n • Глаз плоти
+		\n • Стопа снорка
+		\n • «Кристальная колючка»
+		\n • «Огненный шар»\n
+		\nПреобразование происходит в течение %c[green]20-25 минут Зоны.</text>
+	</string>
+	
+	<string id="st_enc_recipes_35">
+		<text>[4]Мамины бусы из карусели</text>
+	</string>
+	<string id="st_enc_recipes_35_descr">
+		<text>%c[default]Артефакт %c[green]«Мамины бусы» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Карусель» %c[default]сразу четырёх ингредиентов:\n
+		\n • Рука контролёра
+		\n • «Медуза» %c[green]полностью положительная%c[default]
+		\n • «Каменный цветок»
+		\n • «Ночная звезда»\n
+		\nПреобразование происходит в течение %c[green]25-30 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_36">
+		<text>[4]Колобок из холодца</text>
+	</string>
+	<string id="st_enc_recipes_36_descr">
+		<text>%c[default]Артефакт %c[green]«Колобок» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Холодец» %c[default]сразу четырёх ингредиентов:\n
+		\n • Лапа псевдогиганта
+		\n • «Выверт» %c[green]полностью положительный%c[default]
+		\n • «Грави»
+		\n • «Золотая рыбка»\n
+		\nПреобразование происходит в течение %c[green]25-30 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_37">
+		<text>[4]Пустышка из жарки</text>
+	</string>
+	<string id="st_enc_recipes_37_descr">
+		<text>%c[default]Артефакт %c[green]«Пустышка» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Жарка» %c[default]сразу четырёх ингредиентов:\n
+		\n • Глаз псевдогиганта
+		\n • «Капля» %c[green]полностью положительная%c[default]
+		\n • «Огненный шар»
+		\n • «Кристалл»\n
+		\nПреобразование происходит в течение %c[green]25-30 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_38">
+		<text>[4]Батарейка из трамплина</text>
+	</string>
+	<string id="st_enc_recipes_38_descr">
+		<text>%c[default]Артефакт %c[green]«Батарейка» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Трамплин» %c[default]сразу четырёх ингредиентов:\n
+		\n • Глаз полтергейста
+		\n • «Бенгальский огонь» %c[green]полностью положительный%c[default]
+		\n • «Вспышка»
+		\n • «Лунный свет»\n
+		\nПреобразование происходит в течение %c[green]25-30 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_39">
+		<text>[4]Плёнка из воронки</text>
+	</string>
+	<string id="st_enc_recipes_39_descr">
+		<text>%c[default]Артефакт %c[green]«Плёнка» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Воронка» %c[default]сразу четырёх ингредиентов:\n
+		\n • Рука контролёра
+		\n • «Слизь» %c[green]полностью положительная%c[default]
+		\n • «Слизняк»
+		\n • «Слюда»\n
+		\nПреобразование происходит в течение %c[green]25-30 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_40">
+		<text>[4]Пружина из электры</text>
+	</string>
+	<string id="st_enc_recipes_40_descr">
+		<text>%c[default]Артефакт %c[green]«Пружина» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Электра» %c[default]сразу четырёх ингредиентов:\n
+		\n • «Алмазный порошок»
+		\n • «Колючка» %c[green]полностью положительная%c[default]
+		\n • «Кристальная колючка»
+		\n • «Морской ёж»\n
+		\nПреобразование происходит в течение %c[green]25-30 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_41">
+		<text>[4]Светляк из киселя</text>
+	</string>
+	<string id="st_enc_recipes_41_descr">
+		<text>%c[default]Артефакт %c[green]«Светляк» %c[default]получается путём совместной трансмутации в аномалии %c[orange]«Кисель» %c[default]сразу четырёх ингредиентов:\n
+		\n • Лапа псевдогиганта
+		\n • «Кровь камня» %c[green]полностью положительная%c[default]
+		\n • «Ломоть мяса»
+		\n • «Душа»\n
+		\nПреобразование происходит в течение %c[green]25-30 минут Зоны.</text>
+	</string>
+
+<!-------------- Strings for Anomalis -------->
+<!-------------------------------------------->
+	<string id="st_enc_anomalis_1">
+		<text>О себе</text>
+	</string>
+	<string id="st_enc_anomalis_1_descr">
+		<text>Ну как-то вот так, это демонстрация раздела описания заметок, здесь должно быть много слов, иногда ещё и картинка, как-то так. Блаблаблаблаблаблаблаблаблабла фждваожфраплфоывтлмфытвимоифылвмгр куча букв м-да.</text>
+	</string>
+
+<!-------------- Strings for Arts ------------>
+<!-------------------------------------------->
+	<string id="st_enc_arts_1">
+		<text>О себе</text>
+	</string>
+	<string id="st_enc_arts_1_descr">
+		<text>Ну как-то вот так, это демонстрация раздела описания заметок, здесь должно быть много слов, иногда ещё и картинка, как-то так. Блаблаблаблаблаблаблаблаблабла фждваожфраплфоывтлмфытвимоифылвмгр куча букв м-да.</text>
+	</string>
+
+<!-------------- Strings for Monsters -------->
+<!-------------------------------------------->
+	<string id="st_enc_monsters_1">
+		<text>О себе</text>
+	</string>
+	<string id="st_enc_monsters_1_descr">
+		<text>Ну как-то вот так, это демонстрация раздела описания заметок, здесь должно быть много слов, иногда ещё и картинка, как-то так. Блаблаблаблаблаблаблаблаблабла фждваожфраплфоывтлмфытвимоифылвмгр куча букв м-да.</text>
+	</string>
+
+<!-------------- Strings for Locs ------------>
+<!-------------------------------------------->
+	<string id="st_enc_locs_1">
+		<text>О себе</text>
+	</string>
+	<string id="st_enc_locs_1_descr">
+		<text>Ну как-то вот так, это демонстрация раздела описания заметок, здесь должно быть много слов, иногда ещё и картинка, как-то так. Блаблаблаблаблаблаблаблаблабла фждваожфраплфоывтлмфытвимоифылвмгр куча букв м-да.</text>
+	</string>
+
+<!-------------- Strings for Recipes Mod ----->
+<!-------------------------------------------->
+	<string id="st_enc_recipes_m_1">
+		<text>Бабкины бусы</text>
+	</string>
+	<string id="st_enc_recipes_m_1_descr">
+		<text>%c[default]Модификат пулестойкости, телепатии и переносимого веса %c[sky_blue]«Бабкины бусы»
+		\n%c[default]получается из артефакта %c[sky_blue]«Мамины бусы»
+		\n%c[default]путём трансмутации в аномалии %c[orange]«Электра». %c[default]\n
+		\nВремя трансмутации составляет %c[green]1 час Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_m_2">
+		<text>Бусы прабабки</text>
+	</string>
+	<string id="st_enc_recipes_m_2_descr">
+		<text>%c[default]Мезомодификат пулестойкости, телепатии и переносимого веса %c[sky_blue]«Бусы прабабки»
+		\n%c[default]получается из артефакта %c[sky_blue]«Бабкины бусы»
+		\n%c[default]путём трансмутации в аномалии %c[orange]«Холодец». %c[default]\n
+		\nВремя трансмутации составляет %c[green]1 час Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_m_3">
+		<text>Бусы бабки бюрера</text>
+	</string>
+	<string id="st_enc_recipes_m_3_descr">
+		<text>%c[default]Гипермодификат пулестойкости, телепатии и переносимого веса %c[sky_blue]«Бусы бабки бюрера»
+		\n%c[default]получается из артефакта %c[sky_blue]«Бусы прабабки»
+		\n%c[default]путём трансмутации в аномалии %c[orange]«Карусель». %c[default]\n
+		\nВремя трансмутации составляет %c[green]1 час 30 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_m_4">
+		<text>Бусы прабабки бюрера</text>
+	</string>
+	<string id="st_enc_recipes_m_4_descr">
+		<text>%c[default]Абсолют пулестойкости, телепатии и переносимого веса %c[sky_blue]«Бусы прабабки бюрера»\n
+		%c[default]получается из артефакта %c[sky_blue]«Бусы бабки бюрера»
+		\n%c[default]путём трансмутации в аномалии %c[orange]«Жарка». %c[default]\n
+		\nВремя трансмутации составляет %c[green]1 час 30 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_m_5">
+		<text>Стальной колобок</text>
+	</string>
+	<string id="st_enc_recipes_m_5_descr">
+		<text>%c[default]Модификат стойкости к удару, разрыву и радиации %c[sky_blue]«Стальной колобок»
+		\n%c[default]получается из артефакта %c[sky_blue]«Колобок»
+		\n%c[default]путём трансмутации в аномалии %c[orange]«Трамплин». %c[default]\n
+		\nВремя трансмутации составляет %c[green]1 час Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_m_6">
+		<text>Титановый колобок</text>
+	</string>
+	<string id="st_enc_recipes_m_6_descr">
+		<text>%c[default]Мезомодификат стойкости к удару, разрыву и радиации %c[sky_blue]«Титановый колобок»
+		\n%c[default]получается из артефакта %c[sky_blue]«Стальной колобок»
+		\n%c[default]путём трансмутации в аномалии %c[orange]«Карусель». %c[default]\n
+		\nВремя трансмутации составляет %c[green]1 час Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_m_7">
+		<text>Алмазный колобок</text>
+	</string>
+	<string id="st_enc_recipes_m_7_descr">
+		<text>%c[default]Гипермодификат стойкости к удару, разрыву и радиации %c[sky_blue]«Алмазный колобок»
+		\n%c[default]получается из артефакта %c[sky_blue]«Титановый колобок»
+		\n%c[default]путём трансмутации в аномалии %c[orange]«Холодец». %c[default]\n
+		\nВремя трансмутации составляет %c[green]1 час 30 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_m_8">
+		<text>Младший брат гиганта</text>
+	</string>
+	<string id="st_enc_recipes_m_8_descr">
+		<text>%c[default]Абсолют стойкости к удару, разрыву и радиации %c[sky_blue]«Младший брат гиганта»
+		\n%c[default]получается из артефакта %c[sky_blue]«Алмазный колобок»
+		\n%c[default]путём трансмутации в аномалии %c[orange]«Жарка». %c[default]\n
+		\nВремя трансмутации составляет %c[green]1 час 30 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_m_9">
+		<text>Дикобраз</text>
+	</string>
+	<string id="st_enc_recipes_m_9_descr">
+		<text>%c[default]Модификат стойкости к радиации и взрыву %c[sky_blue]«Дикобраз»
+		\n%c[default]получается из артефакта %c[sky_blue]«Пружина»
+		\n%c[default]путём трансмутации в аномалии %c[orange]«Жарка». %c[default]\n
+		\nВремя трансмутации составляет %c[green]1 час Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_m_10">
+		<text>Электрический дикобраз</text>
+	</string>
+	<string id="st_enc_recipes_m_10_descr">
+		<text>%c[default]Мезомодификат стойкости к радиации и взрыву %c[sky_blue]«Электрический дикобраз»
+		\n%c[default]получается из артефакта %c[sky_blue]«Дикобраз»
+		\n%c[default]путём трансмутации в аномалии %c[orange]«Электра». %c[default]\n
+		\nВремя трансмутации составляет %c[green]1 час Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_m_11">
+		<text>Электрический дикобраз</text>
+	</string>
+	<string id="st_enc_recipes_m_11_descr">
+		<text>%c[default]Гипермодификат стойкости к радиации и взрыву %c[sky_blue]«Сопливый дикобраз»
+		\n%c[default]получается из артефакта %c[sky_blue]«Электрический дикобраз»
+		\n%c[default]путём трансмутации в аномалии %c[orange]«Холодец». %c[default]\n
+		\nВремя трансмутации составляет %c[green]1 час 30 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_m_12">
+		<text>Каменный дикобраз</text>
+	</string>
+	<string id="st_enc_recipes_m_12_descr">
+		<text>%c[default]Абсолют стойкости к радиации и взрыву %c[sky_blue]«Каменный дикобраз»
+		\n%c[default]получается из артефакта %c[sky_blue]«Сопливый дикобраз»
+		\n%c[default]путём трансмутации в аномалии %c[orange]«Трамплин». %c[default]\n
+		\nВремя трансмутации составляет %c[green]1 час 30 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_m_13">
+		<text>Слёзы электры</text>
+	</string>
+	<string id="st_enc_recipes_m_13_descr">
+		<text>%c[default]Модификат выносливости и стойкости к ожогу и электрошоку %c[sky_blue]«Слёзы электры»
+		\n%c[default]получается из артефакта %c[sky_blue]«Батарейка»
+		\n%c[default]путём трансмутации в аномалии %c[orange]«Электра». %c[default]\n
+		\nВремя трансмутации составляет %c[green]1 час Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_m_14">
+		<text>Слёзы огня</text>
+	</string>
+	<string id="st_enc_recipes_m_14_descr">
+		<text>%c[default]Мезомодификат выносливости и стойкости к ожогу и электрошоку %c[sky_blue]«Слёзы огня»
+		\n%c[default]получается из артефакта %c[sky_blue]«Слёзы электры»
+		\n%c[default]путём трансмутации в аномалии %c[orange]«Жарка». %c[default]\n
+		\nВремя трансмутации составляет %c[green]1 час Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_m_15">
+		<text>Слёзы химеры</text>
+	</string>
+	<string id="st_enc_recipes_m_15_descr">
+		<text>%c[default]Гипермодификат выносливости и стойкости к ожогу и электрошоку %c[sky_blue]«Слёзы химеры»
+		\n%c[default]получается из артефакта %c[sky_blue]«Слёзы огня»
+		\n%c[default]путём трансмутации в аномалии %c[orange]«Холодец». %c[default]\n
+		\nВремя трансмутации составляет %c[green]1 час 30 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_m_16">
+		<text>Слеза гиганта</text>
+	</string>
+	<string id="st_enc_recipes_m_16_descr">
+		<text>%c[default]Абсолют выносливости и стойкости к ожогу и электрошоку %c[sky_blue]«Слеза гиганта»
+		\n%c[default]получается из артефакта %c[sky_blue]«Слёзы химеры»
+		\n%c[default]путём трансмутации в аномалии %c[orange]«Электра». %c[default]\n
+		\nВремя трансмутации составляет %c[green]1 час 30 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_m_17">
+		<text>Огненная пустышка</text>
+	</string>
+	<string id="st_enc_recipes_m_17_descr">
+		<text>%c[default]Модификат стойкости к радиации и электрошоку %c[sky_blue]«Огненная пустышка»
+		\n%c[default]получается из артефакта %c[sky_blue]«Пустышка»
+		\n%c[default]путём трансмутации в аномалии %c[orange]«Жарка». %c[default]\n
+		\nВремя трансмутации составляет %c[green]1 час Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_m_18">
+		<text>Яркая пустышка</text>
+	</string>
+	<string id="st_enc_recipes_m_18_descr">
+		<text>%c[default]Мезомодификат стойкости к радиации и электрошоку %c[sky_blue]«Яркая пустышка»
+		\n%c[default]получается из артефакта %c[sky_blue]«Огненная пустышка»
+		\n%c[default]путём трансмутации в аномалии %c[orange]«Холодец». %c[default]\n
+		\nВремя трансмутации составляет %c[green]1 час Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_m_19">
+		<text>Лунная пустышка</text>
+	</string>
+	<string id="st_enc_recipes_m_19_descr">
+		<text>%c[default]Гипермодификат стойкости к радиации и электрошоку %c[sky_blue]«Лунная пустышка»
+		\n%c[default]получается из артефакта %c[sky_blue]«Яркая пустышка»
+		\n%c[default]путём трансмутации в аномалии %c[orange]«Электра». %c[default]\n
+		\nВремя трансмутации составляет %c[green]1 час 30 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_m_20">
+		<text>Пудинг</text>
+	</string>
+	<string id="st_enc_recipes_m_20_descr">
+		<text>%c[default]Абсолют стойкости к радиации и электрошоку %c[sky_blue]«Пудинг»
+		\n%c[default]получается из артефакта %c[sky_blue]«Лунная пустышка»
+		\n%c[default]путём трансмутации в аномалии %c[orange]«Холодец». %c[default]\n
+		\nВремя трансмутации составляет %c[green]1 час 30 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_m_21">
+		<text>Шкура</text>
+	</string>
+	<string id="st_enc_recipes_m_21_descr">
+		<text>%c[default]Модификат стойкости к телепатии, хим. ожогу и восстановлению пси-здоровья %c[sky_blue]«Шкура»
+		\n%c[default]получается из артефакта %c[sky_blue]«Плёнка»
+		\n%c[default]путём трансмутации в аномалии %c[orange]«Трамплин». %c[default]\n
+		\nВремя трансмутации составляет %c[green]1 час Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_m_22">
+		<text>Чешуя</text>
+	</string>
+	<string id="st_enc_recipes_m_22_descr">
+		<text>%c[default]Мезомодификат стойкости к телепатии, хим. ожогу и восстановлению пси-здоровья %c[sky_blue]«Чешуя»
+		\n%c[default]получается из артефакта %c[sky_blue]«Шкура»
+		\n%c[default]путём трансмутации в аномалии %c[orange]«Карусель». %c[default]\n
+		\nВремя трансмутации составляет %c[green]1 час Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_m_23">
+		<text>Панцирь</text>
+	</string>
+	<string id="st_enc_recipes_m_23_descr">
+		<text>%c[default]Гипермодификат стойкости к телепатии, хим. ожогу и восстановлению пси-здоровья %c[sky_blue]«Панцирь»
+		\n%c[default]получается из артефакта %c[sky_blue]«Чешуя»
+		\n%c[default]путём трансмутации в аномалии %c[orange]«Холодец». %c[default]\n
+		\nВремя трансмутации составляет %c[green]1 час 30 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_m_24">
+		<text>Скальп контролёра</text>
+	</string>
+	<string id="st_enc_recipes_m_24_descr">
+		<text>%c[default]Абсолют стойкости к телепатии, хим. ожогу и восстановлению пси-здоровья %c[sky_blue]«Скальп контролёра»
+		\n%c[default]получается из артефакта %c[sky_blue]«Панцирь»
+		\n%c[default]путём трансмутации в аномалии %c[orange]«Холодец». %c[default]\n
+		\nВремя трансмутации составляет %c[green]1 час 30 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_m_25">
+		<text>Капля души</text>
+	</string>
+	<string id="st_enc_recipes_m_25_descr">
+		<text>%c[default]Модификат здоровья и стойкости к телепатии и радиации %c[sky_blue]«Капля души»
+		\n%c[default]получается из артефакта %c[sky_blue]«Светляк»
+		\n%c[default]путём трансмутации в аномалии %c[orange]«Трамплин». %c[default]\n
+		\nВремя трансмутации составляет %c[green]1 час Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_m_26">
+		<text>Огненная душа</text>
+	</string>
+	<string id="st_enc_recipes_m_26_descr">
+		<text>%c[default]Мезомодификат здоровья и стойкости к телепатии и радиации %c[sky_blue]«Огненная душа»
+		\n%c[default]получается из артефакта %c[sky_blue]«Капля души»
+		\n%c[default]путём трансмутации в аномалии %c[orange]«Жарка». %c[default]\n
+		\nВремя трансмутации составляет %c[green]1 час Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_m_27">
+		<text>Кристальная душа</text>
+	</string>
+	<string id="st_enc_recipes_m_27_descr">
+		<text>%c[default]Гипермодификат здоровья и стойкости к телепатии и радиации %c[sky_blue]«Кристальная душа»
+		\n%c[default]получается из артефакта %c[sky_blue]«Огненная душа»
+		\n%c[default]путём трансмутации в аномалии %c[orange]«Холодец». %c[default]\n
+		\nВремя трансмутации составляет %c[green]1 час 30 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_m_28">
+		<text>Кристальная душа Бенгала</text>
+	</string>
+	<string id="st_enc_recipes_m_28_descr">
+		<text>%c[default]Абсолют здоровья и стойкости к телепатии и радиации %c[sky_blue]«Кристальная душа Бенгала»
+		\n%c[default]получается из артефакта %c[sky_blue]«Кристальная душа»
+		\n%c[default]путём трансмутации в аномалии %c[orange]«Электра». %c[default]\n
+		\nВремя трансмутации составляет %c[green]1 час 30 минут Зоны.</text>
+	</string>
+	<string id="st_enc_recipes_m_29">
+		<text>Симбион</text>
+	</string>
+	<string id="st_enc_recipes_m_29_descr">
+		<text>%c[default]Уникальный модификат пси-защиты и здоровья %c[sky_blue]«Симбион» %c[default]получается сразу из четырёх ингредиентов:\n
+		\n • «Медуза» %c[red]полностью отрицательная%c[default]
+		\n • «Колючка» %c[red]полностью отрицательная%c[default]
+		\n • «Кровь камня» %c[green]полностью положительная%c[default]
+		\n • «Капля» %c[green]полностью положительная%c[default]
+		\n\nпутём их %c[green]строго последовательного%c[default] расположения и последующей трансмутации в аномалии %c[orange]«Холодец». %c[default]\n
+		\n\nПреобразование происходит в течение %c[green]30-60 минут Зоны.</text>
+	</string>
+	
+</string_table>

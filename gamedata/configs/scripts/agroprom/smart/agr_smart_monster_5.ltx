@@ -1,0 +1,13 @@
+; смарт кровососа на заводе
+
+[smart_terrain]
+squad_id = 10
+max_population = 1
+respawn_params = respawn@agr_smart_monster_5
+
+[respawn@agr_smart_monster_5]
+spawn_bloodsucker@agr_smart_monster_5
+
+[spawn_bloodsucker@agr_smart_monster_5]
+spawn_squads = {+info_mutant_spawn_hard +info_mutant_spawn_medium +info_mutant_spawn_basic} agr_smart_monster_5_squad_2, {-info_mutant_spawn_hard +info_mutant_spawn_medium +info_mutant_spawn_basic} agr_smart_monster_5_squad
+spawn_num = {+info_mutant_spawn_medium +info_mutant_spawn_basic} 1, 0

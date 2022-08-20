@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<ui_repair_kit>
+    <window x="100" y="150" width="563" height="509" stretch="1">
+        <texture>ui_repair_window</texture>
+        <list_armor_frame x="266" y="55" width="275" height="102" />
+        <list_armor x="271" y="210" width="265" height="95" item_height="18" can_select="1" always_show_scroll="0">
+            <font font="letterica18" r="216" g="186" b="140" />
+        </list_armor>
+        <list_trash_frame x="266" y="205" width="275" height="98" />
+        <list_trash x="271" y="60" width="265" height="91" item_height="18" can_select="1" always_show_scroll="0">
+            <font font="letterica18" r="216" g="186" b="140" />
+        </list_trash>
+        <btn_ok x="25" y="427" width="80" height="29">
+            <texture>ui_button_ordinary</texture>
+            <text font="graffiti22" align="c">Ремонт</text>
+            <text_color>
+	        <e color ="ui_6"/>
+	        <t color ="ui_black"/>
+	        <d color ="ui_5"/>
+	        <h color ="ui_black"/>
+            </text_color>
+        </btn_ok>
+        <btn_cancel x="130" y="427" width="80" height="29">
+            <texture>ui_button_ordinary</texture>
+            <text font="graffiti22" align="c">Закрыть</text>
+            <text_color>
+	        <e color ="ui_6"/>
+	        <t color ="ui_black"/>
+	        <d color ="ui_5"/>
+	        <h color ="ui_black"/>
+            </text_color>
+        </btn_cancel>
+		<icon x="128" y="262" width="128" height="128" stretch="1">
+		</icon>
+		<icon_parts x="421" y="418" width="128" height="128" stretch="1">
+		</icon_parts>
+		<icon_tool x="301" y="418" width="128" height="128" stretch="1">
+		</icon_tool>
+		<caption_repair x="110" y="245" width="195" height="50" complex_mode="1">
+			<text font="letterica18"/>
+		</caption_repair>
+		<caption_parts x="30" y="65" width="195" height="20" complex_mode="1">
+			<text font="letterica18"/>
+		</caption_parts>
+    </window>
+</ui_repair_kit>

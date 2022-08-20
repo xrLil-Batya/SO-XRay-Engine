@@ -1,0 +1,123 @@
+
+[mar_csky_barman_squad]:online_offline_group
+faction = csky
+npc = mar_csky_barman
+target_smart = mar_smart_terrain_csky_base
+spawn_point = mar_csky_base_smart_spawn_barmen
+story_id = mar_csky_barman_squad
+
+[mar_csky_trader_squad]:online_offline_group
+faction = csky
+npc = mar_csky_trader
+target_smart = mar_smart_terrain_csky_base
+spawn_point = mar_csky_base_smart_spawn_trader
+story_id = mar_csky_trader_squad
+
+[mar_intro_guide_squad]:online_offline_group
+faction = csky
+npc = mar_intro_guide
+target_smart = {+actor_in_csky_base} mar_smart_terrain_csky_base, {+mar_csky_conductor_to_5_12 -actor_in_csky_base} mar_smart_terrain_5_12, {+5_12_provodnik_3_3_find -mar_csky_conductor_to_5_12} mar_smart_terrain_5_8
+story_id = mar_intro_guide_squad
+
+[mar_csky_tech_squad]:online_offline_group
+faction = csky
+npc = mar_csky_tech
+target_smart = mar_smart_terrain_csky_base
+spawn_point = mar_csky_base_smart_spawn_mehanic
+story_id = mar_csky_tech_squad
+
+[mar_csky_scientist_squad]:online_offline_group
+faction = csky
+npc = mar_csky_scientist
+target_smart = mar_smart_terrain_csky_base
+spawn_point = mar_csky_base_smart_spawn_scientist
+story_id = mar_csky_scientist_squad
+
+[mar_csky_base_1_squad]:online_offline_group
+faction = csky
+npc = sim_default_csky_2, sim_default_csky_1, sim_default_csky_1, sim_default_csky_0, sim_default_csky_0, sim_default_csky_0, sim_default_csky_0
+target_smart = mar_smart_terrain_csky_base
+
+[mar_csky_base_2_squad]:online_offline_group
+faction = csky
+npc = sim_default_csky_2, sim_default_csky_1, sim_default_csky_0, sim_default_csky_0, sim_default_csky_0, sim_default_csky_0
+target_smart = mar_smart_terrain_csky_base
+
+[mar_renegade_3_3_squad]:online_offline_group
+faction = renegade
+npc = sim_default_renegade_1, sim_default_renegade_1, sim_default_renegade_0, sim_default_renegade_0
+target_smart = mar_smart_terrain_3_3
+story_id = mar_renegade_3_3_squad
+on_death = %+renegade_3_3_squad_dead%
+
+[mar_renegade_5_12_squad]:online_offline_group
+faction = renegade
+npc = sim_default_renegade_2, sim_default_renegade_2, sim_default_renegade_2, sim_default_renegade_1, sim_default_renegade_1, sim_default_renegade_1, sim_default_renegade_1, sim_default_renegade_0, sim_default_renegade_0
+target_smart = mar_smart_terrain_5_12
+story_id = mar_renegade_5_12_squad
+
+[mar_wounded_csky_6_11_squad]:online_offline_group
+faction = csky
+npc = mar_wounded_csky_6_11
+target_smart = {+csky_zanyali_ryb_hutor +renegade_5_12_squad_dead} mar_smart_terrain_5_12, {+actor_vynes_renegade_sam +church_csky_go_to_5_12} mar_smart_terrain_5_12, {+csky_6_11_to_church} mar_smart_terrain_8_11, mar_smart_terrain_6_11
+spawn_point = mar_smart_terrain_6_11_mar_wounded_csky_6_11_walk
+story_id = mar_wounded_csky_6_11_squad
+
+[mar_renegade_6_11_squad]:online_offline_group
+faction = renegade
+npc = sim_default_renegade_1, sim_default_renegade_0, sim_default_renegade_0, sim_default_renegade_0
+target_smart = mar_smart_terrain_6_11
+story_id = mar_renegade_6_11_squad
+on_death = %+renegade_6_11_squad_dead%
+
+;на сгоревшем хуторе
+[mar_wound_renegade_8_8_squad]:online_offline_group
+faction = renegade
+relationship = neutral
+npc = wound_renegade_8_8
+target_smart = mar_smart_terrain_8_8
+story_id = mar_wound_renegade_8_8_squad
+
+[mar_csky_8_11_squad]:online_offline_group
+faction = csky
+npc = csky_church_commander, sim_default_csky_2, sim_default_csky_2, sim_default_csky_1, sim_default_csky_1, sim_default_csky_1
+target_smart = {+church_csky_go_to_5_12} mar_smart_terrain_5_12, mar_smart_terrain_8_11
+story_id = mar_csky_8_11_squad
+on_death = %+csky_8_11_squad_dead%
+
+[attak_csky_11_3_squad]:online_offline_group
+faction = csky
+npc = csky_comader_chel, sim_default_csky_1, sim_default_csky_1, sim_default_csky_1
+target_smart = {+csky_attak_mex_dvor -guard_prisoners_dead -csky_prisoners_dead} mar_smart_terrain_10_5, {+guard_prisoners_dead} mar_smart_terrain_11_3, mar_smart_terrain_11_3
+story_id = attak_csky_11_3_squad
+
+[csky_prisoners_10_5_squad]:online_offline_group
+faction = csky
+npc = csky_prisoner_1, csky_prisoner_2, csky_prisoner_3
+target_smart = {+csky_prisoners_5_12} mar_smart_terrain_5_12, {+otryad_csky_nayden} mar_smart_terrain_10_5
+story_id = csky_prisoners_10_5_squad
+on_death = %+csky_prisoners_dead%
+
+[csky_prisoners_5_12_squad]:online_offline_group
+faction = csky
+npc = sim_default_csky_1, sim_default_csky_1, sim_default_csky_1
+target_smart = mar_smart_terrain_5_12
+story_id = csky_prisoners_5_12_squad
+
+[guard_prisoners_10_5_squad]:online_offline_group
+faction = renegade
+npc = sim_default_renegade_2, sim_default_renegade_1, sim_default_renegade_1, sim_default_renegade_1, sim_default_renegade_1, sim_default_renegade_1, sim_default_renegade_1
+relationship = neutral
+target_smart = mar_smart_terrain_10_5
+story_id = guard_prisoners_10_5_squad
+on_death = %+guard_prisoners_dead%
+
+[mar_renegade_11_11_squad]:online_offline_group
+faction = renegade
+npc = sim_default_renegade_2, sim_default_renegade_1, sim_default_renegade_1, sim_default_renegade_0
+target_smart = mar_smart_terrain_11_11
+
+[mar_renegade_11_11_1_squad]:online_offline_group
+faction = renegade
+npc = sim_default_renegade_2, sim_default_renegade_2, sim_default_renegade_1, sim_default_renegade_1
+target_smart = mar_smart_terrain_11_11

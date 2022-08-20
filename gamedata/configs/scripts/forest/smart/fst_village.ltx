@@ -1,0 +1,62 @@
+[smart_terrain]
+squad_id = 2
+max_population = 7
+att_restr = fst_village_sr_attack
+def_restr = fst_village_sr_defence
+;smart_control = smart_control@village
+respawn_params = respawn@village
+arrive_dist = 65
+
+[respawn@village]
+spawn_stalker@village
+
+[spawn_stalker@village]
+spawn_squads = fst_village_squad
+spawn_num = {!squad_exist(fst_village_squad)} 1, 0
+
+
+[smart_control@village]
+;noweap_zone = 
+;ignore_zone = 
+;alarm_start_sound =
+;alarm_stop_sound =
+
+[exclusive]
+;guarders day jobs
+fst_village_guarder_1_day = forest\fst_village_guarders.ltx
+fst_village_guarder_2_day = forest\fst_village_guarders.ltx
+fst_village_guarder_3_day = forest\fst_village_guarders.ltx
+fst_village_guarder_4_day = forest\fst_village_guarders.ltx
+fst_village_guarder_5_day = forest\fst_village_guarders.ltx
+fst_village_guarder_6_day = forest\fst_village_guarders.ltx
+fst_village_guarder_7_day = forest\fst_village_guarders.ltx
+fst_village_guarder_8_day = forest\fst_village_guarders.ltx
+fst_village_guarder_9_day = forest\fst_village_guarders.ltx
+fst_village_guarder_10_day = forest\fst_village_guarders.ltx
+fst_village_guarder_11_day = forest\fst_village_guarders.ltx
+fst_village_guarder_12_day = forest\fst_village_guarders.ltx
+fst_village_guarder_13_day = forest\fst_village_guarders.ltx
+fst_village_guarder_14_day = forest\fst_village_guarders.ltx
+fst_village_guarder_15_day = forest\fst_village_guarders.ltx
+fst_village_guarder_16_day = forest\fst_village_guarders.ltx
+fst_village_guarder_17_day = forest\fst_village_guarders.ltx
+fst_village_guarder_18_day = forest\fst_village_guarders.ltx
+;guarders night jobs
+fst_village_guarder_1_night = forest\fst_village_guarders.ltx
+fst_village_guarder_2_night = forest\fst_village_guarders.ltx
+fst_village_guarder_3_night = forest\fst_village_guarders.ltx
+fst_village_guarder_4_night = forest\fst_village_guarders.ltx
+fst_village_guarder_5_night = forest\fst_village_guarders.ltx
+fst_village_guarder_6_night = forest\fst_village_guarders.ltx
+fst_village_guarder_7_night = forest\fst_village_guarders.ltx
+fst_village_guarder_8_night = forest\fst_village_guarders.ltx
+fst_village_guarder_9_night = forest\fst_village_guarders.ltx
+fst_village_guarder_10_night = forest\fst_village_guarders.ltx
+fst_village_guarder_11_night = forest\fst_village_guarders.ltx
+fst_village_guarder_12_night = forest\fst_village_guarders.ltx
+fst_village_guarder_13_night = forest\fst_village_guarders.ltx
+fst_village_guarder_14_night = forest\fst_village_guarders.ltx
+fst_village_guarder_15_night = forest\fst_village_guarders.ltx
+fst_village_guarder_16_night = forest\fst_village_guarders.ltx
+fst_village_guarder_17_night = forest\fst_village_guarders.ltx
+fst_village_guarder_18_night = forest\fst_village_guarders.ltx

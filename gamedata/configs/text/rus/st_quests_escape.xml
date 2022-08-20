@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<string_table>
+	<string id="esc_smart_terrain_3_16_pribytie_v_zonu_name">
+		<text>Прибытие на Кордон</text>
+	</string>
+	<string id="esc_smart_terrain_3_16_pribytie_v_zonu_text">
+		<text>Нужно поговорить с командиром заставы</text>
+	</string>	
+	<string id="esc_smart_terrain_3_16_poluchit_veshi_text">
+		<text>Необходимо получить экипировку у техника блокпоста</text>
+	</string>
+	<string id="esc_smart_terrain_3_16_veshi_polucheny_text">
+		<text>Поговорить с полковником Ковальчуком и разъяснить ситуацию</text>
+	</string>
+	<string id="poisk_perehoda_na_bolota_name">
+		<text>Судьба «Чистого Неба»: найти путь на болота</text>
+	</string>
+	<string id="perehod_nayden_name">
+		<text>Судьба «Чистого Неба»: отправиться на болота</text>
+	</string>
+	<string id="poisk_perehoda_na_bolota_text">
+		<text>Расспросить местных и разузнать о безопасной дороге на болота</text>
+	</string>
+	<string id="perehod_ishi_sam_text">
+		<text>Теперь придётся искать дорогу на болота самому</text>
+	</string>
+	<string id="perehod_nayden_text">
+		<text>Найти путь по указанным координатам и выйти на болота</text>
+	</string>	
+</string_table>

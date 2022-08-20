@@ -1,0 +1,336 @@
+<?xml version='1.0' encoding="windows-1251"?>
+
+<game_information_portions>
+<!-------------- Info for Notes ---------------->
+<!---------------------------------------------->
+	<info_portion id="st_enc_notes_1_info"></info_portion>
+	<info_portion id="st_enc_notes_1_click_info"></info_portion>
+	<info_portion id="st_enc_notes_2_info"></info_portion>
+	<info_portion id="st_enc_notes_2_click_info"></info_portion>
+	<info_portion id="st_enc_notes_3_info"></info_portion>
+	<info_portion id="st_enc_notes_3_click_info"></info_portion>
+	<info_portion id="st_enc_notes_4_info"></info_portion>
+	<info_portion id="st_enc_notes_4_click_info"></info_portion>
+	<info_portion id="st_enc_notes_5_info"></info_portion>
+	<info_portion id="st_enc_notes_5_click_info"></info_portion>
+	<info_portion id="st_enc_notes_6_info"></info_portion>
+	<info_portion id="st_enc_notes_6_click_info"></info_portion>
+	<info_portion id="st_enc_notes_7_info"></info_portion>
+	<info_portion id="st_enc_notes_7_click_info"></info_portion>
+	<info_portion id="st_enc_notes_8_info"></info_portion>
+	<info_portion id="st_enc_notes_8_click_info"></info_portion>
+	<info_portion id="st_enc_notes_9_info"></info_portion>
+	<info_portion id="st_enc_notes_9_click_info"></info_portion>
+	<info_portion id="st_enc_notes_10_info"></info_portion>
+	<info_portion id="st_enc_notes_10_click_info"></info_portion>
+	
+<!-------------- Info for Barter --------------->
+<!---------------------------------------------->
+	<info_portion id="st_enc_barter_1_info"></info_portion>
+	<info_portion id="st_enc_barter_1_click_info"></info_portion>
+	<info_portion id="st_enc_barter_2_info"></info_portion>
+	<info_portion id="st_enc_barter_2_click_info"></info_portion>
+	<info_portion id="st_enc_barter_3_info"></info_portion>
+	<info_portion id="st_enc_barter_3_click_info"></info_portion>
+	<info_portion id="st_enc_barter_4_info"></info_portion>
+	<info_portion id="st_enc_barter_4_click_info"></info_portion>
+	<info_portion id="st_enc_barter_5_info"></info_portion>
+	<info_portion id="st_enc_barter_5_click_info"></info_portion>
+	<info_portion id="st_enc_barter_6_info"></info_portion>
+	<info_portion id="st_enc_barter_6_click_info"></info_portion>
+	<info_portion id="st_enc_barter_7_info"></info_portion>
+	<info_portion id="st_enc_barter_7_click_info"></info_portion>
+	<info_portion id="st_enc_barter_8_info"></info_portion>
+	<info_portion id="st_enc_barter_8_click_info"></info_portion>
+	<info_portion id="st_enc_barter_9_info"></info_portion>
+	<info_portion id="st_enc_barter_9_click_info"></info_portion>
+	<info_portion id="st_enc_barter_10_info"></info_portion>
+	<info_portion id="st_enc_barter_10_click_info"></info_portion>
+	
+<!-------------- Info for Gived Info ----------->
+<!---------------------------------------------->
+	<info_portion id="st_enc_gived_info_1_info"></info_portion>
+	<info_portion id="st_enc_gived_info_1_click_info"></info_portion>
+	<info_portion id="st_enc_gived_info_2_info"></info_portion>
+	<info_portion id="st_enc_gived_info_2_click_info"></info_portion>
+	<info_portion id="st_enc_gived_info_3_info"></info_portion>
+	<info_portion id="st_enc_gived_info_3_click_info"></info_portion>
+	<info_portion id="st_enc_gived_info_4_info"></info_portion>
+	<info_portion id="st_enc_gived_info_4_click_info"></info_portion>
+	<info_portion id="st_enc_gived_info_5_info"></info_portion>
+	<info_portion id="st_enc_gived_info_5_click_info"></info_portion>
+	<info_portion id="st_enc_gived_info_6_info"></info_portion>
+	<info_portion id="st_enc_gived_info_6_click_info"></info_portion>
+	<info_portion id="st_enc_gived_info_7_info"></info_portion>
+	<info_portion id="st_enc_gived_info_7_click_info"></info_portion>
+	<info_portion id="st_enc_gived_info_8_info"></info_portion>
+	<info_portion id="st_enc_gived_info_8_click_info"></info_portion>
+	<info_portion id="st_enc_gived_info_9_info"></info_portion>
+	<info_portion id="st_enc_gived_info_9_click_info"></info_portion>
+	<info_portion id="st_enc_gived_info_10_info"></info_portion>
+	<info_portion id="st_enc_gived_info_10_click_info"></info_portion>
+	
+<!-------------- Info for Passwords ------------>
+<!---------------------------------------------->
+	<info_portion id="st_enc_passwords_1_info"></info_portion>
+	<info_portion id="st_enc_passwords_1_click_info"></info_portion>
+	<info_portion id="st_enc_passwords_2_info"></info_portion>
+	<info_portion id="st_enc_passwords_2_click_info"></info_portion>
+	<info_portion id="st_enc_passwords_3_info"></info_portion>
+	<info_portion id="st_enc_passwords_3_click_info"></info_portion>
+	<info_portion id="st_enc_passwords_4_info"></info_portion>
+	<info_portion id="st_enc_passwords_4_click_info"></info_portion>
+	<info_portion id="st_enc_passwords_5_info"></info_portion>
+	<info_portion id="st_enc_passwords_5_click_info"></info_portion>
+	<info_portion id="st_enc_passwords_6_info"></info_portion>
+	<info_portion id="st_enc_passwords_6_click_info"></info_portion>
+	<info_portion id="st_enc_passwords_7_info"></info_portion>
+	<info_portion id="st_enc_passwords_7_click_info"></info_portion>
+	<info_portion id="st_enc_passwords_8_info"></info_portion>
+	<info_portion id="st_enc_passwords_8_click_info"></info_portion>
+	<info_portion id="st_enc_passwords_9_info"></info_portion>
+	<info_portion id="st_enc_passwords_9_click_info"></info_portion>
+	<info_portion id="st_enc_passwords_10_info"></info_portion>
+	<info_portion id="st_enc_passwords_10_click_info"></info_portion>
+	
+<!-------------- Info for Recipes ------------->
+<!---------------------------------------------->
+	<info_portion id="st_enc_recipes_1_info"></info_portion>
+	<info_portion id="st_enc_recipes_1_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_2_info"></info_portion>
+	<info_portion id="st_enc_recipes_2_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_3_info"></info_portion>
+	<info_portion id="st_enc_recipes_3_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_4_info"></info_portion>
+	<info_portion id="st_enc_recipes_4_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_5_info"></info_portion>
+	<info_portion id="st_enc_recipes_5_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_6_info"></info_portion>
+	<info_portion id="st_enc_recipes_6_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_7_info"></info_portion>
+	<info_portion id="st_enc_recipes_7_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_8_info"></info_portion>
+	<info_portion id="st_enc_recipes_8_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_9_info"></info_portion>
+	<info_portion id="st_enc_recipes_9_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_10_info"></info_portion>
+	<info_portion id="st_enc_recipes_10_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_11_info"></info_portion>
+	<info_portion id="st_enc_recipes_11_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_12_info"></info_portion>
+	<info_portion id="st_enc_recipes_12_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_13_info"></info_portion>
+	<info_portion id="st_enc_recipes_13_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_14_info"></info_portion>
+	<info_portion id="st_enc_recipes_14_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_15_info"></info_portion>
+	<info_portion id="st_enc_recipes_15_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_16_info"></info_portion>
+	<info_portion id="st_enc_recipes_16_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_17_info"></info_portion>
+	<info_portion id="st_enc_recipes_17_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_18_info"></info_portion>
+	<info_portion id="st_enc_recipes_18_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_19_info"></info_portion>
+	<info_portion id="st_enc_recipes_19_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_20_info"></info_portion>
+	<info_portion id="st_enc_recipes_20_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_21_info"></info_portion>
+	<info_portion id="st_enc_recipes_21_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_22_info"></info_portion>
+	<info_portion id="st_enc_recipes_22_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_23_info"></info_portion>
+	<info_portion id="st_enc_recipes_23_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_24_info"></info_portion>
+	<info_portion id="st_enc_recipes_24_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_25_info"></info_portion>
+	<info_portion id="st_enc_recipes_25_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_26_info"></info_portion>
+	<info_portion id="st_enc_recipes_26_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_27_info"></info_portion>
+	<info_portion id="st_enc_recipes_27_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_28_info"></info_portion>
+	<info_portion id="st_enc_recipes_28_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_29_info"></info_portion>
+	<info_portion id="st_enc_recipes_29_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_30_info"></info_portion>
+	<info_portion id="st_enc_recipes_30_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_31_info"></info_portion>
+	<info_portion id="st_enc_recipes_31_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_32_info"></info_portion>
+	<info_portion id="st_enc_recipes_32_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_33_info"></info_portion>
+	<info_portion id="st_enc_recipes_33_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_34_info"></info_portion>
+	<info_portion id="st_enc_recipes_34_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_35_info"></info_portion>
+	<info_portion id="st_enc_recipes_35_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_36_info"></info_portion>
+	<info_portion id="st_enc_recipes_36_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_37_info"></info_portion>
+	<info_portion id="st_enc_recipes_37_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_38_info"></info_portion>
+	<info_portion id="st_enc_recipes_38_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_39_info"></info_portion>
+	<info_portion id="st_enc_recipes_39_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_40_info"></info_portion>
+	<info_portion id="st_enc_recipes_40_click_info"></info_portion>
+	
+<!-------------- Info for Anomalies ------------>
+<!---------------------------------------------->
+	<info_portion id="st_enc_anomalis_1_info"></info_portion>
+	<info_portion id="st_enc_anomalis_1_click_info"></info_portion>
+	<info_portion id="st_enc_anomalis_2_info"></info_portion>
+	<info_portion id="st_enc_anomalis_2_click_info"></info_portion>
+	<info_portion id="st_enc_anomalis_3_info"></info_portion>
+	<info_portion id="st_enc_anomalis_3_click_info"></info_portion>
+	<info_portion id="st_enc_anomalis_4_info"></info_portion>
+	<info_portion id="st_enc_anomalis_4_click_info"></info_portion>
+	<info_portion id="st_enc_anomalis_5_info"></info_portion>
+	<info_portion id="st_enc_anomalis_5_click_info"></info_portion>
+	<info_portion id="st_enc_anomalis_6_info"></info_portion>
+	<info_portion id="st_enc_anomalis_6_click_info"></info_portion>
+	<info_portion id="st_enc_anomalis_7_info"></info_portion>
+	<info_portion id="st_enc_anomalis_7_click_info"></info_portion>
+	<info_portion id="st_enc_anomalis_8_info"></info_portion>
+	<info_portion id="st_enc_anomalis_8_click_info"></info_portion>
+	<info_portion id="st_enc_anomalis_9_info"></info_portion>
+	<info_portion id="st_enc_anomalis_9_click_info"></info_portion>
+	<info_portion id="st_enc_anomalis_10_info"></info_portion>
+	<info_portion id="st_enc_anomalis_10_click_info"></info_portion>
+	
+<!-------------- Info for Artefacts ------------>
+<!---------------------------------------------->
+	<info_portion id="st_enc_arts_1_info"></info_portion>
+	<info_portion id="st_enc_arts_1_click_info"></info_portion>
+	<info_portion id="st_enc_arts_2_info"></info_portion>
+	<info_portion id="st_enc_arts_2_click_info"></info_portion>
+	<info_portion id="st_enc_arts_3_info"></info_portion>
+	<info_portion id="st_enc_arts_3_click_info"></info_portion>
+	<info_portion id="st_enc_arts_4_info"></info_portion>
+	<info_portion id="st_enc_arts_4_click_info"></info_portion>
+	<info_portion id="st_enc_arts_5_info"></info_portion>
+	<info_portion id="st_enc_arts_5_click_info"></info_portion>
+	<info_portion id="st_enc_arts_6_info"></info_portion>
+	<info_portion id="st_enc_arts_6_click_info"></info_portion>
+	<info_portion id="st_enc_arts_7_info"></info_portion>
+	<info_portion id="st_enc_arts_7_click_info"></info_portion>
+	<info_portion id="st_enc_arts_8_info"></info_portion>
+	<info_portion id="st_enc_arts_8_click_info"></info_portion>
+	<info_portion id="st_enc_arts_9_info"></info_portion>
+	<info_portion id="st_enc_arts_9_click_info"></info_portion>
+	<info_portion id="st_enc_arts_10_info"></info_portion>
+	<info_portion id="st_enc_arts_10_click_info"></info_portion>
+	
+<!-------------- Info for Monsters ------------->
+<!---------------------------------------------->
+	<info_portion id="st_enc_monsters_1_info"></info_portion>
+	<info_portion id="st_enc_monsters_1_click_info"></info_portion>
+	<info_portion id="st_enc_monsters_2_info"></info_portion>
+	<info_portion id="st_enc_monsters_2_click_info"></info_portion>
+	<info_portion id="st_enc_monsters_3_info"></info_portion>
+	<info_portion id="st_enc_monsters_3_click_info"></info_portion>
+	<info_portion id="st_enc_monsters_4_info"></info_portion>
+	<info_portion id="st_enc_monsters_4_click_info"></info_portion>
+	<info_portion id="st_enc_monsters_5_info"></info_portion>
+	<info_portion id="st_enc_monsters_5_click_info"></info_portion>
+	<info_portion id="st_enc_monsters_6_info"></info_portion>
+	<info_portion id="st_enc_monsters_6_click_info"></info_portion>
+	<info_portion id="st_enc_monsters_7_info"></info_portion>
+	<info_portion id="st_enc_monsters_7_click_info"></info_portion>
+	<info_portion id="st_enc_monsters_8_info"></info_portion>
+	<info_portion id="st_enc_monsters_8_click_info"></info_portion>
+	<info_portion id="st_enc_monsters_9_info"></info_portion>
+	<info_portion id="st_enc_monsters_9_click_info"></info_portion>
+	<info_portion id="st_enc_monsters_10_info"></info_portion>
+	<info_portion id="st_enc_monsters_10_click_info"></info_portion>
+	
+<!-------------- Info for Locations ------------>
+<!---------------------------------------------->
+	<info_portion id="st_enc_locs_1_info"></info_portion>
+	<info_portion id="st_enc_locs_1_click_info"></info_portion>
+	<info_portion id="st_enc_locs_2_info"></info_portion>
+	<info_portion id="st_enc_locs_2_click_info"></info_portion>
+	<info_portion id="st_enc_locs_3_info"></info_portion>
+	<info_portion id="st_enc_locs_3_click_info"></info_portion>
+	<info_portion id="st_enc_locs_4_info"></info_portion>
+	<info_portion id="st_enc_locs_4_click_info"></info_portion>
+	<info_portion id="st_enc_locs_5_info"></info_portion>
+	<info_portion id="st_enc_locs_5_click_info"></info_portion>
+	<info_portion id="st_enc_locs_6_info"></info_portion>
+	<info_portion id="st_enc_locs_6_click_info"></info_portion>
+	<info_portion id="st_enc_locs_7_info"></info_portion>
+	<info_portion id="st_enc_locs_7_click_info"></info_portion>
+	<info_portion id="st_enc_locs_8_info"></info_portion>
+	<info_portion id="st_enc_locs_8_click_info"></info_portion>
+	<info_portion id="st_enc_locs_9_info"></info_portion>
+	<info_portion id="st_enc_locs_9_click_info"></info_portion>
+	<info_portion id="st_enc_locs_10_info"></info_portion>
+	<info_portion id="st_enc_locs_10_click_info"></info_portion>
+	
+<!-------------- Info for Recipes Modificates -->
+<!---------------------------------------------->
+	<info_portion id="st_enc_recipes_m_0_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_0_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_1_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_1_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_2_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_2_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_3_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_3_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_4_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_4_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_5_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_5_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_6_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_6_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_7_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_7_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_8_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_8_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_9_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_9_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_10_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_10_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_11_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_11_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_12_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_12_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_13_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_13_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_14_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_14_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_15_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_15_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_16_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_16_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_17_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_17_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_18_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_18_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_19_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_19_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_20_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_20_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_21_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_21_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_22_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_22_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_23_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_23_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_24_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_24_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_25_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_25_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_26_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_26_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_27_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_27_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_28_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_28_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_29_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_29_click_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_30_info"></info_portion>
+	<info_portion id="st_enc_recipes_m_30_click_info"></info_portion>
+	
+</game_information_portions>

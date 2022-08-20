@@ -1,0 +1,31 @@
+[logic@val_freedom_trader]
+suitable = {=check_npc_name(val_freedom_trader)}
+prior = 200
+active = smartcover@idle
+can_select_weapon = false
+;trade = misc\trade\trade_trader_val_freedom.ltx
+level_spot = trader
+
+[smartcover@idle]
+cover_name = val_trader_smart_cover
+avail_animations = animpoint_sit_normal
+combat_ignore_cond = true
+meet = meet
+def_state_moving = walk
+out_restr = val_gunnery_zone
+gather_items_enabled = false
+help_wounded_enabled = false
+corpse_detection_enabled = false
+
+[meet]
+close_snd_hello = val_freedom_trader_meet
+close_snd_bye 	= val_freedom_trader_meet_bye
+;close_anim 		= nil
+;close_victim 	= nil
+;far_anim 		= nil
+;far_victim 		= nil
+;close_distance  = 0
+;far_distance 	= 0
+;close_snd_distance = 3
+;abuse           = false
+use = {=actor_enemy} false, true

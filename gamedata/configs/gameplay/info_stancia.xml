@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding="windows-1251"?>
+
+<game_information_portions>
+   - <!--  Кодовая дверь --> 
+<info_portion id="aes_door_closed" /> 
+<info_portion id="aes_open_door" /> 
+<info_portion id="aes_codelock_unlock" /> 
+
+</game_information_portions>

@@ -1,0 +1,1571 @@
+----------------------------------------------------------------------------------------------------------------------
+-- Файл:        		DYNAMIC_NEWS_MANAGER.SCRIPT
+-- Описание:    		Скрипт - менеджер динамических сообщений.
+-- Создан:      		06.07.2022
+-- Последняя редакция:	09.07.2022
+-- Автор:       		ARTLantist
+-- За основу взят dinamic_news_manager из Dead Air
+----------------------------------------------------------------------------------------------------------------------
+MINUTE = 60
+HOUR = MINUTE * 60
+
+local instance = nil
+function get_dynamic_news()
+	instance = instance or dynamic_news_manager()
+	return instance
+end
+
+function destroy_dynamic_news()
+	if (instance) then 
+		instance:destroy()
+	end
+	instance = nil
+end
+
+function on_game_start()
+	
+	destroy_dynamic_news()
+		
+	local function on_game_load()
+		get_dynamic_news()
+	end 
+	RegisterScriptCallback("on_game_load",on_game_load)
+end
+
+-------------------- Таблицы ------------------------------------------------------------------------------------------
+tips_icons = {
+	dolg     	= "ui_icon_news_news_dolg",
+	freedom  	= "ui_icon_news_news_svoboda",
+	army     	= "ui_icon_news_news_voen_stalk",
+	stalker  	= "ui_iconsTotal_grouping",
+	csky  		= "ui_iconsTotal_grouping",
+    killer   	= "ui_icon_news_news_naim",
+    bandit   	= "ui_icon_news_news_bandos",
+    renegade   	= "ui_icon_news_news_hunters",
+	deth	 	= "ui_icon_news_deth",
+	all		 	= "ui_icon_news_all",
+	signal		="ui_inGame2_Istoriya_dolga",
+	surge 		= "ui_inGame2_Vibros",
+	default		="ui_iconsTotal_grouping"
+}
+local all_points = {
+	["k01_forest"] = {
+		[1] = { -349.75, 3.9878, 407.8909}, -- лесопилка охотников
+		},
+	["k02_embankment"] = {
+		[1] = { 0, 0, 0} -- деревня
+		},
+}
+-------------------- Инициализация класса менеджера -------------------------------------------------------------------
+class "dynamic_news_manager"
+function dynamic_news_manager:__init()
+	self.talk_timer = nil
+	self.surge_timer = nil
+	self.semecky_timer = nil
+	self.actor_timer = nil
+	self.actor_kill = ""
+	self.news_surge = true
+	self.delta_surge = 0
+	self.curr_weather = "clear"
+	
+	self.channel_status = {
+		["general"]			= true,
+		["stalker"]  		= true,
+		["monolith"] 		= false,
+		["csky"]   			= true,
+		["army"] 			= false,
+		["renegade"]   		= true,
+		["killer"]   		= false,
+		["ecolog"]   		= true,
+		["dolg"]    		= true,
+		["freedom"]  		= true,
+		["bandit"]   		= false,
+	}
+
+	self.queue = {
+		["general"]			= {},
+		["stalker"]  		= {},
+		["monolith"] 		= {},
+		["csky"]   			= {},
+		["army"] 			= {},
+		["renegade"]   		= {},
+		["killer"]   		= {},
+		["ecolog"]   		= {},
+		["dolg"]    		= {},
+		["freedom"]  		= {},
+		["bandit"]   		= {}
+	}
+
+	self.talk = {
+		["general"]			= {},
+		["stalker"]  		= {},
+		["monolith"] 		= {},
+		["csky"]   			= {},
+		["army"] 			= {},
+		["renegade"]   		= {},
+		["killer"]   		= {},
+		["ecolog"]   		= {},
+		["dolg"]    		= {},
+		["freedom"]  		= {},
+		["bandit"]   		= {}
+	}
+
+	self.surge = {
+		["general"]			= {},
+		["stalker"]  		= {},
+		["monolith"] 		= {},
+		["csky"]   			= {},
+		["army"] 			= {},
+		["renegade"]   		= {},
+		["killer"]   		= {},
+		["ecolog"]   		= {},
+		["dolg"]    		= {},
+		["freedom"]  		= {},
+		["bandit"]   		= {}
+	}
+	
+	self.spammer = {	
+		["show_about_death"] = 0,
+		["show_about_kill_wounded"] = 0,
+		["show_about_death_mutant"] = 0,
+		["show_about_spawn_mutant"] = 0,
+		["show_about_stalker_body"] = 0,
+		["show_about_found_food"] = 0,
+		["show_about_found_medicine"] = 0,
+		["show_about_found_item"] = 0,
+	}
+	
+	CreateTimeEvent("dynamic_news_manager","NewsTick",10,self.NewsTick,self)
+	CreateTimeEvent("dynamic_news_manager","NewsTalkTick",10,self.NewsTalkTick,self)
+	CreateTimeEvent("dynamic_news_manager","NewsSurgeTick",10,self.NewsSurgeTick,self)
+
+	RegisterScriptCallback("monster_on_death_callback",self)
+	RegisterScriptCallback("npc_on_death_callback",self)
+	RegisterScriptCallback("actor_on_update",self)
+end
+
+function dynamic_news_manager:destroy()
+	RemoveTimeEvent("dynamic_news_manager","NewsTick")
+	RemoveTimeEvent("dynamic_news_manager","NewsTalkTick")
+	RemoveTimeEvent("dynamic_news_manager","NewsSurgeTick")
+	UnregisterScriptCallback("monster_on_death_callback",self)
+	UnregisterScriptCallback("npc_on_death_callback",self)
+	UnregisterScriptCallback("actor_on_update",self)
+end
+
+-------------------- Периодические события для вывода динамических сообщений ------------------------------------------
+function dynamic_news_manager:NewsTick()
+
+	ResetTimeEvent("dynamic_news_manager","NewsTick",math.random(8,18))
+	
+	if (surge_manager.is_started()) then
+		return false
+	end
+	
+	local c
+	for k,v in pairs(self.queue) do
+		c = #v
+		if (c > 0) then
+			self:send_tip(v[c].Mg,v[c].Se, nil, nil,v[c].Ic,v[c].Snd,v[c].It)
+			v[c] = nil
+			ResetTimeEvent("dynamic_news_manager","NewsTick",math.random(4,6))
+			return false
+		end
+	end
+	
+	return false
+	
+end
+
+function dynamic_news_manager:NewsTalkTick()
+
+	ResetTimeEvent("dynamic_news_manager","NewsTalkTick",math.random(9,16))
+	
+	if (surge_manager.is_started()) then
+		return false
+	end
+	
+	local c
+	for k,v in pairs(self.talk) do
+		c = #v
+		if (c > 0) then
+			self:send_tip(v[c].Mg,v[c].Se, nil, nil,v[c].Ic,v[c].Snd,v[c].It)
+			v[c] = nil
+			ResetTimeEvent("dynamic_news_manager","NewsTalkTick",math.random(6,8))
+			return false
+		end
+	end
+	
+	return false
+	
+end
+
+function dynamic_news_manager:NewsSurgeTick()
+
+	ResetTimeEvent("dynamic_news_manager","NewsSurgeTick",math.random(20,40))
+	
+	if (surge_manager.is_started()) then
+		return false
+	end
+	
+	local c
+	for k,v in pairs(self.surge) do
+		c = #v
+		if (c > 0) then
+			self:send_tip(v[c].Mg,v[c].Se, nil, nil,v[c].Ic,v[c].Snd,v[c].It)
+			v[c] = nil
+			self.news_surge = false
+			ResetTimeEvent("dynamic_news_manager","NewsSurgeTick",math.random(6,8))
+			return false
+		end
+	end
+	
+	return false
+	
+end
+
+function dynamic_news_manager:PushToChannel(name,t,tp)
+	if (tp == "queue" and self.queue[name]) then
+		table.insert(self.queue[name],t)
+	elseif (tp == "talk" and self.talk[name]) then
+		table.insert(self.talk["general"],t)
+	elseif (tp == "surge" and self.surge[name]) then
+		table.insert(self.surge["general"],t)
+	end
+end
+
+-------------------- Утилиты ------------------------------------------------------------------------------------------
+function dynamic_news_manager:CanBeHeard(comm_sender)
+	if not (comm_sender) then return false end
+	
+	return self.channel_status[comm_sender]
+	
+	--[[local comm_actor = "actor"
+	local relation = relation_registry.community_goodwill(comm_sender, 0) + relation_registry.community_relation(comm_sender,comm_actor)
+	
+	if (comm_actor == comm_sender) or (relation > 0) then 
+		return true 
+	end
+	
+	return false]]--
+end
+
+function dynamic_news_manager:CreateFakeSender()
+	local avail_factions = {
+	"stalker",
+	"stalker",
+	"renegade",
+	}
+	local fake_community = avail_factions[math.random(#avail_factions)]
+
+	local subset = random_choice("stalker","bandit")
+
+	local ini = system_ini()
+	local name_cnt = r_float_ex(ini,"stalker_names_"..subset,"name_cnt")
+	local last_name_cnt = r_float_ex(ini,"stalker_names_"..subset,"last_name_cnt")
+	local first_name = game.translate_string( strformat("name_%s_%s",subset,math.random(0,name_cnt-1)) )
+	local last_name = game.translate_string( strformat("lname_%s_%s",subset,math.random(0,last_name_cnt-1)) )
+	local fake_name = first_name.." "..last_name
+		
+	local t = {tips_icons[fake_community]}
+	local ini = ini_file("plugins\\faction_portraits.ltx")
+	local section = fake_community.."_portraits"
+	local n = ini:section_exist(section) and ini:line_count(section) or 0
+	for i=0, n-1 do
+		local result, id, value = ini:r_line(section,i,"","" )
+		table.insert(t,id)
+	end
+	local fake_icon = t[math.random(#t)]
+	
+	return fake_name, fake_community, fake_icon
+end
+
+function dynamic_news_manager:FindSpeaker(victim,who,same_as_victim,same_as_who,not_in_combat,can_see)
+	local comm = character_community(victim)
+	local comm_sender
+	local comm_who = character_community(who)
+	local who_id = who:id()
+	local t = {}
+	for i=1, #db.OnlineStalkers do
+		if (db.OnlineStalkers[i] ~= who_id) then
+			local st = db.storage[db.OnlineStalkers[i]]
+			local npc = st and st.object or level.object_by_id(db.OnlineStalkers[i])
+			if (npc and IsStalker(npc,npc:clsid()) and npc:alive() and not get_object_story_id(db.OnlineStalkers[i])) then
+				if (not_in_combat == nil) or (not_in_combat == true and not npc:best_enemy()) or (not_in_combat ~= true) then
+					comm_sender = npc:character_community()
+					if (same_as_victim == nil) or (same_as_victim == true and comm_sender == comm) or (same_as_victim == false and comm_sender ~= comm) then
+						if (same_as_who == nil) or (same_as_who == true and comm_sender == comm_who) or (same_as_who == false and comm_sender ~= comm_who) then
+							if (self:CanBeHeard(comm_sender)) then
+								if (can_see == nil) or (can_see and npc:see(victim)) or (can_see == false) then
+									table.insert(t,npc)
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+	return t[math.random(#t)]
+end
+
+function dynamic_news_manager:FindSpeakerNoVictim(who,same_as_who,not_in_combat)
+	local comm_sender
+	local comm_who = who and character_community(who) or nil
+	local who_id = who and who:id() or nil
+	local t = {}
+	for i=1, #db.OnlineStalkers do
+		if (who_id == nil) or (db.OnlineStalkers[i] ~= who_id) then
+			local st = db.storage[db.OnlineStalkers[i]]
+			local npc = st and st.object or level.object_by_id(db.OnlineStalkers[i])
+			if (npc and IsStalker(npc,npc:clsid()) and npc:alive() and not get_object_story_id(db.OnlineStalkers[i])) then
+				if (not_in_combat == nil) or (not_in_combat == true and not npc:best_enemy()) or (not_in_combat ~= true) then
+					comm_sender = npc:character_community()
+					if (same_as_who == nil) or (comm_who == nil) or (same_as_who == true and comm_sender == comm_who) or (same_as_who == false and comm_sender ~= comm_who) then
+						if (self:CanBeHeard(comm_sender)) then
+							table.insert(t,npc)
+						end
+					end
+				end
+			end
+		end
+	end
+	return t[math.random(#t)]
+end
+
+function dynamic_news_manager:FindSpeakerCommunityNoVictim(comm,who,same_as_who,not_in_combat)
+	local comm_sender
+	local comm_who = who and character_community(who) or nil
+	local who_id = who and who:id() or nil
+	local t = {}
+	for i=1, #db.OnlineStalkers do
+		if (who_id == nil) or (db.OnlineStalkers[i] ~= who_id) then
+			local st = db.storage[db.OnlineStalkers[i]]
+			local npc = st and st.object or level.object_by_id(db.OnlineStalkers[i])
+			if (npc and IsStalker(npc,npc:clsid()) and npc:alive() and not get_object_story_id(db.OnlineStalkers[i])) then
+				if (not_in_combat == nil) or (not_in_combat == true and not npc:best_enemy()) or (not_in_combat ~= true) then
+					comm_sender = npc:character_community()
+					if (comm_sender == comm) then
+						table.insert(t,npc)
+					end
+				end
+			end
+		end
+	end
+	return t[math.random(#t)]
+end
+
+function dynamic_news_manager:FindSpeakerWithEnemy(victim,who,same_as_victim,same_as_who,can_see)
+	local comm = character_community(victim)
+	local comm_sender
+	local comm_who = character_community(who)
+	local who_id = who:id()
+	local t = {}
+	for i=1, #db.OnlineStalkers do
+		if (db.OnlineStalkers[i] ~= who_id) then
+			local st = db.storage[db.OnlineStalkers[i]]
+			local npc = st and st.object or level.object_by_id(db.OnlineStalkers[i])
+			if (npc and IsStalker(npc,npc:clsid()) and npc:alive() and not get_object_story_id(db.OnlineStalkers[i]) and npc:best_enemy()) then
+				comm_sender = npc:character_community()
+				if (same_as_victim == nil) or (same_as_victim == true and comm_sender == comm) or (same_as_victim == false and comm_sender ~= comm) then
+					if (same_as_who == nil) or (same_as_who == true and comm_sender == comm_who) or (same_as_who == false and comm_sender ~= comm_who) then
+						if (self:CanBeHeard(comm_sender)) then
+							if (can_see == nil) or (can_see and npc:see(victim)) or (can_see == false) then
+								table.insert(t,npc)
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+	return t[math.random(#t)]
+end
+
+function dynamic_news_manager:BuildSentenceStalkerEnemy(victim,who,mn,mx)
+	local comm_victim = victim:character_community()
+	local comm_who = who:character_community()
+	local comm, dist
+	local c = 0
+	for i=1, #db.OnlineStalkers do
+		if (db.OnlineStalkers[i] ~= who_id) then
+			local st = db.storage[db.OnlineStalkers[i]]
+			local npc = st and st.object or level.object_by_id(db.OnlineStalkers[i])
+			if (npc and IsStalker(npc,npc:clsid()) and npc:alive() and not get_object_story_id(db.OnlineStalkers[i])) then
+				local comm = npc:character_community()
+				if (comm == comm_who) then
+					dist = victim:position():distance_to(npc:position())
+					if (dist < mx) or (dist > mn) then 
+						c = c + 1
+					end
+				end
+			end 
+		end
+		if (c >= 2) then 
+			break 
+		end
+	end
+
+	local sentences = {}
+	local string_count = 1
+	while true do 
+		local tr_s = game.translate_string("st_dyn_news_builder_attacked_"..string_count)
+		if (tr_s == "st_dyn_news_builder_attacked_"..string_count) then 
+			break
+		else 
+			table.insert(sentences,tr_s)
+		end
+		string_count = string_count + 1
+	end
+	
+	if (#sentences == 0) then 	
+		return false
+	end
+
+	if (c >= 2) then 
+		return sentences[math.random(#sentences)], GetCommunityDescription(who,math.random(9,10))
+	end
+
+	return sentences[math.random(#sentences)], GetCommunityDescription(who,math.random(7,8))
+end
+
+-------------------- Коллбеки -----------------------------------------------------------------------------------------
+function dynamic_news_manager:actor_on_update(delta)
+	local tg = time_global()
+	if (_tmr and tg < _tmr) then 
+		return false 
+	end
+	_tmr = tg + 30000
+	if (has_alife_info("actor_is_sleeping")) then
+		return false 
+	end
+	
+	if not (self.talk_timer) then
+		self.talk_timer = game.get_game_time()
+	end
+	if not (self.surge_timer) then
+		self.surge_timer = game.get_game_time()
+	end
+	if not (self.semecky_timer) then
+		self.semecky_timer = game.get_game_time()
+	end
+	
+	local timeout = math.random(45,120)*MINUTE
+	if (game.get_game_time():diffSec(self.talk_timer) > timeout) then
+		self:GenerateDynamicMsg()
+		self.talk_timer = game.get_game_time()
+	end
+	
+	timeout = math.random(4,8)*HOUR
+	if ((game.get_game_time():diffSec(self.surge_timer) > timeout) and (self.news_surge)) then
+		self:GenerateSurgeMsg()
+		self.surge_timer = game.get_game_time()
+	end
+	
+	timeout = math.random(20,30)*HOUR
+	if (game.get_game_time():diffSec(self.semecky_timer) > timeout) then
+		self:GenerateSemeckyMsg()
+		self.semecky_timer = game.get_game_time()
+	end
+	
+	timeout = math.random(120,180)*MINUTE
+	if (self.actor_timer and game.get_game_time():diffSec(self.actor_timer) > timeout) then
+		self.actor_timer = game.get_game_time()
+		self:GenerateDeathByActor()
+	end
+end
+
+function dynamic_news_manager:monster_on_death_callback(victim,who)
+	if not (who and IsStalker(who)) then
+		return 
+	end
+	
+	if (who:id() == db.actor:id()) then
+		return
+	end
+	
+	if (self.spammer.show_about_death_mutant == 0) then
+		local l = math.random(1,2)
+		if l == 1 then
+			self:GossipDeathOfMutant(victim,who)
+		elseif l == 2 then 
+			self:SeenDeathOfMutant(victim,who)
+		end
+	end
+	
+	self.spammer.show_about_death_mutant = self.spammer.show_about_death_mutant + 1
+	if (self.spammer.show_about_death_mutant > 5) then
+		self.spammer.show_about_death_mutant = 0
+	end
+end
+
+function dynamic_news_manager:npc_on_death_callback(victim,who)
+	if not (db.actor and victim) then 
+		return
+	end
+	
+	if not (who and who.clsid) then 
+		return
+	end
+	
+	if (who:id() == db.actor:id()) then
+		self:DeathByActorTimer(victim,who)
+		return
+	end
+
+	if (self.spammer.show_about_death == 0) then
+		if (IsStalker(who)) then
+			local k = math.random(1,2)
+			if k == 1 then
+				self:HeardDeathByStalker(victim,who)
+			elseif k == 2 then
+				self:SeenDeathByStalker(victim,who)
+			end
+		elseif (IsMonster(who)) then
+			local k = math.random(1,3)
+			if k == 1 then
+				self:SOSDeathByMutant(victim,who)
+			elseif k == 2 then
+				self:SeenDeathByMutant(victim,who)
+			elseif k == 3 then
+				self:HeardDeathByMutant(victim,who)
+			end
+		end
+	end
+	
+	self.spammer.show_about_death = self.spammer.show_about_death + 1
+	if (self.spammer.show_about_death > 2) then
+		self.spammer.show_about_death = 0
+	end
+end
+
+-------------------- Генерация сообщений для "Monster On Death Callback" ----------------------------------------------
+function dynamic_news_manager:SeenDeathOfMutant(victim,who)
+	local cls = GetWeaponClass(who)
+	if (cls == 1 or cls == 6 or cls == 9) then 
+		return false
+	end
+	
+	local sender = self:FindSpeaker(victim,who,nil,false,true)
+	if not (sender) then
+		return false
+	end
+	
+	local Se = strformat("%s, %s",sender:character_name(),GetCommunityDescription(sender,6))
+	
+	local sentences = {}
+	local string_count = 1 
+	while true do 
+		local tr_s = game.translate_string("st_dyn_news_builder_sight_"..string_count)
+		if (tr_s == "st_dyn_news_builder_sight_"..string_count) then 
+			break 
+		else 
+			table.insert(sentences,tr_s)
+		end
+		string_count = string_count + 1
+	end
+	
+	local a = #sentences > 0 and sentences[math.random(#sentences)] or ""
+	local b = GetCommunityDescription(who,math.random(1,2))
+	local c = GetWeaponDescription(who,3)
+	local d = GetMonsterDescription(victim,1)
+	local e = GetPointDescription(victim)
+	
+	local msg = strformat("%s %s %s %s %s.",a,b,c,d,e)
+	self:PushToChannel(sender:character_community(),{Mg=msg,Ic=sender:character_icon(),Snd="news",Se=Se,It="npc"},"queue")
+	
+	return true
+end
+
+function dynamic_news_manager:GossipDeathOfMutant(victim,who)
+	local cls = GetWeaponClass(who)
+	if (cls == 1 or cls == 6 or cls == 9) then 
+		return false
+	end
+	
+	local sender = self:FindSpeaker(victim,who,nil,false,true)
+	if not (sender) then
+		return false
+	end
+	
+	local Se = strformat("%s, %s",sender:character_name(),GetCommunityDescription(sender,6))
+
+	local TblTime = {}
+	local string_count = 1
+	while true do 
+		local tr_s = game.translate_string("st_dyn_news_builder_hear_"..string_count)
+		if (tr_s == "st_dyn_news_builder_hear_"..string_count) then 
+			break 
+		else 
+			table.insert(TblTime,tr_s)
+		end
+		string_count = string_count + 1
+	end
+	
+	local TblSaw = {}
+	string_count = 1 
+	while true do 
+		local tr_s = game.translate_string("st_dyn_news_builder_ending_"..string_count)
+		if (tr_s == "st_dyn_news_builder_ending_"..string_count) then 
+			break 
+		else 
+			table.insert(TblSaw,tr_s)
+		end
+		string_count = string_count + 1
+	end	
+	
+	local a = #TblTime > 0 and TblTime[math.random(#TblTime)] or ""
+	local b = GetWeaponDescription(who,2)
+	local c = GetPointDescription(victim)
+	local d = #TblSaw > 0 and TblSaw[math.random(#TblSaw)] or ""
+
+	local msg = strformat("%s %s %s. %s",a,b,c,d)
+	self:PushToChannel(sender:character_community(),{Mg=msg,Ic=sender:character_icon(),Snd="news",Se=Se,It="npc"},"queue")
+	
+	return true
+end 
+
+-------------------- Генерация сообщений для "NPC On Death Callback" --------------------------------------------------
+--[[function dynamic_news_manager:SOSDeathByStalker(victim,who)
+	local cls = GetWeaponClass(who)
+	if (cls == 1 or cls == 6 or cls == 9) then 
+		return false
+	end
+	
+	local sender = self:FindSpeakerWithEnemy(victim,who,true,false)
+	if not (sender) then
+		return false
+	end
+	
+	local Se = strformat("%s, %s",sender:character_name(),GetCommunityDescription(sender,6))
+	
+	local a = GetCommunityDescription(sender,math.random(11,14))
+	local b,c = self:BuildSentenceStalkerEnemy(victim,who,0,30)
+	local d = GetPointDescription(victim)
+
+	local msg = strformat("%s %s %s %s!",a,b,c,d)
+	self:PushToChannel(sender:character_community(),{Mg=msg,Ic=sender:character_icon(),Snd="news",Se=Se,It="npc"},"queue")
+	
+	return true
+end]]--
+
+function dynamic_news_manager:SeenDeathByStalker(victim,who)
+
+	local cls = GetWeaponClass(who)
+	if (cls == 1 or cls == 9) then 
+		return false
+	end
+	
+	local sender = self:FindSpeaker(victim,victim,nil,true,true,false)
+	if not (sender) then
+		return false
+	end
+	
+	local Se = strformat("%s, %s",sender:character_name(),GetCommunityDescription(sender,6))
+	
+	local TblTime = {}
+	local string_count = 1
+	while true do 
+		local tr_s = game.translate_string("st_dyn_news_builder_near_"..string_count)
+		if (tr_s == "st_dyn_news_builder_near_"..string_count) then 
+			break 
+		else 
+			table.insert(TblTime,tr_s)
+		end
+		string_count = string_count + 1
+	end
+	
+	local TblSaw = {}
+	string_count = 1 
+	while true do 
+		local tr_s = game.translate_string("st_dyn_news_builder_near_ending_"..string_count)
+		if (tr_s == "st_dyn_news_builder_near_ending_"..string_count) then 
+			break 
+		else 
+			table.insert(TblSaw,tr_s)
+		end
+		string_count = string_count + 1
+	end
+	
+	local a = #TblTime > 0 and TblTime[math.random(#TblTime)] or ""
+	local b = strformat("%s, %s %s",victim:character_name(),game.translate_string("st_dyn_news_ch_died_was"),GetCommunityDescription(victim,1))
+	local c = GetWeaponDescription(who,1)
+	local d = GetPointDescription(victim)
+	local e = #TblSaw > 0 and TblSaw[math.random(#TblSaw)] or ""
+
+	local msg = strformat("%s. %s. %s %s. \\n%s",a,b,c,d,e)
+	self:PushToChannel(sender:character_community(),{Mg=msg,Ic=sender:character_icon(),Snd="news",Se=Se,It="npc"},"queue")
+	
+	return true
+end
+
+function dynamic_news_manager:HeardDeathByStalker(victim,who)
+
+	local fake_name, fake_community, fake_icon = self:CreateFakeSender()
+	
+	local cls = GetWeaponClass(who)
+	if (cls == 1 or cls == 9) then 
+		return false
+	end
+	
+	local Se = game.translate_string("st_dyn_news_died_stalker")
+	
+	local a = strformat("%s, %s",victim:character_name(),GetCommunityDescription(victim,6))
+	local b = GetPointDescription(victim)
+	local c = GetWeaponDescription(victim,1)
+	
+	local msg = strformat("%s, %s.\\n%s",a,b,c)
+	self:PushToChannel(fake_community,{Mg=msg,Ic="default",Snd="news",Se=Se,It="gr"},"queue")
+	return true
+end
+
+function dynamic_news_manager:SOSDeathByMutant(victim,who)
+	local sender = self:FindSpeakerWithEnemy(victim,who,true,nil)
+	if not (sender) then
+		return false
+	end
+	
+	local Se = strformat("%s, %s",sender:character_name(),GetCommunityDescription(sender,6))
+	
+	local a = GetCommunityDescription(sender,math.random(11,14))
+	local b = GetMonsterDescription(who,math.random(2,6))
+	local c = GetPointDescription(victim)
+
+	local msg = strformat("%s %s %s!",a,b,c)
+	self:PushToChannel(sender:character_community(),{Mg=msg,Ic=sender:character_icon(),Snd="news",Se=Se,It="npc"},"queue")
+	
+	return true
+end
+
+function dynamic_news_manager:SeenDeathByMutant(victim,who)
+	
+	local sender = self:FindSpeaker(victim,victim,nil,true,true,false)
+	if not (sender) then
+		return false
+	end
+	
+	local Se = strformat("%s, %s",sender:character_name(),GetCommunityDescription(sender,6))
+
+	local TblTime = {}
+	local string_count = 1
+	while true do 
+		local tr_s = game.translate_string("st_dyn_news_builder_near_"..string_count)
+		if (tr_s == "st_dyn_news_builder_near_"..string_count) then 
+			break 
+		else 
+			table.insert(TblTime,tr_s)
+		end
+		string_count = string_count + 1
+	end
+	
+	local TblSaw = {}
+	string_count = 1 
+	while true do 
+		local tr_s = game.translate_string("st_dyn_news_builder_near_ending_"..string_count)
+		if (tr_s == "st_dyn_news_builder_near_ending_"..string_count) then 
+			break 
+		else 
+			table.insert(TblSaw,tr_s)
+		end
+		string_count = string_count + 1
+	end
+
+	local a = #TblTime > 0 and TblTime[math.random(#TblTime)] or ""
+	local b = GetMonsterDescription(who,8)
+	local c = strformat("%s, %s %s",victim:character_name(),game.translate_string("st_dyn_news_ch_died_was"),GetCommunityDescription(victim,1))
+	local d = GetPointDescription(victim)
+	local e = #TblSaw > 0 and TblSaw[math.random(#TblSaw)] or ""
+	
+	local msg = strformat("%s, %s. %s. %s. \\n%s",a,b,c,d,e)
+	self:PushToChannel(sender:character_community(),{Mg=msg,Ic=sender:character_icon(),Snd="news",Se=Se,It="npc"},"queue")
+	
+	return true
+end
+
+function dynamic_news_manager:HeardDeathByMutant(victim,who)
+
+	local fake_name, fake_community, fake_icon = self:CreateFakeSender()
+
+	local Se = game.translate_string("st_dyn_news_died_stalker")
+	
+	local a = strformat("%s, %s",victim:character_name(),GetCommunityDescription(victim,6))
+	local b = GetPointDescription(victim)
+	local c = GetMonsterDescription(who,8)
+	
+	local msg = strformat("%s, %s, %s.",a,b,c)
+	self:PushToChannel(fake_community,{Mg=msg,Ic="default",Snd="news",Se=Se,It="gr"},"queue")
+	
+	return true
+end
+
+-------------------- Генерация динамических сообщений -----------------------------------------------------------------
+function dynamic_news_manager:GenerateDynamicMsg()
+	local k = math.random(5)
+	if k == 1 then
+		self:GenerateDynNewsTalk()	-- болтовня
+	elseif k == 2 then
+		self:GenerateDynNewsAdvertisement() -- объявления
+	elseif k == 3 then
+		self:GenerateDynNewsWeather() -- погода
+	elseif k == 4 then
+		self:GenerateDynNewsTime() -- утро/вечер
+	elseif k == 5 then
+		self:GenerateDynNewsConversation() -- ночные таинственные переговоры
+	end
+end
+
+function dynamic_news_manager:GenerateDynNewsTalk()
+	local fake_name, community, icon = self:CreateFakeSender()
+	local fake_name2, community2, icon2 = self:CreateFakeSender()
+	local Se, Se2, msg, msg2
+	
+	local replys = {}
+	local string_count = 1
+	while true do 
+		local tr_s = game.translate_string("st_dyn_news_talking_"..string_count.."_2")
+		if (tr_s == "st_dyn_news_talking_"..string_count.."_2") then 
+			break 
+		else 
+			table.insert(replys,tr_s)
+		end
+		string_count = string_count + 1
+	end
+	
+	if (#replys == 0) then 	
+		return false
+	end
+	
+	local k = math.random(#replys)
+	local r1 = game.translate_string("st_dyn_news_talking_"..k.."_1")
+	local r2 = game.translate_string("st_dyn_news_talking_"..k.."_2")
+	local r3 = game.translate_string("st_dyn_news_talking_"..k.."_3")
+	local r4 = game.translate_string("st_dyn_news_talking_"..k.."_4")
+	
+	if (r1 == "st_dyn_news_talking_"..k.."_1") then 
+		Se = game.translate_string("st_dyn_news_general")
+	else 
+		Se = r1
+	end
+	if (r2 == "st_dyn_news_talking_"..k.."_2") then 
+		msg = nil
+	else 
+		msg = r2
+	end
+	if (r3 == "st_dyn_news_talking_"..k.."_3") then 
+		Se2 = game.translate_string("st_dyn_news_general")
+	else 
+		Se2 = r3
+	end
+	if (r4 == "st_dyn_news_talking_"..k.."_4") then 
+		msg2 = nil
+	else 
+		msg2 = r4
+	end
+	
+	if not (msg) then return false end
+	
+	if (msg2) then
+		self:PushToChannel(community,{Mg=msg2,Ic="default",Snd="news",Se=Se2,It="gr"},"talk")
+	end
+	if (msg) then
+		self:PushToChannel(community,{Mg=msg,Ic="default",Snd="news",Se=Se,It="gr"},"talk")
+	end
+	
+	return true
+end
+
+function dynamic_news_manager:GenerateDynNewsAdvertisement()
+	if (math.random(0,1) <= 0.2) then
+		self:GenerateDynNewsAdvertisementTrader()
+		return
+	end
+	local adv_comm = {
+	"renegade",
+	"ecolog",
+	"dolg",
+	"freedom",
+	}
+	local community = adv_comm[math.random(#adv_comm)]
+	
+	local sentences = {}
+	local string_count = 1
+	while true do 
+		local tr_s = game.translate_string("st_dyn_news_advertisement_"..community.."_"..string_count)
+		if (tr_s == "st_dyn_news_advertisement_"..community.."_"..string_count) then 
+			break 
+		else 
+			table.insert(sentences,tr_s)
+		end
+		string_count = string_count + 1
+	end
+	
+	local senders = {}
+	string_count = 1
+	while true do 
+		local tr_s = game.translate_string("st_dyn_news_advertisement_sender_"..community.."_"..string_count)
+		if (tr_s == "st_dyn_news_advertisement_sender_"..community.."_"..string_count) then 
+			break 
+		else 
+			table.insert(senders,tr_s)
+		end
+		string_count = string_count + 1
+	end
+	
+	if (#sentences == 0) then 	
+		return false
+	end
+	
+	local k = math.random(#sentences)
+	local Se = senders[k]
+	local msg = sentences[k]
+	self:PushToChannel(community,{Mg=msg,Ic=community,Snd="news",Se=Se,It="gr"},"talk")
+	
+	return true
+end
+
+function dynamic_news_manager:GenerateDynNewsAdvertisementTrader()
+	local community = "stalker"
+	local sentences = {}
+	local string_count = 1
+	while true do 
+		local tr_s = game.translate_string("st_dyn_news_advertisement_trader_"..string_count)
+		if (tr_s == "st_dyn_news_advertisement_trader_"..string_count) then 
+			break 
+		else 
+			table.insert(sentences,tr_s)
+		end
+		string_count = string_count + 1
+	end
+	
+	local senders = {}
+	string_count = 1
+	while true do 
+		local tr_s = game.translate_string("st_dyn_news_advertisement_trader_sender_"..string_count)
+		if (tr_s == "st_dyn_news_advertisement_trader_sender_"..string_count) then
+			break 
+		else 
+			table.insert(senders,tr_s)
+		end
+		string_count = string_count + 1
+	end
+	
+	if (#sentences == 0) then 	
+		return false
+	end
+	
+	local k = math.random(#sentences)
+	local Se = senders[k]
+	local msg = sentences[k]
+	self:PushToChannel(community,{Mg=msg,Ic=community,Snd="news",Se=Se,It="gr"},"talk")
+	
+	return true
+end
+
+function dynamic_news_manager:GenerateDynNewsWeather()
+	local fake_name, community, icon = self:CreateFakeSender()
+	local Se = strformat("%s, %s",fake_name,game.translate_string(community))
+	
+	local sender = self:FindSpeakerNoVictim(nil,nil,true)
+	if (sender) then
+		Se = strformat("%s, %s",sender:character_name(),GetCommunityDescription(sender,6))
+		icon = sender:character_icon()
+		community = sender:character_community()
+	end
+	
+	local sentences = {}
+	local string_count = 1
+	while true do 
+		local tr_s = game.translate_string("st_dyn_news_weather_"..self.curr_weather.."_"..string_count)
+		if (tr_s == "st_dyn_news_weather_"..self.curr_weather.."_"..string_count) then 
+			break 
+		else 
+			table.insert(sentences,tr_s)
+		end
+		string_count = string_count + 1
+	end
+	
+	if (#sentences == 0) then 	
+		return false
+	end
+	
+	local msg = sentences[math.random(#sentences)]
+	self:PushToChannel(community,{Mg=msg,Ic=icon,Snd="news",Se=Se,It="npc"},"talk")
+	
+	return true
+end
+
+function dynamic_news_manager:GenerateDynNewsTime()
+	local y,m,d,h,mint,sec,ms = game.get_game_time():get()
+	if not ((h >= 5 and h <= 7) or (h >= 19 and h <= 22)) then
+		self:GenerateDynamicMsg()
+		return
+	end
+	local time_day = ""
+	if (h >= 5 and h <= 7) then
+		time_day = "morning_"
+	elseif (h >= 19 and h <= 22) then
+		time_day = "evening_"
+	end
+	
+	local fake_name, community, icon = self:CreateFakeSender()
+	local Se = strformat("%s, %s",fake_name,game.translate_string(community))
+	
+	local sender = self:FindSpeakerNoVictim(nil,nil,true)
+	if (sender) then
+		Se = strformat("%s, %s",sender:character_name(),GetCommunityDescription(sender,6))
+		icon = sender:character_icon()
+		community = sender:character_community()
+	end
+	
+	local sentences = {}
+	local string_count = 1
+	while true do 
+		local tr_s = game.translate_string("st_dyn_news_"..time_day..string_count)
+		if (tr_s == "st_dyn_news_"..time_day..string_count) then 
+			break 
+		else 
+			table.insert(sentences,tr_s)
+		end
+		string_count = string_count + 1
+	end
+	
+	if (#sentences == 0) then 	
+		return false
+	end
+	
+	local msg = sentences[math.random(#sentences)]
+	self:PushToChannel(community,{Mg=msg,Ic=icon,Snd="news",Se=Se,It="npc"},"talk")
+	
+	return true
+end
+
+function dynamic_news_manager:GenerateDynNewsConversation()
+	local y,m,d,h,mint,sec,ms = game.get_game_time():get()
+	if ((math.random(0,1) <= 0.95) and not (h >=23 and h < 4)) then
+		self:GenerateDynamicMsg()
+		return
+	end
+	
+	local fake_name, community, icon = self:CreateFakeSender()
+	local Se = strformat("%s, %s",fake_name,game.translate_string(community))
+	
+	local sender = self:FindSpeakerNoVictim(nil,nil,true)
+	if (sender) then
+		Se = strformat("%s, %s",sender:character_name(),GetCommunityDescription(sender,6))
+		icon = sender:character_icon()
+		community = sender:character_community()
+	end
+	
+	local msg = "GenerateDynNewsConversation"
+	self:PushToChannel(community,{Mg=msg,Ic=icon,Snd="news",Se=Se,It="npc"},"talk")
+	
+	return true
+end
+
+-------------------- Семецкий и ГГ-убийца своих -----------------------------------------------------------------------
+function dynamic_news_manager:GenerateSemeckyMsg()
+	local community = "general"
+	local Se = game.translate_string("st_dyn_news_died_stalker")
+	
+	local slevel = {}
+	local string_count = 1
+	while true do 
+		local tr_s = game.translate_string("st_dyn_news_semecky_level_"..string_count)
+		if (tr_s == "st_dyn_news_semecky_level_"..string_count) then 
+			break 
+		else 
+			table.insert(slevel,tr_s)
+		end
+		string_count = string_count + 1
+	end
+	
+	local smutant = {}
+	string_count = 1 
+	while true do 
+		local tr_s = game.translate_string("st_dyn_news_semecky_mutant_"..string_count)
+		if (tr_s == "st_dyn_news_semecky_mutant_"..string_count) then 
+			break 
+		else 
+			table.insert(smutant,tr_s)
+		end
+		string_count = string_count + 1
+	end
+	
+	local a = game.translate_string("st_dyn_news_semecky_name")
+	local b = slevel[math.random(#slevel)]
+	local c = smutant[math.random(#smutant)]
+	
+	local msg = strformat("%s. %s. %s.",a,b,c)
+	self:PushToChannel(community,{Mg=msg,Ic="default",Snd="news",Se=Se,It="gr"},"queue")
+	
+	return true
+end
+
+function dynamic_news_manager:DeathByActorTimer(victim,who)
+	if (self.channel_status[victim:character_community()]) then
+		self.actor_kill = victim:character_community()
+		self.actor_timer = game.get_game_time()
+	end
+end
+
+function dynamic_news_manager:GenerateDeathByActor()
+	
+	local sender = self:FindSpeakerCommunityNoVictim(self.actor_kill,nil,nil,true)
+	if not (sender) then
+		return false
+	end
+	
+	local Se = game.translate_string("st_dyn_news_comm_"..self.actor_kill.."_15")
+	local Se2 = strformat("%s, %s",sender:character_name(),GetCommunityDescription(sender,6))
+	
+	local sentences = {}
+	local string_count = 1
+	while true do 
+		local tr_s = game.translate_string("st_dyn_news_death_by_actor_"..string_count)
+		if (tr_s == "st_dyn_news_death_by_actor_"..string_count) then 
+			break 
+		else 
+			table.insert(sentences,tr_s)
+		end
+		string_count = string_count + 1
+	end
+	
+	local replys = {}
+	string_count = 1
+	while true do 
+		local tr_s = game.translate_string("st_dyn_news_death_by_actor_reply_"..string_count)
+		if (tr_s == "st_dyn_news_death_by_actor_reply_"..string_count) then
+			break 
+		else 
+			table.insert(replys,tr_s)
+		end
+		string_count = string_count + 1
+	end
+	
+	local msg = sentences[math.random(#sentences)]
+	local msg2 = replys[math.random(#replys)]
+	
+	self:PushToChannel(sender:character_community(),{Mg=msg2,Ic=sender:character_icon(),Snd="news",Se=Se2,It="npc"},"queue")
+	self:PushToChannel(sender:character_community(),{Mg=msg,Ic=sender:character_community(),Snd="news",Se=Se,It="gr"},"queue")
+	
+	game_relations.set_factions_community(sender:character_community(),db.actor:character_community(),"enemy")
+	game_relations.set_factions_community(db.actor:character_community(),sender:character_community(),"enemy")
+	self.actor_timer = nil
+	return true
+end
+
+-------------------- Генерация сообщений о выбросе --------------------------------------------------------------------
+function dynamic_news_manager:GenerateSurgeMsg()
+	if self.delta_surge == 0 then return end
+	local d_surge, h_surge = self:get_surge_time()
+	if d_surge > 1 then return end
+	
+	local fake_name, fake_community, fake_icon = self:CreateFakeSender()
+	local Se = strformat("%s, %s",fake_name,game.translate_string(fake_community))
+	
+	local sentences = {}
+	local string_count = 1
+	while true do 
+		local tr_s = game.translate_string("st_dyn_news_surge_"..string_count)
+		if (tr_s == "st_dyn_news_surge_"..string_count) then 
+			break 
+		else 
+			table.insert(sentences,tr_s)
+		end
+		string_count = string_count + 1
+	end
+	
+	if (#sentences == 0) then 	
+		return false
+	end
+	
+	local b,c = self:get_surge_time_string(d_surge,h_surge)
+	
+	self:GenerateSurgeReply()
+	local msg = strformat(sentences[math.random(#sentences)],game.translate_string(b),game.translate_string(c))
+	self:PushToChannel(fake_community,{Mg=msg,Ic=fake_icon,Snd="news",Se=Se,It="npc"},"surge")
+	
+	return true
+end
+
+function dynamic_news_manager:GenerateSurgeReply()
+	
+	local fake_name, fake_community, fake_icon = self:CreateFakeSender()
+	local Se = strformat("%s, %s",fake_name,game.translate_string(fake_community))
+	
+	local sentences = {}
+	local string_count = 1
+	while true do 
+		local tr_s = game.translate_string("st_dyn_news_surge_reply_"..string_count)
+		if (tr_s == "st_dyn_news_surge_reply_"..string_count) then 
+			break 
+		else 
+			table.insert(sentences,tr_s)
+		end
+		string_count = string_count + 1
+	end
+	
+	if (#sentences == 0) then 	
+		return false
+	end
+	
+	local msg = sentences[math.random(#sentences)]
+	self:PushToChannel(fake_community,{Mg=msg,Ic=fake_icon,Snd="news",Se=Se,It="npc"},"surge")
+	return true
+end
+
+function dynamic_news_manager:get_surge_time_string(d_surge,h_surge)
+	local b,c
+	if d_surge == 0 then b = "st_dyn_news_surge_today"
+	elseif d_surge == 1 then b = "st_dyn_news_surge_tomorrow" end
+	
+	if h_surge >=23 or h_surge < 4 then
+		c = "st_dyn_news_surge_night"
+	elseif h_surge >= 4 and h_surge < 8  then
+		c = "st_dyn_news_surge_morning"
+	elseif h_surge >= 8 and h_surge < 12  then
+		c = "st_dyn_news_surge_to_noon"
+	elseif h_surge >= 12 and h_surge < 16  then
+		c = "st_dyn_news_surge_afternoon"
+	elseif h_surge >= 16 and h_surge < 19  then
+		c = "st_dyn_news_surge_evening"
+	elseif h_surge >= 19 and h_surge < 23  then
+		c = "st_dyn_news_surge_to_midnight"
+	end
+	
+	return b,c
+end
+
+function dynamic_news_manager:get_surge_time()
+	local d_surge, h_surge
+	local delta_all = self.delta_surge
+	
+	local y,m,d,h,mint,sec,ms = game.get_game_time():get()
+	local d_t = d
+	local h_t = h
+	
+	if delta_all < 24 - h_t then
+		d_surge = 0
+		h_surge = h_t + delta_all
+	elseif (delta_all - 24 + h_t) < 24 then
+		d_surge = 1
+		h_surge = delta_all - 24 + h_t
+	elseif (delta_all - 24 + h_t) > 24 then
+		d_surge = 2
+		h_surge = delta_all - 48 + h_t
+	else
+		d_surge = 3
+	end
+	
+	return d_surge,h_surge
+end
+
+function dynamic_news_manager:set_surge_time(delta_time)
+	self.delta_surge = math.floor(delta_time/3600)
+end
+
+function dynamic_news_manager:finish_surge()
+	self.news_surge = true
+	self.surge_timer = game.get_game_time()
+end
+
+function dynamic_news_manager:set_curr_weather(weather)
+	self.curr_weather = weather
+end
+
+-------------------- Вывод сообщений на экран -------------------------------------------------------------------------
+function dynamic_news_manager:send_tip(msg, header, timeout, showtime, sender, sound,icon_by)
+	if not (msg and db.actor) then 
+		return false
+	end
+	
+	msg = "%c[default]" .. game.translate_string(msg)
+	header = header or game.translate_string("st_tip")
+	timeout = timeout or 0 
+	showtime = showtime or math.random(7,10)
+	sender = sender or "default"
+
+	local snd = "pda_tips"
+	
+	if sound =="news" then
+		snd = "pda_news"
+	elseif sound == "danger" then
+		snd = "pda_alarm"
+	end
+  
+	xr_sound.set_sound_play(db.actor:id(), snd)
+  
+	if icon_by=="gr" then
+		ui_sender = tips_icons[sender]
+	elseif  icon_by=="npc" then
+		ui_sender = sender
+	elseif icon_by==nil then
+		ui_sender = tips_icons[sender]
+	end
+  
+	if not (ui_sender) then
+		return false 
+	end
+
+	db.actor:give_game_news(header, msg, ui_sender, timeout*1000, showtime*1000)
+
+	return true
+end
+
+-------------------- Вспомогательные функции --------------------------------------------------------------------------
+local function get_object_levelname(obj)
+	if not (obj) then 
+		return "nil"
+	end 
+	
+	local gvid = obj.m_game_vertex_id or obj.game_vertex_id and obj:game_vertex_id()
+	if not (gvid) then 
+		return "nil"
+	end
+	
+	local gg = game_graph()
+	if (gg:valid_vertex_id(gvid)) then
+		cvertex = gg:vertex(gvid)
+		return alife():level_name(cvertex:level_id())
+	end
+			
+	return "nil"
+end
+
+function GetPointDescription(obj)
+	local level_name = get_object_levelname(obj)
+	if not (level_name) then 
+		return 
+	end 
+	
+	local m_s = game.translate_string("st_dyn_news_"..level_name)
+	return m_s
+	--[[local point = type(obj.position) == "function" and obj:position() or obj.position
+	if not (point and all_points[level_name]) then 
+		return m_s
+	end
+	
+	local m_point = nil
+	local near_id = nil
+	local near_dist = nil
+	for key0,value in ipairs(all_points[level_name]) do
+		local pos = vector():set(value[1],value[2],value[3])
+		local dist = pos:distance_to_sqr(point)
+		if (near_dist == nil or dist < near_dist) then
+			near_dist = dist
+			near_id = key0
+			near_point = pos
+		end
+		if (near_dist <= 30) then -- pointless to process further
+			break 
+		end
+	end
+	
+	if not (near_point) then
+		return m_s
+	end
+	
+	local m_str = game.translate_string("st_dyn_"..level_name.."_daleko_"..near_id)
+	local m_str0 = game.translate_string("st_dyn_"..level_name.."_blizko_"..near_id)
+				
+	if near_dist <= 20 then
+		return strformat("%s %s",m_s,m_str0)
+	elseif near_dist < 50 then
+		return strformat("%s %s %s",m_s,game.translate_string("st_dyn_news_near"),m_str)
+	elseif near_dist < 100 then
+		return strformat("%s %s %s",m_s,game.translate_string("st_dyn_news_close"),m_str)
+	end
+	
+	local dx = point.x-near_point.x
+	local dy = point.z-near_point.z
+	local radians = math.atan2(dy,dx)
+	local angle = 0
+	if (radians) then
+		angle=radians*57
+		if(angle < 0)then 
+			angle = angle+360 
+		end
+		if(angle > 360)then 
+			angle = angle-360 
+		end
+	end
+	
+	if (angle>=330 or angle<=30) then
+		return strformat("%s %s %s",m_s,game.translate_string("st_dyn_news_east"),m_str)
+	elseif (angle>30 and angle<=60) then
+		return strformat("%s %s %s",m_s,game.translate_string("st_dyn_news_north_east"),m_str)
+	elseif (angle>60 and angle<=120) then
+		return strformat("%s %s %s",m_s,game.translate_string("st_dyn_news_north"),m_str)
+	elseif (angle>120 and angle<=150) then
+		return strformat("%s %s %s",m_s,game.translate_string("st_dyn_news_north_west"),m_str)
+	elseif (angle>150 and angle<=210) then
+		return strformat("%s %s %s",m_s,game.translate_string("st_dyn_news_west"),m_str)
+	elseif (angle>210 and angle<=240) then
+		return strformat("%s %s %s",m_s,game.translate_string("st_dyn_news_south_west"),m_str)
+	elseif (angle>240 and angle<= 300) then
+		return strformat("%s %s %s",m_s,game.translate_string("st_dyn_news_south"),m_str)
+	elseif (angle>300 and angle<=330) then
+		return strformat("%s %s %s",m_s,game.translate_string("st_dyn_news_south_east"),m_str)
+	end
+		
+	return strformat("%s %s %s",m_s,game.translate_string("st_dyn_news_close"),m_str)]]--
+end
+
+function GetCommunityDescription(obj,index)
+	local comm = obj:character_community()
+	if (obj:id() == 0 and comm ~= "actor") then 
+		comm = comm:sub(7)
+	end 
+	
+	local msg = game.translate_string("st_dyn_news_comm_" .. comm .. "_" .. index)
+	if (msg == "st_dyn_news_comm_" .. comm .. "_" .. index) then
+		return "some asshole"
+	end
+	
+	return msg
+end
+
+function GetMonsterDescriptionOffline(obj,index)
+	local cls = obj:clsid()
+	local m_class = {
+		[clsid.bloodsucker_s] 			= "bloodsucker",
+		[clsid.boar_s] 					= "boar",
+		[clsid.dog_s] 					= "dog",
+		[clsid.flesh_s] 				= "flesh",
+		[clsid.pseudodog_s] 			= "pseudodog",
+		[clsid.burer_s] 				= "burer",
+		[clsid.cat_s] 					= "cat",
+		[clsid.chimera_s] 				= "chimera",
+		[clsid.controller_s] 			= "controller",
+		[clsid.fracture_s] 				= "fracture",
+		[clsid.poltergeist_s] 			= "poltergeist",
+		[clsid.gigant_s] 				= "gigant",
+		[clsid.zombie_s] 				= "zombie",
+		[clsid.snork_s] 				= "snork",
+		[clsid.tushkano_s] 				= "tushkano",
+		[clsid.psy_dog_s] 				= "psy_dog",
+		[clsid.psy_dog_phantom_s] 		= "psy_dog_phantom"
+	}
+	
+	local class = m_class[cls] or "zombied"
+	return game.translate_string("st_dyn_news_"..class.."_"..index)
+end
+
+function GetMonsterDescription(obj,index)
+
+	local cls = obj:clsid()
+	local sec = obj:section()
+	local msg = game.translate_string("st_dyn_news_" .. sec .. "_" .. index)
+	if (msg == "st_dyn_news_" .. sec .. "_" .. index) then
+		msg = nil
+	end
+	if msg then
+		return msg
+	elseif not (IsMonster(nil,cls)) then
+		if sec:find("_zombied") then
+			return game.translate_string("st_dyn_news_zombied_" .. index)
+		else
+			return "not a monster"
+		end
+	end
+	
+	return GetMonsterDescriptionOffline(obj,index)
+end
+
+function GetWeaponClass(obj)
+	local wpn = obj:active_item()
+	if not (wpn) then 
+		return 1 
+	end
+	local cls = wpn:clsid()
+	if (IsRifle(nil,cls)) then
+		return 2
+	elseif (IsPistol(nil,cls)) then 
+		return 3
+	elseif (IsSniper(nil,cls)) then
+		return 4
+	elseif (IsShotgun(nil,cls)) then 
+		return 5
+	elseif (cls == clsid.wpn_knife_s) then 
+		return 6
+	elseif (IsLauncher(nil,cls)) then
+		return 7
+	elseif (cls == clsid.wpn_grenade_f1 or cls == clsid.wpn_grenade_rgd5) then 
+		return 8
+	end
+	return 1
+end 
+
+function GetWeaponDescription(obj,index)
+	local cls = GetWeaponClass(obj)
+	return game.translate_string("st_dyn_news_wpn_cls_"..cls.."_"..index)
+end
+
+----------------------------------------------------------------------------------------------------------------------
+function dynamic_news_manager:save(packet)
+	set_save_marker(packet, "save", false, "dynamic_news_manager")
+	
+	packet:w_float(self.delta_surge)
+	if self.talk_timer == nil then
+		packet:w_bool(false)
+	else
+		packet:w_bool(true)
+		utils.w_CTime(packet, self.talk_timer)
+	end
+	
+	if self.surge_timer == nil then
+		packet:w_bool(false)
+	else
+		packet:w_bool(true)
+		utils.w_CTime(packet, self.surge_timer)
+	end
+	
+	if self.semecky_timer == nil then
+		packet:w_bool(false)
+	else
+		packet:w_bool(true)
+		utils.w_CTime(packet, self.semecky_timer)
+	end
+	
+	if self.actor_timer == nil then
+		packet:w_bool(false)
+	else
+		packet:w_bool(true)
+		utils.w_CTime(packet, self.actor_timer)
+	end
+	
+	packet:w_stringZ(self.actor_kill)
+	packet:w_bool(self.news_surge)
+	
+	set_save_marker(packet, "save", true, "dynamic_news_manager")
+end
+
+function dynamic_news_manager:load(packet)
+	set_save_marker(packet, "load", false, "dynamic_news_manager")
+	
+	self.delta_surge = packet:r_float()
+	local b = packet:r_bool()
+	if b == true then
+		self.talk_timer = utils.r_CTime(packet)
+	end
+	
+	b = packet:r_bool()
+	if b == true then
+		self.surge_timer = utils.r_CTime(packet)
+	end
+	
+	b = packet:r_bool()
+	if b == true then
+		self.semecky_timer = utils.r_CTime(packet)
+	end
+	
+	b = packet:r_bool()
+	if b == true then
+		self.actor_timer = utils.r_CTime(packet)
+	end
+	
+	self.actor_kill = packet:r_stringZ()
+	self.news_surge = packet:r_bool()
+	
+	set_save_marker(packet, "load", true, "dynamic_news_manager")
+end

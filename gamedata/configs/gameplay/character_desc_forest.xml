@@ -1,0 +1,246 @@
+<?xml version='1.0' encoding="windows-1251"?>
+
+<xml>
+
+<specific_character id="fst_voron" team_default = "1">
+<name>fst_voron_name</name>
+<icon>ui_inGame2_neutral_1</icon>
+<map_icon x="1" y="0">
+</map_icon>
+<bio>Ћпытный сталкер. „етальнаЯ информациЯ отсутствует.</bio>
+<class>fst_voron</class>
+<community>renegade</community>
+<terrain_sect>stalker_terrain</terrain_sect>
+<snd_config>characters_voice\human_01\stalker\</snd_config>
+<rank>1283</rank>
+<reputation>0</reputation>
+<money min="1000" max="10000" infinitive="0" />
+	<visual>actors\stalker_hunter\stalker_hunter_3_voron</visual>
+	<supplies>
+	[spawn] \n
+		wpn_toz34 = 1 \n
+		ammo_12x70_buck = 1 \n
+		wpn_pb = 1 \n
+		ammo_9x18_fmj = 1 \n
+
+	#include "gameplay\character_items_nd.xml"
+	#include "gameplay\character_food.xml"
+	#include "gameplay\character_drugs.xml"
+	</supplies>
+
+		<start_dialog>fst_voron_dialog_start_game</start_dialog>
+		<actor_dialog>fst_voron_actor_ate</actor_dialog>
+		<actor_dialog>fst_voron_materials</actor_dialog>
+		<actor_dialog>fst_voron_actor_sleep</actor_dialog>
+		<actor_dialog>fst_voron_bring_art</actor_dialog>
+		
+		<actor_dialog>actor_break_dialog</actor_dialog>
+	</specific_character>
+
+<specific_character id="fst_gonta" team_default = "1">
+<name>fst_gonta_name</name>
+<icon>ui_inGame2_neutral_1</icon>
+<map_icon x="1" y="0">
+</map_icon>
+<bio>Ћпытный сталкер. „етальнаЯ информациЯ отсутствует.</bio>
+<class>fst_gonta</class>
+<community>renegade</community>
+<terrain_sect>stalker_terrain</terrain_sect>
+<snd_config>characters_voice\human_01\stalker\</snd_config>
+<rank>1318</rank>
+<reputation>0</reputation>
+<money min="1000" max="10000" infinitive="0" />
+<visual>actors\stalker_hunter\stalker_hunter_2_gonta</visual>
+<supplies>
+[spawn] \n
+	wpn_spas12 = 1 \n
+	ammo_12x70_buck = 1 \n
+	wpn_colt1911 = 1 \n
+      ammo_11.43x23_fmj = 1 \n
+
+#include "gameplay\character_items_veteran_sp.xml"
+#include "gameplay\character_food.xml"
+#include "gameplay\character_drugs.xml"
+</supplies>
+
+		<start_dialog>fst_gonta_start</start_dialog>
+		<actor_dialog>fst_gonta_guide</actor_dialog>
+	
+	<actor_dialog>actor_break_dialog</actor_dialog>
+</specific_character>
+
+<specific_character id="fst_crab" team_default = "1">
+<name>fst_crab_name</name>
+<icon>ui_inGame2_neutral_1</icon>
+<map_icon x="1" y="0">
+</map_icon>
+<bio>Ћпытный сталкер. „етальнаЯ информациЯ отсутствует.</bio>
+<class>fst_crab</class>
+<community>renegade</community>
+<terrain_sect>stalker_terrain</terrain_sect>
+<snd_config>characters_voice\human_03\stalker\</snd_config>
+<rank>1104</rank>
+<reputation>0</reputation>
+<money min="1000" max="10000" infinitive="0" />
+<visual>actors\stalker_hunter\stalker_hunter_2_crab</visual>
+<supplies>
+[spawn] \n
+	wpn_wincheaster1300 = 1 \n
+	ammo_12x70_buck = 1 \n
+	wpn_fort = 1 \n
+	ammo_9x18_fmj = 1 \n
+
+#include "gameplay\character_items_veteran_sp.xml"
+#include "gameplay\character_food.xml"
+#include "gameplay\character_drugs.xml"
+</supplies>
+<actor_dialog>actor_break_dialog</actor_dialog>
+</specific_character>
+
+<specific_character id="fst_vobla" team_default = "1">
+<name>fst_vobla_name</name>
+<icon>ui_inGame2_neutral_1</icon>
+<map_icon x="1" y="0">
+</map_icon>
+<bio>Ћпытный сталкер. „етальнаЯ информациЯ отсутствует.</bio>
+<class>fst_vobla</class>
+<community>renegade</community>
+<terrain_sect>stalker_terrain</terrain_sect>
+<snd_config>characters_voice\human_03\stalker\</snd_config>
+<rank>1216</rank>
+<reputation>0</reputation>
+<money min="1000" max="10000" infinitive="0" />
+<visual>actors\stalker_hunter\stalker_hunter_2_vobla</visual>
+<supplies>
+[spawn] \n
+	wpn_wincheaster1300 = 1 \n
+	ammo_12x70_buck = 1 \n
+	wpn_fort = 1 \n
+	ammo_9x18_fmj = 1 \n
+
+#include "gameplay\character_items_veteran_sp.xml"
+#include "gameplay\character_food.xml"
+#include "gameplay\character_drugs.xml"
+</supplies>
+<actor_dialog>actor_break_dialog</actor_dialog>
+</specific_character>
+
+<specific_character id="fst_trader" team_default = "1">
+<name>fst_trader_name</name>
+<icon>ui_inGame2_neutral_1</icon>
+<map_icon x="1" y="0">
+</map_icon>
+<bio>Ћпытный сталкер. „етальнаЯ информациЯ отсутствует.</bio>
+<class>fst_trader</class>
+<community>renegade</community>
+<terrain_sect>stalker_terrain</terrain_sect>
+<snd_config>characters_voice\human_03\stalker\</snd_config>
+<rank>941</rank>
+<reputation>0</reputation>
+<money min="100000" max="1000000" infinitive="1" />
+<visual>actors\stalker_hunter\stalker_hunter_3_trader</visual>
+<supplies>
+[spawn] \n
+	wpn_spas12 = 1 \n
+	ammo_12x70_buck = 1 \n
+	wpn_fort = 1 \n
+	ammo_9x18_fmj = 1 \n
+</supplies>
+
+		<start_dialog>fst_trader_start</start_dialog>
+		<actor_dialog>fst_trader_bring_art</actor_dialog>
+		
+<actor_dialog>actor_break_dialog</actor_dialog>
+</specific_character>
+
+<specific_character id="fst_technic" team_default = "1">
+<name>fst_technic_name</name>
+<icon>ui_inGame2_neutral_1</icon>
+<map_icon x="1" y="0">
+</map_icon>
+<bio>Ћпытный сталкер. „етальнаЯ информациЯ отсутствует.</bio>
+<class>fst_technic</class>
+<mechanic_mode>1</mechanic_mode>
+<community>renegade</community>
+<terrain_sect>stalker_terrain</terrain_sect>
+<snd_config>characters_voice\human_03\stalker\</snd_config>
+<rank>692</rank>
+<reputation>0</reputation>
+<money min="5000" max="15000" infinitive="0" />
+<visual>actors\stalker_hunter\stalker_hunter_1_tech</visual>
+<supplies>
+	[spawn] \n
+	wpn_toz34 = 1 \n
+	ammo_12x70_buck = 1 \n
+	wpn_fort = 1 \n
+	ammo_9x18_fmj = 1 \n
+</supplies>
+
+		<start_dialog>fst_tech_start</start_dialog>
+		<actor_dialog>fst_tech_instr</actor_dialog>
+		<actor_dialog>zat_b3_stalker_tech_instruments</actor_dialog>
+		<actor_dialog>zat_b3_stalker_tech_drink_1</actor_dialog>
+		<actor_dialog>zat_b3_stalker_tech_drink_2</actor_dialog>
+		<actor_dialog>zat_b3_stalker_tech_drink_3</actor_dialog>
+
+<actor_dialog>actor_break_dialog</actor_dialog>
+</specific_character>
+
+<specific_character id="fst_medved" team_default = "1">
+<name>fst_medved_name</name>
+<icon>ui_inGame2_neutral_1</icon>
+<map_icon x="1" y="0">
+</map_icon>
+<bio>Ћпытный сталкер. „етальнаЯ информациЯ отсутствует.</bio>
+<class>fst_medved</class>
+<community>renegade</community>
+<terrain_sect>stalker_terrain</terrain_sect>
+<snd_config>characters_voice\human_03\stalker\</snd_config>
+<rank>50</rank>
+<reputation>0</reputation>
+<money min="1000" max="10000" infinitive="0" />
+<visual>actors\stalker_hunter\stalker_hunter_1b_mask</visual>
+<supplies>
+[spawn] \n
+	wpn_spas12 = 1 \n
+	ammo_12x70_buck = 1 \n
+	wpn_fort = 1 \n
+	ammo_9x18_fmj = 1 \n
+
+#include "gameplay\character_items_veteran_sp.xml"
+#include "gameplay\character_food.xml"
+#include "gameplay\character_drugs.xml"
+</supplies>
+<actor_dialog>actor_break_dialog</actor_dialog>
+</specific_character>
+
+<specific_character id="fst_kremen" team_default = "1">
+<name>fst_kremen_name</name>
+<icon>ui_inGame2_neutral_1</icon>
+<map_icon x="1" y="0">
+</map_icon>
+<bio>Ћпытный сталкер. „етальнаЯ информациЯ отсутствует.</bio>
+<class>fst_kremen</class>
+<community>renegade</community>
+<terrain_sect>stalker_terrain</terrain_sect>
+<snd_config>characters_voice\human_03\stalker\</snd_config>
+<rank>50</rank>
+<reputation>0</reputation>
+<money min="1000" max="10000" infinitive="0" />
+<visual>actors\stalker_hunter\stalker_hunter_1b_mask</visual>
+<supplies>
+[spawn] \n
+	wpn_wincheaster1300 = 1 \n
+	ammo_12x70_buck = 1 \n
+	wpn_fort = 1 \n
+	ammo_9x18_fmj = 1 \n
+
+#include "gameplay\character_items_veteran_sp.xml"
+#include "gameplay\character_food.xml"
+#include "gameplay\character_drugs.xml"
+</supplies>
+<actor_dialog>actor_break_dialog</actor_dialog>
+</specific_character>
+
+
+</xml>

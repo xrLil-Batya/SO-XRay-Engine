@@ -1,0 +1,13 @@
+; смарт между хижиной и деревней
+
+[smart_terrain]
+squad_id = 17
+max_population = 1
+respawn_params = respawn@smart_monster_8
+
+[respawn@smart_monster_8]
+spawn_dog@smart_monster_8
+
+[spawn_dog@smart_monster_8]
+spawn_squads = {+info_mutant_spawn_hard +info_mutant_spawn_medium +info_mutant_spawn_basic} fst_smart_monster_8_squad_3, {-info_mutant_spawn_hard +info_mutant_spawn_medium +info_mutant_spawn_basic} fst_smart_monster_8_squad_2, {-info_mutant_spawn_hard -info_mutant_spawn_medium +info_mutant_spawn_basic} fst_smart_monster_8_squad
+spawn_num = 1

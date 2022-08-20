@@ -1,0 +1,42 @@
+class "ui_clc_menu" (CUIScriptWnd)
+
+function ui_clc_menu:__init(owner) super()
+	self.owner = owner
+	self:InitControls()
+	self:InitCallBacks()
+end
+
+function ui_clc_menu:__finalize()
+end
+
+function ui_clc_menu:InitControls()
+	self:SetWndRect			(Frect():set(0,0,1024,768))
+	local xml, ctrl			= CScriptXmlInit(), CUIWindow()
+	xml:ParseFile			("message_box.xml")
+	self.form				= xml:InitStatic("message_box_change_level_disabled",self)
+
+	xml:InitStatic			("message_box_change_level_disabled:message_text",self.form)
+
+	ctrl = xml:Init3tButton	("message_box_change_level_disabled:button_ok",	self.form)
+	self:Register			(ctrl, "button_close")
+end
+
+function ui_clc_menu:InitCallBacks()
+	self:AddCallback("button_close", ui_events.BUTTON_CLICKED, self.OnButton_close_clicked, self)
+end
+
+function ui_clc_menu:OnButton_close_clicked()
+	self:HideDialog()
+	db.actor:give_info_portion("level_changer_choise_no")
+end
+
+function run_clc_gui(folder)
+	folder:ShowDialog(true)
+end
+
+
+function level_changer_choise(info_id)
+	if info_id == "level_changer_need_choise" then 
+		run_gui(this.ui_clc_menu())
+	end
+end

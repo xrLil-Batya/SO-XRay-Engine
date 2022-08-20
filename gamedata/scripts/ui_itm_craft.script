@@ -1,0 +1,370 @@
+--[[
+Copyright (C) 2012 Alundaio
+This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+
+Modified to craft system by Lanforse
+--]]
+----------------------------------------------------------------------------------------------------------------------
+-- Файл:        		UI_ITM_CRAFT.SCRIPT
+-- Описание:    		Скриптовый интерфейс готовки на костре и в печи.
+-- Последняя редакция:	03.07.2022
+-- Адаптация:       	ARTLantist
+----------------------------------------------------------------------------------------------------------------------
+local parts_id = {}
+
+local Recepies = {}
+local Recepies1 = {
+{"sewing_kit_b_4",      1, "textile_patch_m", "synthrope", "swiss", "grooming"},
+{"armor_repair_fa_2",   1, "glue_a_2", "textile_patch_m", "textile_patch_b", "textile_patch_b"},
+{"sewing_kit_a_2",      1, "textile_patch_e", "textile_patch_e", "swiss", "synthrope"},
+{"sewing_kit_h",        1, "sewing_kit_b_4", "textile_patch_e", "textile_patch_e", "synthrope"},
+}
+
+local Recepies2 = {
+{"toolkit_p", 	        1, "toolkit_p_0", "cleaning_kit_p_3", "spareparts", "grease"},
+{"toolkit_s", 	        1, "toolkit_s_0", "cleaning_kit_s_3", "spareparts", "grease"},
+{"toolkit_r", 	        1, "toolkit_r_0", "cleaning_kit_r_3", "spareparts", "grease"},
+{"helmet_repair_kit", 	1, "helmet_repair_kit_0", "armor_repair_fa_2", "textile_patch_e", "synthrope"},
+{"armor_repair_pro", 	1, "armor_repair_pro_0", "sewing_kit_h", "textile_patch_e", "textile_patch_b"},
+}
+
+local Recepies3 = {
+{"af_aac", 				1, "af_iam", "af_iam", "geiger", "colophony"},
+}
+
+local RecepiesM = {
+{"bandage", 	        1, "bottle_metal", "textile_patch_b", "-", "-"},
+{"bandage", 	        2, "bottle_metal_2", "textile_patch_b", "textile_patch_b", "-"},
+{"bandage", 	        3, "bottle_metal_3", "textile_patch_b", "textile_patch_b", "textile_patch_b"},
+}
+
+class "ui_craft" (CUIScriptWnd)
+
+function ui_craft:__init(owner,section) super()
+	self.owner = owner
+	self.section = section
+	
+	Recepies = {}
+	local Recepies_add = {}
+	if 		(section == "itm_repairkit_tier_1") 	then Recepies_add = Recepies1
+	elseif 	(section == "itm_repairkit_tier_2") 	then Recepies_add = Recepies2
+	elseif 	(section == "itm_repairkit_tier_3") 	then Recepies_add = Recepies3
+	elseif 	(section == "itm_drugkit")				then Recepies_add = RecepiesM end
+	for k,v in pairs(Recepies_add) do
+		table.insert(Recepies,v)
+	end
+	
+	self:InitControls()
+	self:InitCallBacks()
+end
+
+function ui_craft:__finalize()
+end
+
+function ui_craft:FillCraftList()
+	self.list_craft:RemoveAll()
+	for i = 1, #Recepies do
+		self:AddItemTo_list_craft(Recepies[i][1],Recepies[i][2])
+	end
+end
+
+function ui_craft:InitControls()
+	local xml = CScriptXmlInit()
+	self:SetWndRect(Frect():set(0,0,1024,768))
+	self:SetWndPos(vector2():set(240,120))
+	xml:ParseFile("ui_craft.xml")
+	self.Main = xml:InitStatic("Main", self)
+	self.Main:SetWndPos(vector2():set(0, 0))
+	self:Register(xml:Init3tButton("Main:btn_ok", self.Main), "btn_ok")
+	self:Register(xml:Init3tButton("Main:btn_quit", self.Main), "btn_quit")
+	xml:InitFrame("Main:list_craft_frame", self.Main)
+	self.list_craft = xml:InitListBox("Main:list_craft", self.Main)
+	self.list_craft:ShowSelectedItem(true)
+	self:Register(self.list_craft, "list_craft")
+	
+	-- Tool picture
+	self.icon_tool = xml:InitStatic("Main:icon_tool",self.Main)
+
+	-- Tool Title
+	local used_name = game.translate_string(system_ini():r_string(self.section, "inv_name"))
+	caption_tool = xml:InitTextWnd("Main:caption_tool",self.Main)
+	caption_tool:SetText(used_name)
+	
+	--Craft Window Title
+	xml:InitTextWnd("Main:caption_craft_title",self.Main)
+	xml:InitTextWnd("Main:caption_material_title",self.Main)
+	
+	local inv_grid_width = system_ini():r_float(self.section,"inv_grid_width")
+	local inv_grid_height = system_ini():r_float(self.section,"inv_grid_height")
+	local inv_grid_x = system_ini():r_float(self.section,"inv_grid_x")
+	local inv_grid_y = system_ini():r_float(self.section,"inv_grid_y")
+	
+	local x1 = inv_grid_x*50
+	local y1 = inv_grid_y*50
+
+	local w = inv_grid_width*50
+	local h = inv_grid_height*50
+
+	local x2 = x1 + w
+	local y2 = y1 + h
+
+	self.icon_tool:InitTexture("ui\\ui_icon_equipment")
+	self.icon_tool:SetTextureRect(Frect():set(x1,y1,x2,y2))
+	
+	self.caption_part1 = xml:InitTextWnd("Main:caption_part1",self.Main)
+	self.caption_part2 = xml:InitTextWnd("Main:caption_part2",self.Main)
+	self.caption_part3 = xml:InitTextWnd("Main:caption_part3",self.Main)
+	self.caption_part4 = xml:InitTextWnd("Main:caption_part4",self.Main)
+	
+	self.icon_part1 = xml:InitStatic("Main:icon_part1",self.Main)
+	self.icon_part2 = xml:InitStatic("Main:icon_part2",self.Main)
+	self.icon_part3 = xml:InitStatic("Main:icon_part3",self.Main)
+	self.icon_part4 = xml:InitStatic("Main:icon_part4",self.Main)
+	
+	self.icon_part1:InitTexture("ui\\ui_icon_equipment")
+	self.icon_part2:InitTexture("ui\\ui_icon_equipment")
+	self.icon_part3:InitTexture("ui\\ui_icon_equipment")
+	self.icon_part4:InitTexture("ui\\ui_icon_equipment")
+	
+	self.icon_part1:SetTextureRect(Frect():set(0,0,0,0))
+	self.icon_part2:SetTextureRect(Frect():set(0,0,0,0))
+	self.icon_part3:SetTextureRect(Frect():set(0,0,0,0))
+	self.icon_part4:SetTextureRect(Frect():set(0,0,0,0))
+end
+
+function ui_craft:InitCallBacks()
+	self:AddCallback("btn_ok", ui_events.BUTTON_CLICKED, self.btn_ok_button_clicked, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.btn_quit_button_clicked, self)
+	self:AddCallback("list_craft", ui_events.LIST_ITEM_CLICKED, self.list_craft_list_item_clicked, self)
+	self:AddCallback("list_craft", ui_events.WINDOW_LBUTTON_DB_CLICK, self.list_craft_list_item_db_clicked, self)
+end
+
+function ui_craft:list_craft_list_item_clicked()
+	parts_id = {}
+	found = {false,false,false,false}
+	
+	if self.list_craft:GetSize()==0 then return end
+
+	local item = self.list_craft:GetSelectedItem()
+	if not (item) then return end
+	
+	self.caption_part1:SetText("")
+	self.caption_part2:SetText("")
+	self.caption_part3:SetText("")
+	self.caption_part4:SetText("")
+	self.caption_part1:SetTextColor(GetARGB(200, 255, 0, 0))
+	self.caption_part2:SetTextColor(GetARGB(200, 255, 0, 0))
+	self.caption_part3:SetTextColor(GetARGB(200, 255, 0, 0))
+	self.caption_part4:SetTextColor(GetARGB(200, 255, 0, 0))
+	
+	self.icon_part1:SetTextureRect(Frect():set(0,0,0,0))
+	self.icon_part2:SetTextureRect(Frect():set(0,0,0,0))
+	self.icon_part3:SetTextureRect(Frect():set(0,0,0,0))
+	self.icon_part4:SetTextureRect(Frect():set(0,0,0,0))
+		
+	local index = self.list_craft:GetSelectedIndex()
+	if index == -1 then return end
+	local Recepie = Recepies[index+1]
+	
+	if not (Recepie) then return end
+	
+	local tmp_x = 120
+	local tmp_y = 25
+	local size_k = 0.7
+	if (Recepie[3]) then
+		local sec = Recepie[3]
+				
+		local function search(temp, item)
+			if (not found[1]) and (item:section() == sec) and (not parts_id[item:id()]) then
+				found[1] = true
+				parts_id[item:id()] = true
+				self.caption_part1:SetTextColor(GetARGB(200, 0, 255, 0))
+			end
+		end
+		db.actor:iterate_inventory(search,nil)
+		
+		if (sec == "-") then found[1] = true
+		else
+		local name = game.translate_string(system_ini():r_string(sec, "inv_name"))
+		self.caption_part1:SetText(game.translate_string(name))
+		
+		local inv_grid_width = system_ini():r_float(sec,"inv_grid_width")
+		local inv_grid_height = system_ini():r_float(sec,"inv_grid_height")
+		local inv_grid_x = system_ini():r_float(sec,"inv_grid_x")
+		local inv_grid_y = system_ini():r_float(sec,"inv_grid_y")
+		local x1 = inv_grid_x*50
+		local y1 = inv_grid_y*50
+		local width = inv_grid_width*50
+		local height = inv_grid_height*50
+		local x2 = x1 + width
+		local y2 = y1 + height
+		local pos = self.icon_part1:GetWndPos()
+		self.icon_part1:SetTextureRect(Frect():set(x1,y1,x2,y2))
+		self.icon_part1:SetWndPos(vector2():set(tmp_x-width/3,90+tmp_y-height/2))
+		self.icon_part1:SetWndSize(vector2():set(width*size_k,height*size_k))
+		end
+	end
+	
+	if (Recepie[4]) then
+		local sec = Recepie[4]
+
+		local function search(temp, item)
+			if (not found[2]) and (item:section() == sec) and (not parts_id[item:id()]) then
+				found[2] = true
+				parts_id[item:id()] = true
+				self.caption_part2:SetTextColor(GetARGB(200, 0, 255, 0))
+			end
+		end
+		db.actor:iterate_inventory(search,nil)
+			
+		if (sec == "-") then found[2] = true
+		else
+		local name = game.translate_string(system_ini():r_string(sec, "inv_name"))
+		self.caption_part2:SetText(name)
+		local inv_grid_width = system_ini():r_float(sec,"inv_grid_width")
+		local inv_grid_height = system_ini():r_float(sec,"inv_grid_height")
+		local inv_grid_x = system_ini():r_float(sec,"inv_grid_x")
+		local inv_grid_y = system_ini():r_float(sec,"inv_grid_y")
+		local x1 = inv_grid_x*50
+		local y1 = inv_grid_y*50
+		local width = inv_grid_width*50
+		local height = inv_grid_height*50
+		local x2 = x1 + width
+		local y2 = y1 + height
+		self.icon_part2:SetTextureRect(Frect():set(x1,y1,x2,y2))
+		local pos = self.icon_part2:GetWndPos()
+		self.icon_part2:SetWndPos(vector2():set(tmp_x-width/3,175+tmp_y-height/2))
+		self.icon_part2:SetWndSize(vector2():set(width*size_k,height*size_k))
+		end
+	end
+	
+	if (Recepie[5]) then
+		local sec = Recepie[5]
+
+		local function search(temp, item)
+			if (not found[3]) and (item:section() == sec) and (not parts_id[item:id()]) then
+				found[3] = true
+				parts_id[item:id()] = true
+				self.caption_part3:SetTextColor(GetARGB(200, 0, 255, 0))
+			end
+		end
+		db.actor:iterate_inventory(search,nil)
+		
+		if (sec == "-") then found[3] = true
+		else
+		local name = game.translate_string(system_ini():r_string(sec, "inv_name"))
+		self.caption_part3:SetText(name)
+		local inv_grid_width = system_ini():r_float(sec,"inv_grid_width")
+		local inv_grid_height = system_ini():r_float(sec,"inv_grid_height")
+		local inv_grid_x = system_ini():r_float(sec,"inv_grid_x")
+		local inv_grid_y = system_ini():r_float(sec,"inv_grid_y")
+		local x1 = inv_grid_x*50
+		local y1 = inv_grid_y*50
+		local width = inv_grid_width*50
+		local height = inv_grid_height*50
+		local x2 = x1 + width
+		local y2 = y1 + height
+		self.icon_part3:SetTextureRect(Frect():set(x1,y1,x2,y2))
+		local pos = self.icon_part3:GetWndPos()
+		self.icon_part3:SetWndPos(vector2():set(tmp_x-width/3,260+tmp_y-height/2))
+		self.icon_part3:SetWndSize(vector2():set(width*size_k,height*size_k))
+		end
+	end	
+	
+	if (Recepie[6]) then
+		local sec = Recepie[6]
+
+		local function search(temp, item)
+			if (not found[4]) and (item:section() == sec) and (not parts_id[item:id()]) then
+				found[4] = true
+				parts_id[item:id()] = true
+				self.caption_part4:SetTextColor(GetARGB(200, 0, 255, 0))
+			end
+		end
+		db.actor:iterate_inventory(search,nil)
+		
+		if (sec == "-") then found[4] = true
+		else
+		local name = game.translate_string(system_ini():r_string(sec, "inv_name"))
+		self.caption_part4:SetText(name)
+		local inv_grid_width = system_ini():r_float(sec,"inv_grid_width")
+		local inv_grid_height = system_ini():r_float(sec,"inv_grid_height")
+		local inv_grid_x = system_ini():r_float(sec,"inv_grid_x")
+		local inv_grid_y = system_ini():r_float(sec,"inv_grid_y")
+		local x1 = inv_grid_x*50
+		local y1 = inv_grid_y*50
+		local width = inv_grid_width*50
+		local height = inv_grid_height*50
+		local x2 = x1 + width
+		local y2 = y1 + height
+		self.icon_part4:SetTextureRect(Frect():set(x1,y1,x2,y2))
+		local pos = self.icon_part4:GetWndPos()
+		self.icon_part4:SetWndPos(vector2():set(tmp_x-width/3,345+tmp_y-height/2))
+		self.icon_part4:SetWndSize(vector2():set(width*size_k,height*size_k))
+		end
+	end
+	
+	self.can_craft = found[1] and found[2] and found[3] and found[4]
+end
+
+function ui_craft:list_craft_list_item_db_clicked()
+	self:btn_ok_button_clicked()
+end
+
+function ui_craft:btn_ok_button_clicked()
+	if not self.can_craft then return end
+	local index = self.list_craft:GetSelectedIndex()
+	if index == -1 then return end
+	
+	local result = Recepies[index+1][1]
+	local num	 = Recepies[index+1][2]
+	
+	if (string.find(result,"ammo_")) then
+		create_ammo(result,db.actor:position(),db.actor:level_vertex_id(),db.actor:game_vertex_id(),0,num)
+	else
+		for i = 1, num do
+			alife():create(result,db.actor:position(),db.actor:level_vertex_id(),db.actor:game_vertex_id(),db.actor:id())
+		end
+	end
+	
+	for k,v in pairs(parts_id) do
+		alife():release(alife():object(k),true)
+	end
+	
+    actor_effects.use_item("cleaning_kit")
+	
+	self:HideDialog()
+end
+
+function ui_craft:btn_quit_button_clicked()
+	self:HideDialog()
+end
+
+function ui_craft:OnKeyboard(dik, keyboard_action)
+	CUIScriptWnd.OnKeyboard(self,dik,keyboard_action)
+	if (keyboard_action == ui_events.WINDOW_KEY_PRESSED) then
+		if (dik == DIK_keys.DIK_ESCAPE) then
+			self:btn_quit_button_clicked()
+		end
+	end
+	return true
+end
+------------------- >>>  Класс элемента списка list_craft  <<< -------------------
+
+class "list_craft_ListItem"(CUIListBoxItem)
+function list_craft_ListItem:__init() super()
+	self.text_item = self:GetTextItem()
+	self.text_item:SetFont(GetFontLetterica18Russian())
+	self.text_item:SetTextColor(GetARGB(255,216,186,140))
+end
+------------------- >>>  END  <<< -------------------
+
+function ui_craft:AddItemTo_list_craft(sec,num)
+	local _itm = list_craft_ListItem()
+	local item_name = string.format("%s%s%s%u",game.translate_string(system_ini():r_string(sec, "inv_name"))," ","x",num)
+	_itm.text_item:SetText(item_name)
+	_itm.text_item:SetWndSize(vector2():set(220, 18))
+	_itm.section		= sec
+	_itm.count			= num
+ 	self.list_craft:AddExistingItem(_itm)
+end

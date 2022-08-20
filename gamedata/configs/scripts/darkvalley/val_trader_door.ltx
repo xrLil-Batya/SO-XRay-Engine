@@ -1,0 +1,36 @@
+[logic]
+active = ph_door@closed
+
+[ph_door@locked]
+locked = true
+closed = true
+snd_open_start = wood_large_open
+on_info = {!actor_has_weapon} ph_door@closed
+on_info2 = {+val_freedom_base_under_attack} ph_door@locked_alarm
+tip_open = tip_door_closed_hide_weapon
+
+[ph_door@closed]
+locked = false
+closed = true
+snd_open_start = wood_large_open
+snd_close_start = wood_large_close_start
+snd_close_stop = wood_large_close_stop
+on_use = ph_door@open
+on_info = {+val_freedom_base_under_attack} ph_door@locked_alarm
+on_info2 = {=actor_has_weapon} ph_door@locked
+
+[ph_door@open]
+locked = false
+closed = false
+snd_open_start = wood_large_open
+snd_close_start = wood_large_close_start
+snd_close_stop = wood_large_close_stop
+on_use = ph_door@closed
+on_info = {+val_freedom_base_under_attack} ph_door@locked_alarm
+on_info2 = {=actor_has_weapon} ph_door@locked
+
+[ph_door@locked_alarm]
+closed = true
+locked = true
+snd_open_start = wood_large_open
+tip_open = tip_door_closed_base_alarm

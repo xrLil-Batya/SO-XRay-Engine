@@ -1,0 +1,25 @@
+[smart_terrain]
+squad_id = 4
+max_population = 2
+att_restr = gar_dolg_blockpost_sr_attack
+def_restr = gar_dolg_blockpost_sr_defence
+respawn_params = respawn@gar_dolg_blockpost
+arrive_dist = 90
+
+[respawn@gar_dolg_blockpost]
+spawn_dolg@gar_dolg_blockpost
+
+[spawn_dolg@gar_dolg_blockpost]
+spawn_squads = gar_dolg_blockpost_squad
+spawn_num = {!squad_exist(gar_dolg_blockpost_squad)} 1, 0
+
+[exclusive]
+gar_dolg_blockpost_guarder_1 = garbage\gar_dolg_blockpost_guarders.ltx
+gar_dolg_blockpost_guarder_2 = garbage\gar_dolg_blockpost_guarders.ltx
+gar_dolg_blockpost_guarder_3 = garbage\gar_dolg_blockpost_guarders.ltx
+gar_dolg_blockpost_guarder_4 = garbage\gar_dolg_blockpost_guarders.ltx
+gar_dolg_blockpost_guarder_5 = garbage\gar_dolg_blockpost_guarders.ltx
+gar_dolg_blockpost_guarder_6 = garbage\gar_dolg_blockpost_guarders.ltx
+gar_dolg_blockpost_guarder_7 = garbage\gar_dolg_blockpost_guarders.ltx
+gar_dolg_blockpost_guarder_8 = garbage\gar_dolg_blockpost_guarders.ltx
+gar_dolg_blockpost_guarder_9 = garbage\gar_dolg_blockpost_guarders.ltx

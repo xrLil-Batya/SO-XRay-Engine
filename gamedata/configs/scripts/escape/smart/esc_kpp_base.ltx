@@ -1,0 +1,26 @@
+[smart_terrain]
+squad_id = 23
+max_population = 3
+arrive_dist = 120
+att_restr = esc_kpp_base_sr_attack
+def_restr = esc_kpp_base_sr_defence
+spawn_point = esc_kpp_base_default_spawn
+respawn_params = respawn@kpp
+
+[respawn@kpp]
+spawn_stalker@kpp
+
+[spawn_stalker@kpp]
+spawn_squads = esc_kpp_base_squad
+spawn_num = {!squad_exist(esc_kpp_base_squad)} 1, 0
+
+[exclusive]
+;guarders day jobs
+esc_kpp_base_guarder_1 = escape\esc_kpp_base_guarders.ltx
+esc_kpp_base_guarder_2 = escape\esc_kpp_base_guarders.ltx
+esc_kpp_base_guarder_3 = escape\esc_kpp_base_guarders.ltx
+esc_kpp_base_guarder_4 = escape\esc_kpp_base_guarders.ltx
+esc_kpp_base_guarder_5 = escape\esc_kpp_base_guarders.ltx
+esc_kpp_base_guarder_6 = escape\esc_kpp_base_guarders.ltx
+esc_kpp_base_guarder_7 = escape\esc_kpp_base_guarders.ltx
+esc_kpp_base_guarder_8 = escape\esc_kpp_base_guarders.ltx

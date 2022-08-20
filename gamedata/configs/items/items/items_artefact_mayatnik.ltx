@@ -1,0 +1,203 @@
+;===============================================================================================================
+;===============================================================================================================
+;========================= Маятники ============================================================================
+;===============================================================================================================
+;===============================================================================================================
+
+[af_mayatnik_base]:af_base
+$spawn 				= "artefacts\gravitational_babka_1"
+class   			= ARTEFACT
+
+visual				= dynamics\artefacts\af_dummy_glassbeads.ogf
+description			= st_af_mayatnik_tuman_descr
+inv_name			= st_af_mayatnik_tuman_name
+inv_name_short		= st_af_mayatnik_tuman_name
+inv_weight			= 2.71
+
+inv_grid_x			= 31
+inv_grid_y			= 34
+
+cost				= 125000
+
+jump_height			= .01
+
+particles				           = artefact\af_electra_idle 
+det_show_particles		           = artefact\af_electra_show 
+det_hide_particles		           = artefact\af_electra_hide 
+
+af_rank				= 0
+art_level 			= 9
+
+lights_enabled = true
+
+trail_light_color 		= 0.9,0.4,0.2
+trail_light_range 		= 2.0
+
+;скорость уменьшения состояния артефакта и возможность его удаления при достижении 5%
+degradate						   = true
+degradate_speed					   = 0.000008
+
+;скорости увеличения (уменьшения)
+health_restore_speed		= 0
+radiation_restore_speed		= 0
+satiety_restore_speed		= 0
+power_restore_speed			= 0
+bleeding_restore_speed		= 0
+
+additional_inventory_weight		= 0
+additional_inventory_weight2	= 0
+
+hit_absorbation_sect = af_mayatnik_absorbation_base
+
+[af_mayatnik_absorbation_base]
+burn_immunity 			= 0
+strike_immunity 		= 0
+shock_immunity 			= 0
+wound_immunity 			= 0
+radiation_immunity 		= 0
+telepatic_immunity 		= 0
+chemical_burn_immunity 	= 0
+explosion_immunity 		= 0
+fire_wound_immunity  	= 0
+
+;------------------------------------------------------------------------------------------
+;========================= 01.Туманный маятник ============================================
+;------------------------------------------------------------------------------------------
+
+[af_mayatnik_tuman]:af_mayatnik_base
+$spawn 				= "artefacts\af_mayatnik_tuman"
+class   			= ARTEFACT
+
+visual				= dynamics\anomaly\sfera_gantela.ogf
+description			= st_af_mayatnik_tuman_descr
+inv_name			= st_af_mayatnik_tuman_name
+inv_name_short		= st_af_mayatnik_tuman_name
+inv_weight			= 2.71
+
+inv_grid_x			= 36
+inv_grid_y			= 35
+
+hit_absorbation_sect = af_mayatnik_tuman_absorbation
+
+[af_mayatnik_tuman_absorbation]:af_mayatnik_absorbation_base
+wound_immunity 			= 0.5
+
+
+;------------------------------------------------------------------------------------------
+;========================= 02.Лесной маятник ==============================================
+;------------------------------------------------------------------------------------------
+
+[af_mayatnik_les]:af_mayatnik_base
+$spawn 				= "artefacts\af_mayatnik_les"
+class   			= ARTEFACT
+
+visual				= dynamics\anomaly\chipsi_anim.ogf
+description			= st_af_mayatnik_les_descr
+inv_name			= st_af_mayatnik_les_name
+inv_name_short		= st_af_mayatnik_les_name
+inv_weight			= 2.86
+
+inv_grid_x			= 37
+inv_grid_y			= 35
+
+bleeding_restore_speed			   = 0.00167
+
+hit_absorbation_sect = af_mayatnik_absorbation_base
+
+
+;------------------------------------------------------------------------------------------
+;========================= 03.Маятник Радара ==============================================
+;------------------------------------------------------------------------------------------
+
+[af_mayatnik_radar]:af_mayatnik_base
+$spawn 				= "artefacts\af_mayatnik_radar"
+class   			= ARTEFACT
+
+visual				= dynamics\anomaly\kletka.ogf
+description			= st_af_mayatnik_radar_descr
+inv_name			= st_af_mayatnik_radar_name
+inv_name_short		= st_af_mayatnik_radar_name
+inv_weight			= 2.59
+
+inv_grid_x			= 38
+inv_grid_y			= 35
+
+power_restore_speed			   = 0.01
+
+hit_absorbation_sect = af_mayatnik_absorbation_base
+
+
+;------------------------------------------------------------------------------------------
+;========================= 04.Николин маятник =============================================
+;------------------------------------------------------------------------------------------
+
+[af_mayatnik_nicola]:af_mayatnik_base
+$spawn 				= "artefacts\af_mayatnik_nicola"
+class   			= ARTEFACT
+
+visual				= dynamics\anomaly\spaika_2.ogf
+description			= st_af_mayatnik_nicola_descr
+inv_name			= st_af_mayatnik_nicola_name
+inv_name_short		= st_af_mayatnik_nicola_name
+inv_weight			= 2.42
+
+inv_grid_x			= 39
+inv_grid_y			= 35
+
+hit_absorbation_sect = af_mayatnik_nicola_absorbation
+
+[af_mayatnik_nicola_absorbation]
+burn_immunity 			= 0
+strike_immunity 		= 0
+shock_immunity 			= 0
+wound_immunity 			= 0
+radiation_immunity 		= 0
+telepatic_immunity 		= 0.5
+chemical_burn_immunity 	= 0
+explosion_immunity 		= 0
+fire_wound_immunity  	= 0
+
+
+;------------------------------------------------------------------------------------------
+;========================= 05.Припятский маятник ==========================================
+;------------------------------------------------------------------------------------------
+
+[af_mayatnik_prip]:af_mayatnik_base
+$spawn 				= "artefacts\af_mayatnik_nicola"
+class   			= ARTEFACT
+
+visual				= dynamics\anomaly\shkatulka.ogf
+description			= st_af_mayatnik_prip_descr
+inv_name			= st_af_mayatnik_prip_name
+inv_name_short		= st_af_mayatnik_prip_name
+inv_weight			= 2.62
+
+inv_grid_x			= 40
+inv_grid_y			= 35
+
+hit_absorbation_sect = af_mayatnik_prip_absorbation
+
+[af_mayatnik_prip_absorbation]:af_mayatnik_absorbation_base
+radiation_immunity 	= 0.05
+
+
+;------------------------------------------------------------------------------------------
+;========================= 06.Чернобыльский маятник =======================================
+;------------------------------------------------------------------------------------------
+
+[af_mayatnik_chernob]:af_mayatnik_base
+$spawn 				= "artefacts\af_mayatnik_nicola"
+class   			= ARTEFACT
+
+visual				= dynamics\anomaly\serafim.ogf
+description			= st_af_mayatnik_chernob_descr
+inv_name			= st_af_mayatnik_chernob_name
+inv_name_short		= st_af_mayatnik_chernob_name
+inv_weight			= 2.56
+
+inv_grid_x			= 36
+inv_grid_y			= 36
+
+radiation_restore_speed		= -0.00025
+
+hit_absorbation_sect = af_mayatnik_absorbation_base

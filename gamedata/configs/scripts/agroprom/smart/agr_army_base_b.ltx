@@ -1,0 +1,21 @@
+[smart_terrain]
+squad_id = 3
+max_population = 3
+att_restr = agr_army_base_sr_attack
+def_restr = agr_army_base_sr_defence
+arrive_dist = 75
+respawn_params = respawn@agr_army_base_b
+
+[respawn@agr_army_base_b]
+spawn_army@agr_army_base_b
+
+[spawn_army@agr_army_base_b]
+spawn_squads = agr_army_base_b_squad
+spawn_num = {!squad_exist(agr_army_base_b_squad)} 1, 0
+
+[exclusive]
+agr_army_base_b_guarder_1 = agroprom\agr_army_base_guarders.ltx
+agr_army_base_b_guarder_2 = agroprom\agr_army_base_guarders.ltx
+agr_army_base_b_guarder_3 = agroprom\agr_army_base_guarders.ltx
+agr_army_base_b_guarder_4 = agroprom\agr_army_base_guarders.ltx
+agr_army_base_b_guarder_5 = agroprom\agr_army_base_guarders.ltx

@@ -1,0 +1,34 @@
+<w>
+  <icon      x="66" y="38" width="99" height="87" stretch="1"/>
+  <icon_over x="66" y="38" width="99" height="87" stretch="1">
+    <texture>ui_inGame2_actor_overlay</texture>
+  </icon_over>
+
+  <name_static x="12" y="146" width="158" height="20">
+    <text font="graffiti22" color="ui_6"  complex_mode="0"/>
+  </name_static>
+
+	<rank_icon           x="17" y="35" width="38" height="50"/>
+	
+	<commumity_icon      x="14" y="78" width="45" height="56" stretch="1"/>
+	
+	
+	<community_caption x="14" y="166" width="50" height="15">
+		<text align="l" font="letterica16" color="ui_9">ui_st_community</text>
+	</community_caption>
+	<community_static x="75" y="166" width="92" height="15">
+		<text align="l" font="letterica16" color="ui_9"/>
+	</community_static>
+	<rank_caption x="14" y="181" width="120" height="15">
+		<text x="0" y="0" font="letterica16" color="ui_9">ui_st_rank</text>
+	</rank_caption>
+	<rank_static x="75" y="181" width="120" height="15">
+		<text x="0" y="0" font="letterica16" color="ui_9"/>
+	</rank_static>
+	<relation_caption x="14" y="196" width="120" height="15">
+		<text x="0" y="0" font="letterica16" color="ui_9">ui_st_relation</text>
+	</relation_caption>
+	<relation_static x="75" y="196" width="120" height="15">
+		<text x="0" y="0" font="letterica16" color="ui_9"/>
+	</relation_static>
+</w>

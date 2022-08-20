@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding="windows-1251"?>
+
+<game_information_portions>
+     <info_portion id="agru_leader_dolg_task_complete"></info_portion>
+     <info_portion id="agru_door_1_closed"></info_portion>
+     <info_portion id="agru_controller_death"></info_portion>
+     <info_portion id="agru_teleport_complete"></info_portion>
+     <info_portion id="agru_open_story_door"></info_portion>
+     <info_portion id="agru_stop_siren"></info_portion>
+</game_information_portions>

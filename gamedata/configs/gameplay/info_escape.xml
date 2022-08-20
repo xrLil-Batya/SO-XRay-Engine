@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding="windows-1251"?>
+
+<game_information_portions>
+
+  <info_portion id="esc_wolf_talked"></info_portion>
+  <info_portion id="esc_wolf_talked_2"></info_portion>
+
+  <info_portion id="esc_trader_bye_played"></info_portion>
+  <info_portion id="esc_trader_hello_played"></info_portion>
+  <info_portion id="esc_actor_comes_2_trader"></info_portion>
+  
+  <info_portion id="esc_trader_hello_first_played"></info_portion>
+  <info_portion id="esc_trader_hello_search_played"></info_portion>
+  <info_portion id="esc_trader_hello_return_played"></info_portion>
+  <info_portion id="esc_trader_bye_search_played"></info_portion>
+  <info_portion id="esc_trader_bye_first_search_played"></info_portion>
+  <info_portion id="esc_trader_bye_garbage_played"></info_portion>
+  <info_portion id="esc_player_sleeps"></info_portion>
+  <info_portion id="esc_skip_angry"></info_portion>
+
+
+  <info_portion id="esc_trader_talked"></info_portion>
+  <info_portion id="esc_actor_come_first"></info_portion>
+  <info_portion id="esc_actor_inside_traders_dung"></info_portion>
+  <info_portion id="esc_trader_angry"></info_portion>
+   <info_portion id="esc_reach_trader_complete"></info_portion>
+   <info_portion id="esc_actor_comes2door"></info_portion>
+
+  <info_portion id="esc_voditel_talked"></info_portion>
+  
+	<info_portion id="esc_3_16_enemy"></info_portion>
+	<info_portion id="stalkerbase_enemy_to_actor"></info_portion>
+	<info_portion id="novice_base_enemy_to_actor"></info_portion>
+	<info_portion id="poluchit_snaryagu_u_tehnika"></info_portion>
+	<info_portion id="snaryaga_u_tehnika_poluchena"></info_portion>
+	<info_portion id="vse_snaryagenie_polucheno"></info_portion>
+	<info_portion id="perhod_na_bolota_otkryt_stalker"></info_portion>
+	<info_portion id="perhod_na_bolota_otkryt_voennyi"></info_portion>
+	<info_portion id="perhod_na_bolota_otkryt"></info_portion>
+
+	<info_portion id="level_changer_need_choise"></info_portion>
+	<info_portion id="level_changer_choise_no"></info_portion>
+</game_information_portions>

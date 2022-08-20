@@ -1,0 +1,545 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;алкоголь;;;;;;;;;;;;;;;;;;
+[drink_base]
+sort_in_consumables = true
+use_script_anim 	= true ;переменная для предметов со скриптовыми анимациями - отключает съедание предмета, для дальнейшего его съедания в конце анимации.
+
+[vodka]:booster,drink_base ;1l
+$spawn 				= "food and drugs\vodka"
+cform				= skeleton
+visual				= dynamics\devices\dev_vodka\dev_vodka.ogf
+description			= st_vodka_descr
+inv_name			= st_vodka
+inv_name_short		= st_vodka
+inv_weight			= 0.798
+inv_grid_width		= 1
+inv_grid_height		= 2
+inv_grid_x			= 18
+inv_grid_y			= 8
+cost				= 500
+use_condition           = false
+max_uses                = 1
+attach_angle_offset		= 0.000000, 0.000000, 0.000000
+attach_position_offset	= 0.087266, -0.078540, 0.052360
+attach_bone_name		= bip01_r_hand
+auto_attach				= false
+bone_name				= bip01_r_hand
+position_offset			= 0.0,0.0,0.0
+angle_offset			= 1.570790,1.570790,3.92699
+break_particles			= destroy_fx\destroy_bottle
+break_sound				= material\bottle\collide\bottle_break_1
+boost_time				= 60
+boost_radiation_restore	= 0.000022 ;-10м«в
+eat_alcohol				= 0.195
+eat_satiety				= 0.120
+;use_sound				= interface\inv_drink_flask_effect
+repair_part_bonus	 	= 0.03
+eat_health				= -0.005
+eat_sleep 				= 0.05
+
+; Script Animation Settings:
+snd = interface\item_usage\vodka_use
+anm = item_anm_kazaki_vodka_hud
+cam = itemuse_anm_effects\vodka_use.anm
+tm = 4300
+tm_use = 3000
+helm = false
+
+[vodka_2]:vodka
+$spawn 				= "food and drugs\vodka_2"
+cost				= 1000
+inv_weight			= 1.126
+inv_grid_x			=19
+
+[vodka_3]:vodka
+$spawn 				= "food and drugs\vodka_3"
+cost				= 1500
+inv_weight			= 1.454
+inv_grid_x			= 20
+
+[vodka_quality]:booster,drink_base ;1l
+$spawn 				= "food and drugs\vodka_quality"
+cform				= skeleton
+visual				= dynamics\drink\drink_vodka.ogf
+description			= st_vodka_quality_descr
+inv_name			= st_vodka_quality
+inv_name_short		= st_vodka_quality
+inv_weight			= 0.798
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 21
+inv_grid_y			= 8
+cost				= 800
+use_condition       = false
+max_uses            = 1
+attach_angle_offset		= 0.000000, 0.000000, 0.000000
+attach_position_offset	= 0.087266, -0.078540, 0.052360
+attach_bone_name		= bip01_r_hand
+auto_attach				= false
+bone_name				= bip01_r_hand
+position_offset			 = 0.0,0.0,0.0
+angle_offset			 = 1.570790,1.570790,3.92699
+break_particles		= destroy_fx\destroy_bottle
+break_sound			= material\bottle\collide\bottle_break_1
+boost_time				= 60
+boost_radiation_restore	= 0.000045
+eat_alcohol				= 0.280
+eat_satiety				= 0.180
+;use_sound				= interface\inv_drink_flask_effect
+repair_part_bonus	 	= 0.04
+eat_health				= -0.005
+eat_sleep 				= 0.04
+
+; Script Animation Settings:
+snd = interface\item_usage\drink_flask3
+anm = item_anm_flask2_hud
+cam = itemuse_anm_effects\drink_flask.anm
+tm = 8000
+tm_use = 5500
+helm = false
+
+[vodka_quality_2]:vodka_quality
+$spawn 				= "food and drugs\vodka_quality_2"
+cost				= 1600
+inv_weight			= 1.126
+inv_grid_y			= 9
+
+[vodka_quality_3]:vodka_quality
+$spawn 				= "food and drugs\vodka_quality_3"
+cost				= 2400
+inv_weight			= 1.454
+inv_grid_y			= 10
+
+[vodka_script]:vodka ; не использовать
+$spawn 				= "food and drugs\vodka_script"
+inv_weight			= 0
+
+[bottle_metal]:booster,drink_base ;1l
+$spawn 				= "food and drugs\bottle_metal"
+inv_name_short			= st_bottle_metal
+inv_name			= st_bottle_metal
+visual				= dynamics\drink\drink_water
+description			= st_bottle_metal_descr
+cost				= 200
+use_condition       = false
+max_uses            = 1
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 22
+inv_grid_y			= 8
+inv_weight			= 0.786
+attach_angle_offset		= 0.000000, 0.000000, 0.000000
+attach_position_offset		= 0.087266, -0.078540, 0.052360
+attach_bone_name		= bip01_r_hand
+auto_attach			= false
+boost_time				= 60
+boost_radiation_restore	= 0.000017
+eat_alcohol				= 0.400
+eat_satiety				= 0.110
+eat_health				= -0.02
+;use_sound				= interface\inv_drink_flask_effect
+repair_part_bonus	 	= 0.02
+eat_sleep 				= 0.06
+
+; Script Animation Settings:
+snd = interface\item_usage\water_flask
+anm = item_anm_water_flask_hud
+cam = itemuse_anm_effects\water_flask2.anm
+hud_cam = itemuse_anm_effects\water_flask_hands.anm
+tm = 12200
+tm_use = 9500
+helm = false
+
+[bottle_metal_2]:bottle_metal
+$spawn 				= "food and drugs\bottle_metal_2"
+cost				= 400
+inv_weight			= 1.103
+inv_grid_y			= 9
+
+[bottle_metal_3]:bottle_metal
+$spawn 				= "food and drugs\bottle_metal_3"
+cost				= 600
+inv_weight			= 1.420
+inv_grid_y			= 10
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;бустеры стамины;;;;;;;;;;;;;;;;;;;;;
+
+
+[energy_drink]:booster,drink_base ;250ml
+$spawn 					= "food and drugs\energy_drink"
+inv_name				= st_energy_drink
+inv_name_short			= st_energy_drink
+visual					= dynamics\devices\dev_drink_stalker\dev_drink_stalker
+description				= st_energy_drink_descr
+cost					= 500
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x				= 17
+inv_grid_y				= 10
+inv_weight				= 0.33
+attach_angle_offset		= 0.000000, 0.000000, 0.000000
+attach_position_offset	= 0.087266, -0.078540, 0.052360
+attach_bone_name		= bip01_r_hand
+auto_attach				= false
+boost_time				= 3600
+boost_power_restore		= 0.0020
+eat_satiety 			= 0.041
+eat_health				= 0.005
+eat_sleep 				= -0.04
+;use_sound				= interface\inv_drink_can2
+move_to_bouch 			= true
+move_to_cargo_belt 		= true
+sort_in_armor			= true
+quick_num				= 1
+slot 					= 26
+
+; Script Animation Settings:
+snd = interface\item_usage\drink_soda_use
+anm = item_anm_energy_drink_hud
+cam = itemuse_anm_effects\banka_use.anm
+tm = 3300
+tm_use = 2800
+helm = false
+
+[mineral_water]:booster,drink_base ;1l
+$spawn 				= "food and drugs\mineral_water"
+inv_name			= st_mineral_water
+inv_name_short			= st_mineral_water
+visual				= dynamics\devices\dev_mineral_water\dev_mineral_water.ogf
+description			= st_mineral_water_descr
+cost				= 300
+use_condition       = false
+max_uses            = 1
+inv_grid_width		= 1
+inv_grid_height		= 2
+inv_grid_x			= 23
+inv_grid_y			= 8
+inv_weight			= 0.368
+attach_angle_offset		= 0.000000, 0.000000, 0.000000
+attach_position_offset		= 0.087266, -0.078540, 0.052360
+attach_bone_name		= bip01_r_hand
+auto_attach				= false
+boost_time				= 2400
+boost_power_restore		= 0.00105
+eat_alcohol				= -0.14
+eat_health				= 0.005
+
+;use_sound			= interface\inv_drink_flask
+repair_part_bonus	 	= 0.01
+
+; Script Animation Settings:
+snd = interface\item_usage\vodka_use
+anm = item_anm_mineral_water_hud
+cam = itemuse_anm_effects\vodka_use.anm
+tm = 4300
+tm_use = 3600
+helm = false
+
+[mineral_water_2]:mineral_water
+$spawn 				= "food and drugs\mineral_water_2"
+cost				= 600
+inv_weight			= 0.701
+inv_grid_x			= 24
+
+[mineral_water_3]:mineral_water
+$spawn 				= "food and drugs\mineral_water_3"
+cost				= 900
+inv_weight			= 1.035
+inv_grid_x			= 25
+
+
+[flask]:booster,drink_base  ;1l
+$spawn 				= "food and drugs\flask"
+inv_name			= st_flask
+inv_name_short			= st_flask
+visual				= dynamics\drink\drink_flask
+description			= st_flask_descr
+cost				= 120
+use_condition       = false
+max_uses            = 1
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x			= 26
+inv_grid_y			= 8
+inv_weight			= 0.45
+attach_angle_offset		= 0.000000, 0.000000, 0.000000
+attach_position_offset		= 0.087266, -0.078540, 0.052360
+attach_bone_name		= bip01_r_hand
+auto_attach				= false
+boost_time				= 2400
+boost_power_restore		= 0.00092
+eat_alcohol				= -0.1
+eat_health				= 0.005
+;use_sound				= interface\inv_drink_flask_2
+repair_part_bonus	 	= 0.01
+
+; Script Animation Settings:
+snd = interface\item_usage\drink_flask4
+anm = item_anm_flask_hud
+cam = itemuse_anm_effects\drink_flask.anm
+tm = 8000
+tm_use = 5500
+helm = false
+
+[flask_2]:flask
+$spawn 				= "food and drugs\flask_2"
+cost				= 240
+inv_weight			= 0.70
+inv_grid_y			= 9
+
+[flask_3]:flask
+$spawn 				= "food and drugs\flask_3"
+cost				= 360
+inv_weight			= 0.95
+inv_grid_y			= 10
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;сигареты;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[cigarettes]:booster,drink_base ;x3
+$spawn 				= "food and drugs\cigarettes"
+visual				= dynamics\drink\drink_cigar0.ogf
+description			= st_cigarettes_descr
+inv_name			= st_cigarettes
+inv_name_short			= st_cigarettes
+inv_weight			= 0.003
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x			= 27
+inv_grid_y			= 8
+cost				= 200
+use_condition       = false
+max_uses            = 1
+attach_angle_offset		= -0.287979, 1.560923, 1.544060
+attach_position_offset	= 0.096910, -0.013594, 0.107925
+attach_bone_name		= bip01_r_hand
+auto_attach				= false
+// should be deleted after update
+bone_name				= bip01_r_hand
+position_offset			 = 0.0,0.0,0.0
+angle_offset			 = 1.570790,1.570790,3.92699
+;use_sound			= interface\inv_smoke
+eat_health				= -0.01
+eat_psy					= 0.06
+
+; Script Animation Settings:
+snd = interface\item_usage\ciga1
+anm = item_anm_cigarettes_hud
+cam = itemuse_anm_effects\cig_pack.anm
+tm = 39000
+tm_use = 22000
+helm = false
+smoke = true
+
+[cigarettes_2]:cigarettes
+$spawn 				= "food and drugs\cigarettes_2"
+cost				= 400
+inv_weight			= 0.004
+inv_grid_y			= 9
+
+[cigarettes_3]:cigarettes
+$spawn 				= "food and drugs\cigarettes_3"
+cost				= 600
+inv_weight			= 0.005
+inv_grid_y			= 10
+
+
+[cigarettes_lucky]:booster,drink_base ;x3
+$spawn 				= "food and drugs\cigarettes_lucky"
+visual				= dynamics\devices\dev_cigarettes_lucky\dev_cigarettes_lucky.ogf
+description			= st_cigarettes_lucky_descr
+inv_name			= st_cigarettes_lucky
+inv_name_short		= st_cigarettes_lucky
+inv_weight			= 0.003
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 23
+inv_grid_y			= 10
+cost				= 400
+use_condition       = false
+max_uses            = 1
+attach_angle_offset		= -0.287979, 1.560923, 1.544060
+attach_position_offset	= 0.096910, -0.013594, 0.107925
+attach_bone_name		= bip01_r_hand
+auto_attach				= false
+// should be deleted after update
+bone_name				= bip01_r_hand
+position_offset			 = 0.0,0.0,0.0
+angle_offset			 = 1.570790,1.570790,3.92699
+
+;use_sound			= interface\inv_smoke
+eat_health				= -0.01
+eat_psy					= 0.09
+
+; Script Animation Settings:
+snd = interface\item_usage\ciga1
+anm = item_anm_cigarettes_lucky_hud
+cam = itemuse_anm_effects\cig_pack.anm
+tm = 39000
+tm_use = 22000
+helm = false
+smoke = true
+
+[cigarettes_lucky_2]:cigarettes_lucky
+$spawn 				= "food and drugs\cigarettes_lucky_2"
+cost				= 800
+inv_weight			= 0.004
+inv_grid_x			= 24
+
+[cigarettes_lucky_3]:cigarettes_lucky
+$spawn 				= "food and drugs\cigarettes_lucky_3"
+cost				= 1200
+inv_weight			= 0.005
+inv_grid_x			= 25
+
+
+[cigarettes_russian]:booster,drink_base ;x3
+$spawn 				= "food and drugs\cigarettes_russian"
+visual				= dynamics\devices\dev_cigarettes_russian\dev_cigarettes_russian.ogf
+description			= st_cigarettes_russian_descr
+inv_name			= st_cigarettes_russian
+inv_name_short		= st_cigarettes_russian
+inv_weight			= 0.005
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 18
+inv_grid_y			= 10
+cost				= 150
+use_condition       = false
+max_uses            = 1
+attach_angle_offset		= -0.287979, 1.560923, 1.544060
+attach_position_offset	= 0.096910, -0.013594, 0.107925
+attach_bone_name		= bip01_r_hand
+auto_attach				= false
+// should be deleted after update
+bone_name				= bip01_r_hand
+position_offset			 = 0.0,0.0,0.0
+angle_offset			 = 1.570790,1.570790,3.92699
+
+;use_sound			= interface\inv_smoke
+eat_health				= -0.01
+eat_psy					= 0.05
+
+; Script Animation Settings:
+snd = interface\item_usage\ciga1
+anm = cigarettes_russian_hud
+cam = itemuse_anm_effects\cig_pack.anm
+tm = 39000
+tm_use = 22000
+helm = false
+smoke = true
+
+[cigarettes_russian_2]:cigarettes_russian
+$spawn 				= "food and drugs\cigarettes_russian_2"
+cost				= 300
+inv_weight			= 0.004
+inv_grid_x			= 19
+
+[cigarettes_russian_3]:cigarettes_russian
+$spawn 				= "food and drugs\cigarettes_russian_3"
+cost				= 450
+inv_weight			= 0.003
+inv_grid_x			= 20
+
+
+[tobacco]:booster,drink_base ;x3
+$spawn 				= "food and drugs\tobacco"
+visual				= dynamics\drink\tobacco.ogf
+description			= st_tobacco_descr
+inv_name			= st_tobacco
+inv_name_short		= st_tobacco
+inv_weight			= 0.104
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 28
+inv_grid_y			= 8
+cost				= 400
+use_condition       = false
+max_uses            = 1
+attach_angle_offset		= -0.287979, 1.560923, 1.544060
+attach_position_offset		= 0.096910, -0.013594, 0.107925
+attach_bone_name		= bip01_r_hand
+auto_attach				= false
+// should be deleted after update
+bone_name				= bip01_r_hand
+position_offset			 = 0.0,0.0,0.0
+angle_offset			 = 1.570790,1.570790,3.92699
+
+eat_health				= -0.01
+eat_psy					= 0.1
+;use_sound				= interface\inv_smoke_tobacco
+
+; Script Animation Settings:
+snd = interface\item_usage\ciga1
+anm = item_anm_cigar1_hud
+cam = itemuse_anm_effects\cig_pack.anm
+tm = 39000
+tm_use = 22000
+helm = false
+smoke = true
+
+[tobacco_2]:tobacco
+$spawn 				= "food and drugs\tobacco_2"
+cost				= 800
+inv_weight			= 0.105
+inv_grid_y			= 9
+
+[tobacco_3]:tobacco
+$spawn 				= "food and drugs\tobacco_3"
+cost				= 1200
+inv_weight			= 0.106
+inv_grid_y			= 10
+
+
+[hand_rolling_tobacco]:booster,drink_base ;x3
+$spawn 				= "food and drugs\hand_rolling_tobacco"
+visual				= dynamics\devices\dev_hand_rolling_tobacco\dev_hand_rolling_tobacco.ogf
+description			= st_hand_rolling_tobacco_descr
+inv_name			= st_hand_rolling_tobacco
+inv_name_short		= st_hand_rolling_tobacco
+inv_weight			= 0.002
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 29
+inv_grid_y			= 8
+cost				= 600
+use_condition       = false
+max_uses            = 1
+attach_angle_offset		= -0.287979, 1.560923, 1.544060
+attach_position_offset	= 0.096910, -0.013594, 0.107925
+attach_bone_name		= bip01_r_hand
+auto_attach				= false
+// should be deleted after update
+bone_name				= bip01_r_hand
+position_offset			 = 0.0,0.0,0.0
+angle_offset			 = 1.570790,1.570790,3.92699
+
+eat_health				= -0.01
+eat_psy					= 0.15
+;use_sound				= interface\inv_smoke_tobacco
+
+; Script Animation Settings:
+snd = interface\item_usage\ciga1
+anm = item_anm_cigar2_hud
+cam = itemuse_anm_effects\cig_pack.anm
+tm = 39000
+tm_use = 22000
+helm = false
+smoke = true
+
+[hand_rolling_tobacco_2]:hand_rolling_tobacco
+$spawn 				= "food and drugs\hand_rolling_tobacco_2"
+cost				= 1200
+inv_weight			= 0.003
+inv_grid_y			= 9
+
+[hand_rolling_tobacco_3]:hand_rolling_tobacco
+$spawn 				= "food and drugs\hand_rolling_tobacco_3"
+cost				= 1800
+inv_weight			= 0.004
+inv_grid_y			= 10
+
+

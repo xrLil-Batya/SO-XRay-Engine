@@ -1,0 +1,31 @@
+
+-----------------------------------------------------------------------------------
+--Получаем метки переходов на крате
+-----------------------------------------------------------------------------------
+--получаем отметку переход на болота у полковника/сталкеров в деревне новичков
+function has_lc_to_marsh_1()
+	if db.actor:has_info("actor_teleport_to_marsh_1") then
+	local obj_id = get_story_object_id("esc_to_marsh_1")
+	--if(obj_id) then
+	level.map_add_object_spot_ser(obj_id, "level_changer_down_left", "lc_to_marsh_name") 
+end
+end
+
+--получаем отметку перехода при переходе на болота
+function has_lc_to_escape_1()
+	if db.actor:has_info("actor_teleport_to_marsh_1") then
+	local obj_id = get_story_object_id("marsh_to_esc_1")
+	--if(obj_id) then
+	level.map_add_object_spot_ser(obj_id, "level_changer_up_right", "lc_to_esc_name") 
+	end	
+end
+
+
+function add_lc_spot_to_map()
+if db.actor == nil then
+		return
+	end
+	has_lc_to_marsh_1()
+	has_lc_to_escape_1()	
+end
+-------------------------------------------------------------------------------------- 

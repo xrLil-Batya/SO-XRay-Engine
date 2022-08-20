@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<game_dialogs>
+    <dialog id="fst_voron_materials">
+        <has_info>info_actor_have_materials</has_info>
+        <dont_has_info>info_actor_materials_finish</dont_has_info>
+        <phrase_list>
+            <phrase id="1">
+                <text>fst_voron_materials_1</text>
+                <action>dialogs_darkscape.remove_actor_materials</action>
+                <next>2</next>
+            </phrase>
+            <phrase id="2">
+                <text>fst_voron_materials_2</text>
+                <action>dialogs.break_dialog</action>
+                <give_info>info_actor_materials_finish</give_info>
+            </phrase>
+            <phrase id="0">
+                <text>fst_voron_materials_0</text>
+                <next>1</next>
+            </phrase>
+        </phrase_list>
+    </dialog>
+    <dialog id="fst_tech_start">
+        <phrase_list>
+            <phrase id="1">
+                <text />
+                <next>11</next>
+                <next>2</next>
+                <next>3</next>
+                <next>4</next>
+            </phrase>
+            <phrase id="22">
+                <text>fst_tech_start_22</text>
+                <next>23</next>
+            </phrase>
+            <phrase id="21">
+                <text>fst_tech_start_21</text>
+                <give_info>info_tech_not_first</give_info>
+                <next>22</next>
+            </phrase>
+            <phrase id="3">
+                <text>fst_tech_start_3</text>
+                <dont_has_info>zat_b3_tech_have_one_dose</dont_has_info>
+                <dont_has_info>zat_b3_tech_see_produce_62</dont_has_info>
+                <has_info>info_tech_not_first</has_info>
+            </phrase>
+            <phrase id="4">
+                <text>fst_tech_start_4</text>
+                <dont_has_info>info_actor_sleep</dont_has_info>
+            </phrase>
+            <phrase id="1112">
+                <text>fst_tech_start_1112</text>
+                <dont_has_info>zat_b3_tech_discount_1</dont_has_info>
+            </phrase>
+            <phrase id="2">
+                <text>fst_tech_start_2</text>
+                <dont_has_info>info_tech_not_first</dont_has_info>
+                <has_info>info_actor_sleep</has_info>
+                <next>21</next>
+            </phrase>
+            <phrase id="11">
+                <text />
+                <dont_has_info>zat_b3_tech_have_couple_dose</dont_has_info>
+                <dont_has_info>zat_b3_tech_see_produce_62</dont_has_info>
+                <has_info>zat_b3_tech_have_one_dose</has_info>
+                <next>111</next>
+            </phrase>
+            <phrase id="111">
+                <text />
+                <next>1111</next>
+                <next>1112</next>
+            </phrase>
+            <phrase id="1111">
+                <text>fst_tech_start_1111</text>
+                <has_info>zat_b3_tech_discount_1</has_info>
+            </phrase>
+            <phrase id="0">
+                <text />
+                <next>1</next>
+            </phrase>
+            <phrase id="23">
+                <text>fst_tech_start_23</text>
+                <action>dialogs.break_dialog</action>
+            </phrase>
+        </phrase_list>
+    </dialog>
+    <dialog id="fst_trader_start">
+        <phrase_list>
+            <phrase id="21">
+                <text>fst_trader_start_21</text>
+                <action>dialogs.break_dialog</action>
+            </phrase>
+            <phrase id="41">
+                <text>fst_trader_start_41</text>
+                <action>dialogs.break_dialog</action>
+            </phrase>
+            <phrase id="2">
+                <text>fst_trader_start_2</text>
+                <dont_has_info>info_trader_artefact_start</dont_has_info>
+                <next>21</next>
+            </phrase>
+            <phrase id="31">
+                <text>fst_trader_start_31</text>
+                <action>dialogs.break_dialog</action>
+                <dont_has_info>info_trader_artefact_have</dont_has_info>
+                <has_info>info_trader_artefact_start</has_info>
+            </phrase>
+            <phrase id="0">
+                <text />
+                <next>1</next>
+            </phrase>
+            <phrase id="1">
+                <text />
+                <next>2</next>
+                <next>3</next>
+                <next>4</next>
+                <next>5</next>
+                <next>6</next>
+            </phrase>
+            <phrase id="6">
+                <text>fst_trader_start_6</text>
+                <dont_has_info>info_trader_artefact_finish</dont_has_info>
+                <has_info>info_trader_artefact_start</has_info>
+                <has_info>info_trader_artefact_have</has_info>
+            </phrase>
+            <phrase id="5">
+                <text>fst_trader_start_5</text>
+                <has_info>info_trader_posilka_start</has_info>
+            </phrase>
+            <phrase id="4">
+                <text>fst_trader_start_4</text>
+                <dont_has_info>info_trader_posilka_start</dont_has_info>
+                <has_info>info_trader_artefact_finish</has_info>
+                <next>41</next>
+            </phrase>
+            <phrase id="3">
+                <text>fst_trader_start_3</text>
+                <dont_has_info>info_trader_artefact_have</dont_has_info>
+                <dont_has_info>info_trader_artefact_finish</dont_has_info>
+                <has_info>info_trader_artefact_start</has_info>
+                <next>31</next>
+            </phrase>
+        </phrase_list>
+    </dialog>
+    <dialog id="fst_trader_bring_art">
+        <phrase_list>
+            <phrase id="32">
+                <text>fst_trader_bring_art_32</text>
+                <next>33</next>
+            </phrase>
+            <phrase id="36">
+                <text />
+                <action>dialogs.break_dialog</action>
+                <action>dialogs_darkscape.corpse_tt</action>
+            </phrase>
+            <phrase id="3">
+                <text>fst_trader_bring_art_3</text>
+                <next>31</next>
+            </phrase>
+            <phrase id="31">
+                <text>fst_trader_bring_art_31</text>
+                <next>32</next>
+            </phrase>
+            <phrase id="1">
+                <text>fst_trader_bring_art_1</text>
+                <action>dialogs_darkscape.remove_actor_art</action>
+                <next>3</next>
+            </phrase>
+            <phrase id="0">
+                <text>fst_trader_bring_art_0</text>
+                <dont_has_info>info_trader_artefact_finish</dont_has_info>
+                <has_info>info_trader_artefact_have</has_info>
+                <has_info>info_trader_artefact_start</has_info>
+                <next>1</next>
+            </phrase>
+            <phrase id="34">
+                <text>fst_trader_bring_art_34</text>
+                <action>dialogs.break_dialog</action>
+                <action>dialogs_darkscape.corpse_tt</action>
+            </phrase>
+            <phrase id="33">
+                <text>fst_trader_bring_art_33</text>
+                <action>dialogs_darkscape.give_actor_tt_after_art</action>
+                <give_info>info_trader_artefact_finish</give_info>
+                <give_info>info_gonta_guide_start</give_info>
+                <next>34</next>
+            </phrase>
+        </phrase_list>
+    </dialog>
+    <dialog id="fst_gonta_guide">
+        <phrase_list>
+            <phrase id="1">
+                <text>fst_gonta_guide_1</text>
+                <next>2</next>
+            </phrase>
+            <phrase id="2">
+                <text>fst_gonta_guide_2</text>
+                <action>dialogs.break_dialog</action>
+                <give_info>info_gonta_guide_to_dog</give_info>
+            </phrase>
+            <phrase id="0">
+                <text>fst_gonta_guide_0</text>
+                <dont_has_info>info_gonta_guide_to_dog</dont_has_info>
+                <has_info>info_gonta_guide_start</has_info>
+                <next>1</next>
+            </phrase>
+        </phrase_list>
+    </dialog>
+    <dialog id="fst_gonta_start">
+        <phrase_list>
+            <phrase id="1">
+                <text></text>
+                <next>2</next>
+                <next>3</next>
+            </phrase>
+            <phrase id="21">
+                <text>fst_gonta_start_21</text>
+                <action>dialogs.break_dialog</action>
+            </phrase>
+            <phrase id="2">
+                <text>fst_gonta_start_2</text>
+                <dont_has_info>info_gonta_guide_start</dont_has_info>
+                <next>21</next>
+            </phrase>
+            <phrase id="3">
+                <text>fst_gonta_start_3</text>
+                <dont_has_info>info_gonta_guide_to_dog</dont_has_info>
+                <has_info>info_gonta_guide_start</has_info>
+            </phrase>
+            <phrase id="0">
+                <text></text>
+                <next>1</next>
+            </phrase>
+        </phrase_list>
+    </dialog>
+    <dialog id="fst_tech_instr">
+        <has_info>info_tech_not_first</has_info>
+        <dont_has_info>zat_a2_toolkit_search</dont_has_info>
+        <dont_has_info>zat_a2_mechanic_toolkit_search</dont_has_info>
+        <dont_has_info>zat_b3_all_instruments_brought</dont_has_info>
+        <phrase_list>
+            <phrase id="1">
+                <text>fst_tech_instr_1</text>
+                <give_info>info_tech_first_instr</give_info>
+                <next>11</next>
+                <next>12</next>
+            </phrase>
+            <phrase id="2">
+                <text>fst_tech_instr_2</text>
+                <has_info>info_tech_first_instr</has_info>
+                <next>11</next>
+                <next>12</next>
+            </phrase>
+            <phrase id="11">
+                <text>fst_tech_instr_11</text>
+                <give_info>stalkers_toolkit_dialog</give_info>
+                <give_info>zat_a2_mechanic_toolkit_search</give_info>
+            </phrase>
+            <phrase id="12">
+                <text>fst_tech_instr_12</text>
+                <action>dialogs.break_dialog</action>
+            </phrase>
+            <phrase id="0">
+                <text>fst_tech_instr_0</text>
+                <next>1</next>
+                <next>2</next>
+            </phrase>
+        </phrase_list>
+    </dialog>
+    <dialog id="fst_voron_dialog_start_game">
+        <phrase_list>
+            <phrase id="22">
+                <text>fst_voron_dialog_start_game_22</text>
+                <dont_has_info>info_actor_ate_all</dont_has_info>
+                <has_info>info_voron_start</has_info>
+            </phrase>
+            <phrase id="9">
+                <text>fst_voron_dialog_start_game_9</text>
+                <dont_has_info>info_voron_artefact_have</dont_has_info>
+                <has_info>info_voron_artefact_start</has_info>
+            </phrase>
+            <phrase id="8">
+                <text>fst_voron_dialog_start_game_8</text>
+                <dont_has_info>info_voron_artefact_start</dont_has_info>
+                <has_info>info_actor_sleep</has_info>
+            </phrase>
+            <phrase id="7">
+                <text>fst_voron_dialog_start_game_7</text>
+                <dont_has_info>info_actor_materials_finish</dont_has_info>
+                <has_info>info_actor_have_materials</has_info>
+            </phrase>
+            <phrase id="11">
+                <text>fst_voron_dialog_start_game_11</text>
+                <has_info>info_voron_default</has_info>
+            </phrase>
+            <phrase id="10">
+                <text>fst_voron_dialog_start_game_10</text>
+                <dont_has_info>info_voron_artefact_finish</dont_has_info>
+                <has_info>info_voron_artefact_have</has_info>
+            </phrase>
+            <phrase id="6">
+                <text>fst_voron_dialog_start_game_6</text>
+                <dont_has_info>info_actor_sleep</dont_has_info>
+                <has_info>info_actor_materials_finish</has_info>
+            </phrase>
+            <phrase id="1">
+                <text></text>
+                <next>2</next>
+                <next>21</next>
+                <next>22</next>
+                <next>23</next>
+                <next>6</next>
+                <next>7</next>
+                <next>8</next>
+                <next>9</next>
+                <next>10</next>
+                <next>11</next>
+            </phrase>
+            <phrase id="24">
+                <text>fst_voron_dialog_start_game_24</text>
+                <action>dialogs.break_dialog</action>
+            </phrase>
+            <phrase id="23">
+                <text>fst_voron_dialog_start_game_23</text>
+                <dont_has_info>info_actor_have_materials</dont_has_info>
+                <dont_has_info>info_actor_materials_finish</dont_has_info>
+                <has_info>info_actor_ate_finish</has_info>
+                <next>24</next>
+            </phrase>
+            <phrase id="2">
+                <text>fst_voron_dialog_start_game_2</text>
+                <dont_has_info>info_voron_start</dont_has_info>
+                <next>3</next>
+            </phrase>
+            <phrase id="5">
+                <text>fst_voron_dialog_start_game_5</text>
+                <action>dialogs.break_dialog</action>
+            </phrase>
+            <phrase id="3">
+                <text>fst_voron_dialog_start_game_3</text>
+                <next>4</next>
+            </phrase>
+            <phrase id="4">
+                <text>fst_voron_dialog_start_game_4</text>
+                <action>dialogs_darkscape.give_start_eat</action>
+                <give_info>info_voron_start</give_info>
+                <next>5</next>
+            </phrase>
+            <phrase id="0">
+                <text></text>
+                <next>1</next>
+            </phrase>
+            <phrase id="21">
+                <text>fst_voron_dialog_start_game_21</text>
+                <dont_has_info>info_actor_ate_finish</dont_has_info>
+                <has_info>info_actor_ate_medkit</has_info>
+                <has_info>info_actor_ate_conserva</has_info>
+                <has_info>info_actor_ate_bread</has_info>
+                <has_info>info_actor_ate_water</has_info>
+            </phrase>
+        </phrase_list>
+    </dialog>
+    <dialog id="fst_voron_bring_art">
+        <has_info>info_voron_artefact_have</has_info>
+        <dont_has_info>info_voron_artefact_finish</dont_has_info>
+        <phrase_list>
+            <phrase id="3">
+                <text>fst_voron_bring_art_3</text>
+                <next>4</next>
+            </phrase>
+            <phrase id="2">
+                <text>fst_voron_bring_art_2</text>
+                <next>3</next>
+            </phrase>
+            <phrase id="6">
+                <text>fst_voron_bring_art_6</text>
+                <action>dialogs.break_dialog</action>
+            </phrase>
+            <phrase id="1">
+                <text>fst_voron_bring_art_1</text>
+                <next>2</next>
+            </phrase>
+            <phrase id="5">
+                <text>fst_voron_bring_art_5</text>
+                <action>dialogs_darkscape.give_actor_antirad_after_art</action>
+                <give_info>info_voron_artefact_finish</give_info>
+                <give_info>info_voron_default</give_info>
+                <give_info>info_trader_artefact_start</give_info>
+                <next>6</next>
+            </phrase>
+            <phrase id="4">
+                <text>fst_voron_bring_art_4</text>
+                <next>5</next>
+            </phrase>
+            <phrase id="0">
+                <text>fst_voron_bring_art_0</text>
+                <dont_has_info>info_voron_artefact_finish</dont_has_info>
+                <has_info>info_voron_artefact_have</has_info>
+                <next>1</next>
+            </phrase>
+        </phrase_list>
+    </dialog>
+    <dialog id="fst_voron_actor_sleep">
+        <has_info>info_actor_sleep</has_info>
+        <dont_has_info>info_voron_artefact_start</dont_has_info>
+        <phrase_list>
+            <phrase id="6">
+                <text>fst_voron_actor_sleep_6</text>
+                <next>7</next>
+            </phrase>
+            <phrase id="5">
+                <text>fst_voron_actor_sleep_5</text>
+                <next>6</next>
+            </phrase>
+            <phrase id="2">
+                <text>fst_voron_actor_sleep_2</text>
+                <next>3</next>
+            </phrase>
+            <phrase id="8">
+                <text>fst_voron_actor_sleep_8</text>
+                <action>dialogs.break_dialog</action>
+            </phrase>
+            <phrase id="4">
+                <text>fst_voron_actor_sleep_4</text>
+                <next>5</next>
+            </phrase>
+            <phrase id="3">
+                <text>fst_voron_actor_sleep_3</text>
+                <next>4</next>
+            </phrase>
+            <phrase id="1">
+                <text>fst_voron_actor_sleep_1</text>
+                <action>dialogs_darkscape.give_actor_devices_start_1</action>
+                <give_info>info_voron_artefact_start</give_info>
+                <next>2</next>
+            </phrase>
+            <phrase id="7">
+                <text>fst_voron_actor_sleep_7</text>
+                <action>dialogs_darkscape.give_actor_devices_start_2</action>
+                <next>8</next>
+            </phrase>
+            <phrase id="0">
+                <text>fst_voron_actor_sleep_0</text>
+                <next>1</next>
+            </phrase>
+        </phrase_list>
+    </dialog>
+    <dialog id="fst_voron_actor_ate">
+        <has_info>info_actor_ate_medkit</has_info>
+        <has_info>info_actor_ate_bread</has_info>
+        <has_info>info_actor_ate_conserva</has_info>
+        <has_info>info_actor_ate_water</has_info>
+        <dont_has_info>info_actor_ate_finish</dont_has_info>
+        <phrase_list>
+            <phrase id="92">
+                <text>fst_voron_actor_ate_92</text>
+                <give_info>info_actor_questions_4</give_info>
+                <next>5</next>
+            </phrase>
+            <phrase id="91">
+                <text>fst_voron_actor_ate_91</text>
+                <next>92</next>
+            </phrase>
+            <phrase id="0">
+                <text>fst_voron_actor_ate_0</text>
+                <next>1</next>
+            </phrase>
+            <phrase id="1">
+                <text>fst_voron_actor_ate_1</text>
+                <next>2</next>
+            </phrase>
+            <phrase id="2">
+                <text>fst_voron_actor_ate_2</text>
+                <next>3</next>
+            </phrase>
+            <phrase id="4">
+                <text>fst_voron_actor_ate_4</text>
+                <next>5</next>
+            </phrase>
+            <phrase id="3">
+                <text>fst_voron_actor_ate_3</text>
+                <next>4</next>
+            </phrase>
+            <phrase id="6">
+                <text>fst_voron_actor_ate_6</text>
+                <dont_has_info>info_actor_questions_1</dont_has_info>
+                <next>61</next>
+            </phrase>
+            <phrase id="61">
+                <text>fst_voron_actor_ate_61</text>
+                <next>62</next>
+            </phrase>
+            <phrase id="62">
+                <text>fst_voron_actor_ate_62</text>
+                <give_info>info_actor_questions_1</give_info>
+                <next>5</next>
+            </phrase>
+            <phrase id="7">
+                <text>fst_voron_actor_ate_7</text>
+                <dont_has_info>info_actor_questions_2</dont_has_info>
+                <next>71</next>
+            </phrase>
+            <phrase id="72">
+                <text>fst_voron_actor_ate_72</text>
+                <give_info>info_actor_questions_2</give_info>
+                <next>5</next>
+            </phrase>
+            <phrase id="71">
+                <text>fst_voron_actor_ate_71</text>
+                <next>72</next>
+            </phrase>
+            <phrase id="82">
+                <text>fst_voron_actor_ate_82</text>
+                <next>83</next>
+            </phrase>
+            <phrase id="83">
+                <text>fst_voron_actor_ate_83</text>
+                <next>84</next>
+            </phrase>
+            <phrase id="84">
+                <text>fst_voron_actor_ate_84</text>
+                <give_info>info_actor_questions_3</give_info>
+                <next>5</next>
+            </phrase>
+            <phrase id="5">
+                <text>fst_voron_actor_ate_5</text>
+                <next>6</next>
+                <next>7</next>
+                <next>8</next>
+                <next>9</next>
+                <next>10</next>
+            </phrase>
+            <phrase id="9">
+                <text>fst_voron_actor_ate_9</text>
+                <dont_has_info>info_actor_questions_4</dont_has_info>
+                <next>91</next>
+            </phrase>
+            <phrase id="14">
+                <text>fst_voron_actor_ate_14</text>
+                <action>dialogs.break_dialog</action>
+                <give_info>info_actor_ate_finish</give_info>
+            </phrase>
+            <phrase id="13">
+                <text>fst_voron_actor_ate_13</text>
+                <action>dialogs_darkscape.give_start_knife</action>
+                <next>14</next>
+            </phrase>
+            <phrase id="12">
+                <text>fst_voron_actor_ate_12</text>
+                <next>13</next>
+            </phrase>
+            <phrase id="11">
+                <text>fst_voron_actor_ate_11</text>
+                <next>12</next>
+            </phrase>
+            <phrase id="10">
+                <text>fst_voron_actor_ate_10</text>
+                <dont_has_info>info_actor_ate_finish</dont_has_info>
+                <has_info>info_actor_questions_1</has_info>
+                <has_info>info_actor_questions_2</has_info>
+                <has_info>info_actor_questions_3</has_info>
+                <has_info>info_actor_questions_4</has_info>
+                <next>11</next>
+            </phrase>
+            <phrase id="8">
+                <text>fst_voron_actor_ate_8</text>
+                <dont_has_info>info_actor_questions_3</dont_has_info>
+                <next>81</next>
+            </phrase>
+            <phrase id="81">
+                <text>fst_voron_actor_ate_81</text>
+                <next>82</next>
+            </phrase>
+        </phrase_list>
+    </dialog>
+</game_dialogs>

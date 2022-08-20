@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding="windows-1251"?>
+
+<game_information_portions>
+<info_portion id="yan_actor_away_door1" /> 
+  ;-- инфопроршен на нахождение игрока рядом с дверью1 
+  <info_portion id="yan_actor_away_door2" /> 
+  ;-- инфопроршен на нахождение игрока рядом с дверью2 
+  <info_portion id="yan_actor_away_saharov" /> 
+  ;-- инфопроршен на нахождение игрока рядом с сахаровым 
+
+  <info_portion id="talk_with_saharov_about_ivlev" /> 
+</game_information_portions>

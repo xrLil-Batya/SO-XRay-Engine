@@ -1,0 +1,44 @@
+
+[logic@yan_sakharov]
+suitable = {=check_npc_name(yan_sakharov)} true
+active = walker@sakharov
+prior = 200
+
+[walker@sakharov]
+meet = meet
+invulnerable = true
+path_walk = yan_walker_saharov_walk
+path_look = yan_walker_saharov_look
+on_info = {+yan_actor_away_saharov} camper@1
+combat_ignore_cond = true
+;def_state_moving1 = yan_professor_walk
+;def_state_moving2 = yan_professor_walk
+;def_state_moving3 = yan_professor_walk
+;def_state_standing = yan_professor_wait
+out_restr = yan_space_restrictor_no_weapon_actor_base_cut2
+
+[camper@1]
+meet = meet
+path_walk = yan_camper_saharov_walk
+path_look = yan_camper_saharov_look
+combat_ignore_cond = true
+;def_state_moving1 = yan_professor_walk
+;def_state_moving2 = yan_professor_walk
+;def_state_moving3 = yan_professor_walk
+;def_state_standing = yan_professor_wait
+on_info = {-yan_actor_away_saharov} walker@sakharov
+out_restr = yan_space_restrictor_no_weapon_actor_base_cut2
+
+
+[meet]
+close_snd_hello 	= yan_sakharov_meet
+close_snd_bye 		= yan_sakharov_meet_bye
+close_victim 	= actor
+far_anim 		= nil
+far_victim 		= actor
+use = {=actor_enemy} false, true
+close_distance  = 0
+far_distance 	= 0
+;close_snd_distance = 3
+;meet_dialog	= mar_csky_barman_intro_dialog
+allow_break = false

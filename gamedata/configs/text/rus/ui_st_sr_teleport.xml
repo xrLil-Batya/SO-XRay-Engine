@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<string_table>
+	<string id="st_level_changer_descr">
+		<text>Перейти на другую локацию?</text>
+	</string>
+	<string id="st_level_changer_warning_descr">
+		<text>Я не знаю, куда ведёт этот путь</text>
+	</string>
+	<string id="st_space_restrictor_to_forest_descr">
+		<text>В туманный лес</text>
+	</string>
+	<string id="st_level_changer_to_forest_descr">
+		<text>Продолжить путь в туманный лес?</text>
+	</string>
+	<string id="st_space_restrictor_to_escape_descr">
+		<text>На кордон</text>
+	</string>
+	<string id="st_level_changer_to_escape_descr">
+		<text>Продолжить путь на кордон?</text>
+	</string>
+	<string id="st_space_restrictor_to_embankment_descr">
+		<text>К набережной</text>
+	</string>
+	<string id="st_level_changer_to_embankment_descr">
+		<text>Продолжить путь к набережной?</text>
+	</string>
+	<string id="st_space_restrictor_to_garbage_descr">
+		<text>На свалку</text>
+	</string>
+	<string id="st_level_changer_to_garbage_descr">
+		<text>Продолжить путь на свалку?</text>
+	</string>
+	<string id="st_space_restrictor_to_garbage_descr">
+		<text>На свалку</text>
+	</string>
+	<string id="st_level_changer_to_garbage_descr">
+		<text>Продолжить путь на свалку?</text>
+	</string>
+	<string id="st_space_restrictor_to_agroprom_descr">
+		<text>На Агропром</text>
+	</string>
+	<string id="st_level_changer_to_agroprom_descr">
+		<text>Продолжить путь на Агропром?</text>
+	</string>
+	<string id="st_space_restrictor_to_agroprom_undeground_descr">
+		<text>В подземелья Агропрома</text>
+	</string>
+	<string id="st_level_changer_to_agroprom_undeground_descr">
+		<text>Спуститься в подземелья Агропрома?</text>
+	</string>
+	<string id="st_space_restrictor_to_darkvalley_descr">
+		<text>В тёмную долину</text>
+	</string>
+	<string id="st_level_changer_to_darkvalley_descr">
+		<text>Продолжить путь в тёмную долину?</text>
+	</string>
+	<string id="st_space_restrictor_to_rostok_factory_descr">
+		<text>К заводу «Росток»</text>
+	</string>
+	<string id="st_level_changer_to_rostok_factory_descr">
+		<text>Продолжить путь к заводу «Росток»?</text>
+	</string>
+	<string id="st_space_restrictor_to_bar_descr">
+		<text>В бар</text>
+	</string>
+	<string id="st_level_changer_to_bar_descr">
+		<text>Продолжить путь в бар?</text>
+	</string>
+	<string id="st_space_restrictor_to_rostok_descr">
+		<text>На дикую территорию</text>
+	</string>
+	<string id="st_level_changer_to_rostok_descr">
+		<text>Продолжить путь на дикую территорию?</text>
+	</string>
+</string_table>

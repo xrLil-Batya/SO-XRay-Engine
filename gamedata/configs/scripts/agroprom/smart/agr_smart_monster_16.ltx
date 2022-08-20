@@ -1,0 +1,13 @@
+; смарт за холмом на севере
+
+[smart_terrain]
+squad_id = 21
+max_population = 1
+respawn_params = respawn@agr_smart_monster_16
+
+[respawn@agr_smart_monster_16]
+spawn_chimera@agr_smart_monster_16
+
+[spawn_chimera@agr_smart_monster_16]
+spawn_squads = {+info_mutant_spawn_hard +info_mutant_spawn_medium +info_mutant_spawn_basic} agr_smart_monster_16_squad_2, {-info_mutant_spawn_hard +info_mutant_spawn_medium +info_mutant_spawn_basic} agr_smart_monster_16_squad
+spawn_num = {+info_mutant_spawn_medium +info_mutant_spawn_basic} 1, 0

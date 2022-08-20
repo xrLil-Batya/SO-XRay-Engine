@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<string_table>
+	<string id="lc_to_marsh_name">
+		<text>На болота</text>
+	</string>
+	<string id="lc_to_esc_name">
+		<text>На Кордон</text>
+	</string>
+	<string id="lc_to_lost_name">
+		<text>В Покинутую деревню</text>
+	</string>
+        <string id="lc_to_generators_name">
+		<text>На Генераторы</text>
+	</string>
+	<string id="lc_to_garbage_name">
+		<text>На Свалку</text>
+	</string>
+	<string id="lc_to_rostok_name">
+		<text>На Росток</text>
+	</string>
+	<string id="lc_to_darkvalley_name">
+		<text>В Тёмную долину</text>
+	</string>
+	<string id="lc_to_desc_name">
+		<text>В Тёмную лощину</text>
+	</string>
+	<string id="lc_to_radar_name">
+		<text>На Радар</text>
+	</string>
+	<string id="lc_to_hospital_name">
+		<text>В Заброшенный госпиталь</text>
+	</string>
+	<string id="lc_to_aes_name">
+		<text>На ЧАЭС</text>
+	</string>
+	<string id="lc_to_agroprom_name">
+		<text>К НИИ «Агропром»</text>
+	</string>
+	<string id="lc_rost_to_bar_name">
+		<text>В Бар</text>
+	</string>
+	<string id="lc_to_military_name">
+		<text>На Армейские склады</text>
+	</string>
+	<string id="lc_to_yantar_name">
+		<text>На Янтарь</text>
+	</string>
+	<string id="lc_to_limansk_name">
+		<text>В Лиманск</text>
+	</string>
+	<string id="lc_to_det_city_name">
+		<text>В Мёртвый город</text>
+	</string>
+	<string id="lc_to_les_name">
+		<text>В Рыжий лес</text>
+	</string>
+	<string id="lc_to_factory_name">
+		<text>На перерабатывающий завод</text>
+	</string>
+	<string id="lc_to_pol_name">
+		<text>На Полигон</text>
+	</string>
+	<string id="lc_pryp_to_pryp_name">
+		<text>В восточную Припять</text>
+	</string>
+	<string id="lc_to_zap_pryp_name">
+		<text>В западную Припять</text>
+	</string>
+	<string id="lc_to_mog_name">
+		<text>В Могильник</text>
+	</string>
+	<string id="level_changer_invitation">
+		<text>Сначала нужно разузнать дорогу.</text>
+	</string>
+</string_table>

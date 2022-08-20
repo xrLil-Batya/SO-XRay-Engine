@@ -1,0 +1,3361 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<string_table>
+	
+	<!-- Болтовня -->
+	<string id="st_dyn_news_talking_1_2">
+		<text>Видал, как долговец почти в рукопашную от псов отбивался. Это чё за костюм такой на нём? И не порвали ведь!</text>
+	</string>
+	<string id="st_dyn_news_talking_1_4">
+		<text>Да по ходу долговский-охотничий, вещь серьёзная! Долгарям по спецнужде выдают.</text>
+	</string>
+	<string id="st_dyn_news_talking_2_2">
+		<text>Вовчик Нос, только что погиб, в «Воронку» за рюкзак утянуло, видно было, что рюкзак полный.\nНаверно, устал от перехода и не хватило сил вырваnmся.\nНа глазах разорвало мужика...</text>
+	</string>
+	<string id="st_dyn_news_talking_2_4">
+		<text>Давно известно: главный враг любого сталкера - это собственная жадность!</text>
+	</string>
+	<string id="st_dyn_news_talking_3_2">
+		<text>Гопота в конец оборзела, от Бара все пути к Сахарову перекрыли, еле ноги унёс!\nКуда наши «защитнички» смотрят? Почти под носом!</text>
+	</string>
+	<string id="st_dyn_news_talking_3_3">
+		<text>Иванцов</text>
+	</string>
+	<string id="st_dyn_news_talking_3_4">
+		<text>А вы бы, господа собиратели мусора, не лазили бы куда ни попадя и этих уродов там бы не было! Они и летят на вас как мухи на дерьмо! А мои парни потом головы кладут, чтоб повышибать тварей!</text>
+	</string>
+	<string id="st_dyn_news_talking_4_2">
+		<text>Вот засада! Сходил за бензином в Долину. Только набрал, собаки стаей налетели.\nУже два часа на крыше сижу. Стрелять боюсь, гопники рядом. Есть кто близко?</text>
+	</string>
+	<string id="st_dyn_news_talking_4_4">
+		<text>Темноты дожидайся, мож, угомонятся.</text>
+	</string>
+	<string id="st_dyn_news_talking_5_2">
+		<text>Чёт примета по Семецкому не прёт, как сообщат, так в дерьмо какоенить вляпаюсь!</text>
+	</string>
+	<string id="st_dyn_news_talking_5_4">
+		<text>Дерьмо - это хорошо, говорят, к деньгам, разбогатеешь жуть! Обзавидуемся!</text>
+	</string>
+	<string id="st_dyn_news_talking_6_2">
+		<text>Зомбака завалил, начал шмонать, так меня долбануло как током, и плывёт всё словно от пары псевд.\nСтранно, раньше не было такого!</text>
+	</string>
+	<string id="st_dyn_news_talking_6_4">
+		<text>Ха, они вообще взорваться могут. Скапливаются в нутрях у них всякие дерьмо-газы. Вот и шибает.</text>
+	</string>
+	<string id="st_dyn_news_talking_7_2">
+		<text>Зомби убил, рожа страшная, раздутая, начал шмонать - в кармане портсигар.\nУ Ваньки Зуя, помню, такой был, неужто он? Я с ним вместе в Зону первый раз попал.</text>
+	</string>
+	<string id="st_dyn_news_talking_7_4">
+		<text>Даже если так, стрелял ты в зомбу, а Ваньку Зона прибрала.</text>
+	</string>
+	<string id="st_dyn_news_talking_8_2">
+		<text>Хотел патронов наменять у торговцев, а дешёвых артов нет. Кто-нибудь поменяет?</text>
+	</string>
+	<string id="st_dyn_news_talking_8_4">
+		<text>На Янтаре вроде ботаны обменивали. Сходи, если недалеко.</text>
+	</string>
+	<string id="st_dyn_news_talking_9_2">
+		<text>Учёные на Янтаре ищут желающих произвести замеры на локации, я глянул где именно, да я туда ни за какие богатства!</text>
+	</string>
+	<string id="st_dyn_news_talking_9_4">
+		<text>Точняк, пусть сами из своего бункера вылазят!</text>
+	</string>
+	<string id="st_dyn_news_talking_10_2">
+		<text>Приобрёл СПАС у ботанов на Янтаре, вот реально спас! На выходе снорки навалились, он меня практически с того света вытащил!</text>
+	</string>
+	<string id="st_dyn_news_talking_10_4">
+		<text>Это что? Препарат новый? От чего помогает?</text>
+	</string>
+	<string id="st_dyn_news_talking_11_2">
+		<text>Ну Сахаров! Я ему пару «Огненных шаров» притащил, а он с улыбочкой такой ехидной:\n«Если принесёте три, то предложу хабар отменный».\nА раньше выдать не мог?? Вот шельма!</text>
+	</string>
+	<string id="st_dyn_news_talking_11_4">
+		<text>Я туда не таскаю, ну разве мелочь какую ненужную. Сидору лучше. Он по-божески.</text>
+	</string>
+	<string id="st_dyn_news_talking_12_2">
+		<text>Наслушался трёпа про Янтарь. Тоже мне райские кущи! Еле ноги унёс от снорков и зомбей. Да ещё и химеру электрическую видел, да пошло оно!</text>
+	</string>
+	<string id="st_dyn_news_talking_12_4">
+		<text>А ты туда ночью. Всё тихо тогда.</text>
+	</string>
+	<string id="st_dyn_news_talking_13_2">
+		<text>Я слышал, Выжигатель опять пахать начал? Это как мне теперь свой хабар с «Юпитера» забрать? У меня там новенький «Винтарь» лежит в схроне!</text>
+	</string>
+	<string id="st_dyn_news_talking_13_4">
+		<text>А еды ты там не оставил? А то тушёнки давно не ел. Обратной дороги отсюда нет, выживаем как можем. А «Винтарь» твой мы поищем, не волнуйся, не пропадёт. Хе-хе..</text>
+	</string>
+	<string id="st_dyn_news_talking_14_2">
+		<text>Там второго Стрелка не объявилось в Зоне? Никто не хочет опять Выжигатель вырубить? А то мы тут как в чёртовом колесе сидим, на «Юпитере»... Ни еды нормальной, ни выпивки... Хорошо хоть склад «Долга» под боком, боеприпасов хватает.</text>
+	</string>
+	<string id="st_dyn_news_talking_14_4">
+		<text>Держитесь там как-нибудь, мы с ребятами уже ищем способ его отрубить!</text>
+	</string>
+	<string id="st_dyn_news_talking_15_2">
+		<text>Эх, попасть бы на «Юпитер»... Говорят, там артов немеренно, да и мастерская от Азоты и Кардана - просто чудо! Из пистолета СВД могут сварганить! Чёртов Выжигатель... И как он опять заработал?</text>
+	</string>
+	<string id="st_dyn_news_talking_15_4">
+		<text>А то, что лабы все закрыты намертво - тебя не смущает? Тут явно всё не просто так! Что-то там творится под землёй, точно тебе говорю!</text>
+	</string>
+	<string id="st_dyn_news_talking_16_2">
+		<text>Кузя ещё, добрая душа... каким-то наркоманам все колёса лечебные отдал. А следующий завоз, поди подымет прайс-то...</text>
+	</string>
+	<string id="st_dyn_news_talking_16_4">
+		<text>Сам ты наркоман! Мы в рейд готовимся - в сурьёзный! А не штаны на Кордоне протираем, как некоторые...</text>
+	</string>
+	<string id="st_dyn_news_talking_17_2">
+		<text>Долго копил на АКМ. Приобрёл. Классная машинка хоть и косовата.\nНо, зараза, с патронами проблема, разорит он меня, чую...</text>
+	</string>
+	<string id="st_dyn_news_talking_17_4">
+		<text>Да вроде без проблем, с вояками договориться можно, да и в Баре Петренко меняет.</text>
+	</string>
+	<string id="st_dyn_news_talking_18_2">
+		<text>Твою ж в раскоряку ноги! Пожалел водку за гранаты, а в Кишке наткнулся на зомбей!\nИтог: 6 рожков к калашу, а навар - одна клешня, еле ноги унёс...</text>
+	</string>
+	<string id="st_dyn_news_talking_18_4">
+		<text>Клешня, говоришь? Продашь? Я на Набережной, в деревушке.</text>
+	</string>
+	<string id="st_dyn_news_talking_19_2">
+		<text>На Янтаре в бинокль завод рассматривал, сколько там зомбей... И все бывшие сталки!\nУма не приложу, что людей туда лезть заставляет? Неужто жадность?</text>
+	</string>
+	<string id="st_dyn_news_talking_19_4">
+		<text>Говорят, что это не совсем люди. Ну, типа были парочка таких дуроголовых, а Зона их размножает. Мож и врут.</text>
+	</string>
+	<string id="st_dyn_news_talking_20_2">
+		<text>На Свалке в ангаре новичок с раздробленной ногой вторые сутки мучается, нога синяя, по ходу, может, гангрена. Ктонить в медицине петрит?\\nЖалко парнишку – душевный, на гитаре лабает лихо.</text>
+	</string>
+	<string id="st_dyn_news_talking_20_4">
+		<text>Болотный доктор точно бы вылечил, да только что-то не видно его давно...</text>
+	</string>
+	<string id="st_dyn_news_talking_21_2">
+		<text>На Агропроме в болоте арты бывает видно, но вода мутная, а лезть наобум в эту химку что-то не тянет.</text>
+	</string>
+	<string id="st_dyn_news_talking_22_2">
+		<text>Парни, если кому исправный генератор от зилка попадётся, я бы взял.\nЕсть с парнями идейка стояночку на Агропроме сделать, движок с рамой есть, аккумуляторы бы заряжали.</text>
+	</string>
+	<string id="st_dyn_news_talking_22_4">
+		<text>Ехал бы ты... в Мелитополь. Тама бы и автосервис свой барыжил. Тута Зона, брат.</text>
+	</string>
+	<string id="st_dyn_news_talking_23_2">
+		<text>В темноте спешил к стоянке, начался выброс, столкнулся с бюрером, из ружья дуплетом в упор, а он меня, по ходу, и не видел, ослеп от выброса, что ли?</text>
+	</string>
+	<string id="st_dyn_news_talking_23_4">
+		<text>Мож и ослеп. Выброс он, брат, того...</text>
+	</string>
+	<string id="st_dyn_news_talking_24_2">
+		<text>Зуб, гад, сдаётся мне, что ты последний раз не рецепт, а левую бодягу всучил. Земля-то она круглая...</text>
+	</string>
+	<string id="st_dyn_news_talking_24_3">
+		<text>Зуб</text>
+	</string>
+	<string id="st_dyn_news_talking_24_4">
+		<text>Убейся об стену! Говорил ж всем: арты варить - умение нужно!</text>
+	</string>
+	<string id="st_dyn_news_talking_25_2">
+		<text>Парни, я снова с вами, спасибо докторам - подлатали, кто из стариков помнит, добро пожаловать в Бар, буду рад встрече!</text>
+	</string>
+	<string id="st_dyn_news_talking_25_4">
+		<text>Здорова! Что, рёбра срастил, костыли забросил и снова в строю? Рад слышать тебя, чертяка! Буду, наливай!</text>
+	</string>
+	<string id="st_dyn_news_talking_26_2">
+		<text>Иду в Бар с нашими. Пущай Бармен смокинг поприличней оденет! А то таких людей в жилетке встречать - моветон!</text>
+	</string>
+	<string id="st_dyn_news_talking_26_2">
+		<text>Бармен</text>
+	</string>
+	<string id="st_dyn_news_talking_26_4">
+		<text>За моветон ответишь! Давайте уж, подваливайте, балаболы, дельце наклёвывается по вашему профилю.</text>
+	</string>
+	<string id="st_dyn_news_talking_27_2">
+		<text>Вот лажа, два бюрера, два крова, шесть кабанов, восемь собак - и всего два годных хвоста!\nЗатарился колбаской в рейд, называется! Дробь, блин, жалко...</text>
+	</string>
+	<string id="st_dyn_news_talking_27_4">
+		<text>Места нужно знать... Охотничек.</text>
+	</string>
+	<string id="st_dyn_news_talking_28_2">
+		<text>Нашёл труп солдата, в кармане письма от девушки. Ну мы-то хоть за хабаром лезем, а они за устав...\nЖаль пацана, хоть и достали вояки хреновы!</text>
+	</string>
+	<string id="st_dyn_news_talking_29_2">
+		<text>На гиганта наткнулся - 5 выстрелов из подствола, ему пофигу, хорошо, эфку на чёрный день таскал, она спасла.</text>
+	</string>
+	<string id="st_dyn_news_talking_29_4">
+		<text>Последнее время этих кур-переростков развелось! Без гранат никуда!</text>
+	</string>
+	<string id="st_dyn_news_talking_30_2">
+		<text>Три недели в Зоне, домой пора, а убытка больше, чем навара, завязывать надо... Не та уже Зона, не та...</text>
+	</string>
+	<string id="st_dyn_news_talking_30_4">
+		<text>Так чтобы навариваться, надо в глубокие рейды ходить, за артефактами хорошими да монстрами жирными. А не на Кордоне в мусорной куче лазить... Уже всю её давно излазили!</text>
+	</string>
+	<string id="st_dyn_news_talking_31_2">
+		<text>У меня сынок отчебучил, в военное училище поступать собрался! Я ему: «Молодец, сынку! Будешь батю по Зоне гонять!» Во вырастил подмогу!</text>
+	</string>
+	<string id="st_dyn_news_talking_32_2">
+		<text>Всё! Завязываю пить! Утром вышел с похмела, а на меня кабан полупрозрачный плывёт, я стрелять, мужики матом. Никто его больше не видел. Допился до белочки!</text>
+	</string>
+	<string id="st_dyn_news_talking_32_4">
+		<text>Валить из Зоны тебе надо! Это в головах такое бывает, если долго тут тусовать.</text>
+	</string>
+	<string id="st_dyn_news_talking_33_2">
+		<text>Послушался иродов - в «Холодец» калаш закинул, тут выброс. Убёг.\nПрихожу - ни «Холодца», ни калаша!</text>
+	</string>
+	<string id="st_dyn_news_talking_33_4">
+		<text>Во дураков-то в Зоне, а я думал, что сами вымрут...</text>
+	</string>
+	<string id="st_dyn_news_talking_34_2">
+		<text>Мужик по пьяне хвастал, что может простую «Медузу» в зелёную преобразовать.\nПроспался, отнекивается, но, по ходу, всё же знает. Мож, кто в курсе? С меня магарыч!</text>
+	</string>
+	<string id="st_dyn_news_talking_34_4">
+		<text>Ты к Зубу в баре подвали, если не он, то и не знаю...</text>
+	</string>
+	<string id="st_dyn_news_talking_35_2">
+		<text>Во ржач! Новичок Сидору зелёную «Медузу» принёс, а она обыкновенная крашенная зелёнкой!\nСидор его чуть не удушил, а тот в рёв, ему какой-то крендель её за 5 пузырей и аптечку подсунул оказывается!</text>
+	</string>
+	<string id="st_dyn_news_talking_35_4">
+		<text>Зелёнкой красить, говоришь? Хм...</text>
+	</string>
+	<string id="st_dyn_news_talking_36_2">
+		<text>С дуру заказал пояс на 5 артов, сижу и думаю, нафига? Отродясь необходимости столько вешать не было. Мож, надо кому, недорого...</text>
+	</string>
+	<string id="st_dyn_news_talking_36_4">
+		<text>Балерина...</text>
+	</string>
+	<string id="st_dyn_news_talking_37_2">
+		<text>Около перехода с Кордона на Свалку с правой стороны возле валуна мина стояла оказывается, а я там пару раз лазил. Собаку на глазах разорвало взрывом.</text>
+	</string>
+	<string id="st_dyn_news_talking_37_4">
+		<text>Это чьи же шутки? Поймать бы и!.. Мало нам аномалий.</text>
+	</string>
+	<string id="st_dyn_news_talking_38_2">
+		<text>Собаки на камень загнали, ружьё выбили, автомат достал - туда же, хорошо, ПМ с двумя обоймами был, он выручил.</text>
+	</string>
+	<string id="st_dyn_news_talking_38_4">
+		<text>Да задолбали эти салаги! Кому интересно, что там у тебя откуда выпало?</text>
+	</string>
+	<string id="st_dyn_news_talking_39_2">
+		<text>Один тип продал колбасу тут сделанную, как вы её жрёте? Чёрта с два разжуёшь, да и запах как от носков, издохнуть можно.</text>
+	</string>
+	<string id="st_dyn_news_talking_39_4">
+		<text>Иди к маме, домой, тама пирожки вкусные. Понабежали, блин, гурманы...</text>
+	</string>
+	<string id="st_dyn_news_talking_40_2">
+		<text>Глушитель предложили для АКМа, стоит брать?\nГоворят, по слепым псам издалека хорошо помогает.</text>
+	</string>
+	<string id="st_dyn_news_talking_40_4">
+		<text>Ну ты лошара! С какого перепугу глушак помогает?</text>
+	</string>
+	<string id="st_dyn_news_talking_41_2">
+		<text>А когда Бар работает-то? Чёт заходил вчера ночью, Бармена не было на месте. Филонит чтоль?</text>
+	</string>
+	<string id="st_dyn_news_talking_41_3">
+		<text>Бармен</text>
+	</string>
+	<string id="st_dyn_news_talking_41_4">
+		<text>Для слепых и непонятливых объясняю ещё раз! Бар работает с 10 утра до 2 ночи. Мне же тоже отдыхать надо!</text>
+	</string>
+	<string id="st_dyn_news_talking_42_2">
+		<text>Как эта сухомятка достала! Хоть бы дошираком Сидор торговал, что ли.\nЯ б с кабанятинкой такой супец наварил!</text>
+	</string>
+	<string id="st_dyn_news_talking_42_3">
+		<text>Сидорович</text>
+	</string>
+	<string id="st_dyn_news_talking_42_4">
+		<text>Не нравится - катись к маме! Она тебя угостит.</text>
+	</string>
+	<string id="st_dyn_news_talking_43_2">
+		<text>Подписался Бармену копыта принести, все места оббегал, кучу дроби извёл, набрал, принёс,\nа тот нос воротит: «Уже не надо, набрали.» Тьфу, чтоб я ещё раз согласился..</text>
+	</string>
+	<string id="st_dyn_news_talking_43_3">
+		<text>Бармен</text>
+	</string>
+	<string id="st_dyn_news_talking_43_4">
+		<text>Ох, какого добытчика потеряли! Что же теперь будет...</text>
+	</string>
+	<string id="st_dyn_news_talking_44_2">
+		<text>А чё хоть в мире-то творится? А то месяц уже в Зоне, хоть бы по СМС новости рассылали.\nА то надоело ваши вопли про собак и тушканов слушать!</text>
+	</string>
+	<string id="st_dyn_news_talking_44_4">
+		<text>Да чё-чё... Воруют, грабят, да безобразия творят... Всё как обычно.</text>
+	</string>
+	<string id="st_dyn_news_talking_45_2">
+		<text>А правда, что в Рыжем лесу артов немерено?</text>
+	</string>
+	<string id="st_dyn_news_talking_45_4">
+		<text>Да. Сходи. Познакомишься с дядями кровососами. И тётями снорками. Хе-хе..</text>
+	</string>
+	<string id="st_dyn_news_talking_46_2">
+		<text>Парни, кто помнит Серёгу Штурмана? Нет его больше...\nДо Лиманска ходил, ни черта не боялся, а дома в подворотне шпана зарезала.</text>
+	</string>
+	<string id="st_dyn_news_talking_46_4">
+		<text>Да уж... Человек человеку - монстр...</text>
+	</string>
+	<string id="st_dyn_news_talking_47_2">
+		<text>А зомбаки вроде не видят? Они ж по звуку вроде ходят?\nМне один сталк посоветовал поролона надёргать из машинных сидений и на сапоги примотать, говорит, можно мимо ходить, не трогают.\nНе врёт?</text>
+	</string>
+	<string id="st_dyn_news_talking_47_4">
+		<text>Ох... Салажня...</text>
+	</string>
+	<string id="st_dyn_news_talking_48_2">
+		<text>Выменял на водку броник у вояк и на радостях влетел в «Кисель». Ногам благо ничего, а вот бронику хана пришла...\nА я водяру с Кордона пёр, да лучше бы я эту водку там и выпил!</text>
+	</string>
+	<string id="st_dyn_news_talking_48_4">
+		<text>Тормоз!</text>
+	</string>
+	<string id="st_dyn_news_talking_49_2">
+		<text>А чё врали, что в Туманном лесу бабы есть?\nНи хрена там нет, одни монстры.</text>
+	</string>
+	<string id="st_dyn_news_talking_49_4">
+		<text>Кому и свинья - баба... Ты к плотям поприставай...</text>
+	</string>
+	<string id="st_dyn_news_talking_50_2">
+		<text>Говорят, военные хотели бандитов в Тёмной долине перебить.\nСпецназ послали, хотели базу Султана под контроль как на Агро взять, а потом и за Бар, ну чтоб сталкеров вообще выбить. Валить нужно из Зоны!</text>
+	</string>
+	<string id="st_dyn_news_talking_50_3">
+		<text>Сидорович</text>
+	</string>
+	<string id="st_dyn_news_talking_50_4">
+		<text>Это ещё что! Я слыхал, что скоро бомбами ядерными будут забрасывать! Чушь не несите всякую!</text>
+	</string>
+	<string id="st_dyn_news_talking_51_2">
+		<text>Слышал, что охотники могут шкуры плотей выделывать и крутые плащи изготавливать, говорят, их даже пуля из автомата не берёт.\nВрут, наверное.</text>
+	</string>
+	<string id="st_dyn_news_talking_52_2">
+		<text>Нашёл останки трупа сталкера в «Киселе», судя по экипировке матёрый был сталкерюга, как так попался?\nПочти всё изъело кислотой, от экзы и Винтаря одни остатки. Дела...</text>
+	</string>
+	<string id="st_dyn_news_talking_52_4">
+		<text>Тут Зона, братан... Всякое бывает... Может ему и помогли.</text>
+	</string>
+	<string id="st_dyn_news_talking_53_2">
+		<text>Да ну на фиг! Ваши эксперименты с варкой - полная хня!\nДва раза «Ломоть» пытался сварить, все арты и водку перевёл, а результата - шиш, как люди умудряются что-то получать???</text>
+	</string>
+	<string id="st_dyn_news_talking_53_4">
+		<text>Способ нужно знать. А кидать как попало фигню - дебилом быть.</text>
+	</string>
+	<string id="st_dyn_news_talking_54_2">
+		<text>Надо мной только что прошла в северном направлении пара вертолётов. Координаты прилагаю. Не высовываемся, я не знаю, какие у них указания.</text>
+	</string>
+	<string id="st_dyn_news_talking_55_2">
+		<text>А правду говорят, что если разряженные батарейки в «Электру» на час закинуть, то они заряжаются?</text>
+	</string>
+	<string id="st_dyn_news_talking_55_4">
+		<text>А то! А если голым задом сесть, то скорость и прыгучесть увеличивается!</text>
+	</string>
+	<string id="st_dyn_news_talking_56_2">
+		<text>На бюрера нарвался! На Кордоне! Еле нож успел выхватить, если б не зелёная «Медуза» на поясе, он бы меня расплющил, а так я его.</text>
+	</string>
+	<string id="st_dyn_news_talking_56_4">
+		<text>Ты про тот труп, что возле фабрики третью неделю лежит воняет? Ну-ну, рассказывай.</text>
+	</string>
+	<string id="st_dyn_news_talking_57_2">
+		<text>Видал у мужика паёк армейский, вот это норм жрачка! Не чета нашей колбасе с батонами, и уж тем более монстрятине!</text>
+	</string>
+	<string id="st_dyn_news_talking_58_2">
+		<text>Зря я картечь на дробь поменял! Картечь покучнее бьёт. А по убою схожи.</text>
+	</string>
+	<string id="st_dyn_news_talking_58_4">
+		<text>Дробь дешевле.</text>
+	</string>
+	<string id="st_dyn_news_talking_59_2">
+		<text>Сидор, спички в своём подвале тряпками мокрыми накрывает. От сглаза, что ли? Ни хера не горят!</text>
+	</string>
+	<string id="st_dyn_news_talking_59_4">
+		<text>Да, про спички ваще тема...</text>
+	</string>
+	<string id="st_dyn_news_talking_60_2">
+		<text>Вот те нате, сказали, что на Агропроме есть вояка, у которого можно затариться за водку нормально, а там полтер огненный! Половину водки расхлестал пока от него бегал.</text>
+	</string>
+	<string id="st_dyn_news_talking_60_4">
+		<text>А Кузнецов тебя чем не устроил? У него тоже ассортимент ого-го, да и вроде повыгоднее у него. Только вот броники до сих пор зажимает...</text>
+	</string>
+	<string id="st_dyn_news_talking_61_1">
+		<text>Квад</text>
+	</string>
+	<string id="st_dyn_news_talking_61_2">
+		<text>Идём по пеленгу к упавшему на Набережной вертолёту. Пока никого.</text>
+	</string>
+	<string id="st_dyn_news_talking_61_3">
+		<text>«Долг»</text>
+	</string>
+	<string id="st_dyn_news_talking_61_4">
+		<text>В приватный канал, вашу мать!</text>
+	</string>
+	<string id="st_dyn_news_talking_62_1">
+		<text>Квад</text>
+	</string>
+	<string id="st_dyn_news_talking_62_2">
+		<text>Наблюдаем волну мутантов, идёт с северо-запада, см. приложенные координаты.</text>
+	</string>
+	<string id="st_dyn_news_talking_63_1">
+		<text>Квад</text>
+	</string>
+	<string id="st_dyn_news_talking_63_2">
+		<text>Наблюдаем волну мутантов, идёт из северного ущелья.</text>
+	</string>
+	<string id="st_dyn_news_talking_64_1">
+		<text>Квад</text>
+	</string>
+	<string id="st_dyn_news_talking_64_2">
+		<text>Наблюдаем волну мутантов, идёт с востока, предположительно из Тёмной долины.</text>
+	</string>
+	<string id="st_dyn_news_talking_65_2">
+		<text>Мэй дэй, стая псов прёт прямо на нас, точные координаты прилагаю!</text>
+	</string>
+	<string id="st_dyn_news_talking_66_2">
+		<text>Вода кончилась, маску энергетиком промыл, парни, не повторяйте моей ошибки, ни хрена не вижу. Всё слиплось, водка и та не оттирает.</text>
+	</string>
+	<string id="st_dyn_news_talking_66_4">
+		<text>Ну ты лось... В лом было запастись водой?</text>
+	</string>
+	<string id="st_dyn_news_talking_67_2">
+		<text>Парни, жакан - вещь! Зомбака валит на ура, если пытается подняться, ножом добить можно пока дрыгается.</text>
+	</string>
+	<string id="st_dyn_news_talking_67_4">
+		<text>Первый день в Зоне? Любому новичку про то известно.</text>
+	</string>
+	<string id="st_dyn_news_talking_68_2">
+		<text>На Болотах в деревне клад нашёл.\nБутылка из-под шампанского полная десятикопеечных монет, кого интересует?</text>
+	</string>
+	<string id="st_dyn_news_talking_68_3">
+		<text>Сидорович</text>
+	</string>
+	<string id="st_dyn_news_talking_68_4">
+		<text>Да на кой оно кому надо... Ну приноси, может, пачку патронов дам...</text>
+	</string>
+	<string id="st_dyn_news_talking_69_2">
+		<text>У нас новичок решил собачатины поесть, ну с бывалыми не посоветовался, сам типо прекрасно знает, как готовить. Вонища тут стояла, попробовал жрать, выкинул, теперь дрищет второй день гурман херов.</text>
+	</string>
+	<string id="st_dyn_news_talking_69_3">
+		<text>Бармен</text>
+	</string>
+	<string id="st_dyn_news_talking_69_4">
+		<text>Хорошо ещё жив остался. Камикадзе...</text>
+	</string>
+	<string id="st_dyn_news_talking_70_2">
+		<text>В деревне на Армейских складах под половицей нашёл немецкий карабин, с войны припрятан, видимо, вроде рабочий, в смазке, патронов только нет. Кого интересует раритет?</text>
+	</string>
+	<string id="st_dyn_news_talking_71_2">
+		<text>Я тут на хуторе косу нашёл, острая, может, отнести к Митяю, чтоб ручку прямую приклепал от псов отбиваться?</text>
+	</string>
+	<string id="st_dyn_news_talking_71_4">
+		<text>Э-э-э... А там не видел в балахоне был тёмный тип? Жди в гости...</text>
+	</string>
+	<string id="st_dyn_news_talking_72_2">
+		<text>У нас проблема, сталкер обгорел сильно. Что делать? Аптечку вкололи.</text>
+	</string>
+	<string id="st_dyn_news_talking_72_4">
+		<text>Ссыте на него быстрее, только не ржите, мне дед рассказывал, на фронте так делали. Заместо антисептика помогает, потом бинты наложите.</text>
+	</string>
+	<string id="st_dyn_news_talking_73_2">
+		<text>Псевдов штук 20 накинулись, всю дробь извёл, отдышался, а труп всего один, все остальные как испарились. Дела...</text>
+	</string>
+	<string id="st_dyn_news_talking_73_4">
+		<text>Со страху и 100 штук померещатся.</text>
+	</string>
+	<string id="st_dyn_news_talking_74_2">
+		<text>Псевдособака набросилась, еле пристрелил!</text>
+	</string>
+	<string id="st_dyn_news_talking_74_3">
+		<text>Потап</text>
+	</string>
+	<string id="st_dyn_news_talking_74_4">
+		<text>Молодец.</text>
+	</string>
+	<string id="st_dyn_news_talking_75_2">
+		<text>Ворон, ну охотник в Кишке, такой бодягой угостил... Думал, помру... Завтра снова пойду.</text>
+	</string>
+	<string id="st_dyn_news_talking_75_4">
+		<text>Смельчак...</text>
+	</string>
+	<string id="st_dyn_news_talking_76_2">
+		<text>Скотча нет ни у кого прозрачного? Маска треснула. Дышу заразой.</text>
+	</string>
+	<string id="st_dyn_news_talking_76_4">
+		<text>Запасную нужно иметь. Ты где?</text>
+	</string>
+	<string id="st_dyn_news_talking_77_2">
+		<text>Группа с десяток тел движется со стороны Радара к Барьеру, предположительно зомбари. Примите меры.</text>
+	</string>
+	<string id="st_dyn_news_talking_77_4">
+		<text>Достали уже, прут и прут, чтоб их...</text>
+	</string>
+	<string id="st_dyn_news_talking_78_2">
+		<text>Чёрт, разгрузку потерял, слепыши порвали! Есть у кого?</text>
+	</string>
+	<string id="st_dyn_news_talking_78_4">
+		<text>Так у Кузнецова можно выменять. Или у Шерстюка на Агропроме. Ящик водки готовь!</text>
+	</string>
+	<string id="st_dyn_news_talking_79_2">
+		<text>Вертолёт полетел куда-то на север.\nХоть бы нам тут скинул пару ящиков с тушёнкой.</text>
+	</string>
+	<string id="st_dyn_news_talking_79_4">
+		<text>Кто платил, тому и кидают. Все на халяву норовят...</text>
+	</string>
+	<string id="st_dyn_news_talking_80_2">
+		<text>Новички опять ящиков понатаскали... Думают, тут артефактов - лопатой греби и ящики затаривай.</text>
+	</string>
+	<string id="st_dyn_news_talking_80_4">
+		<text>Так и хорошо - дрова будут.</text>
+	</string>
+	<string id="st_dyn_news_talking_81_2">
+		<text>Народ, кто постережёт мои арты, покуда я в ходке? Отблагодарю...</text>
+	</string>
+	<string id="st_dyn_news_talking_81_4">
+		<text>Должане хранят, ну или к охранникам бармена обратись, тока там без гарантии...</text>
+	</string>
+	<string id="st_dyn_news_talking_82_2">
+		<text>Два-три-семь, идём домой, встречайте.</text>
+	</string>
+	<string id="st_dyn_news_talking_82_3">
+		<text>«Долг»</text>
+	</string>
+	<string id="st_dyn_news_talking_82_4">
+		<text>В приватный канал, придурки!</text>
+	</string>
+	<string id="st_dyn_news_talking_83_2">
+		<text>Псевдособаку встретил, еле пристрелил! Ствол как будто дёргал кто-то в разные стороны!</text>
+	</string>
+	<string id="st_dyn_news_talking_83_4">
+		<text>Да, они прицел сбивают, псевды эти чёртовы!</text>
+	</string>
+	<string id="st_dyn_news_talking_84_2">
+		<text>В Рыжий лес собираюсь, монстров пострелять. Пойдёт кто?</text>
+	</string>
+	<string id="st_dyn_news_talking_84_4">
+		<text>Так и представляю как тамошние монстры сообщают: «Сталкер на обед пожаловал - пойдёт кто отведать?»</text>
+	</string>
+	<string id="st_dyn_news_talking_85_2">
+		<text>Мародёры зажали, выручайте!</text>
+	</string>
+	<string id="st_dyn_news_talking_85_4">
+		<text>Координаты-то приложи, умник.</text>
+	</string>
+	<string id="st_dyn_news_talking_86_2">
+		<text>Наборы есть у кого для ремонта броника?</text>
+	</string>
+	<string id="st_dyn_news_talking_86_4">
+		<text>Лишних не держим-с... Дуй к Сидору покупай!</text>
+	</string>
+	<string id="st_dyn_news_talking_87_1">
+		<text>Зуб</text>
+	</string>
+	<string id="st_dyn_news_talking_87_2">
+		<text>Мужики! Есть новые рецепты для получения хороших артов! Подваливайте в бар...</text>
+	</string>
+	<string id="st_dyn_news_talking_87_4">
+		<text>Да ты, зараза, без штанов оставишь неизвестно за что!</text>
+	</string>
+	<string id="st_dyn_news_talking_88_2">
+		<text>Кто-нибудь с Художником знаком? Альбом нашёл. Рисунки классные.</text>
+	</string>
+	<string id="st_dyn_news_talking_89_2">
+		<text>Слышал переговоры военных, у них планируется какая-то операция на Янтаре.</text>
+	</string>
+	<string id="st_dyn_news_talking_89_4">
+		<text>Хорош чепуху нести...</text>
+	</string>
+	<string id="st_dyn_news_talking_90_2">
+		<text>Чёрт! Варяг рядом спал и утром в высохшую мумию превратился! Что за новая напасть?</text>
+	</string>
+	<string id="st_dyn_news_talking_90_4">
+		<text>Напасть называется - собственная дурость!\nНаверняка забыл снять с пояса артефакты на выносливость.\nВот они из него всю жизненную энергию и высосали...</text>
+	</string>
+	<string id="st_dyn_news_talking_91_2">
+		<text>Нужен выход в интернет. В баре есть, или к Сидоровичу плестись?</text>
+	</string>
+	<string id="st_dyn_news_talking_91_4">
+		<text>Вроде у Бармена есть. В принципе, можешь попробовать пойти к связистам «Долга», у них точно доступ имеется.</text>
+	</string>
+	<string id="st_dyn_news_talking_92_2">
+		<text>Ваську Хромого собаки прямо возле блокпоста долговского разорвали!\nТоже мне - защитнички...</text>
+	</string>
+	<string id="st_dyn_news_talking_92_4">
+		<text>Да тормоз он. На днях выиграл у меня броник охотничий и спрятал где-то у долговцев. Одел бы - собаки все зубы бы сломали об него.</text>
+	</string>
+	<string id="st_dyn_news_talking_93_2">
+		<text>Ищу рецепт на «Бабкины бусы», согласен заплатить...</text>
+	</string>
+	<string id="st_dyn_news_talking_93_3">
+		<text>Зуб</text>
+	</string>
+	<string id="st_dyn_news_talking_93_4">
+		<text>Ты чё, новенький? Все знают: у Зуба всё есть!</text>
+	</string>
+	<string id="st_dyn_news_talking_94_1">
+		<text>Зуб</text>
+	</string>
+	<string id="st_dyn_news_talking_94_2">
+		<text>Если кому нужны всякие способы варить арты, подваливайте...</text>
+	</string>
+	<string id="st_dyn_news_talking_94_4">
+		<text>А чё, есть такой способ, чёб из какогонить дерьма варить «Мамины бусы»?</text>
+	</string>
+	<string id="st_dyn_news_talking_95_2">
+		<text>Сидел в подвале, а тут бряк - «Медуза» за спиной зашипела... Чуть не обделался...</text>
+	</string>
+	<string id="st_dyn_news_talking_95_4">
+		<text>Ага, и меня «Каплей» по кумполу стукнуло один раз! Зона...</text>
+	</string>
+	<string id="st_dyn_news_talking_96_2">
+		<text>Люди! Как артефакты от выброса спасти?!! Пропала «Душа»!</text>
+	</string>
+	<string id="st_dyn_news_talking_96_4">
+		<text>Ты чё, с деревни дурач... новичков только выбрался?\nВ контейнер арты нужно класть! Тогда и выброс их не достанет.</text>
+	</string>
+	<string id="st_dyn_news_talking_97_2">
+		<text>Ё-маё... Как башка после вчерашнего трещит-то! Никак не отойду...</text>
+	</string>
+	<string id="st_dyn_news_talking_97_4">
+		<text>Ты чё, мазохист? Угля выпей, враз отойдёшь...</text>
+	</string>
+	<string id="st_dyn_news_talking_98_2">
+		<text>Требуется сталкер, специалист по кодовым замкам, с опытом рейдов на север Зоны.</text>
+	</string>
+	<string id="st_dyn_news_talking_99_2">
+		<text>Я слышал, что американцы к нам какого-то своего супермена заслали.\nИнтересно будет на него посмотреть.</text>
+	</string>
+	<string id="st_dyn_news_talking_99_4">
+		<text>Это очкарика? Вроде гикнулся он...</text>
+	</string>
+	<string id="st_dyn_news_talking_100_2">
+		<text>Ё-моё, снова зомби полным-полно на Янтаре! Аккуратней там, народ!</text>
+	</string>
+	<string id="st_dyn_news_talking_100_4">
+		<text>Уникальная информация...</text>
+	</string>
+	<string id="st_dyn_news_talking_101_2">
+		<text>Народ! Осторожнее в деревне на Складах - там «Жгучего пуха» намело на столбы!</text>
+	</string>
+	<string id="st_dyn_news_talking_102_2">
+		<text>А где плоти с глазами нормальными живут? Мне срочно нужны!</text>
+	</string>
+	<string id="st_dyn_news_talking_102_3">
+		<text>Гонта</text>
+	</string>
+	<string id="st_dyn_news_talking_102_4">
+		<text>Вали к нам в Туманный лес, есть тут пара стад...</text>
+	</string>
+	<string id="st_dyn_news_talking_103_2">
+		<text>В подвалы не суйтесь, там тварей полно! Обходите поверху!</text>
+	</string>
+	<string id="st_dyn_news_talking_104_2">
+		<text>Хемуль, срочно дуй в бар, дело есть!</text>
+	</string>
+	<string id="st_dyn_news_talking_105_2">
+		<text>Сталкеры! Сахаров даёт неплохие деньги за хабар! И всё ищет, кого бы в Х-16 послать...\nЯ что-то не рискую... Фонит там дико, мозги вышибает, да и зомби...</text>
+	</string>
+	<string id="st_dyn_news_talking_105_4">
+		<text>Да ну! Сидор больше даст...</text>
+	</string>
+	<string id="st_dyn_news_talking_106_2">
+		<text>Внимание! Если в деревне в Тёмной долине вам предложат купить какую-то навороченную винтовку за 800 рублей - не верьте, это кидалово!</text>
+	</string>
+	<string id="st_dyn_news_talking_106_4">
+		<text>Тормоз ты! Давно уже там не втюхивают бакланам эту «Гаусску»...</text>
+	</string>
+	<string id="st_dyn_news_talking_107_1">
+		<text>Профессор Сахаров</text>
+	</string>
+	<string id="st_dyn_news_talking_107_2">
+		<text>Уважаемые сталкеры. Мы уже покрыли надобность в частях тел кровососов. Извините...</text>
+	</string>
+	<string id="st_dyn_news_talking_107_4">
+		<text>Я так и думал, что не успею...</text>
+	</string>
+	<string id="st_dyn_news_talking_108_2">
+		<text>Мужики. А чё за хрень на АТП, на Кордоне! Зилок старый заводится?</text>
+	</string>
+	<string id="st_dyn_news_talking_108_4">
+		<text>ЗОНА, братан...</text>
+	</string>
+	<string id="st_dyn_news_talking_109_2">
+		<text>Мужики, а чё за Зилок на АТП заводится? Стрёмно!</text>
+	</string>
+	<string id="st_dyn_news_talking_110_1">
+		<text>Бармен</text>
+	</string>
+	<string id="st_dyn_news_talking_110_2">
+		<text>Тут Бармен с Бара. Народ, «Вспышки» пока не нужны под заказ. Как понадобятся - я сообщу.</text>
+	</string>
+	<string id="st_dyn_news_talking_110_4">
+		<text>Ну и ладно, сменяю у кого-нибудь...</text>
+	</string>
+	<string id="st_dyn_news_talking_111_2">
+		<text>Нычка на Свалке богатая попалась! Хе-хе-хе...</text>
+	</string>
+	<string id="st_dyn_news_talking_111_4">
+		<text>Личико-то открой... Ворюга!</text>
+	</string>
+	<string id="st_dyn_news_talking_112_2">
+		<text>Вертуха в Долине грохнулась! Гопники уже там...</text>
+	</string>
+	<string id="st_dyn_news_talking_113_2">
+		<text>У нас тут мужики голые с неба падают! Прикиньте...</text>
+	</string>
+	<string id="st_dyn_news_talking_113_4">
+		<text>Эх... Лучше бы бабы...</text>
+	</string>
+	<string id="st_dyn_news_talking_114_1">
+		<text>Сидорович</text>
+	</string>
+	<string id="st_dyn_news_talking_114_2">
+		<text>Я насчёт копыт по заказу: отказался заказчик, так что, более не нужно...</text>
+	</string>
+	<string id="st_dyn_news_talking_114_4">
+		<text>Сидор, ты это, поаккуратнее заказчиков выбирай, а то ведь и харю начистим...</text>
+	</string>
+	<string id="st_dyn_news_talking_115_2">
+		<text>Антоха - идиот! Говорил ему: не бери чужого! Схлопотал пулю...</text>
+	</string>
+	<string id="st_dyn_news_talking_116_2">
+		<text>А кто слышал, где арты ещё хорошие остались?</text>
+	</string>
+	<string id="st_dyn_news_talking_116_4">
+		<text>Может тебе ещё ключ от квартиры... где девки?</text>
+	</string>
+	<string id="st_dyn_news_talking_117_2">
+		<text>Корефаны, жратвы нормальной не осталось? Борзый под себя гребёт...</text>
+	</string>
+	<string id="st_dyn_news_talking_117_3">
+		<text>Прапор</text>
+	</string>
+	<string id="st_dyn_news_talking_117_4">
+		<text>Чтоб вы все передохли...</text>
+	</string>
+	<string id="st_dyn_news_talking_118_1">
+		<text>Костыль</text>
+	</string>
+	<string id="st_dyn_news_talking_118_2">
+		<text>Ржавый, падла! Ты где? Общак верни! Урою!</text>
+	</string>
+	<string id="st_dyn_news_talking_119_2">
+		<text>В Бар попасть не могу! Аномалия на аномалии! Может, кто карту подгонит с безопасным путём? Я на Свалке пока...</text>
+	</string>
+	<string id="st_dyn_news_talking_119_4">
+		<text>Лимузин не подогнать? Что за новички пошли! Всё норовят на чужом горбу в рай въехать!</text>
+	</string>
+	<string id="st_dyn_news_talking_120_2">
+		<text>Слыхали? Водяры немерено у гопарей в Долине!</text>
+	</string>
+	<string id="st_dyn_news_talking_121_1">
+		<text>Сидорович</text>
+	</string>
+	<string id="st_dyn_news_talking_121_2">
+		<text>Всем, кто мне искал «Выверты»! Короче, всё, не нужно более...</text>
+	</string>
+	<string id="st_dyn_news_talking_121_4">
+		<text>Ну вот... А я, как дурак, в аномалию за «Вывертом» полез...</text>
+	</string>
+	<string id="st_dyn_news_talking_122_2">
+		<text>Мда! Девочки-то какие на фотках!</text>
+	</string>
+	<string id="st_dyn_news_talking_122_4">
+		<text>Руки сотрёшь, любитель...</text>
+	</string>
+	<string id="st_dyn_news_talking_123_2">
+		<text>Кузнецова уважаю, если бы не его патроны - сожрали бы собаки...</text>
+	</string>
+	<string id="st_dyn_news_talking_124_2">
+		<text>Набейте морду Шерстюку! Что бы жизнь ему мёдом не казалась!</text>
+	</string>
+	<string id="st_dyn_news_talking_124_4">
+		<text>Себе морду набей, а Шерстюк честный человек, как и Кузнецов. Если б не они, где б мы были?</text>
+	</string>
+	<string id="st_dyn_news_talking_125_2">
+		<text>А кто такой Шерстюк?</text>
+	</string>
+	<string id="st_dyn_news_talking_125_4">
+		<text>Прапор... Человек хороший... За бутылку Родину продаст...</text>
+	</string>
+	<string id="st_dyn_news_talking_126_2">
+		<text>Лысый - шулер! Все бабки ему спустил...</text>
+	</string>
+	<string id="st_dyn_news_talking_126_4">
+		<text>Раньше за такое канделябром...</text>
+	</string>
+	<string id="st_dyn_news_talking_127_2">
+		<text>Для рецепта не хватает «Вспышки», есть у кого? Не обижу...</text>
+	</string>
+	<string id="st_dyn_news_talking_128_2">
+		<text>Братаны Жорик и Гарик собираются в ходку...</text>
+	</string>
+	<string id="st_dyn_news_talking_128_3">
+		<text>Бармен</text>
+	</string>
+	<string id="st_dyn_news_talking_128_4">
+		<text>Не засоряйте чат сплетнями.</text>
+	</string>
+	<string id="st_dyn_news_talking_129_2">
+		<text>Кто-нибудь знает, как найти Доктора?</text>
+	</string>
+	<string id="st_dyn_news_talking_129_4">
+		<text>Подхватил что-то, болезный? Хрен ты его найдёшь теперь.</text>
+	</string>
+	<string id="st_dyn_news_talking_130_2">
+		<text>Говорят, Доктор снова объявился. Кто видел?</text>
+	</string>
+	<string id="st_dyn_news_talking_130_4">
+		<text>На Кордоне торчал какое-то время. А может и щас там, пёс его знает.\nНайдёшь его - скажешь где.</text>
+	</string>
+	<string id="st_dyn_news_talking_131_2">
+		<text>А что на Склады сейчас не попасть? Вроде была всегда тропинка.</text>
+	</string>
+	<string id="st_dyn_news_talking_131_4">
+		<text>Всё меняется - это ж Зона. Ты в баре поспрошай.</text>
+	</string>
+	<string id="st_dyn_news_talking_132_2">
+		<text>Кто знает, Проводник - это реально проводник или кликуха такая?</text>
+	</string>
+	<string id="st_dyn_news_talking_132_4">
+		<text>А ты у него сам спроси, только найди сначала.</text>
+	</string>
+	<string id="st_dyn_news_talking_133_2">
+		<text>Опа! Нашёл целый ящик патронов, правда все к макарычу, вот бы к калашу столько найти.</text>
+	</string>
+	<string id="st_dyn_news_talking_133_4">
+		<text>Тащи в Бар, поменяем.</text>
+	</string>
+	<string id="st_dyn_news_talking_134_1">
+		<text>«Долг»</text>
+	</string>
+	<string id="st_dyn_news_talking_134_2">
+		<text>Сталкеры! Идите в Бар, записывайтесь в ряды защитников человечества!</text>
+	</string>
+	<string id="st_dyn_news_talking_134_3">
+		<text>«Свобода»</text>
+	</string>
+	<string id="st_dyn_news_talking_134_4">
+		<text>...У каждого будет отдельная кровать.\\nДаже тумбочка. Мыло дадим, шнапс... где-то это уже было.</text>
+	</string>
+	<string id="st_dyn_news_talking_135_1">
+		<text>«Свобода»</text>
+	</string>
+	<string id="st_dyn_news_talking_135_2">
+		<text>Говорят, в Зоне секта объявилась - Должники Контролёра.</text>
+	</string>
+	<string id="st_dyn_news_talking_135_3">
+		<text>«Долг»</text>
+	</string>
+	<string id="st_dyn_news_talking_135_4">
+		<text>Опять обкурились? Скоро он сам к вам явится.</text>
+	</string>
+	<string id="st_dyn_news_talking_136_1">
+		<text>Зуб</text>
+	</string>
+	<string id="st_dyn_news_talking_136_2">
+		<text>Продаю рецепты, недорого.</text>
+	</string>
+	<string id="st_dyn_news_talking_136_4">
+		<text>Ага, недорого! Дешевле Мерседес купить.</text>
+	</string>
+	<string id="st_dyn_news_talking_137_2">
+		<text>Мэй дэй, химеры, стая, чё делать?!</text>
+	</string>
+	<string id="st_dyn_news_talking_137_4">
+		<text>Дурак, драпать, что ж ещё. Или на верхотуру куда-нить залезь, пережди.</text>
+	</string>
+	<string id="st_dyn_news_talking_138_2">
+		<text>Да ёлы-палы! Все патроны извёл, а ни хвостов, ни голов так и не настрелял. Может, кто продаст?</text>
+	</string>
+	<string id="st_dyn_news_talking_139_2">
+		<text>Вот суки. Ну в Баре же долговские одни - честные люди должны быть. Обшмонали нычку мою.</text>
+	</string>
+	<string id="st_dyn_news_talking_139_3">
+		<text>Петренко</text>
+	</string>
+	<string id="st_dyn_news_talking_139_4">
+		<text>Не надо ля-ля... Среди сталкеров ищи. Специально ведь для вас дураков камеру хранения открыл.</text>
+	</string>
+	<string id="st_dyn_news_talking_140_2">
+		<text>Где эти артефакты искать, в траве, что ли? Ни фига не вижу.</text>
+	</string>
+	<string id="st_dyn_news_talking_140_4">
+		<text>Арты не грибы. Детектор в зубы и в аномальные зоны топай.</text>
+	</string>
+	<string id="st_dyn_news_talking_141_2">
+		<text>Чёрт, кому-то я «Грави» нёс, забыл. Кто мне заказывал, отзовись.</text>
+	</string>
+	<string id="st_dyn_news_talking_141_3">
+		<text>Бармен</text>
+	</string>
+	<string id="st_dyn_news_talking_141_4">
+		<text>Пить меньше надо, алкаш, и записывать, если башка дырявая. Бегом давай!</text>
+	</string>
+	<string id="st_dyn_news_talking_142_2">
+		<text>Бес, меня не жди. Отдал броник в починку, не идти же голым.</text>
+	</string>
+	<string id="st_dyn_news_talking_142_4">
+		<text>А второй заиметь слабо, пока первый чинят? Детские отговорки.</text>
+	</string>
+	<string id="st_dyn_news_talking_143_2">
+		<text>Нашёл на Свалке тайник с 3 тыс. патронов к НАТОвским. Утащить не смог.</text>
+	</string>
+	<string id="st_dyn_news_talking_143_3">
+		<text>«Свобода»</text>
+	</string>
+	<string id="st_dyn_news_talking_143_4">
+		<text>Вот, где наши патрончики всплыли... Кто-то огребёт.</text>
+	</string>
+	<string id="st_dyn_news_talking_144_2">
+		<text>Ни фига себе сколько!! Точно не врут, что после выброса арты найти можно.</text>
+	</string>
+	<string id="st_dyn_news_talking_144_4">
+		<text>А то без тебя не знали. Ты, кстати, где?</text>
+	</string>
+	<string id="st_dyn_news_talking_145_2">
+		<text>Четвёртый разбитый грузовик и всё с одним номером. Это чё значит - они все одинаковые?</text>
+	</string>
+	<string id="st_dyn_news_talking_145_4">
+		<text>Это значит, ты четвёртый день вокруг одного грузовика топчешься, наркоша.</text>
+	</string>
+	<string id="st_dyn_news_talking_146_2">
+		<text>Во дела. Арт нашёл, обронил случайно, и образовалась аномалия.\nА как получилось, я и не понял.</text>
+	</string>
+	<string id="st_dyn_news_talking_146_3">
+		<text>Профессор Сахаров</text>
+	</string>
+	<string id="st_dyn_news_talking_146_4">
+		<text>Подходите, расскажите, что сделали... за вознаграждение.</text>
+	</string>
+	<string id="st_dyn_news_talking_147_2">
+		<text>Ой, мама! Какая-то штуковина летает, как электрическая, только не кусается.\nЯ в неё стреляю, а ей пофигу.</text>
+	</string>
+	<string id="st_dyn_news_talking_147_4">
+		<text>Не кусает, так на фига патроны тратишь? Неси лучше нам, если лишние.</text>
+	</string>
+	<string id="st_dyn_news_talking_148_2">
+		<text>На Кордоне увидел военного...</text>
+	</string>
+	<string id="st_dyn_news_talking_148_4">
+		<text>Да задолбали уже, салаги, этой новостью!! Открытие он сделал! Они там всегда торчат.</text>
+	</string>
+	<string id="st_dyn_news_talking_149_2">
+		<text>Я тут рецепт купил, дорогой, зараза! А чё-то не варится арт с полной защитой от всего! Помогите!</text>
+	</string>
+	<string id="st_dyn_news_talking_149_4">
+		<text>Мда... Не перевелись ещё дураки в Зоне...</text>
+	</string>
+	<string id="st_dyn_news_talking_150_2">
+		<text>Достали эти «Холодцы»! Новенький броник в хлам...</text>
+	</string>
+	<string id="st_dyn_news_talking_150_4">
+		<text>Точно, что за ботва! Ещё и краска с ногтей слезла!</text>
+	</string>
+	<string id="st_dyn_news_talking_151_2">
+		<text>Проводника кто-нибудь видел последнее время?</text>
+	</string>
+	<string id="st_dyn_news_talking_151_4">
+		<text>Прячется от народа, алкаш. Совесть видать замучила...</text>
+	</string>
+	<string id="st_dyn_news_talking_152_2">
+		<text>ПДА нашёл, Витьки Хромого, успокой его душу...\nПароль не могу подобрать! Никто не знает, как его мать звали?</text>
+	</string>
+	<string id="st_dyn_news_talking_152_4">
+		<text>Ну ты спросил!</text>
+	</string>
+	<string id="st_dyn_news_talking_153_2">
+		<text>Слух ходит, что есть арт, который мёртвых оживляет!.. Врут, наверно...</text>
+	</string>
+	<string id="st_dyn_news_talking_154_2">
+		<text>Я в нычке на Свалке \"Лунный свет\" нашёл, извини, братан, не верну...</text>
+	</string>
+	<string id="st_dyn_news_talking_155_2">
+		<text>Никто не видел, кто мою нычку распотрошил на Свалке? Отблагодарю!</text>
+	</string>
+	<string id="st_dyn_news_talking_155_4">
+		<text>Да козлы одни собрались, тырят у своих же!</text>
+	</string>
+	<string id="st_dyn_news_talking_156_2">
+		<text>С Бара к Сидору никто не собирается? Хочу посылочку передать...</text>
+	</string>
+	<string id="st_dyn_news_talking_157_2">
+		<text>Koлян-колоб еле живой остался.\n«Бенгальский огонь» на поясе в активном состоянии оставил и уснул!</text>
+	</string>
+	<string id="st_dyn_news_talking_157_4">
+		<text>Повезло, что жив остался. Сколько новичков сдуру копыта откинули из-за этих артов...</text>
+	</string>
+	<string id="st_dyn_news_talking_158_2">
+		<text>Наткнулся на побоище. Гигант затоптал несколько сталкеров.\nПяток стволов гнутых. Мож, на запчасти кому?</text>
+	</string>
+	<string id="st_dyn_news_talking_159_2">
+		<text>Всё, народ... Прощайте... Влесу рыжем кровс достл...</text>
+	</string>
+	<string id="st_dyn_news_talking_159_4">
+		<text>Да уж, каких людей теряем!</text>
+	</string>
+	<string id="st_dyn_news_talking_160_2">
+		<text>Сижу курю... Химеры с кабанами месятся! На дороге в Бар...</text>
+	</string>
+	<string id="st_dyn_news_talking_161_2">
+		<text>Какая скотина на ящик в баре растяжку поставила?\nУзнаю - руки в задницу засуну!</text>
+	</string>
+	<string id="st_dyn_news_talking_161_4">
+		<text>Себе в задницу? Горячий ты наш...</text>
+	</string>
+	<string id="st_dyn_news_talking_162_2">
+		<text>Кроту-то как подфартило, слышали?\nГоворят, сразу несколько уникальных артов поднял!</text>
+	</string>
+	<string id="st_dyn_news_talking_162_4">
+		<text>а, говорят, уже на Канарах с девками загорает... Счастливчик!</text>
+	</string>
+	<string id="st_dyn_news_talking_163_2">
+		<text>Я тут пару броников неплохих надыбал, правда, чутка покоцанные. Возьмёт кто?</text>
+	</string>
+	<string id="st_dyn_news_talking_164_2">
+		<text>А чё, правда водка от радиации помогает?</text>
+	</string>
+	<string id="st_dyn_news_talking_164_4">
+		<text>Не... Врут! Тащи сюда всё что есть...</text>
+	</string>
+	<string id="st_dyn_news_talking_165_2">
+		<text>Фанат новичка замесил! За то, что тот вояк пострелял...</text>
+	</string>
+	<string id="st_dyn_news_talking_165_3">
+		<text>Сидорович</text>
+	</string>
+	<string id="st_dyn_news_talking_165_4">
+		<text>И правильно! Расхлёбывать-то всем...</text>
+	</string>
+	<string id="st_dyn_news_talking_166_2">
+		<text>Кузнецов проболтался - скоро вояки тотальную зачистку устроят... Вроде как бомбами атомными закидают!</text>
+	</string>
+	<string id="st_dyn_news_talking_166_4">
+		<text>Валить нужно отсюда, а то огребём по самое нехочу...</text>
+	</string>
+	<string id="st_dyn_news_talking_167_2">
+		<text>Я у Шустрого классный ствол достал! Теперь за артами и в центр можно!</text>
+	</string>
+	<string id="st_dyn_news_talking_168_1">
+		<text>Сидорович</text>
+	</string>
+	<string id="st_dyn_news_talking_168_2">
+		<text>Волк, будешь у нас - зайди, тут мне кое-какие документики подогнали, хочу твоё мнение послушать.</text>
+	</string>
+	<string id="st_dyn_news_talking_168_3">
+		<text>Волк</text>
+	</string>
+	<string id="st_dyn_news_talking_168_4">
+		<text>Ладно, заскочу. Чуть позже.</text>
+	</string>
+	<string id="st_dyn_news_talking_169_2">
+		<text>Говорят, Шустрый штаны последние потерял, голяком бегает?</text>
+	</string>
+	<string id="st_dyn_news_talking_169_4">
+		<text>Ты чё больной? Он щас уникальными стволами всякими торгует. Такие бабки гребёт!</text>
+	</string>
+	<string id="st_dyn_news_talking_170_2">
+		<text>Долг ищет добровольцев, на блокпостах мясо нужно...</text>
+	</string>
+	<string id="st_dyn_news_talking_170_4">
+		<text>Щас... Только портки постираю...</text>
+	</string>
+	<string id="st_dyn_news_talking_171_2">
+		<text>Слышал, какой-то сталкер у вояк на Агропроме документы какие-то украл?</text>
+	</string>
+	<string id="st_dyn_news_talking_171_4">
+		<text>Дурачьё! Вояки теперь всем наваляют!</text>
+	</string>
+	<string id="st_dyn_news_talking_172_2">
+		<text>В Долине вроде шухер какой-то? Вояки зачистку устраивали.</text>
+	</string>
+	<string id="st_dyn_news_talking_172_4">
+		<text>Пытались, да не вышло. Султан с братвой их быстро назад развернули.</text>
+	</string>
+	<string id="st_dyn_news_talking_173_2">
+		<text>Сидоровичу вроде чумадан какой-то передали с блокпоста? Продался, старый?</text>
+	</string>
+	<string id="st_dyn_news_talking_173_3">
+		<text>Сидорович</text>
+	</string>
+	<string id="st_dyn_news_talking_173_4">
+		<text>Ох, дураки! Я же о вас беспокоюсь, чтобы вояки не перестреляли всех без разбору!</text>
+	</string>
+	<string id="st_dyn_news_talking_174_2">
+		<text>Никому «Медузы» паршивые не нужны? Три штуки отдам за одну нормальную...</text>
+	</string>
+	<string id="st_dyn_news_talking_174_4">
+		<text>Ну подгоняй в Бар, покумекаем.</text>
+	</string>
+	<string id="st_dyn_news_talking_175_2">
+		<text>Я арт нашёл необычный, круглый и тяжёлый, с него будто кристаллики сыпятся. Что за хрень?</text>
+	</string>
+	<string id="st_dyn_news_talking_175_4">
+		<text>Точно - хрень, а ты где?</text>
+	</string>
+	<string id="st_dyn_news_talking_176_2">
+		<text>А слабо ножиком крова завалить?</text>
+	</string>
+	<string id="st_dyn_news_talking_176_4">
+		<text>А слабо голой задницей в «Холодец» сесть? Дубина!</text>
+	</string>
+	<string id="st_dyn_news_talking_177_2">
+		<text>Меня тут попросили найти парочку «Медуз», если есть у кого, согласен обменять на «Грави»</text>
+	</string>
+	<string id="st_dyn_news_talking_177_4">
+		<text>Ну есть у меня «Медузы», тока «Грави» не нужен, давай «Ломоть мяса»!</text>
+	</string>
+	<string id="st_dyn_news_talking_178_2">
+		<text>Нашёл труп Кира. Сидел на дереве, видимо спастись хотел бедолага. Весь кровью покрыт. Страшно...</text>
+	</string>
+	<string id="st_dyn_news_talking_179_2">
+		<text>Нашёл капсулу - тащи или Сидору, или Бармену. Они вскроют...</text>
+	</string>
+	<string id="st_dyn_news_talking_180_2">
+		<text>У меня контейнер во сне спёрли! Узнаю кто - убью!</text>
+	</string>
+	<string id="st_dyn_news_talking_180_4">
+		<text>Лошара!</text>
+	</string>
+	<string id="st_dyn_news_talking_181_2">
+		<text>На Складах мужик голый с неба упал! Во, дела!</text>
+	</string>
+	<string id="st_dyn_news_talking_181_4">
+		<text>Эх-х-х... Лучше бы баба...</text>
+	</string>
+	<string id="st_dyn_news_talking_182_2">
+		<text>Как там на Янтаре? Вроде Сахаров искал добровольцев в подземелье лезть?</text>
+	</string>
+	<string id="st_dyn_news_talking_182_3">
+		<text>Профессор Сахаров</text>
+	</string>
+	<string id="st_dyn_news_talking_182_4">
+		<text>Да-да, молодой человек, подходите, посмотрим, что сможем вам предложить.</text>
+	</string>
+	<string id="st_dyn_news_talking_183_1">
+		<text>Бармен</text>
+	</string>
+	<string id="st_dyn_news_talking_183_2">
+		<text>Если кто собирается на Кордон, подходите, пообщаемся.</text>
+	</string>
+	<string id="st_dyn_news_talking_183_4">
+		<text>Опять Сидору коробку с кирпичами нести? Задолбали ваши с ним шуточки!</text>
+	</string>
+	<string id="st_dyn_news_talking_184_2">
+		<text>Крысы запарили! Всю колбасу покусали и хлеб...</text>
+	</string>
+	<string id="st_dyn_news_talking_184_4">
+		<text>Беречь нужно! Колбасу свою... А то девкам обломится...</text>
+	</string>
+	<string id="st_dyn_news_talking_185_2">
+		<text>У наёмников ПНВ получше - мне бы к моему костюмчику присоединить.</text>
+	</string>
+	<string id="st_dyn_news_talking_186_2">
+		<text>Димон пропал в Долине, никто не знает, чё с ним?</text>
+	</string>
+	<string id="st_dyn_news_talking_186_4">
+		<text>Я слышал, какой-то дебил там нарисовался, ну и убили Димона...</text>
+	</string>
+	<string id="st_dyn_news_talking_187_2">
+		<text>Жрать-то как охота! Вроде только нажрался, а внутри как чёрная дыра...</text>
+	</string>
+	<string id="st_dyn_news_talking_187_4">
+		<text>Ты арты от «Электры» сними, от них вообще сдохнуть с голодухи можно.</text>
+	</string>
+	<string id="st_dyn_news_talking_188_2">
+		<text>Учёные на Янтаре пропали, бесследно...</text>
+	</string>
+	<string id="st_dyn_news_talking_188_4">
+		<text>Зона, брат. Сегодня они, а завтра...</text>
+	</string>
+	<string id="st_dyn_news_talking_189_2">
+		<text>А куда собаки делись? Пары хвостов не хватает для Сидора...</text>
+	</string>
+	<string id="st_dyn_news_talking_190_2">
+		<text>Тут один треплется, что «Мозговыжигатель» иногда не работает и можно в Припять проскочить!</text>
+	</string>
+	<string id="st_dyn_news_talking_190_4">
+		<text>Треплов столько развелось...</text>
+	</string>
+	<string id="st_dyn_news_talking_191_2">
+		<text>Сидор сырыми спичками торгует! Третий коробок чиркаю!</text>
+	</string>
+	<string id="st_dyn_news_talking_191_4">
+		<text>И водкой палёной! Третью бутылку пью - не берёт!</text>
+	</string>
+	<string id="st_dyn_news_talking_192_2">
+		<text>Если нужны патроны к калашу дёшево - валите в Тёмную долину, на ферму...</text>
+	</string>
+	<string id="st_dyn_news_talking_192_4">
+		<text>Ага, пистоны, а не патроны...</text>
+	</string>
+	<string id="st_dyn_news_talking_193_2">
+		<text>Что за невезуха! Уже третий «Выверт» никакой... Может, выбросы слабеют?</text>
+	</string>
+	<string id="st_dyn_news_talking_194_1">
+		<text>Бес</text>
+	</string>
+	<string id="st_dyn_news_talking_194_2">
+		<text>Опять бандиты объявились. Нехорошо. Будем искоренять.</text>
+	</string>
+	<string id="st_dyn_news_talking_194_3">
+		<text>Копчёный</text>
+	</string>
+	<string id="st_dyn_news_talking_194_4">
+		<text>Не мы такие, жизнь такая...</text>
+	</string>
+	<string id="st_dyn_news_talking_195_1">
+		<text>Лысый</text>
+	</string>
+	<string id="st_dyn_news_talking_195_2">
+		<text>Губка Гоп, спортивные штаны. Увидите - пристрелите.</text>
+	</string>
+	<string id="st_dyn_news_talking_195_4">
+		<text>Лысого нагрели! Ура!</text>
+	</string>
+	<string id="st_dyn_news_talking_196_1">
+		<text>Фанат</text>
+	</string>
+	<string id="st_dyn_news_talking_196_2">
+		<text>Волк, отзовись, поговорить надо.</text>
+	</string>
+	<string id="st_dyn_news_talking_197_1">
+		<text>Бармен</text>
+	</string>
+	<string id="st_dyn_news_talking_197_2">
+		<text>Ищу курьера, подходите, пообщаемся...</text>
+	</string>
+	<string id="st_dyn_news_talking_198_2">
+		<text>Прикол, ща одного дядьку видел - хабар на тележке тащит. Скрип стоит на всю округу, аж вороны падают!</text>
+	</string>
+	<string id="st_dyn_news_talking_198_4">
+		<text>Сказал бы лучше, куда он тележку тянет.</text>
+	</string>
+	<string id="st_dyn_news_talking_199_2">
+		<text>У меня крыса рюкзак прогрызла, сожрала колбасу и издохла! Вонища, ё-моё...</text>
+	</string>
+	<string id="st_dyn_news_talking_199_4">
+		<text>Она не от колбасы, а от носков твоих сдохла, выкинул бы уж из рюкзака или простирнул... Бедное животное.</text>
+	</string>
+	<string id="st_dyn_news_talking_200_2">
+		<text>Бармен дал задание «Лунный свет» принести, а сам кинул меня - копейки дал. Парни, шлите его на фиг!</text>
+	</string>
+	<string id="st_dyn_news_talking_200_3">
+		<text>Бармен</text>
+	</string>
+	<string id="st_dyn_news_talking_200_4">
+		<text>Я твой «Бенгальский огонь» взял по вполне приличной цене, что ещё за претензии?\nНе помнишь ничего спьяну!</text>
+	</string>
+	<string id="st_dyn_news_talking_201_2">
+		<text>В Тёмной долине артов как грязи! Кто идёт?</text>
+	</string>
+	<string id="st_dyn_news_talking_201_3">
+		<text>«Долг»</text>
+	</string>
+	<string id="st_dyn_news_talking_201_4">
+		<text>Сталкеры, не ведитесь! Бандиты грабят одиночек и используют подставные лица! Будьте бдительны!</text>
+	</string>
+	<string id="st_dyn_news_talking_202_2">
+		<text>У охотников плащи кожаные... и шляпы.</text>
+	</string>
+	<string id="st_dyn_news_talking_202_3">
+		<text>Игнат</text>
+	</string>
+	<string id="st_dyn_news_talking_202_4">
+		<text>Ага. И ещё кожаные мокасины. Хау, братья!</text>
+	</string>
+	<string id="st_dyn_news_talking_203_2">
+		<text>Сахаров в бункер не пускает. Спит, что ли...</text>
+	</string>
+	<string id="st_dyn_news_talking_203_4">
+		<text>Ты ж с перепою на зомбака похож. Кто тебя пустит-то?</text>
+	</string>
+	<string id="st_dyn_news_talking_204_2">
+		<text>У меня ружьё спёрли... Уроды!</text>
+	</string>
+	<string id="st_dyn_news_talking_204_3">
+		<text>Фанат</text>
+	</string>
+	<string id="st_dyn_news_talking_204_4">
+		<text>Протрезвеешь - отдам. Вильгельм Телль ещё один выискался!</text>
+	</string>
+	<string id="st_dyn_news_talking_205_2">
+		<text>Кто Кузнецова напоил? Второй день на посту не появляется...</text>
+	</string>
+	<string id="st_dyn_news_talking_205_4">
+		<text>Так у него ж пересменка. Он два дня под мостом, два дня на блокпосте.</text>
+	</string>
+	<string id="st_dyn_news_talking_206_2">
+		<text>Прикольно, Скат новёхонький на Свалке нашёл!</text>
+	</string>
+	<string id="st_dyn_news_talking_206_4">
+		<text>Э, алё, положь взад! Руки вырву!</text>
+	</string>
+	<string id="st_dyn_news_talking_207_2">
+		<text>Доктора давно видели? Правая бочина болит, под ребром сразу. Какая-то тварь прокусила.</text>
+	</string>
+	<string id="st_dyn_news_talking_207_4">
+		<text>Эта тварь цирроз называется, не поможет Доктор.</text>
+	</string>
+	<string id="st_dyn_news_talking_208_2">
+		<text>Народ, пружины от калаша нет у кого-нибудь?</text>
+	</string>
+	<string id="st_dyn_news_talking_208_4">
+		<text>В Бар дуй, там Фургон махом починит.</text>
+	</string>
+	<string id="st_dyn_news_talking_209_2">
+		<text>На Агрике в болотине сидят вечно толпа зомбарей. Откуда они там берутся?</text>
+	</string>
+	<string id="st_dyn_news_talking_209_4">
+		<text>С неба падают! Янтарь же рядом, вот оттуда и приходят.</text>
+	</string>
+	<string id="st_dyn_news_talking_210_2">
+		<text>В Тёмной долине бандюк на бандюке сидит! Кидалы сплошные!</text>
+	</string>
+	<string id="st_dyn_news_talking_210_4">
+		<text>Чё ты вопишь, терпила, скажи спасибо, что ваще бошку не открутили!</text>
+	</string>
+	<string id="st_dyn_news_talking_211_2">
+		<text>Грузовик в Долине видели, который ещё всегда тарахтел заведённый?\nВчера заглох и в пыль весь рассыпался</text>
+	</string>
+	<string id="st_dyn_news_talking_211_4">
+		<text>А он через день снова соберётся и снова как новый тарахтеть будет.\nНехорошее там место, беги оттуда.</text>
+	</string>
+	<string id="st_dyn_news_talking_212_2">
+		<text>Струны гитарные есть у кого? Даю «Медузу».</text>
+	</string>
+	<string id="st_dyn_news_talking_212_4">
+		<text>«Медузу» за музу, красиво, можно песню на этом забацать.</text>
+	</string>
+	<string id="st_dyn_news_talking_213_2">
+		<text>Куплю голову кровососа. Дорого. В неповреждённом состоянии.</text>
+	</string>
+	<string id="st_dyn_news_talking_213_4">
+		<text>Мы щас к тебе целого крова подгоним. Живьём. Только в клетку его сам загонишь.</text>
+	</string>
+	<string id="st_dyn_news_talking_214_2">
+		<text>Народ, как обрез из тозика сделать?</text>
+	</string>
+	<string id="st_dyn_news_talking_214_3">
+		<text>Фургон</text>
+	</string>
+	<string id="st_dyn_news_talking_214_4">
+		<text>Подходи. Любой каприз за ваши деньги.</text>
+	</string>
+	<string id="st_dyn_news_talking_215_1">
+		<text>Бармен</text>
+	</string>
+	<string id="st_dyn_news_talking_215_2">
+		<text>Какая сволочь тушкана в Бар затащила? Всю картошку в каптёрке сожрал.\nБудете теперь суп из этого тушкана лопать, идиоты!</text>
+	</string>
+	<string id="st_dyn_news_talking_215_4">
+		<text>Да он же дохлый с виду был! Вот и пошутили...</text>
+	</string>
+	<string id="st_dyn_news_talking_216_2">
+		<text>Кому печёнка кабанья нужна?</text>
+	</string>
+	<string id="st_dyn_news_talking_216_3">
+		<text>Игнат</text>
+	</string>
+	<string id="st_dyn_news_talking_216_4">
+		<text>Дурень, выброси! В ней радиации больше, чем на ЧАЭС.</text>
+	</string>
+	<string id="st_dyn_news_talking_217_2">
+		<text>Заметил сейчас, как сталкер на Янтаре пристрелил пятерых зомбированных. Возле вертолета у озера. \nШмонать не стал, ушёл к лагерю учёных. Так что, приходите на этот шведский стол</text>
+	</string>
+	<string id="st_dyn_news_talking_217_4">
+		<text>Ага. Ты основное блюдо. Будешь десертом для снорков...</text>
+	</string>
+	<string id="st_dyn_news_talking_218_1">
+		<text>«Долг»</text>
+	</string>
+	<string id="st_dyn_news_talking_218_2">
+		<text>Сталкеры, на базе «Долга» открыты камеры хранения. Сохранность имущества гарантируем. \nОплата более чем умеренная. Не рискуйте, не носите постоянно с собой ценные вещи, провоцируя ограбления и убийства!</text>
+	</string>
+	<string id="st_dyn_news_talking_218_4">
+		<text>И подпись надо под заманухой - Яшка Цыган, дежурный по схрону. \nИнтересно, вот арты не собирают, а в месяц по три каравана с «порождениями Зоны» на большую землю уходят. Может, кровососы с бюрерами от квадов откупаются?</text>
+	</string>
+	<string id="st_dyn_news_talking_219_2">
+		<text>Вчера видел кровососа, а рядом сталкер стоял. Ну, думаю, хана сталкеру! \\nВдруг вижу, вроде как попрощались, пожали руки-лапы и разошлись! Точно, водка вчера палёная была, привидется же такое.</text>
+	</string>
+	<string id="st_dyn_news_talking_219_4">
+		<text>Это ещё что. Я видел, как два снорка целуются - вот же извращенцы.</text>
+	</string>
+	<string id="st_dyn_news_talking_220_2">
+		<text>Помните Саньку, ну который ещё шульга - играл на водку в Баре. Нашёл тайник его, на Дикой. Целый ящик водки.</text>
+	</string>
+	<string id="st_dyn_news_talking_220_4">
+		<text>Так неси в Бар, покумекаем, что будем делать с добром.</text>
+	</string>
+	
+	<!-- Объявления -->
+	<string id="st_dyn_news_advertisement_dolg_1">
+		<text>У нас проблемы с оборудованием, в течение пары суток может барахлить связь с базой и квадами.</text>
+	</string>
+	<string id="st_dyn_news_advertisement_dolg_2">
+		<text>Эфир не забиваем, ваши подвиги по убийству левых мужиков никого не интересуют.</text>
+	</string>
+	<string id="st_dyn_news_advertisement_dolg_3">
+		<text>Заходим в приватный канал, скачиваем обновление защиты. Будет утечка информации из-за того, что вам было лень пропатчить - придушу.</text>
+	</string>
+	<string id="st_dyn_news_advertisement_dolg_4">
+		<text>Информацию по рейдам на мутантов и другим операциям - в приватный канал. Не хватало еще, чтобы утечка была.</text>
+	</string>
+	<string id="st_dyn_news_advertisement_dolg_5">
+		<text>Сталкеры, вступайте в "Долг». Защитим планету от заразы Зоны!</text>
+	</string>
+	<string id="st_dyn_news_advertisement_dolg_6">
+		<text>Нужны опытные сталкеры для рейда на снорков. Оплата соответствующая.</text>
+	</string>
+	<string id="st_dyn_news_advertisement_dolg_7">
+		<text>Нужны опытные сталкеры для рейда на мутантов. Оплата соответствующая.</text>
+	</string>
+	<string id="st_dyn_news_advertisement_dolg_8">
+		<text>Нужны опытные сталкеры для рейда на мутантское отродье. Оплата соответствующая.</text>
+	</string>
+	<string id="st_dyn_news_advertisement_dolg_9">
+		<text>Всем квадам, сейчас же выйти на связь! Общий сбор на канале!</text>
+	</string>
+	<string id="st_dyn_news_advertisement_sender_dolg_1">
+		<text>«Долг»</text>
+	</string>
+	<string id="st_dyn_news_advertisement_sender_dolg_2">
+		<text>Петренко, «Долг»</text>
+	</string>
+	<string id="st_dyn_news_advertisement_sender_dolg_3">
+		<text>Иванцов, «Долг»</text>
+	</string>
+	<string id="st_dyn_news_advertisement_sender_dolg_4">
+		<text>Петренко, «Долг»</text>
+	</string>
+	<string id="st_dyn_news_advertisement_sender_dolg_5">
+		<text>«Долг»</text>
+	</string>
+	<string id="st_dyn_news_advertisement_sender_dolg_6">
+		<text>«Долг»</text>
+	</string>
+	<string id="st_dyn_news_advertisement_sender_dolg_7">
+		<text>«Долг»</text>
+	</string>
+	<string id="st_dyn_news_advertisement_sender_dolg_8">
+		<text>«Долг»</text>
+	</string>
+	<string id="st_dyn_news_advertisement_sender_dolg_9">
+		<text>Петренко, «Долг»</text>
+	</string>
+	
+	<string id="st_dyn_news_advertisement_freedom_1">
+		<text>Да здравствует «Свобода»! Сделаем мир при помощи Зоны лучше!</text>
+	</string>
+	<string id="st_dyn_news_advertisement_freedom_2">
+		<text>Вступайте в «Свободу»! Остановим захват Зоны!</text>
+	</string>
+	<string id="st_dyn_news_advertisement_freedom_3">
+		<text>Нужны опытные сталкеры для рейда за артефактами. С нас причитается.</text>
+	</string>
+	<string id="st_dyn_news_advertisement_freedom_4">
+		<text>Одиночки! Говорит «Свобода»! Если хотите жить в нормальных условиях в Зоне и без армейской обязаловки, как у «Долга» - двигайте к нам! Всегда рады новым лицам.</text>
+	</string>
+	<string id="st_dyn_news_advertisement_freedom_5">
+		<text>Всем нашим - срочно зайти в приватный канал, обновляем защиту. Потом не жалуйтесь, что о вашем рейде «Долг» узнал.</text>
+	</string>
+	<string id="st_dyn_news_advertisement_freedom_6">
+		<text>Если находитесь на задании, всю информацию - в приватный канал. Этот не только наши читают, не палитесь.</text>
+	</string>
+	<string id="st_dyn_news_advertisement_freedom_7">
+		<text>Данные по передвижению мерков сразу скидываем мне в приват, это действительно важно.</text>
+	</string>
+	<string id="st_dyn_news_advertisement_sender_freedom_1">
+		<text>«Свобода»</text>
+	</string>
+	<string id="st_dyn_news_advertisement_sender_freedom_2">
+		<text>«Свобода»</text>
+	</string>
+	<string id="st_dyn_news_advertisement_sender_freedom_3">
+		<text>«Свобода»</text>
+	</string>
+	<string id="st_dyn_news_advertisement_sender_freedom_4">
+		<text>«Свобода»</text>
+	</string>
+	<string id="st_dyn_news_advertisement_sender_freedom_5">
+		<text>Макс, «Свобода»</text>
+	</string>
+	<string id="st_dyn_news_advertisement_sender_freedom_6">
+		<text>Макс, «Свобода»</text>
+	</string>
+	<string id="st_dyn_news_advertisement_sender_freedom_7">
+		<text>Локи, «Свобода»</text>
+	</string>
+	
+	<string id="st_dyn_news_advertisement_ecolog_1">
+		<text>Всем сталкерам, готовым помочь науке - признательность с нашей стороны!</text>
+	</string>
+	<string id="st_dyn_news_advertisement_ecolog_2">
+		<text>Нужны сталкеры для охраны бункера - активность мутантов повысилась! Высокая оплата гарантированна!</text>
+	</string>
+	<string id="st_dyn_news_advertisement_ecolog_3">
+		<text>Нужны сталкеры для экспедиции вглубь Зоны! Высокая оплата гарантированна!</text>
+	</string>
+	<string id="st_dyn_news_advertisement_ecolog_4">
+		<text>Нужен проводник для экспедиции молодых сотрудников! Высокая оплата гарантированна!</text>
+	</string>
+	<string id="st_dyn_news_advertisement_ecolog_5">
+		<text>Снаряжаем экспедицию для замеров на Янтаре! Готовы принять любую помощь со стороны сталкеров!</text>
+	</string>
+	<string id="st_dyn_news_advertisement_ecolog_6">
+		<text>Нужны части тел монстров для исследований! Чем раньше - тем более высокая оплата!</text>
+	</string>
+	<string id="st_dyn_news_advertisement_ecolog_7">
+		<text>Имеются заказы на артефакты для исследований! Оплата, как всегда, высокая!</text>
+	</string>
+	<string id="st_dyn_news_advertisement_sender_ecolog_1">
+		<text>«Учёные»</text>
+	</string>
+	<string id="st_dyn_news_advertisement_sender_ecolog_2">
+		<text>Сахаров, «Учёные»</text>
+	</string>
+	<string id="st_dyn_news_advertisement_sender_ecolog_3">
+		<text>«Учёные»</text>
+	</string>
+	<string id="st_dyn_news_advertisement_sender_ecolog_4">
+		<text>Сахаров, «Учёные»</text>
+	</string>
+	<string id="st_dyn_news_advertisement_sender_ecolog_5">
+		<text>Круглов, «Учёные»</text>
+	</string>
+	<string id="st_dyn_news_advertisement_sender_ecolog_6">
+		<text>«Учёные»</text>
+	</string>
+	<string id="st_dyn_news_advertisement_sender_ecolog_7">
+		<text>«Учёные»</text>
+	</string>
+	
+	<string id="st_dyn_news_advertisement_renegade_1">
+		<text>Недавно заметили кровососа на Агропроме. Скоро идём на охоту. Есть желающие - присоединяйтесь!</text>
+	</string>
+	<string id="st_dyn_news_advertisement_renegade_2">
+		<text>Сталкеры, если вы чувствуете, что охота - это ваша страсть - приходите к нам! Научим, покажем, расскажем!</text>
+	</string>
+	<string id="st_dyn_news_advertisement_renegade_3">
+		<text>Собираемся на охоту сегодня ночью. Кто хочет - подходите к нам в Рыжий лес!</text>
+	</string>
+	<string id="st_dyn_news_advertisement_renegade_4">
+		<text>Принимаем части тел монстров! Если кому не нужны и кто недалеко - тащите к нам. Мы найдём им применение.</text>
+	</string>
+	<string id="st_dyn_news_advertisement_renegade_5">
+		<text>Нам сообщили, что на армейских складах химера завелась. Скоро идём на охоту. Есть желающие - присоединяйтесь!</text>
+	</string>
+	<string id="st_dyn_news_advertisement_renegade_6">
+		<text>Засекли скопление снорков в Рыжем лесу. Скоро идём на охоту. Есть желающие - присоединяйтесь!</text>
+	</string>
+	<string id="st_dyn_news_advertisement_sender_renegade_1">
+		<text>Охотники</text>
+	</string>
+	<string id="st_dyn_news_advertisement_sender_renegade_2">
+		<text>Охотники</text>
+	</string>
+	<string id="st_dyn_news_advertisement_sender_renegade_3">
+		<text>Охотники</text>
+	</string>
+	<string id="st_dyn_news_advertisement_sender_renegade_4">
+		<text>Охотники</text>
+	</string>
+	<string id="st_dyn_news_advertisement_sender_renegade_5">
+		<text>Охотники</text>
+	</string>
+	<string id="st_dyn_news_advertisement_sender_renegade_6">
+		<text>Охотники</text>
+	</string>
+	
+	<string id="st_dyn_news_advertisement_trader_1">
+		<text>Народ! Мне тут тушёнки партию завезли! Разбирайте, пока всю не раскупили, хе-хе..</text>
+	</string>
+	<string id="st_dyn_news_advertisement_trader_sender_1">
+		<text>Сидорович</text>
+	</string>
+	<string id="st_dyn_news_advertisement_trader_2">
+		<text>Если кто хочет подзаработать, или просто поболтать по душам - подходите в Бар.</text>
+	</string>
+	<string id="st_dyn_news_advertisement_trader_sender_2">
+		<text>Бармен</text>
+	</string>
+	
+	
+	<!-- Погода и время суток -->
+	<string id="st_dyn_news_morning_1">
+		<text>Мужики, рассветает... красиво-то как.</text>
+	</string>
+	<string id="st_dyn_news_morning_2">
+		<text>Рассветает...</text>
+	</string>
+	<string id="st_dyn_news_morning_3">
+		<text>Народ, тут это, рассветает - думаю, можно уже выдвигаться.\nМало на кого теперь натолкнёмся, не то что ночью.</text>
+	</string>
+	<string id="st_dyn_news_morning_4">
+		<text>Рассвело. Выдвигаемся, сейчас более-менее безопасно.</text>
+	</string>
+	<string id="st_dyn_news_morning_5">
+		<text>Мужики, подъём! Утро уже!</text>
+	</string>
+	<string id="st_dyn_news_morning_6">
+		<text>Эх, мужики! Наконец-то светает, а то устал уже я дрожать от страха в темноте. Уж лучше при свете дня... дрожать...</text>
+	</string>
+	<string id="st_dyn_news_morning_7">
+		<text>Меня кто-нибудь слышит? Сегодня ночью пропала группа наших ребят. Должны были вернуться к утру с Агропрома. До сих пор нет. Через час отправляемся на поиски. Присоединяйтесь.</text>
+	</string>
+	<string id="st_dyn_news_morning_8">
+		<text>Мужики, вы бы видели, какой тут на Янтаре рассвет. Это что-то... И страшно, и красиво... И трупы снорков так классно дрейфуют в искрящейся в утреннем солнце глади озера... Романтика...</text>
+	</string>
+	
+	<string id="st_dyn_news_evening_1">
+		<text>Чёрт, мужики, вы как хотите, а я за хабаром сегодня уже не пойду. Ночь скоро...</text>
+	</string>
+	<string id="st_dyn_news_evening_2">
+		<text>Не, не пойду я уже никуда. Поздно уже, скоро дряни всякой повылазит...</text>
+	</string>
+	<string id="st_dyn_news_evening_3">
+		<text>Так, закат уже... потихоньку возвращайтесь, сейчас в Зоне небезопасно.</text>
+	</string>
+	<string id="st_dyn_news_evening_4">
+		<text>Идите-ка вы, мужики... в ночь... на кровососов... одни. Экстремалы, блин.</text>
+	</string>
+	<string id="st_dyn_news_evening_5">
+		<text>Ну что? Кто со мной пойдёт валить стаю псевдособак? А то я боюсь ночью в палатке спать, вдруг этот... тёмный... водички опять попросит... Уж лучше побродить где-нибудь...</text>
+	</string>
+	<string id="st_dyn_news_evening_6">
+		<text>Луна скоро взойдёт... Чёрт, не успеваю до лагеря добраться...\nМужики есть кто поблизости? Чую, меня какая-то тварь уже преследует.</text>
+	</string>
+	<string id="st_dyn_news_evening_7">
+		<text>Всем внимание!\nУчёные сообщают о подозрительной активности мутантов на Янтаре этой ночью.\nВсем оставаться в лагерях.</text>
+	</string>
+	
+	<string id="st_dyn_news_weather_clear_1">
+		<text>Эх, какая погода классная! И не верится, что Зона...</text>
+	</string>
+	<string id="st_dyn_news_weather_clear_2">
+		<text>А погода всё-таки супер. Позагорать бы :)</text>
+	</string>
+	<string id="st_dyn_news_weather_clear_3">
+		<text>Тучка прячется за лес,\nСмотрит солнышко с небес.\nИ такое чистое,\nДоброе, лучистое...\n\nЭх, что-то меня на лирику потянуло...</text>
+	</string>
+	
+	<string id="st_dyn_news_weather_partly_1">
+		<text>Что-то хмурится. Как бы дождь не пошёл...</text>
+	</string>
+	<string id="st_dyn_news_weather_partly_2">
+		<text>Тучки небольшие идёт, как думаете, дождь-то будет?</text>
+	</string>
+	<string id="st_dyn_news_weather_partly_3">
+		<text>Эх, такая погода классная, а там вон тучи тянет...</text>
+	</string>
+	
+	<string id="st_dyn_news_weather_foggy_1">
+		<text>Туманно что-то... Как бы не усилилось...</text>
+	</string>
+	<string id="st_dyn_news_weather_foggy_2">
+		<text>Кому как, а мне нравится такой небольшой туман. Что-то в нём есть такое... таинственное...</text>
+	</string>
+	
+	<string id="st_dyn_news_weather_veryfoggy_1">
+		<text>Чёртов туман! Дальше носа ничерта не видно! Как теперь до базы добираться?</text>
+	</string>
+	<string id="st_dyn_news_weather_veryfoggy_2">
+		<text>М-да... С такой туманностью идти куда-то - верная смерть...</text>
+	</string>
+	
+	<string id="st_dyn_news_weather_cloudy_1">
+		<text>Тучи какие-то мрачные тянет...</text>
+	</string>
+	<string id="st_dyn_news_weather_cloudy_2">
+		<text>Сдаётся, дождь будет. А мы только за хабаром собрались...</text>
+	</string>
+	<string id="st_dyn_news_weather_cloudy_3">
+		<text>Что-то пасмурно...</text>
+	</string>
+	<string id="st_dyn_news_weather_cloudy_4">
+		<text>Похоже, солнца мы еще долго не увидим.</text>
+	</string>
+	<string id="st_dyn_news_weather_cloudy_5">
+		<text>Ну и кто там рассказывал, что будет хорошая погода?</text>
+	</string>
+	
+	<string id="st_dyn_news_weather_rain_1">
+		<text>Кто знает, этот дождь вообще закончится когда-то?</text>
+	</string>
+	<string id="st_dyn_news_weather_rain_2">
+		<text>Все льёт и льёт...</text>
+	</string>
+	<string id="st_dyn_news_weather_rain_3">
+		<text>Дробь дождя по тёмным крышам – \nПерезвоны кастаньет.\\nТихий шорох еле слышен. \nВ сером дыме сигарет \nРастворились ароматы \nС неба льющейся воды... \nИ под звонкие раскаты \nСоткан мир из пустоты. \n\nЭх... А я ведь когда-то серьёзно стихи писал.</text>
+	</string>
+	<string id="st_dyn_news_weather_rain_4">
+		<text>Я же говорил - будет дождь.</text>
+	</string>
+	<string id="st_dyn_news_weather_rain_5">
+		<text>И вновь дожди обрушились на землю,\nИ капли разрывают тишину.\nВокруг вода стекает с мутной пеной,\nСмывая за собой пожухлую листву.</text>
+	</string>
+	
+	<string id="st_dyn_news_weather_storm_1">
+		<text>Слышали гром? Бабахнуло неслабо.</text>
+	</string>
+	<string id="st_dyn_news_weather_storm_2">
+		<text>Все льёт и льёт...</text>
+	</string>
+	<string id="st_dyn_news_weather_storm_3">
+		<text>У нас тут такое светопредставление - молнии лупят, не переставая.</text>
+	</string>
+	<string id="st_dyn_news_weather_storm_4">
+		<text>Интересно, гроза вообще прекратится?</text>
+	</string>
+	<string id="st_dyn_news_weather_storm_5">
+		<text>Вот блин! Только соберёшься идти - сразу дождь как из ведра.</text>
+	</string>
+	<string id="st_dyn_news_weather_storm_6">
+		<text>Гром гремит. Значит, не просто дождик - гроза.</text>
+	</string>
+	
+	<!-- Выброс -->
+	<string id="st_dyn_news_surge_1">
+		<text>Встретил Болотного Доктора... ну, как встретил... он меня полечил немного от укусов собачек слепых, но это не важно. Важно то, что он предупредил о Выбросе. Говорит, что Выброс случится %s %s, так что всем в норы!</text>
+	</string>
+	<string id="st_dyn_news_surge_2">
+		<text>Заходил к экологам на Янтаре. Так они предупредили, что по их замерам Выброс будет %s %s.</text>
+	</string>
+	<string id="st_dyn_news_surge_3">
+		<text>Сахаров предупредил, что %s %s Выброс будет. Так что ищите себе норку поуютнее.</text>
+	</string>
+	<string id="st_dyn_news_surge_4">
+		<text>Парни, у меня аппаратура уже зашкаливать начала. Скорее всего, Выброс будет %s %s.</text>
+	</string>
+	<string id="st_dyn_news_surge_5">
+		<text>Зверьё зашевелилось. Скоро Выброс. Скорее всего, %s %s.</text>
+	</string>
+	<string id="st_dyn_news_surge_6">
+		<text>У Кардана геморрой чует выброс. Хе-хе... Скорее всего, %s %s.</text>
+	</string>
+	<string id="st_dyn_news_surge_7">
+		<text>Прапора на свалке видел, говорит его спина чует, что %s %s Выброса можно ожидать...</text>
+	</string>
+	<string id="st_dyn_news_surge_8">
+		<text>Ищите укрытие понадёжней, Выброс - %s %s.</text>
+	</string>
+	<string id="st_dyn_news_surge_9">
+		<text>Сахаров говорит, у него аппаратура даёт приблизительную оценку, что Выброс - %s %s.</text>
+	</string>
+	<string id="st_dyn_news_surge_10">
+		<text>Когда был у Сахарова, он упомянул о Выбросе. Будет %s %s.</text>
+	</string>
+	<string id="st_dyn_news_surge_11">
+		<text>СМне сообщили, что Выброс - %s %s. Каналы у меня надёжные, так что, скорее всего, так оно и есть. Осторожнее там.</text>
+	</string>
+	<string id="st_dyn_news_surge_12">
+		<text>Выброс будет %s %s. Точно говорю.</text>
+	</string>
+	
+	<string id="st_dyn_news_surge_today">
+		<text>сегодня</text>
+	</string>
+	<string id="st_dyn_news_surge_tomorrow">
+		<text>завтра</text>
+	</string>
+	<string id="st_dyn_news_surge_night">
+		<text>ночью</text>
+	</string>
+	<string id="st_dyn_news_surge_morning">
+		<text>утром</text>
+	</string>
+	<string id="st_dyn_news_surge_to_noon">
+		<text>до полудня</text>
+	</string>
+	<string id="st_dyn_news_surge_afternoon">
+		<text>днём</text>
+	</string>
+	<string id="st_dyn_news_surge_evening">
+		<text>вечерком</text>
+	</string>
+	<string id="st_dyn_news_surge_to_midnight">
+		<text>поздно вечером</text>
+	</string>
+	
+	<string id="st_dyn_news_surge_reply_1">
+		<text>Ё-моё!</text>
+	</string>
+	<string id="st_dyn_news_surge_reply_2">
+		<text>Забодали выбросы... Что то часто слишком!</text>
+	</string>
+	<string id="st_dyn_news_surge_reply_3">
+		<text>А точно ли? Вон вчера тоже говорили, а где оно?</text>
+	</string>
+	<string id="st_dyn_news_surge_reply_4">
+		<text>Прошлый раз тоже говорили про Выброс! \nЯ, как дурак, прождал, а ребята нехило хабаром разжились!</text>
+	</string>
+	<string id="st_dyn_news_surge_reply_5">
+		<text>Ну и пусть, все равно никуда не собирался...</text>
+	</string>
+	<string id="st_dyn_news_surge_reply_6">
+		<text>Брехня! Недавно только был, что теперь каждый час будет?</text>
+	</string>
+	<string id="st_dyn_news_surge_reply_7">
+		<text>А не врешь? Я только, только до хороших мест добрался...</text>
+	</string>
+	<string id="st_dyn_news_surge_reply_8">
+		<text>А я всегда на ворон смотрю, они то точно знают!</text>
+	</string>
+	
+	<!-- Семецкий -->
+	<string id="st_dyn_news_semecky_name">
+		<text>Юрий Семецкий</text>
+	</string>
+	
+	<string id="st_dyn_news_semecky_level_1">
+		<text>Окрестности «Юпитера»</text>
+	</string>
+	<string id="st_dyn_news_semecky_level_2">
+		<text>Агропром</text>
+	</string>
+	<string id="st_dyn_news_semecky_level_3">
+		<text>Янтарь</text>
+	</string>
+	<string id="st_dyn_news_semecky_level_4">
+		<text>Рыжий лес</text>
+	</string>
+	<string id="st_dyn_news_semecky_level_5">
+		<text>Радар</text>
+	</string>
+	<string id="st_dyn_news_semecky_level_6">
+		<text>Мёртвый город</text>
+	</string>
+	<string id="st_dyn_news_semecky_level_7">
+		<text>Армейские склады</text>
+	</string>
+	<string id="st_dyn_news_semecky_level_8">
+		<text>Припять</text>
+	</string>
+	<string id="st_dyn_news_semecky_level_9">
+		<text>Лиманск</text>
+	</string>
+	<string id="st_dyn_news_semecky_level_10">
+		<text>Генераторы</text>
+	</string>
+	
+	<string id="st_dyn_news_semecky_mutant_1">
+		<text>Кабан на клыки поднял</text>
+	</string>
+	<string id="st_dyn_news_semecky_mutant_2">
+		<text>Псевдопёс загрыз</text>
+	</string>
+	<string id="st_dyn_news_semecky_mutant_3">
+		<text>Снорк запинал</text>
+	</string>
+	<string id="st_dyn_news_semecky_mutant_4">
+		<text>Кровосос добрался</text>
+	</string>
+	<string id="st_dyn_news_semecky_mutant_5">
+		<text>С бюрером не справился</text>
+	</string>
+	<string id="st_dyn_news_semecky_mutant_6">
+		<text>Химера когтями исполосовала</text>
+	</string>
+	<string id="st_dyn_news_semecky_mutant_7">
+		<text>Контролёр мозг выжег</text>
+	</string>
+	<string id="st_dyn_news_semecky_mutant_8">
+		<text>Гигант затоптал</text>
+	</string>
+	
+	
+	<!-- Группировки и мутанты -->
+	<string id="st_dyn_news_boar_0">
+		<text>кабан</text>
+	</string>
+	<string id="st_dyn_news_boar_1">
+		<text>кабаном</text>
+	</string>
+	<string id="st_dyn_news_boar_2">
+		<text>Мы атакованы кабаном</text>
+	</string>
+	<string id="st_dyn_news_boar_3">
+		<text>Мы напоролись на кабанов</text>
+	</string>
+	<string id="st_dyn_news_boar_4">
+		<text>Мы атакованы стадом кабанов</text>
+	</string>
+	<string id="st_dyn_news_boar_5">
+		<text>Нас атаковало стадо кабанов</text>
+	</string>
+	<string id="st_dyn_news_boar_6">
+		<text>Стадо диких кабанов</text>
+	</string>
+	<string id="st_dyn_news_boar_7">
+		<text>диких кабанов</text>
+	</string>
+	<string id="st_dyn_news_boar_8">
+		<text>кабан на клыки поднял</text>
+	</string>
+
+	<string id="st_dyn_news_dog_0">
+		<text>слепой пёс</text>
+	</string>
+	<string id="st_dyn_news_dog_1">
+		<text>псом</text>
+	</string>
+	<string id="st_dyn_news_dog_2">
+		<text>Мы атакованы собакой</text>
+	</string>
+	<string id="st_dyn_news_dog_3">
+		<text>Нас атаковал слепой пёс</text>
+	</string>
+	<string id="st_dyn_news_dog_4">
+		<text>Мы атакованы стаей собак</text>
+	</string>
+	<string id="st_dyn_news_dog_5">
+		<text>Напоролись на стаю слепых псов</text>
+	</string>
+	<string id="st_dyn_news_dog_6">
+		<text>Стая собак</text>
+	</string>
+	<string id="st_dyn_news_dog_7">
+		<text>слепых псов</text>
+	</string>
+	<string id="st_dyn_news_dog_8">
+		<text>собака загрызла</text>
+	</string>
+
+	<string id="st_dyn_news_flesh_0">
+		<text>плоть</text>
+	</string>
+	<string id="st_dyn_news_flesh_1">
+		<text>плотью</text>
+	</string>
+	<string id="st_dyn_news_flesh_2">
+		<text>Мы атакованы плотью</text>
+	</string>
+	<string id="st_dyn_news_flesh_3">
+		<text>Мы напоролись на плоть</text>
+	</string>
+	<string id="st_dyn_news_flesh_4">
+		<text>Нас атаковало стадо плотей</text>
+	</string>
+	<string id="st_dyn_news_flesh_5">
+		<text>Напоролись на плоть</text>
+	</string>
+	<string id="st_dyn_news_flesh_6">
+		<text>Стадо плотей</text>
+	</string>
+	<string id="st_dyn_news_flesh_7">
+		<text>стадо плотей</text>
+	</string>
+	<string id="st_dyn_news_flesh_8">
+		<text>плоть своими копытами располосовала</text>
+	</string>
+
+	<string id="st_dyn_news_pseudodog_0">
+		<text>псевдособака</text>
+	</string>
+	<string id="st_dyn_news_pseudodog_1">
+		<text>псевдопсом</text>
+	</string>
+	<string id="st_dyn_news_pseudodog_2">
+		<text>Мы атакованы псевдособакой</text>
+	</string>
+	<string id="st_dyn_news_pseudodog_3">
+		<text>Нас атаковал псевдопёс</text>
+	</string>
+	<string id="st_dyn_news_pseudodog_4">
+		<text>Мы напоролись на стаю псевдособак</text>
+	</string>
+	<string id="st_dyn_news_pseudodog_5">
+		<text>Нас атаковала стая псевдособак</text>
+	</string>
+	<string id="st_dyn_news_pseudodog_6">
+		<text>Стая псевдособак</text>
+	</string>
+	<string id="st_dyn_news_pseudodog_7">
+		<text>псевдособаку</text>
+	</string>
+	<string id="st_dyn_news_pseudodog_8">
+		<text>псевдопёс загрыз</text>
+	</string>
+
+	<string id="st_dyn_news_snork_0">
+		<text>снорк</text>
+	</string>
+	<string id="st_dyn_news_snork_1">
+		<text>снорком</text>
+	</string>
+	<string id="st_dyn_news_snork_2">
+		<text>Мы атакованы снорком</text>
+	</string>
+	<string id="st_dyn_news_snork_3">
+		<text>Напоролись на снорка</text>
+	</string>
+	<string id="st_dyn_news_snork_4">
+		<text>Мы атакованы группой снорков</text>
+	</string>
+	<string id="st_dyn_news_snork_5">
+		<text>Мы напоролись на группу снорков</text>
+	</string>
+	<string id="st_dyn_news_snork_6">
+		<text>Группа снорков</text>
+	</string>
+	<string id="st_dyn_news_snork_7">
+		<text>снорков</text>
+	</string>
+	<string id="st_dyn_news_snork_8">
+		<text>снорк запинал</text>
+	</string>
+
+	<string id="st_dyn_news_bloodsucker_0">
+		<text>кровосос</text>
+	</string>
+	<string id="st_dyn_news_bloodsucker_1">
+		<text>кровососом</text>
+	</string>
+	<string id="st_dyn_news_bloodsucker_2">
+		<text>Напоролись на кровососа</text>
+	</string>
+	<string id="st_dyn_news_bloodsucker_3">
+		<text>Нас атаковал кровосос</text>
+	</string>
+	<string id="st_dyn_news_bloodsucker_4">
+		<text>Мы атакованы кровососом</text>
+	</string>
+	<string id="st_dyn_news_bloodsucker_5">
+		<text>Нас атаковала группа кровососов</text>
+	</string>
+	<string id="st_dyn_news_bloodsucker_6">
+		<text>Стая кровососов</text>
+	</string>
+	<string id="st_dyn_news_bloodsucker_7">
+		<text>кровососа</text>
+	</string>
+	<string id="st_dyn_news_bloodsucker_8">
+		<text>кровосос добрался</text>
+	</string>
+
+	<string id="st_dyn_news_burer_0">
+		<text>бюрер</text>
+	</string>
+	<string id="st_dyn_news_burer_1">
+		<text>бюрером</text>
+	</string>
+	<string id="st_dyn_news_burer_2">
+		<text>Мы атакованы бюрером</text>
+	</string>
+	<string id="st_dyn_news_burer_3">
+		<text>Напоролись на бюрера</text>
+	</string>
+	<string id="st_dyn_news_burer_4">
+		<text>Мы атакованы группой бюреров</text>
+	</string>
+	<string id="st_dyn_news_burer_5">
+		<text>Мы напоролись на бюреров</text>
+	</string>
+	<string id="st_dyn_news_burer_6">
+		<text>Группа бюреров</text>
+	</string>
+	<string id="st_dyn_news_burer_7">
+		<text>бюрера</text>
+	</string>
+	<string id="st_dyn_news_burer_8">
+		<text>с бюрером не справился</text>
+	</string>
+
+	<string id="st_dyn_news_chimera_0">
+		<text>химера</text>
+	</string>
+	<string id="st_dyn_news_chimera_1">
+		<text>химерой</text>
+	</string>
+	<string id="st_dyn_news_chimera_2">
+		<text>Мы атакованы химерой</text>
+	</string>
+	<string id="st_dyn_news_chimera_3">
+		<text>Нас атаковала химера</text>
+	</string>
+	<string id="st_dyn_news_chimera_4">
+		<text>Мы атакованы химерами</text>
+	</string>
+	<string id="st_dyn_news_chimera_5">
+		<text>У нас тут стая химер</text>
+	</string>
+	<string id="st_dyn_news_chimera_6">
+		<text>Стая химер</text>
+	</string>
+	<string id="st_dyn_news_chimera_7">
+		<text>химеру</text>
+	</string>
+	<string id="st_dyn_news_chimera_8">
+		<text>химера когтями исполосовала</text>
+	</string>
+
+	<string id="st_dyn_news_controller_0">
+		<text>контролёр</text>
+	</string>
+	<string id="st_dyn_news_controller_1">
+		<text>контролёром</text>
+	</string>
+	<string id="st_dyn_news_controller_2">
+		<text>Нас атаковал контролёр</text>
+	</string>
+	<string id="st_dyn_news_controller_3">
+		<text>Мы напоролись на контролёра</text>
+	</string>
+	<string id="st_dyn_news_controller_4">
+		<text>Мы атакованы группой контролёров</text>
+	</string>
+	<string id="st_dyn_news_controller_5">
+		<text>У нас тут группа контролёров</text>
+	</string>
+	<string id="st_dyn_news_controller_6">
+		<text>Группа контролёров</text>
+	</string>
+	<string id="st_dyn_news_controller_7">
+		<text>контролёра</text>
+	</string>
+	<string id="st_dyn_news_controller_8">
+		<text>контролёр мозг выжег</text>
+	</string>
+
+	<string id="st_dyn_news_poltergeist_0">
+		<text>полтергейст</text>
+	</string>
+	<string id="st_dyn_news_poltergeist_1">
+		<text>полтергейстом</text>
+	</string>
+	<string id="st_dyn_news_poltergeist_2">
+		<text>Мы атакованы полтергейстом</text>
+	</string>
+	<string id="st_dyn_news_poltergeist_3">
+		<text>Мы напоролись на полтергейста</text>
+	</string>
+	<string id="st_dyn_news_poltergeist_4">
+		<text>Нас атаковали полтергейсты</text>
+	</string>
+	<string id="st_dyn_news_poltergeist_5">
+		<text>Напоролись на полтергейстов</text>
+	</string>
+	<string id="st_dyn_news_poltergeist_6">
+		<text>Полтергейсты</text>
+	</string>
+	<string id="st_dyn_news_poltergeist_7">
+		<text>полтергейста</text>
+	</string>
+	<string id="st_dyn_news_poltergeist_8">
+		<text>полтергейст шваранул</text>
+	</string>
+
+	<string id="st_dyn_news_gigant_0">
+		<text>псевдогигант</text>
+	</string>
+	<string id="st_dyn_news_gigant_1">
+		<text>псевдогигантом</text>
+	</string>
+	<string id="st_dyn_news_gigant_2">
+		<text>Мы атакованы псевдогигантом</text>
+	</string>
+	<string id="st_dyn_news_gigant_3">
+		<text>Мы напоролись на псевдогиганта</text>
+	</string>
+	<string id="st_dyn_news_gigant_4">
+		<text>Нас атаковали псевдогиганты</text>
+	</string>
+	<string id="st_dyn_news_gigant_5">
+		<text>Мы атакованы псевдогигантами</text>
+	</string>
+	<string id="st_dyn_news_gigant_6">
+		<text>Группа псевдогигантов</text>
+	</string>
+	<string id="st_dyn_news_gigant_7">
+		<text>псевдогиганта</text>
+	</string>
+	<string id="st_dyn_news_gigant_8">
+		<text>гигант затоптал</text>
+	</string>
+
+	<string id="st_dyn_news_tushkano_0">
+		<text>тушкан</text>
+	</string>
+	<string id="st_dyn_news_tushkano_1">
+		<text>тушканом</text>
+	</string>
+	<string id="st_dyn_news_tushkano_2">
+		<text>Напоролись на тушкана</text>
+	</string>
+	<string id="st_dyn_news_tushkano_3">
+		<text>Нас атаковал тушкан</text>
+	</string>
+	<string id="st_dyn_news_tushkano_4">
+		<text>Нас атаковала стая тушканов</text>
+	</string>
+	<string id="st_dyn_news_tushkano_5">
+		<text>Мы атакованы стаей тушканов</text>
+	</string>
+	<string id="st_dyn_news_tushkano_6">
+		<text>Стая тушканов</text>
+	</string>
+	<string id="st_dyn_news_tushkano_7">
+		<text>тушканов</text>
+	</string>
+	<string id="st_dyn_news_tushkano_8">
+		<text>тушкан достал</text>
+	</string>
+
+	<string id="st_dyn_news_psy_dog_0">
+		<text>пси-собака</text>
+	</string>
+	<string id="st_dyn_news_psy_dog_1">
+		<text>пси-собакой</text>
+	</string>
+	<string id="st_dyn_news_psy_dog_2">
+		<text>Мы атакованы пси-собакой</text>
+	</string>
+	<string id="st_dyn_news_psy_dog_3">
+		<text>Нас атаковала пси-собака</text>
+	</string>
+	<string id="st_dyn_news_psy_dog_4">
+		<text>Мы напоролись на стаю пси-собак</text>
+	</string>
+	<string id="st_dyn_news_psy_dog_5">
+		<text>Мы атакованы пси-собаками</text>
+	</string>
+	<string id="st_dyn_news_psy_dog_6">
+		<text>Стая пси-собак</text>
+	</string>
+	<string id="st_dyn_news_psy_dog_7">
+		<text>пси-собаку</text>
+	</string>
+	<string id="st_dyn_news_psy_dog_8">
+		<text>пси-собака мозг выела</text>
+	</string>
+
+	<string id="st_dyn_news_psy_dog_phantom_0">
+		<text>фантом</text>
+	</string>
+	<string id="st_dyn_news_psy_dog_phantom_1">
+		<text>фантомом</text>
+	</string>
+	<string id="st_dyn_news_psy_dog_phantom_2">
+		<text>Мы атакованы пси-собакой</text>
+	</string>
+	<string id="st_dyn_news_psy_dog_phantom_3">
+		<text>Нас атаковала пси-собака</text>
+	</string>
+	<string id="st_dyn_news_psy_dog_phantom_4">
+		<text>Мы напоролись на стаю пси-собак</text>
+	</string>
+	<string id="st_dyn_news_psy_dog_phantom_5">
+		<text>Нас атаковали пси-собаки</text>
+	</string>
+	<string id="st_dyn_news_psy_dog_phantom_6">
+		<text>Стая пси-собак</text>
+	</string>
+	<string id="st_dyn_news_psy_dog_phantom_7">
+		<text>пси-собаку</text>
+	</string>
+	<string id="st_dyn_news_psy_dog_phantom_8">
+		<text>пси-собака мозг выела</text>
+	</string>
+
+	<string id="st_dyn_news_zombied_0">
+		<text>зомбированный сталкер</text>
+	</string>
+	<string id="st_dyn_news_zombied_1">
+		<text>зомбированным сталкером</text>
+	</string>
+	<string id="st_dyn_news_zombied_2">
+		<text>Мы атакованы зомбированным</text>
+	</string>
+	<string id="st_dyn_news_zombied_3">
+		<text>Мы напоролись на зомби</text>
+	</string>
+	<string id="st_dyn_news_zombied_4">
+		<text>Нас атаковали зомби</text>
+	</string>
+	<string id="st_dyn_news_zombied_5">
+		<text>Мы напоролись на группу зомби</text>
+	</string>
+	<string id="st_dyn_news_zombied_6">
+		<text>Отряд зомбированных</text>
+	</string>
+	<string id="st_dyn_news_zombied_7">
+		<text>зомбированных</text>
+	</string>
+	<string id="st_dyn_news_zombied_8">
+		<text>зомбированный пристрелил</text>
+	</string>
+
+	<string id="st_dyn_news_cat_0">
+		<text>кошка</text>
+	</string>
+	<string id="st_dyn_news_cat_1">
+		<text>кошкой</text>
+	</string>
+	<string id="st_dyn_news_cat_2">
+		<text>Мы атакованы кошкой</text>
+	</string>
+	<string id="st_dyn_news_cat_3">
+		<text>Мы напоролись на кошку</text>
+	</string>
+	<string id="st_dyn_news_cat_4">
+		<text>Нас атаковала стая котов</text>
+	</string>
+	<string id="st_dyn_news_cat_5">
+		<text>Напоролись на грёбаных кошек</text>
+	</string>
+	<string id="st_dyn_news_cat_6">
+		<text>Стая кошек</text>
+	</string>
+	<string id="st_dyn_news_cat_7">
+		<text>кошек</text>
+	</string>
+	<string id="st_dyn_news_cat_8">
+		<text>кот горло порвал</text>
+	</string>
+
+	<string id="st_dyn_news_fracture_0">
+		<text>излом</text>
+	</string>
+	<string id="st_dyn_news_fracture_1">
+		<text>изломом</text>
+	</string>
+	<string id="st_dyn_news_fracture_2">
+		<text>Мы атакованы изломом</text>
+	</string>
+	<string id="st_dyn_news_fracture_3">
+		<text>Мы напоролись на излома</text>
+	</string>
+	<string id="st_dyn_news_fracture_4">
+		<text>Нас атаковала группа изломов</text>
+	</string>
+	<string id="st_dyn_news_fracture_5">
+		<text>На нас напали изломы</text>
+	</string>
+	<string id="st_dyn_news_fracture_6">
+		<text>Группа изломов</text>
+	</string>
+	<string id="st_dyn_news_fracture_7">
+		<text>группу изломов</text>
+	</string>
+	<string id="st_dyn_news_fracture_8">
+		<text>излом кости поломал</text>
+	</string>
+
+	<string id="st_dyn_news_zombie_0">
+		<text>зомби</text>
+	</string>
+	<string id="st_dyn_news_zombie_1">
+		<text>зомби</text>
+	</string>
+	<string id="st_dyn_news_zombie_2">
+		<text>Мы атакованы зомби</text>
+	</string>
+	<string id="st_dyn_news_zombie_3">
+		<text>Мы напоролись на зомби</text>
+	</string>
+	<string id="st_dyn_news_zombie_4">
+		<text>Нас атаковали зомби</text>
+	</string>
+	<string id="st_dyn_news_zombie_5">
+		<text>Напоролись на зомби</text>
+	</string>
+	<string id="st_dyn_news_zombie_6">
+		<text>Группа зомби</text>
+	</string>
+	<string id="st_dyn_news_zombie_7">
+		<text>толпу зомбированных</text>
+	</string>
+	<string id="st_dyn_news_zombie_8">
+		<text>от зомби не ушёл</text>
+	</string>
+
+	<string id="st_dyn_news_rat_0">
+		<text>крыса</text>
+	</string>
+	<string id="st_dyn_news_rat_1">
+		<text>крысой</text>
+	</string>
+	<string id="st_dyn_news_rat_2">
+		<text>Нас атаковали крысы</text>
+	</string>
+	<string id="st_dyn_news_rat_3">
+		<text>На нас напали чёртовы крысы</text>
+	</string>
+	<string id="st_dyn_news_rat_4">
+		<text>Мы напоролись на стаю крыс</text>
+	</string>
+	<string id="st_dyn_news_rat_5">
+		<text>Мы атакованы стаей крыс</text>
+	</string>
+	<string id="st_dyn_news_rat_6">
+		<text>Стая крыс</text>
+	</string>
+	<string id="st_dyn_news_rat_7">
+		<text>крыс</text>
+	</string>
+	<string id="st_dyn_news_rat_8">
+		<text>крыса загрызла</text>
+	</string>
+	
+	<string id="st_dyn_news_comm_actor_1">
+		<text>каким-то одиночкой</text>
+	</string>
+	<string id="st_dyn_news_comm_actor_2">
+		<text>одиночкой</text>
+	</string>
+	<string id="st_dyn_news_comm_actor_3">
+		<text>каким-то сталкером</text>
+	</string>
+	<string id="st_dyn_news_comm_actor_4">
+		<text>одиночкой</text>
+	</string>
+	<string id="st_dyn_news_comm_actor_5">
+		<text>stalker</text>
+	</string>
+	<string id="st_dyn_news_comm_actor_6">
+		<text>Одиночка</text>
+	</string>
+	<string id="st_dyn_news_comm_actor_7">
+		<text>группой сталкеров</text>
+	</string>
+	<string id="st_dyn_news_comm_actor_8">
+		<text>одиночками</text>
+	</string>
+	<string id="st_dyn_news_comm_actor_9">
+		<text>группой сталкеров</text>
+	</string>
+	<string id="st_dyn_news_comm_actor_10">
+		<text>одиночками</text>
+	</string>
+	<string id="st_dyn_news_comm_actor_11">
+		<text>Нам нужна помощь!</text>
+	</string>
+	<string id="st_dyn_news_comm_actor_12">
+		<text>Помогите!</text>
+	</string>
+	<string id="st_dyn_news_comm_actor_13">
+		<text>Мужики, нам тут помощь нужна.</text>
+	</string>
+	<string id="st_dyn_news_comm_actor_14">
+		<text>Мужики, на помощь!</text>
+	</string>
+	<string id="st_dyn_news_comm_actor_15">
+		<text>Одиночки</text>
+	</string>
+	
+	<string id="st_dyn_news_comm_monolith_1">
+		<text>«Монолитом»</text>
+	</string>
+	<string id="st_dyn_news_comm_monolith_2">
+		<text>одним из «монолитовцев»</text>
+	</string>
+	<string id="st_dyn_news_comm_monolith_3">
+		<text>бойцом «Монолита»</text>
+	</string>
+	<string id="st_dyn_news_comm_monolith_4">
+		<text>«Монолитом»</text>
+	</string>
+	<string id="st_dyn_news_comm_monolith_5">
+		<text>default</text>
+	</string>
+	<string id="st_dyn_news_comm_monolith_6">
+		<text>«Монолит»</text>
+	</string>
+	<string id="st_dyn_news_comm_monolith_7">
+		<text>«Монолитом»</text>
+	</string>
+	<string id="st_dyn_news_comm_monolith_8">
+		<text>монолитовцами</text>
+	</string>
+	<string id="st_dyn_news_comm_monolith_9">
+		<text>«Монолитом»</text>
+	</string>
+	<string id="st_dyn_news_comm_monolith_10">
+		<text>силами «Монолита»</text>
+	</string>
+	<string id="st_dyn_news_comm_monolith_11">
+		<text>Помогите, братья!</text>
+	</string>
+	<string id="st_dyn_news_comm_monolith_12">
+		<text>Братья, на помощь!</text>
+	</string>
+	<string id="st_dyn_news_comm_monolith_13">
+		<text>Братья, нам нужна помощь!</text>
+	</string>
+	<string id="st_dyn_news_comm_monolith_14">
+		<text>На помощь!</text>
+	</string>
+	<string id="st_dyn_news_comm_monolith_15">
+		<text>«Монолит»</text>
+	</string>
+	
+	<string id="st_dyn_news_comm_bandit_1">
+		<text>бандитом</text>
+	</string>
+	<string id="st_dyn_news_comm_bandit_2">
+		<text>бандитом</text>
+	</string>
+	<string id="st_dyn_news_comm_bandit_3">
+		<text>бандитом</text>
+	</string>
+	<string id="st_dyn_news_comm_bandit_4">
+		<text>каким-то бандитом</text>
+	</string>
+	<string id="st_dyn_news_comm_bandit_5">
+		<text>bandit</text>
+	</string>
+	<string id="st_dyn_news_comm_bandit_6">
+		<text>Бандит</text>
+	</string>
+	<string id="st_dyn_news_comm_bandit_7">
+		<text>бандитами</text>
+	</string>
+	<string id="st_dyn_news_comm_bandit_8">
+		<text>мародёрами</text>
+	</string>
+	<string id="st_dyn_news_comm_bandit_9">
+		<text>шайкой бандитов</text>
+	</string>
+	<string id="st_dyn_news_comm_bandit_10">
+		<text>группой мародёров</text>
+	</string>
+	<string id="st_dyn_news_comm_bandit_11">
+		<text>Помогайте, пацаны!</text>
+	</string>
+	<string id="st_dyn_news_comm_bandit_12">
+		<text>SOS, вашу мать!</text>
+	</string>
+	<string id="st_dyn_news_comm_bandit_13">
+		<text>Пацаны, выручайте!</text>
+	</string>
+	<string id="st_dyn_news_comm_bandit_14">
+		<text>Пацаны, мля, сюда!</text>
+	</string>
+	<string id="st_dyn_news_comm_bandit_15">
+		<text>Бандиты</text>
+	</string>
+	
+	<string id="st_dyn_news_comm_dolg_1">
+		<text>долговцем</text>
+	</string>
+	<string id="st_dyn_news_comm_dolg_2">
+		<text>одним из «долговцев»</text>
+	</string>
+	<string id="st_dyn_news_comm_dolg_3">
+		<text>долговцем</text>
+	</string>
+	<string id="st_dyn_news_comm_dolg_4">
+		<text>одним из «долговцев»</text>
+	</string>
+	<string id="st_dyn_news_comm_dolg_5">
+		<text>dolg</text>
+	</string>
+	<string id="st_dyn_news_comm_dolg_6">
+		<text>«Долг»</text>
+	</string>
+	<string id="st_dyn_news_comm_dolg_7">
+		<text>«Долгом»</text>
+	</string>
+	<string id="st_dyn_news_comm_dolg_8">
+		<text>бойцами «Долга»</text>
+	</string>
+	<string id="st_dyn_news_comm_dolg_9">
+		<text>«Долгом»</text>
+	</string>
+	<string id="st_dyn_news_comm_dolg_10">
+		<text>силами «Долга»</text>
+	</string>
+	<string id="st_dyn_news_comm_dolg_11">
+		<text>Нужно подкрепление!</text>
+	</string>
+	<string id="st_dyn_news_comm_dolg_12">
+		<text>Запрашиваю подкрепление!</text>
+	</string>
+	<string id="st_dyn_news_comm_dolg_13">
+		<text>Запрашиваю поддержку, срочно!</text>
+	</string>
+	<string id="st_dyn_news_comm_dolg_14">
+		<text>Нужна поддержка!</text>
+	</string>
+	<string id="st_dyn_news_comm_dolg_15">
+		<text>«Долг»</text>
+	</string>
+	
+	<string id="st_dyn_news_comm_ecolog_1">
+		<text>учёным</text>
+	</string>
+	<string id="st_dyn_news_comm_ecolog_2">
+		<text>яйцеголовым</text>
+	</string>
+	<string id="st_dyn_news_comm_ecolog_3">
+		<text>каким-то экологом</text>
+	</string>
+	<string id="st_dyn_news_comm_ecolog_4">
+		<text>одним из яйцеголовых</text>
+	</string>
+	<string id="st_dyn_news_comm_ecolog_5">
+		<text>default</text>
+	</string>
+	<string id="st_dyn_news_comm_ecolog_6">
+		<text>Экологи</text>
+	</string>
+	<string id="st_dyn_news_comm_ecolog_7">
+		<text>учёными</text>
+	</string>
+	<string id="st_dyn_news_comm_ecolog_8">
+		<text>экологами</text>
+	</string>
+	<string id="st_dyn_news_comm_ecolog_9">
+		<text>учёными</text>
+	</string>
+	<string id="st_dyn_news_comm_ecolog_10">
+		<text>яйцеголовыми</text>
+	</string>
+	<string id="st_dyn_news_comm_ecolog_11">
+		<text>Кто-нибудь, пожалуйста, помогите!</text>
+	</string>
+	<string id="st_dyn_news_comm_ecolog_12">
+		<text>Помогите, кто-нибудь!</text>
+	</string>
+	<string id="st_dyn_news_comm_ecolog_13">
+		<text>Это группа учёных, нам нужна помощь!</text>
+	</string>
+	<string id="st_dyn_news_comm_ecolog_14">
+		<text>Кто-нибудь, помогите!</text>
+	</string>
+	<string id="st_dyn_news_comm_ecolog_15">
+		<text>Экологи</text>
+	</string>
+	
+	<string id="st_dyn_news_comm_csky_1">
+		<text>сталкером «Чистого неба»</text>
+	</string>
+	<string id="st_dyn_news_comm_csky_2">
+		<text>одним из сталкеров «Чистого неба»</text>
+	</string>
+	<string id="st_dyn_news_comm_csky_3">
+		<text>бойцом «Чистого неба»</text>
+	</string>
+	<string id="st_dyn_news_comm_csky_4">
+		<text>сталкером из «Чистого неба»</text>
+	</string>
+	<string id="st_dyn_news_comm_csky_5">
+		<text>Clear Sky</text>
+	</string>
+	<string id="st_dyn_news_comm_csky_6">
+		<text>«Чистое небо»</text>
+	</string>
+	<string id="st_dyn_news_comm_csky_7">
+		<text>«Чистым небом»</text>
+	</string>
+	<string id="st_dyn_news_comm_csky_8">
+		<text>«Чистым небом»</text>
+	</string>
+	<string id="st_dyn_news_comm_csky_9">
+		<text>«Чистым небом»</text>
+	</string>
+	<string id="st_dyn_news_comm_csky_10">
+		<text>сталкерами «Чистого неба»</text>
+	</string>
+	<string id="st_dyn_news_comm_csky_11">
+		<text>Нужна помощь!</text>
+	</string>
+	<string id="st_dyn_news_comm_csky_12">
+		<text>Это отряд «Чистого неба», нам нужна помощь!</text>
+	</string>
+	<string id="st_dyn_news_comm_csky_13">
+		<text>Сталкеры, помогите!</text>
+	</string>
+	<string id="st_dyn_news_comm_csky_14">
+		<text>SOS!</text>
+	</string>
+	<string id="st_dyn_news_comm_csky_15">
+		<text>«Чистое небо»</text>
+	</string>
+	
+	<string id="st_dyn_news_comm_army_1">
+		<text>военным</text>
+	</string>
+	<string id="st_dyn_news_comm_army_2">
+		<text>воякой</text>
+	</string>
+	<string id="st_dyn_news_comm_army_3">
+		<text>одним из военных</text>
+	</string>
+	<string id="st_dyn_news_comm_army_4">
+		<text>каким-то воякой</text>
+	</string>
+	<string id="st_dyn_news_comm_army_5">
+		<text>army</text>
+	</string>
+	<string id="st_dyn_news_comm_army_6">
+		<text>Военный</text>
+	</string>
+	<string id="st_dyn_news_comm_army_7">
+		<text>вояками</text>
+	</string>
+	<string id="st_dyn_news_comm_army_8">
+		<text>военсталами</text>
+	</string>
+	<string id="st_dyn_news_comm_army_9">
+		<text>отрядом военных</text>
+	</string>
+	<string id="st_dyn_news_comm_army_10">
+		<text>военными</text>
+	</string>
+	<string id="st_dyn_news_comm_army_11">
+		<text>Запрашиваю поддержку!</text>
+	</string>
+	<string id="st_dyn_news_comm_army_12">
+		<text>Нужно подкрепление!</text>
+	</string>
+	<string id="st_dyn_news_comm_army_13">
+		<text>Запрашиваю подкрепление!</text>
+	</string>
+	<string id="st_dyn_news_comm_army_14">
+		<text>База, приём! Запрашиваю подкрепление, срочно!</text>
+	</string>
+	<string id="st_dyn_news_comm_army_15">
+		<text>Военные</text>
+	</string>
+	
+	<string id="st_dyn_news_comm_killer_1">
+		<text>наёмником</text>
+	</string>
+	<string id="st_dyn_news_comm_killer_2">
+		<text>одним из наёмников</text>
+	</string>
+	<string id="st_dyn_news_comm_killer_3">
+		<text>наёмником</text>
+	</string>
+	<string id="st_dyn_news_comm_killer_4">
+		<text>одним из наёмников</text>
+	</string>
+	<string id="st_dyn_news_comm_killer_5">
+		<text>killer</text>
+	</string>
+	<string id="st_dyn_news_comm_killer_6">
+		<text>Наёмник</text>
+	</string>
+	<string id="st_dyn_news_comm_killer_7">
+		<text>наёмниками</text>
+	</string>
+	<string id="st_dyn_news_comm_killer_8">
+		<text>отрядом наёмников</text>
+	</string>
+	<string id="st_dyn_news_comm_killer_9">
+		<text>группой наёмников</text>
+	</string>
+	<string id="st_dyn_news_comm_killer_10">
+		<text>наёмниками</text>
+	</string>
+	<string id="st_dyn_news_comm_killer_11">
+		<text>Нужно подкрепление!</text>
+	</string>
+	<string id="st_dyn_news_comm_killer_12">
+		<text>Нужна подмога!</text>
+	</string>
+	<string id="st_dyn_news_comm_killer_13">
+		<text>Запрашиваю подкрепление!</text>
+	</string>
+	<string id="st_dyn_news_comm_killer_14">
+		<text>Пришлите чёртово подкрепление!</text>
+	</string>
+	<string id="st_dyn_news_comm_killer_15">
+		<text>Наёмники</text>
+	</string>
+	
+	<string id="st_dyn_news_comm_stalker_1">
+		<text>сталкером</text>
+	</string>
+	<string id="st_dyn_news_comm_stalker_2">
+		<text>одиночкой</text>
+	</string>
+	<string id="st_dyn_news_comm_stalker_3">
+		<text>каким-то сталкером</text>
+	</string>
+	<string id="st_dyn_news_comm_stalker_4">
+		<text>каким-то одиночкой</text>
+	</string>
+	<string id="st_dyn_news_comm_stalker_5">
+		<text>stalker</text>
+	</string>
+	<string id="st_dyn_news_comm_stalker_6">
+		<text>Одиночка</text>
+	</string>
+	<string id="st_dyn_news_comm_stalker_7">
+		<text>сталкерами</text>
+	</string>
+	<string id="st_dyn_news_comm_stalker_8">
+		<text>одиночками</text>
+	</string>
+	<string id="st_dyn_news_comm_stalker_9">
+		<text>сталкерами</text>
+	</string>
+	<string id="st_dyn_news_comm_stalker_10">
+		<text>одиночками</text>
+	</string>
+	<string id="st_dyn_news_comm_stalker_11">
+		<text>Мужики, нужна помощь!</text>
+	</string>
+	<string id="st_dyn_news_comm_stalker_12">
+		<text>Нужна помощь!</text>
+	</string>
+	<string id="st_dyn_news_comm_stalker_13">
+		<text>Выручайте!</text>
+	</string>
+	<string id="st_dyn_news_comm_stalker_14">
+		<text>Мужики, на помощь!</text>
+	</string>
+	<string id="st_dyn_news_comm_stalker_15">
+		<text>Одиночки</text>
+	</string>
+	
+	<string id="st_dyn_news_comm_zombied_1">
+		<text>зомби</text>
+	</string>
+	<string id="st_dyn_news_comm_zombied_2">
+		<text>зомбированным</text>
+	</string>
+	<string id="st_dyn_news_comm_zombied_3">
+		<text>зомби</text>
+	</string>
+	<string id="st_dyn_news_comm_zombied_4">
+		<text>зомби</text>
+	</string>
+	<string id="st_dyn_news_comm_zombied_5">
+		<text>zombie</text>
+	</string>
+	<string id="st_dyn_news_comm_zombied_6">
+		<text>Зомби</text>
+	</string>
+	<string id="st_dyn_news_comm_zombied_7">
+		<text>зомби</text>
+	</string>
+	<string id="st_dyn_news_comm_zombied_8">
+		<text>зомби</text>
+	</string>
+	<string id="st_dyn_news_comm_zombied_9">
+		<text>зомбированными</text>
+	</string>
+	<string id="st_dyn_news_comm_zombied_10">
+		<text>зомби</text>
+	</string>
+	<string id="st_dyn_news_comm_zombied_11">
+		<text>У-у-угх!</text>
+	</string>
+	<string id="st_dyn_news_comm_zombied_12">
+		<text>Ы-ы-ы-ы!</text>
+	</string>
+	<string id="st_dyn_news_comm_zombied_13">
+		<text>Ар-р-ргх!</text>
+	</string>
+	<string id="st_dyn_news_comm_zombied_14">
+		<text>А а-аргх…</text>
+	</string>
+	<string id="st_dyn_news_comm_zombied_15">
+		<text>Зомби</text>
+	</string>
+	
+	<string id="st_dyn_news_comm_freedom_1">
+		<text>свободовцем</text>
+	</string>
+	<string id="st_dyn_news_comm_freedom_2">
+		<text>одним из «свободовцев»</text>
+	</string>
+	<string id="st_dyn_news_comm_freedom_3">
+		<text>свободовцем</text>
+	</string>
+	<string id="st_dyn_news_comm_freedom_4">
+		<text>одним из «свободовцев»</text>
+	</string>
+	<string id="st_dyn_news_comm_freedom_5">
+		<text>freedom</text>
+	</string>
+	<string id="st_dyn_news_comm_freedom_6">
+		<text>«Свобода»</text>
+	</string>
+	<string id="st_dyn_news_comm_freedom_7">
+		<text>«Свободой»</text>
+	</string>
+	<string id="st_dyn_news_comm_freedom_8">
+		<text>свободовцами</text>
+	</string>
+	<string id="st_dyn_news_comm_freedom_9">
+		<text>«Свободой»</text>
+	</string>
+	<string id="st_dyn_news_comm_freedom_10">
+		<text>силами «Свободы»</text>
+	</string>
+	<string id="st_dyn_news_comm_freedom_11">
+		<text>Чуваки, на помощь!</text>
+	</string>
+	<string id="st_dyn_news_comm_freedom_12">
+		<text>Народ, нам тут помощь нужна!</text>
+	</string>
+	<string id="st_dyn_news_comm_freedom_13">
+		<text>Нужна подмога, чуваки!</text>
+	</string>
+	<string id="st_dyn_news_comm_freedom_14">
+		<text>Чёрт, на помощь!</text>
+	</string>
+	<string id="st_dyn_news_comm_freedom_15">
+		<text>«Свобода»</text>
+	</string>
+	
+	<string id="st_dyn_news_comm_renegade_1">
+		<text>охотником</text>
+	</string>
+	<string id="st_dyn_news_comm_renegade_2">
+		<text>одним из охотников</text>
+	</string>
+	<string id="st_dyn_news_comm_renegade_3">
+		<text>охотником</text>
+	</string>
+	<string id="st_dyn_news_comm_renegade_4">
+		<text>одним из охотников</text>
+	</string>
+	<string id="st_dyn_news_comm_renegade_5">
+		<text>hunter</text>
+	</string>
+	<string id="st_dyn_news_comm_renegade_6">
+		<text>Охотник</text>
+	</string>
+	<string id="st_dyn_news_comm_renegade_7">
+		<text>охотниками</text>
+	</string>
+	<string id="st_dyn_news_comm_renegade_8">
+		<text>охотниками</text>
+	</string>
+	<string id="st_dyn_news_comm_renegade_9">
+		<text>охотниками</text>
+	</string>
+	<string id="st_dyn_news_comm_renegade_10">
+		<text>охотниками</text>
+	</string>
+	<string id="st_dyn_news_comm_renegade_11">
+		<text>Мужики, нужна помощь!</text>
+	</string>
+	<string id="st_dyn_news_comm_renegade_12">
+		<text>Нужна помощь!</text>
+	</string>
+	<string id="st_dyn_news_comm_renegade_13">
+		<text>Выручайте!</text>
+	</string>
+	<string id="st_dyn_news_comm_renegade_14">
+		<text>Мужики, на помощь!</text>
+	</string>
+	<string id="st_dyn_news_comm_renegade_15">
+		<text>Охотники</text>
+	</string>
+	
+	<!-- Sentence Builders -->
+	<string id="st_dyn_news_builder_attacked_1">
+		<text>Мы атакованы</text>
+	</string>
+	<string id="st_dyn_news_builder_attacked_2">
+		<text>Столкнулись с</text>
+	</string>
+	<string id="st_dyn_news_builder_attacked_3">
+		<text>Ведём бой с</text>
+	</string>
+	<string id="st_dyn_news_builder_attacked_4">
+		<text>Мы атакованы</text>
+	</string>
+
+	<string id="st_dyn_news_builder_monster_far_1">
+		<text>Информация пришла - засекли</text>
+	</string>
+	<string id="st_dyn_news_builder_monster_far_2">
+		<text>Сталкеры с рейда вернулись, говорят, напоролись на</text>
+	</string>
+	<string id="st_dyn_news_builder_monster_far_3">
+		<text>Алкаши местные бредят, что сами «монолитовцы» привезли</text>
+	</string>
+	<string id="st_dyn_news_builder_monster_far_4">
+		<text>Мне тут задание предлагают, устроить рейд на</text>
+	</string>
+	<string id="st_dyn_news_builder_monster_far_5">
+		<text>Мужики байки травят, что видели</text>
+	</string>
+	<string id="st_dyn_news_builder_monster_far_6">
+		<text>Один местный придурок пошёл охотиться на</text>
+	</string>
+
+	<string id="st_dyn_news_builder_monster_near_1">
+		<text>Друг сказал, что видел</text>
+	</string>
+	<string id="st_dyn_news_builder_monster_near_2">
+		<text>Когда мимо проходил, краем глаза заметил</text>
+	</string>
+	<string id="st_dyn_news_builder_monster_near_3">
+		<text>Заметил недавно</text>
+	</string>
+	<string id="st_dyn_news_builder_monster_near_4">
+		<text>Кажется, видел</text>
+	</string>
+	<string id="st_dyn_news_builder_monster_near_5">
+		<text>Ребята! Зуб даю, сам лично видел</text>
+	</string>
+	<string id="st_dyn_news_builder_monster_near_6">
+		<text>Охотники собираются устроить засаду на</text>
+	</string>
+	<string id="st_dyn_news_builder_monster_near_7">
+		<text>Новость слыхали? Стая мутантов сюда валит! Уже видели</text>
+	</string>
+	
+	<string id="st_dyn_news_builder_near_1">
+		<text>Я видел, как убили сталкера</text>
+	</string>
+	<string id="st_dyn_news_builder_near_2">
+		<text>Только что увидел, сталкера убили</text>
+	</string>
+	<string id="st_dyn_news_builder_near_3">
+		<text>Минуту назад видел, как сталкера грохнули</text>
+	</string>
+	<string id="st_dyn_news_builder_near_4">
+		<text>Пару минут назад видел, сталкера убили</text>
+	</string>
+	<string id="st_dyn_news_builder_near_5">
+		<text>Ребят, только что увидел смерть сталкера</text>
+	</string>
+	
+	<string id="st_dyn_news_builder_near_ending_1">
+		<text>Жалко пацана...</text>
+	</string>
+	<string id="st_dyn_news_builder_near_ending_2">
+		<text>Ещё одного Зона забрала...</text>
+	</string>
+	<string id="st_dyn_news_builder_near_ending_3">
+		<text>Помянем мужика.</text>
+	</string>
+	<string id="st_dyn_news_builder_near_ending_4">
+		<text>Кто-нибудь знал его?</text>
+	</string>
+	
+	<string id="st_dyn_news_builder_hear_1">
+		<text>Я слышал</text>
+	</string>
+	<string id="st_dyn_news_builder_hear_2">
+		<text>Только что слышал</text>
+	</string>
+	<string id="st_dyn_news_builder_hear_3">
+		<text>Минуту назад слышал</text>
+	</string>
+	<string id="st_dyn_news_builder_hear_4">
+		<text>Пару минут назад слышал</text>
+	</string>
+	<string id="st_dyn_news_builder_hear_5">
+		<text>Минут пять назад слышал</text>
+	</string>
+	<string id="st_dyn_news_builder_hear_6">
+		<text>Минуту назад послышались</text>
+	</string>
+	<string id="st_dyn_news_builder_hear_7">
+		<text>Только что послышались</text>
+	</string>
+	<string id="st_dyn_news_builder_hear_8">
+		<text>Ребят, только что слышал</text>
+	</string>
+	<string id="st_dyn_news_builder_hear_9">
+		<text>Народ, я слышу</text>
+	</string>
+	
+	<string id="st_dyn_news_builder_sight_1">
+		<text>Наблюдал схватку между</text>
+	</string>
+	<string id="st_dyn_news_builder_sight_2">
+		<text>Только что видел бой между</text>
+	</string>
+	<string id="st_dyn_news_builder_sight_3">
+		<text>Минуту назад видел схватку между</text>
+	</string>
+	<string id="st_dyn_news_builder_sight_4">
+		<text>Пару минут назад наблюдал схватку между</text>
+	</string>
+	<string id="st_dyn_news_builder_sight_5">
+		<text>Пять минут назад наблюдал бой между</text>
+	</string>
+	<string id="st_dyn_news_builder_sight_6">
+		<text>Только что наблюдал схватку между</text>
+	</string>
+	<string id="st_dyn_news_builder_sight_7">
+		<text>Минуту назад наблюдал бой между</text>
+	</string>
+	<string id="st_dyn_news_builder_sight_8">
+		<text>Пару минут назад видел схватку между</text>
+	</string>
+	<string id="st_dyn_news_builder_sight_9">
+		<text>Мужики, только что видел бой между</text>
+	</string>
+
+	<string id="st_dyn_news_builder_middle_1">
+		<text>чьи-то крики</text>
+	</string>
+	<string id="st_dyn_news_builder_middle_2">
+		<text>какие-то крики</text>
+	</string>
+	<string id="st_dyn_news_builder_middle_3">
+		<text>крики о помощи</text>
+	</string>
+	<string id="st_dyn_news_builder_middle_4">
+		<text>неразборчивые крики</text>
+	</string>
+	<string id="st_dyn_news_builder_middle_5">
+		<text>какую-то хрень</text>
+	</string>
+	<string id="st_dyn_news_builder_middle_6">
+		<text>чьи-то визги и рычание</text>
+	</string>
+
+	<string id="st_dyn_news_builder_ending_1">
+		<text>Смотрите в оба.</text>
+	</string>
+	<string id="st_dyn_news_builder_ending_2">
+		<text>Глядите в оба.</text>
+	</string>
+	<string id="st_dyn_news_builder_ending_3">
+		<text>Интересно, что это там происходит.</text>
+	</string>
+	<string id="st_dyn_news_builder_ending_4">
+		<text>Хреново всё это.</text>
+	</string>
+	<string id="st_dyn_news_builder_ending_5">
+		<text>Кто-то в курсе, что там вообще такое?</text>
+	</string>
+	<string id="st_dyn_news_builder_ending_6">
+		<text>Есть кто рядом?</text>
+	</string>
+	<string id="st_dyn_news_builder_ending_7">
+		<text>Не теряйте бдительности.</text>
+	</string>
+	<string id="st_dyn_news_builder_ending_8">
+		<text>Не зевайте там.</text>
+	</string>
+	<string id="st_dyn_news_builder_ending_9">
+		<text>Осторожнее там.</text>
+	</string>
+	<string id="st_dyn_news_builder_ending_10">
+		<text>Глядите в оба, если будете рядом.</text>
+	</string>
+	<string id="st_dyn_news_builder_ending_11">
+		<text>Будьте осторожны.</text>
+	</string>
+	<string id="st_dyn_news_builder_ending_12">
+		<text>Я б на вашем месте туда не совался.</text>
+	</string>
+	<string id="st_dyn_news_builder_ending_13">
+		<text>Никто не хочет проверить?</text>
+	</string>
+	<string id="st_dyn_news_builder_ending_14">
+		<text>Чёрт, надо бы убираться оттуда.</text>
+	</string>
+	<string id="st_dyn_news_builder_ending_15">
+		<text>Чего там творится, в курсе кто?</text>
+	</string>
+	
+	
+	<!-- Локации -->
+	<string id="st_dyn_news_k01_forest">
+		<text>в Туманном лесу</text>
+	</string>
+	<string id="st_dyn_news_k02_embankment">
+		<text>на Набережной</text>
+	</string>
+	<string id="st_dyn_news_l01_escape">
+		<text>на Кордоне</text>
+	</string>
+	<string id="st_dyn_news_l02_garbage">
+		<text>на Свалке</text>
+	</string>
+	<string id="st_dyn_news_l03_agroprom">
+		<text>на Агропроме</text>
+	</string>
+	<string id="st_dyn_news_la14_rostok_factory">
+		<text>на Металлургическом заводе</text>
+	</string>
+	<string id="st_dyn_news_l04_darkvalley">
+		<text>в Тёмной долине</text>
+	</string>
+	<string id="st_dyn_news_l05_bar">
+		<text>на Ростке</text>
+	</string>
+	<string id="st_dyn_news_l06_rostok">
+		<text>на Дикой территории</text>
+	</string>
+	<string id="st_dyn_news_l07_military">
+		<text>на Армейских складах</text>
+	</string>
+	<string id="st_dyn_news_l08_yantar">
+		<text>на Янтаре</text>
+	</string>
+	<string id="st_dyn_news_l09_deadcity">
+		<text>в Мёртвом городе</text>
+	</string>
+	<string id="st_dyn_news_lost_village">
+		<text>в Заброшенной деревне</text>
+	</string>
+	<string id="st_dyn_news_l10_limansk">
+		<text>в Лиманске</text>
+	</string>
+	<string id="st_dyn_news_l10_radar">
+		<text>на Радаре</text>
+	</string>
+	<string id="st_dyn_news_l10_red_forest">
+		<text>в Рыжем лесу</text>
+	</string>
+	<string id="st_dyn_news_labx8">
+		<text>в лаборатории X8</text>
+	</string>
+	<string id="st_dyn_news_jupiter">
+		<text>на Юпитере</text>
+	</string>
+	<string id="st_dyn_news_pripyat">
+		<text>в Припяти</text>
+	</string>
+	<string id="st_dyn_news_l12_stancia">
+		<text>на юге ЧАЭС</text>
+	</string>
+	<string id="st_dyn_news_l12_stancia_2">
+		<text>на севере ЧАЭС</text>
+	</string>
+	<string id="st_dyn_news_l13_generators">
+		<text>на Генераторах</text>
+	</string>
+	
+	<string id="st_dyn_news_near">
+		<text>недалеко от</text>
+	</string>
+	<string id="st_dyn_news_close">
+		<text>возле</text>
+	</string>
+	<string id="st_dyn_news_east">
+		<text>восточнее</text>
+	</string>
+	<string id="st_dyn_news_north_east">
+		<text>на северо-востоке от</text>
+	</string>
+	<string id="st_dyn_news_north">
+		<text>севернее</text>
+	</string>
+	<string id="st_dyn_news_north_west">
+		<text>на северо-западе от</text>
+	</string>
+	<string id="st_dyn_news_west">
+		<text>западнее</text>
+	</string>
+	<string id="st_dyn_news_south_west">
+		<text>на юго-западе от</text>
+	</string>
+	<string id="st_dyn_news_south">
+		<text>южнее</text>
+	</string>
+	<string id="st_dyn_news_south_east">
+		<text>на юго-востоке от</text>
+	</string>
+	
+	
+	<!-- weapon class description -->
+	<string id="st_dyn_news_wpn_cls_1_1">
+		<text>Кровопотеря, множественные ранения.</text>
+	</string>
+	<string id="st_dyn_news_wpn_cls_1_2">
+		<text>выстрелы</text>
+	</string>
+	<string id="st_dyn_news_wpn_cls_1_3">
+		<text>и</text>
+	</string>
+	<string id="st_dyn_news_wpn_cls_2_1">
+		<text>Пулевые ранения, средний калибр.</text>
+	</string>
+	<string id="st_dyn_news_wpn_cls_2_2">
+		<text>выстрелы из автомата</text>
+	</string>
+	<string id="st_dyn_news_wpn_cls_2_3">
+		<text>и</text>
+	</string>
+	<string id="st_dyn_news_wpn_cls_3_1">
+		<text>Пулевые ранения, мелкий калибр.</text>
+	</string>
+	<string id="st_dyn_news_wpn_cls_3_2">
+		<text>выстрелы из пистолета</text>
+	</string>
+	<string id="st_dyn_news_wpn_cls_3_3">
+		<text>и</text>
+	</string>
+	<string id="st_dyn_news_wpn_cls_4_1">
+		<text>Пулевые ранения, крупный калибр.</text>
+	</string>
+	<string id="st_dyn_news_wpn_cls_4_2">
+		<text>выстрелы из винтовки</text>
+	</string>
+	<string id="st_dyn_news_wpn_cls_4_3">
+		<text>и</text>
+	</string>
+	<string id="st_dyn_news_wpn_cls_5_1">
+		<text>Пулевые ранения, дробь.</text>
+	</string>
+	<string id="st_dyn_news_wpn_cls_5_2">
+		<text>выстрелы из дробовика</text>
+	</string>
+	<string id="st_dyn_news_wpn_cls_5_3">
+		<text>и</text>
+	</string>
+	<string id="st_dyn_news_wpn_cls_6_1">
+		<text>Ножевое ранение.</text>
+	</string>
+	<string id="st_dyn_news_wpn_cls_6_2">
+		<text>жуткую ругань</text>
+	</string>
+	<string id="st_dyn_news_wpn_cls_6_3">
+		<text>и</text>
+	</string>
+	<string id="st_dyn_news_wpn_cls_7_1">
+		<text>Взрывная волна.</text>
+	</string>
+	<string id="st_dyn_news_wpn_cls_7_2">
+		<text>взрыв</text>
+	</string>
+	<string id="st_dyn_news_wpn_cls_7_3">
+		<text>и</text>
+	</string>
+	<string id="st_dyn_news_wpn_cls_8_1">
+		<text>Осколочное ранение.</text>
+	</string>
+	<string id="st_dyn_news_wpn_cls_8_2">
+		<text>взрыв</text>
+	</string>
+	<string id="st_dyn_news_wpn_cls_8_3">
+		<text>и</text>
+	</string>
+	
+	<!-- ГГ предатель -->
+	<string id="st_dyn_news_death_by_actor_1">
+		<text>Слышали? Хлын этот тем ещё козлом оказался! Своих кидает!</text>
+	</string>
+	<string id="st_dyn_news_death_by_actor_reply_1">
+		<text>Да замочить за такое!</text>
+	</string>
+	<string id="st_dyn_news_death_by_actor_2">
+		<text>А чувак этот с кривой рожей тот ещё урод, оказывается! Своего недавно замочил!</text>
+	</string>
+	<string id="st_dyn_news_death_by_actor_reply_2">
+		<text>Валить нужно гада!</text>
+	</string>
+	<string id="st_dyn_news_death_by_actor_3">
+		<text>Мне мужики передали, что тот тип, как же его зовут... То ли Хан, то ли Клык... Короче козёл он последний! Брату сталкеру горло перерезал!</text>
+	</string>
+	<string id="st_dyn_news_death_by_actor_reply_3">
+		<text>Да за такое убивать надо!</text>
+	</string>
+	
+	<!-- Разное -->
+	<string id="st_dyn_news_ch_died">
+		<text>Погиб </text>
+	</string>
+	<string id="st_dyn_news_died_stalker">
+		<text>Погиб сталкер</text>
+	</string>
+	<string id="st_dyn_news_ch_died_was">
+		<text>вроде так его звали, он был </text>
+	</string>
+	<string id="st_dyn_news_ch_killed_by">
+		<text>в схватке с</text>
+	</string>
+	<string id="st_dyn_news_ch_found">
+		<text>Найден</text>
+	</string>
+	<string id="st_dyn_news_ch_blowout">
+		<text>Выброс</text>
+	</string>
+	<string id="st_dyn_news_general">
+		<text>Общий канал</text>
+	</string>
+	
+</string_table>

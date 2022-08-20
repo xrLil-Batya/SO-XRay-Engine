@@ -1,0 +1,13 @@
+; смарт на пригорке возле болота
+
+[smart_terrain]
+squad_id = 16
+max_population = 1
+respawn_params = respawn@agr_smart_monster_11
+
+[respawn@agr_smart_monster_11]
+spawn_flesh@agr_smart_monster_11
+
+[spawn_flesh@agr_smart_monster_11]
+spawn_squads = {+info_mutant_spawn_hard +info_mutant_spawn_medium +info_mutant_spawn_basic} agr_smart_monster_11_squad_3, {-info_mutant_spawn_hard +info_mutant_spawn_medium +info_mutant_spawn_basic} agr_smart_monster_11_squad_2, {-info_mutant_spawn_hard -info_mutant_spawn_medium +info_mutant_spawn_basic} agr_smart_monster_11_squad
+spawn_num = {+info_mutant_spawn_basic} 1, 0

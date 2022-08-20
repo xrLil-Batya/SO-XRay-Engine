@@ -1,0 +1,221 @@
+----------------------------------------------------------------------------------------------------------------------
+-- Файл:        		AXR_RND_NPC_SPAWNER.SCRIPT
+-- Описание:    		Скрипт, отвечающий за спавн рандомных предметов и оружия для дефолтных НПС.
+-- Создан:      		01.11.2021
+-- Последняя редакция:	02.11.2021
+-- Автор:       		ARTLantist
+-- Copyright:   		ARTLantist
+----------------------------------------------------------------------------------------------------------------------
+
+local s_ini = system_ini()
+local f_ini = ini_file("plugins\\rnd_npc_spawner.ltx")
+table_default = {
+	["sim_default_renegade_0"] = true,
+	["sim_default_renegade_1"] = true,
+	["sim_default_renegade_2"] = true,
+	["sim_default_renegade_3"] = true,
+	["sim_default_renegade_4"] = true,
+	["sim_default_renegade_5"] = true,
+	["sim_default_stalker_0"] = true,
+	["sim_default_stalker_1"] = true,
+	["sim_default_stalker_2"] = true,
+	["sim_default_stalker_3"] = true,
+	["sim_default_stalker_4"] = true,
+	["sim_default_stalker_5"] = true,
+	["sim_default_bandit_0"] = true,
+	["sim_default_bandit_1"] = true,
+	["sim_default_bandit_2"] = true,
+	["sim_default_bandit_3"] = true,
+	["sim_default_bandit_4"] = true,
+	["sim_default_bandit_5"] = true,
+	["sim_default_csky_0"] = true,
+	["sim_default_csky_1"] = true,
+	["sim_default_csky_2"] = true,
+	["sim_default_csky_3"] = true,
+	["sim_default_csky_4"] = true,
+	["sim_default_csky_5"] = true,
+	["sim_default_duty_0"] = true,
+	["sim_default_duty_1"] = true,
+	["sim_default_duty_2"] = true,
+	["sim_default_duty_3"] = true,
+	["sim_default_duty_4"] = true,
+	["sim_default_freedom_0"] = true,
+	["sim_default_freedom_1"] = true,
+	["sim_default_freedom_2"] = true,
+	["sim_default_freedom_3"] = true,
+	["sim_default_freedom_4"] = true,
+	["sim_default_military_0"] = true,
+	["sim_default_military_1"] = true,
+	["sim_default_military_2"] = true,
+	["sim_default_military_3"] = true,
+	["sim_default_military_4"] = true,
+	["sim_default_killer_0"] = true,
+	["sim_default_killer_1"] = true,
+	["sim_default_killer_2"] = true,
+	["sim_default_killer_3"] = true,
+	["sim_default_killer_4"] = true,
+	["sim_default_monolith_0"] = true,
+	["sim_default_monolith_1"] = true,
+	["sim_default_monolith_2"] = true,
+	["sim_default_monolith_3"] = true,
+	["sim_default_monolith_4"] = true,
+	["sim_default_zombied_0"] = true,
+	["sim_default_zombied_1"] = true,
+	["sim_default_zombied_2"] = true,
+	["sim_default_zombied_3"] = true,
+	["sim_default_zombied_4"] = true
+}
+local no_riffle_random = {
+	["sim_default_stalker_0"] = true,
+	["sim_default_bandit_0"] = true,
+	["sim_default_csky_0"] = true,
+	["sim_default_zombied_0"] = true
+}
+function on_game_start()
+	RegisterScriptCallback("se_stalker_on_spawn",stalker_on_spawn)
+end
+------	[[	Функция для распарсивания таблицы	]]	------
+function parse_table( ini, section, tbl )
+
+	local t	= {}
+	local conf = r_string_ex(ini,section,tbl)
+	
+	if conf then
+		for s in string.gfind(conf, "%s*([^,]+)%s*") do
+			table.insert(t, s)
+		end
+	end
+	
+	return t
+end
+------	[[	Главна€ функция спавна оружия и предметов для нпс, вызываемая при первом спавне нпс	]]	------
+function stalker_on_spawn(s_obj)
+	local pos = s_obj.position
+	local lv = s_obj.m_level_vertex_id
+	local gv = s_obj.m_game_vertex_id
+	local id = s_obj.id
+	local section = s_obj:section_name()
+	
+	local comm = s_obj:community()
+	local rank = ranks.get_obj_rank_name(s_obj)
+	local p_sect = comm.."_"..rank
+	local rifle_table = {}
+	local pistol_table = {}
+	
+	local ch_sect, rifle_section, pistol_section
+	
+	if table_default[section] then
+		-- Читаем в ltx и генерируем таблицу rifle_table, с последующим выбором рандомного пистолета и вызова функции его спавна
+		ch_sect = r_string_ex(f_ini,"rifles_ranks",p_sect)
+		rifle_table = utils.collect_section(f_ini,ch_sect)
+		
+		if (#rifle_table > 0) then rifle_section = rifle_table[math.random(#rifle_table)] end
+		
+		-- Random for some novices
+		if no_riffle_random[section] then
+			local rnd = math.random()
+			if (rnd <= 0.4) then
+				rifle_section = "nothing"
+			end
+		end
+		
+		spawn_weapon(rifle_section,pos,lv,gv,id)
+		
+		-- Читаем в ltx и генерируем таблицу pistol_table, с последующим выбором рандомного пистолета и вызова функции его спавна
+		ch_sect = r_string_ex(f_ini,"pistols_ranks",p_sect)
+		pistol_table = utils.collect_section(f_ini,ch_sect)
+		
+		if (#rifle_table > 0) then pistol_section = pistol_table[math.random(#pistol_table)] end
+		
+		spawn_weapon(pistol_section,pos,lv,gv,id)
+		
+		-- Вызываем главную функцию спавна всяких предметов
+		spawn_items_main(p_sect,pos,lv,gv,id)
+		
+		-- Спавним обязательные предметы
+		if comm ~= "zombied" then
+			alife():create("device_torch", pos, lv, gv, id)
+		end
+		if (math.random() <= 0.6) then
+			alife():create("ammo_bad", pos, lv, gv, id)
+		end
+		if (math.random() <= 0.4) then
+			alife():create("ammo_bad", pos, lv, gv, id)
+		end
+	end
+end
+
+function spawn_weapon(section,pos,lv,gv,id)
+
+	if section == "nothing" then return end --если новичку не повезло, то винтовка ему не спавнится
+	if s_ini:section_exist(section) then
+		alife():create(section, pos, lv, gv, id)
+	end
+	
+	-- Спавним патроны для ствола выше
+	local ammos = parse_table(s_ini,section,"ammo_class")
+	local ammo = ammos[1]
+	if ammo and s_ini:section_exist(ammo) then
+		alife():create(ammo, pos, lv, gv, id)
+	end
+end
+
+function spawn_items_main(p_sect,pos,lv,gv,id)
+	local define_list, med_list, dev_list, food_list, trash_list
+	local count, med_count, dev_count, food_count, trash_count
+	
+	define_list = r_string_ex(f_ini, "items_ranks", p_sect)
+	-- Читаем в ltx и генерируем таблицу med_list с последующим вызовом функции рандомного спавна предметов из этой таблицы
+	
+	med_list = r_string_ex(f_ini, define_list, "medcine_list")
+	med_count = r_float_ex(f_ini, define_list, "medcine_max_count",0)
+	
+	count = math.random(0,med_count)
+	
+	if (count > 0 and #med_list > 0) then spawn_items(med_list,pos,lv,gv,id,count) end
+	
+	-- Читаем в ltx и генерируем таблицу food_list с последующим вызовом функции рандомного спавна предметов из этой таблицы
+	
+	food_list = r_string_ex(f_ini, define_list, "food_list")
+	food_count = r_float_ex(f_ini, define_list, "food_max_count",0)
+	
+	count = math.random(0,food_count)
+	
+	if (count > 0 and #food_list > 0) then spawn_items(food_list,pos,lv,gv,id,count) end
+	
+	-- Читаем в ltx и генерируем таблицу dev_list с последующим вызовом функции рандомного спавна предметов из этой таблицы
+	
+	dev_list = r_string_ex(f_ini, define_list, "devices_list")
+	dev_count = r_float_ex(f_ini, define_list, "devices_max_count",0)
+	
+	count = math.random(0,dev_count)
+	
+	if (count > 0 and #dev_list > 0) then spawn_items(dev_list,pos,lv,gv,id,count) end
+	
+	-- Читаем в ltx и генерируем таблицу trash_list предметов с последующим вызовом функции рандомного спавна предметов из этой таблицы
+	
+	trash_list = r_string_ex(f_ini, define_list, "trash_list")
+	trash_count = r_float_ex(f_ini, define_list, "trash_max_count",0)
+	
+	count = math.random(0,trash_count)
+	
+	if (count > 0 and #trash_list > 0) then spawn_items(trash_list,pos,lv,gv,id,count) end
+	
+end
+
+function spawn_items(list,pos,lv,gv,id,count)
+
+	if not list then return end
+	if count == 0 then return end
+	
+	local item_section
+	local items_list = utils.collect_section(f_ini,list)
+	
+	while count > 0 do
+		item_section = items_list[math.random(#items_list)]
+		if (math.random() <= 0.4) then
+			alife():create(item_section, pos, lv, gv, id)
+			count = count - 1
+		end
+	end
+end

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<ui_cooking>
+    <Window x="100" y="150" width="563" height="509" stretch="1">
+        <texture>ui_cooking_window</texture>
+        <list_meat_frame x="267" y="52" width="273" height="107" />
+        <list_meat x="272" y="57" width="263" height="100" item_height="18" can_select="1" always_show_scroll="0">
+            <font font="letterica18" r="216" g="186" b="140" />
+        </list_meat>
+        <list_fuel_frame x="267" y="206" width="273" height="93" />
+        <list_fuel x="272" y="211" width="263" height="86" item_height="18" can_select="1" always_show_scroll="0">
+            <font font="letterica18" r="216" g="186" b="140" />
+        </list_fuel>
+        <icon_tool x="300" y="418" width="128" height="128" stretch="1" />
+        <icon_parts x="128" y="250" width="128" height="128" stretch="1" />
+        <icon x="128" y="112" width="128" height="128" stretch="1" />
+        <btn_cook x="130" y="427" width="80" height="29">
+            <texture>ui_button_ordinary</texture>
+            <text font="graffiti22" align="c">Готовить</text>
+            <text_color>
+	        <e color ="ui_6"/>
+	        <t color ="ui_black"/>
+	        <d color ="ui_5"/>
+	        <h color ="ui_black"/>
+            </text_color>
+        </btn_cook>
+        <btn_quit x="25" y="427" width="80" height="29">
+            <texture>ui_button_ordinary</texture>
+            <text font="graffiti22" align="c">Выход</text>
+            <text_color>
+	        <e color ="ui_6"/>
+	        <t color ="ui_black"/>
+	        <d color ="ui_5"/>
+	        <h color ="ui_black"/>
+            </text_color>
+        </btn_quit>
+        <btn_remove x="370" y="427" width="80" height="29">
+            <texture>ui_button_ordinary</texture>
+            <text font="graffiti22" align="c">Убрать</text>
+            <text_color>
+	        <e color ="ui_6"/>
+	        <t color ="ui_black"/>
+	        <d color ="ui_5"/>
+	        <h color ="ui_black"/>
+            </text_color>
+        </btn_remove>
+    </Window>
+</ui_cooking>

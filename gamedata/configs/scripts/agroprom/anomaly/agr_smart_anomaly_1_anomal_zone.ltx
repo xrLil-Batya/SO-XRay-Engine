@@ -1,0 +1,21 @@
+[anomal_zone]
+layers_count = 1
+respawn_tries = 1
+max_artefacts = 1
+artefacts = af_blood_d3, af_mincer_meat, af_mincer_meat_d1, af_mincer_meat_d2, af_gravi, af_gravi_d1, af_gravi_d2
+start_artefact = af_mincer_meat
+coeff = 4,4,3,2,4,3,2
+artefact_ways = agr_smart_anomaly_1_af_way_1
+field_name = agr_zone_field_radioactive_weak_0000
+
+[mines_core]
+agr_zone_mine_gravitational_strong
+agr_zone_mine_gravitational_weak
+agr_zone_mine_gravitational_weak_0000
+agr_zone_mine_gravitational_weak_0001
+agr_zone_mine_gravitational_weak_0002
+
+[layer_1]
+mines_section = mines_layer_1 
+
+[mines_layer_1]:mines_core

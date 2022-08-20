@@ -1,0 +1,58 @@
+[anomal_zone]
+layers_count = 2
+respawn_tries = 1
+max_artefacts = 1
+;applying_force_xz = 200
+;applying_force_y = 400 
+artefacts = af_medusa, af_medusa_d1, af_medusa_d2, af_vyvert, af_vyvert_d1, af_vyvert_d2, af_blood, af_blood_d1
+start_artefact = af_medusa_d1
+coeff = 6,4,2,6,3,1,6,3
+artefact_ways = fst_smart_anomaly_af_way_1, fst_smart_anomaly_af_way_2
+field_name = fst_zone_field_radioactive_weak
+
+[mines_core]
+fst_zone_mine_gravitational_average
+fst_zone_mine_gravitational_average_0000
+fst_zone_mine_gravitational_average_0001
+fst_zone_mine_gravitational_average_0002
+
+
+[layer_1]
+mines_section = mines_layer_1 
+
+[mines_layer_1]:mines_core
+fst_zone_mine_gravitational_average_0003
+fst_zone_mine_gravitational_average_0004
+fst_zone_mine_gravitational_average_0005
+fst_zone_mine_gravitational_strong
+fst_zone_mine_gravitational_strong_0000
+fst_zone_mine_gravitational_strong_0001
+fst_zone_mine_gravitational_weak
+fst_zone_mine_gravitational_weak_0000
+fst_zone_mine_gravitational_weak_0001
+fst_zone_mine_gravitational_weak_0002
+fst_zone_mine_gravitational_weak_0003
+fst_zone_mine_gravitational_weak_0004
+fst_zone_mine_gravitational_weak_0005
+fst_zone_mine_gravitational_weak_0006
+fst_zone_mine_gravitational_weak_0007
+fst_zone_mine_gravitational_weak_0008
+
+
+[layer_2]
+mines_section = mines_layer_2 
+
+[mines_layer_2]:mines_core
+fst_zone_mine_gravitational_average_0006
+fst_zone_mine_gravitational_average_0007
+fst_zone_mine_gravitational_average_0008
+fst_zone_mine_gravitational_average_0009
+fst_zone_mine_gravitational_strong_0002
+fst_zone_mine_gravitational_strong_0003
+fst_zone_mine_gravitational_strong_0004
+fst_zone_mine_gravitational_weak_0009
+fst_zone_mine_gravitational_weak_0010
+fst_zone_mine_gravitational_weak_0011
+fst_zone_mine_gravitational_weak_0012
+fst_zone_mine_gravitational_weak_0013
+fst_zone_mine_gravitational_weak_0014

@@ -1,0 +1,43 @@
+[list_agru]
+agru_radio
+agru_warning
+agru_waterfall
+agru_kran
+water_stream
+agru_sound_polter
+
+[agru_radio]
+type = actor
+path = characters_voice\scenario\agroprom_underground\agru_radio
+shuffle = seq
+idle = 0,0,100
+
+[agru_warning]
+type = looped
+path = ambient\special\agru_warning
+
+[agru_waterfall]
+type = looped
+path = ambient\special\agru_waterfall
+
+[agru_kran]
+type = actor
+actor_stereo = false
+npc_prefix = false
+path = ambient\lamp_squeaks_1
+shuffle = rnd
+idle = 3,5,100
+
+[water_stream]
+type = actor
+path = ambient\water_stream
+shuffle = seq
+idle = 0,0,100
+
+[agru_sound_polter]
+type = actor
+actor_stereo = false
+npc_prefix = false
+path = ambient\random\rnd_the_horror3
+shuffle = rnd
+idle = 3,5,100

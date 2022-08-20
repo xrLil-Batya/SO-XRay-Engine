@@ -1,0 +1,87 @@
+[list_esc]
+esc_megafone
+esc_megafone_alarm
+esc_stalker_leader_meet
+esc_stalker_leader_meet_bye
+esc_stalker_trader_meet
+esc_stalker_trader_meet_bye
+esc_stalker_mechanic_meet
+esc_stalker_mechanic_meet_bye
+dsc_intro_getting_up
+
+;***********DARKSCAPE**
+;********************
+
+
+[dsc_intro_getting_up]
+type = actor
+actor_stereo = false
+path = device\bed_getup_1
+shuffle = seq
+idle = 1,1,100
+
+;***********ESCAPE**
+;********************
+
+
+[esc_megafone]
+type = 3d
+path = characters_voice\scenario\escape\megafon_
+shuffle = rnd
+idle = 15,25,100
+levels = l01_escape
+
+[esc_megafone_alarm]
+type = 3d
+path = characters_voice\scenario\escape\megafon_alarm_
+shuffle = rnd
+idle = 5,15,100
+levels = l01_escape
+
+[esc_stalker_leader_meet]
+type = npc
+actor_stereo = false
+npc_prefix = false
+path = scenario\escape\esc_stalker_leader_meet_
+shuffle = rnd
+idle = 3,5,100
+
+[esc_stalker_leader_meet_bye]
+type = npc
+actor_stereo = false
+npc_prefix = false
+path = scenario\escape\esc_stalker_leader_meet_bye_
+shuffle = rnd
+idle = 1,1,100
+
+[esc_stalker_trader_meet]
+type = npc
+actor_stereo = false
+npc_prefix = false
+path = scenario\escape\esc_stalker_trader_meet_
+shuffle = rnd
+idle = 3,5,100
+
+[esc_stalker_trader_meet_bye]
+type = npc
+actor_stereo = false
+npc_prefix = false
+path = scenario\escape\esc_stalker_trader_meet_bye_
+shuffle = rnd
+idle = 1,1,100
+
+[esc_stalker_mechanic_meet]
+type = npc
+actor_stereo = false
+npc_prefix = false
+path = scenario\escape\esc_stalker_mechanic_meet_
+shuffle = rnd
+idle = 3,5,100
+
+[esc_stalker_mechanic_meet_bye]
+type = npc
+actor_stereo = false
+npc_prefix = false
+path = scenario\escape\esc_stalker_mechanic_meet_bye_
+shuffle = rnd
+idle = 1,1,100

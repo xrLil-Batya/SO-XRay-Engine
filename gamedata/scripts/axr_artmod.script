@@ -1,0 +1,518 @@
+----------------------------------------------------------------------------------------------------------------------
+-- Файл:        		AXR_ARTMOD.SCRIPT
+-- Описание:    		Скрипт, отвечающий за трансмутацию (варку) артефактов.
+-- Создан:      		30.06.2022
+-- Последняя редакция:	03.07.2022
+-- Автор:       		ARTLantist
+-- Copyright:   		ARTLantist
+----------------------------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------------------
+-- Рецепты, требующие четырёх ингредиентов - стандартные арты, Симбион, некоторые уникальные
+----------------------------------------------------------------------------------------------------------------------
+artmod_recepies = {
+--артефакты первого уровня
+artmod_1 = {"mutant_dog_tail","mutant_face_tushkano","mutant_boar_leg","af_rusty_thorn","electra","st_enc_recipes_1_info","af_medusa","10","15"},
+artmod_2 = {"mutant_dog_tail","mutant_face_tushkano","mutant_boar_leg","af_ameba_slime","cholodec","st_enc_recipes_2_info","af_vyvert","10","15"},
+artmod_3 = {"mutant_boar_leg","mutant_part_zombi_hand","mutant_dog_tail","af_vyvert","voronka","st_enc_recipes_3_info","af_blood","10","15"},
+artmod_4 = {"mutant_dog_tail","mutant_boar_leg","mutant_face_tushkano","af_eye","tramplin","st_enc_recipes_4_info","af_electra_sparkler","10","15"},
+artmod_5 = {"mutant_dog_tail","mutant_face_tushkano","mutant_part_zombi_hand","af_medusa","zharka","st_enc_recipes_5_info","af_ameba_slime","10","15"},
+artmod_6 = {"mutant_face_tushkano","mutant_part_zombi_hand","mutant_boar_leg","af_blood","kisel","st_enc_recipes_6_info","af_rusty_thorn","10","15"},
+--артефакты второго уровня
+artmod_7 = {"mutant_part_zombi_hand","mutant_part_dog_liver","af_blood","af_medusa","karusel","st_enc_recipes_7_info","af_cristall_flower","15","20"},
+artmod_8 = {"mutant_part_dog_heart","mutant_face_tushkano","af_vyvert","af_medusa","electra","st_enc_recipes_8_info","af_cristall_flower","15","20"},
+artmod_9 = {"mutant_boar_leg","mutant_part_zombi_hand","af_medusa","af_vyvert","voronka","st_enc_recipes_9_info","af_gravi","15","20"},
+artmod_10 = {"mutant_dog_tail","mutant_boar_leg","af_eye","af_vyvert","zharka","st_enc_recipes_10_info","af_gravi","15","20"},
+artmod_11 = {"mutant_part_dog_heart","mutant_part_boar_tusk","af_medusa","af_blood","tramplin","st_enc_recipes_11_info","af_mincer_meat","15","20"},
+artmod_12 = {"mutant_part_dog_heart","mutant_part_zombi_hand","af_eye","af_blood","kisel","st_enc_recipes_12_info","af_mincer_meat","15","20"},
+artmod_13 = {"mutant_dog_tail","mutant_face_tushkano","af_rusty_thorn","af_electra_sparkler","zharka","st_enc_recipes_13_info","af_electra_flash","15","20"},
+artmod_14 = {"mutant_face_tushkano","mutant_part_boar_tusk","af_blood","af_electra_sparkler","voronka","st_enc_recipes_14_info","af_electra_flash","15","20"},
+artmod_15 = {"mutant_dog_tail","mutant_boar_leg","af_rusty_thorn","af_ameba_slime","tramplin","st_enc_recipes_15_info","af_ameba_slug","15","20"},
+artmod_16 = {"mutant_face_tushkano","mutant_part_dog_liver","af_ameba_slime","af_blood","kisel","st_enc_recipes_16_info","af_ameba_slug","15","20"},
+artmod_17 = {"mutant_dog_tail","mutant_face_tushkano","af_vyvert","af_rusty_thorn","karusel","st_enc_recipes_17_info","af_rusty_kristall","15","20"},
+artmod_18 = {"af_rusty_thorn","mutant_part_dog_heart","mutant_boar_leg","af_ameba_slime","cholodec","st_enc_recipes_18_info","af_rusty_kristall","15","20"},
+artmod_19 = {"mutant_dog_tail","mutant_part_boar_tusk","af_ameba_slime","af_eye","electra","st_enc_recipes_19_info","af_fireball","15","20"},
+artmod_20 = {"mutant_dog_tail","mutant_part_zombi_hand","af_vyvert","af_eye","cholodec","st_enc_recipes_20_info","af_fireball","15","20"},
+--артефакты третьего уровня
+artmod_21 = {"mutant_part_cat_tail","mutant_snork_leg","af_ameba_slug","af_cristall_flower","voronka","st_enc_recipes_21_info","af_night_star","20","25"},
+artmod_22 = {"mutant_chimera_nail","af_ameba_slime","af_cristall_flower","af_medusa","zharka","st_enc_recipes_22_info","af_night_star","20","25"},
+artmod_23 = {"mutant_chimera_nail","af_gravi","af_vyvert","af_medusa","electra","st_enc_recipes_23_info","af_gold_fish","20","25"},
+artmod_24 = {"mutant_part_cat_tail","mutant_burer_hand","af_cristall_flower","af_gravi","cholodec","st_enc_recipes_24_info","af_gold_fish","20","25"},
+artmod_25 = {"mutant_burer_hand","mutant_psevdodog_tail","af_ameba_slug","af_mincer_meat","electra","st_enc_recipes_25_info","af_soul","20","25"},
+artmod_26 = {"mutant_chimera_nail","af_ameba_slime","af_blood","af_mincer_meat","voronka","st_enc_recipes_26_info","af_soul","20","25"},
+artmod_27 = {"mutant_krovosos_jaw","af_electra_sparkler","af_vyvert","af_electra_flash","karusel","st_enc_recipes_27_info","af_electra_moonlight","20","25"},
+artmod_28 = {"mutant_part_fracture_hand","mutant_flesh_eye","af_gravi","af_electra_flash","zharka","st_enc_recipes_28_info","af_electra_moonlight","20","25"},
+artmod_29 = {"mutant_part_chimera_corn","af_ameba_slime","af_blood","af_ameba_slug","karusel","st_enc_recipes_29_info","af_ameba_mica","20","25"},
+artmod_30 = {"mutant_snork_leg","mutant_psevdodog_tail","af_ameba_slug","af_mincer_meat","electra","st_enc_recipes_30_info","af_ameba_mica","20","25"},
+artmod_31 = {"mutant_psevdodog_tail","mutant_flesh_eye","af_fireball","af_rusty_kristall","kisel","st_enc_recipes_31_info","af_rusty_sea-urchin","20","25"},
+artmod_32 = {"mutant_part_krovosos_heart","af_rusty_kristall","af_rusty_thorn","af_eye","tramplin","st_enc_recipes_32_info","af_rusty_sea-urchin","20","25"},
+artmod_33 = {"mutant_part_chimera_heart","af_fireball","af_eye","af_rusty_thorn","karusel","st_enc_recipes_33_info","af_cristall","20","25"},
+artmod_34 = {"mutant_flesh_eye","mutant_snork_leg","af_rusty_kristall","af_fireball","cholodec","st_enc_recipes_34_info","af_cristall","20","25"},
+--артефакты-"пустышки"
+artmod_35 = {"mutant_hand_kontroler","af_cristall_flower","af_night_star","af_medusa_d5","karusel","st_enc_recipes_35_info","af_dummy_glassbeads","25","30"},
+artmod_36 = {"mutant_psevdogigant_hand","af_gold_fish","af_vyvert_d5","af_gravi","cholodec","st_enc_recipes_36_info","af_fuzz_kolobok","25","30"},
+artmod_37 = {"mutant_part_pseudogigant_eye","af_fireball","af_eye_d5","af_cristall","zharka","st_enc_recipes_37_info","af_dummy_dummy","25","30"},
+artmod_38 = {"mutant_poltergeist_glas","af_electra_sparkler_d5","af_electra_flash","af_electra_moonlight","tramplin","st_enc_recipes_38_info","af_dummy_battery","25","30"},
+artmod_39 = {"mutant_hand_kontroler","af_ameba_slime_d5","af_ameba_slug","af_ameba_mica","voronka","st_enc_recipes_39_info","af_pellicle","25","30"},
+artmod_40 = {"powder_poltergeist","af_rusty_kristall","af_rusty_sea-urchin","af_rusty_thorn_d5","electra","st_enc_recipes_40_info","af_dummy_spring","25","30"},
+artmod_41 = {"mutant_psevdogigant_hand","af_mincer_meat","af_soul","af_blood_d5","kisel","st_enc_recipes_41_info","af_glass","25","30"},
+--артефакт "Симбион"
+artmod_simbion = {"af_medusa_d1","af_rusty_thorn_d1","af_blood_d5","af_eye_d5","electra","st_enc_recipes_m_29_info","af_simbion","30","60"},
+}
+
+----------------------------------------------------------------------------------------------------------------------
+-- Рецепты, требующие только одного ингредиента - модификаты, некоторые уникальные
+----------------------------------------------------------------------------------------------------------------------
+artmod_recepies_uniq = {
+artmod_1 = {"af_dummy_glassbeads","_","_","_","electra","st_enc_recipes_m_1_info","af_babka_1","58","62"},
+artmod_2 = {"af_babka_1","_","_","_","cholodec","st_enc_recipes_m_2_info","af_babka_2","58","62"},
+artmod_3 = {"af_babka_2","_","_","_","karusel","st_enc_recipes_m_3_info","af_babka_3","88","92"},
+artmod_4 = {"af_babka_3","_","_","_","zharka","st_enc_recipes_m_4_info","af_babka_4","88","92"},
+artmod_5 = {"af_fuzz_kolobok","_","_","_","tramplin","st_enc_recipes_m_5_info","af_kolob_1","58","62"},
+artmod_6 = {"af_kolob_1","_","_","_","karusel","st_enc_recipes_m_6_info","af_kolob_2","58","62"},
+artmod_7 = {"af_kolob_2","_","_","_","cholodec","st_enc_recipes_m_7_info","af_kolob_3","88","92"},
+artmod_8 = {"af_kolob_3","_","_","_","zharka","st_enc_recipes_m_8_info","af_kolob_4","88","92"},
+artmod_9 = {"af_dummy_spring","_","_","_","zharka","st_enc_recipes_m_9_info","af_dkbrz_1","58","62"},
+artmod_10 = {"af_dkbrz_1","_","_","_","electra","st_enc_recipes_m_10_info","af_dkbrz_2","58","62"},
+artmod_11 = {"af_dkbrz_2","_","_","_","cholodec","st_enc_recipes_m_11_info","af_dkbrz_3","88","92"},
+artmod_12 = {"af_dkbrz_3","_","_","_","tramplin","st_enc_recipes_m_12_info","af_dkbrz_4","88","92"},
+artmod_13 = {"af_dummy_battery","_","_","_","electra","st_enc_recipes_m_13_info","af_moonl_1","58","62"},
+artmod_14 = {"af_moonl_1","_","_","_","zharka","st_enc_recipes_m_13_info","af_moonl_2","58","62"},
+artmod_15 = {"af_moonl_2","_","_","_","cholodec","st_enc_recipes_m_13_info","af_moonl_3","88","92"},
+artmod_16 = {"af_moonl_3","_","_","_","electra","st_enc_recipes_m_13_info","af_moonl_4","88","92"},
+artmod_17 = {"af_dummy_dummy","_","_","_","zharka","st_enc_recipes_m_17_info","af_dummy_1","58","62"},
+artmod_18 = {"af_dummy_1","_","_","_","cholodec","st_enc_recipes_m_18_info","af_dummy_2","58","62"},
+artmod_19 = {"af_dummy_2","_","_","_","electra","st_enc_recipes_m_19_info","af_dummy_3","88","92"},
+artmod_20 = {"af_dummy_3","_","_","_","cholodec","st_enc_recipes_m_20_info","af_dummy_4","88","92"},
+artmod_21 = {"af_pellicle","_","_","_","tramplin","st_enc_recipes_m_21_info","af_pell_1","58","62"},
+artmod_22 = {"af_pell_1","_","_","_","karusel","st_enc_recipes_m_22_info","af_pell_2","58","62"},
+artmod_23 = {"af_pell_2","_","_","_","cholodec","st_enc_recipes_m_23_info","af_pell_3","88","92"},
+artmod_24 = {"af_pell_3","_","_","_","zharka","st_enc_recipes_m_24_info","af_pell_4","88","92"},
+artmod_25 = {"af_glass","_","_","_","tramplin","st_enc_recipes_m_25_info","af_soul_1","58","62"},
+artmod_26 = {"af_soul_1","_","_","_","zharka","st_enc_recipes_m_26_info","af_soul_2","58","62"},
+artmod_27 = {"af_soul_2","_","_","_","cholodec","st_enc_recipes_m_27_info","af_soul_3","88","92"},
+artmod_28 = {"af_soul_3","_","_","_","electra","st_enc_recipes_m_28_info","af_soul_4","88","92"},
+}
+
+----------------------------------------------------------------------------------------------------------------------
+--Таблица с указанием секций аномалий в их названиях (для удобства)
+----------------------------------------------------------------------------------------------------------------------
+anom_sections = {
+tramplin = 	{	zone_mine_gravitational_weak = true },
+voronka = 	{	zone_mine_gravitational_strong = true },
+karusel = 	{	zone_mine_gravitational_average = true },
+electra = 	{	zone_mine_electric_weak = true,
+				zone_mine_electric_average = true,
+				zone_mine_electric_strong = true },
+zharka = 	{	zone_mine_thermal_weak = true,
+				zone_mine_thermal_average = true,
+				zone_mine_thermal_strong = true },
+cholodec = 	{	zone_mine_chemical_weak = true,
+				zone_mine_chemical_average = true,
+				zone_mine_chemical_strong = true },
+kisel = 	{	zone_mine_acidic_weak = true,
+				zone_mine_acidic_average = true,
+				zone_mine_acidic_strong = true }
+}
+
+----------------------------------------------------------------------------------------------------------------------
+-- Нужные переменные для стабильных проверок и самого процесса варки
+----------------------------------------------------------------------------------------------------------------------
+target_items = { -- здесь записываются id ингредиентов, не трогать
+[1] = -1,
+[2] = -1,
+[3] = -1,
+[4] = -1
+}
+recepies_count = 41 -- при добавлении рецептов в "artmod_recepies" - изменять на последний artmod
+recepies_uniq_count = 28 -- при добавлении рецептов в "artmod_recepies_uniq" - изменять на последний artmod
+artmod_process = {} -- здесь записываются время варки, id аномалии, в которой варится арт, и id артмода из "artmod_recepies", который варится
+artmod_process_count = 0 -- количество активных варок из "artmod_recepies"
+artmod_uniq_process = {} -- здесь записываются время варки, id аномалии, в которой варится арт, и id артмода из "artmod_recepies_uniq", который варится
+artmod_uniq_process_count = 0 -- количество активных варок из "artmod_recepies_uniq"
+
+function on_game_start()
+	--RegisterScriptCallback("actor_on_first_update", on_game_load )
+	RegisterScriptCallback("actor_on_update",actor_on_update)
+	RegisterScriptCallback("actor_on_item_drop",actor_on_item_drop)
+end
+
+function on_game_load()
+	local name = "recipes_m"
+	local cat = "st_enc_recipes_m_29"
+	ui_pda_encyclopedia.add_list_item(name,cat)
+	for i = 1,recepies_uniq_count do
+		cat = "st_enc_recipes_m_"..i
+		ui_pda_encyclopedia.add_list_item(name,cat)
+	end
+end
+
+function actor_on_update(delta)
+	local tg = time_global()
+	if (artmod_process_count > 0) then
+		for milli, action in pairs(artmod_process) do
+			if tg > milli then
+				if artmod_process[milli].id ~= -1 then
+					artmod_process_count = artmod_process_count-1
+					finish_artmod(artmod_process[milli].id,artmod_process[milli].artmod)
+					artmod_process[milli].id = -1
+				end
+			end
+		end
+	else
+		artmod_process = {}
+	end
+	
+	if (artmod_uniq_process_count > 0) then
+		for milli, action in pairs(artmod_uniq_process) do
+			if tg > milli then
+				if artmod_uniq_process[milli].id ~= -1 then
+					artmod_uniq_process_count = artmod_uniq_process_count-1
+					finish_artmod_uniq(artmod_uniq_process[milli].id,artmod_uniq_process[milli].artmod)
+					artmod_uniq_process[milli].id = -1
+				end
+			end
+		end
+	else
+		artmod_uniq_process = {}
+	end
+end
+
+function actor_on_item_drop(item)
+	local anm = get_anomaly_object_nearby()
+	if not anm then return end
+	check_artmod(item,anm)
+	check_artmod_simbion(item,anm)
+	check_artmod_uniq(item,anm)
+end
+
+--------------------------------------------------------------------------------------------------------------------------------
+-- Функции проверки, что были выброшены предметы, необходимые для варки стандартных артефактов, запуск варки, и её завершение
+--------------------------------------------------------------------------------------------------------------------------------
+function check_artmod(item,anm)
+	local aid = "artmod_"
+	for i = 1,recepies_count do
+		local at = artmod_recepies[aid..i][5]
+		local as = anom_sections[at]
+		if has_alife_info(artmod_recepies[aid..i][6]) then
+			if (as[anm:section()]) then
+				if (check_section(item,artmod_recepies[aid..i][1])) then
+					level.add_pp_effector("blink.ppe", 234, false)
+					target_items.first = item:id()
+				elseif (check_section(item,artmod_recepies[aid..i][2])) then
+					level.add_pp_effector("blink.ppe", 235, false)
+					target_items.second = item:id()
+				elseif (check_section(item,artmod_recepies[aid..i][3])) then
+					level.add_pp_effector("blink.ppe", 236, false)
+					target_items.third = item:id()
+				elseif (check_section(item,artmod_recepies[aid..i][4])) then
+					level.add_pp_effector("blink.ppe", 237, false)
+					target_items.fourth = item:id()
+				end
+				
+				if (target_items.first ~= -1 and target_items.second ~= -1 and target_items.third ~= -1 and target_items.fourth ~= -1) then
+					if artmod_has_item(aid..i) then
+						start_artmod(aid..i,anm)
+						break
+					end
+				end
+				
+			end
+		end
+	end
+end
+
+function start_artmod(aid,anm)
+	if (target_items.first ~= -1 and target_items.second ~= -1 and target_items.third ~= -1 and target_items.fourth ~= -1) then
+		-----------------------------------------
+		local a,b,c,d
+		a = alife():object(target_items.first)
+		b = alife():object(target_items.second)
+		c = alife():object(target_items.third)
+		d = alife():object(target_items.fourth)
+		alife():release(a,true)
+		alife():release(b,true)
+		alife():release(c,true)
+		alife():release(d,true)
+		target_items.first = -1
+		target_items.second = -1
+		target_items.third = -1
+		target_items.fourth = -1
+		-----------------------------------------
+		
+		level.add_pp_effector("teleport.ppe", 1530, false)
+		local mn = tonumber(artmod_recepies[aid][8])*6000
+		local mx = tonumber(artmod_recepies[aid][9])*6000
+		local rand = math.random(mn,mx)
+		local tim = time_global()+rand
+		if (artmod_process_count > 0) then
+			for milli, action in pairs(artmod_process) do
+				if (milli == tim) then tim = tim + 111 end
+			end
+		end
+		artmod_process[tim] = {}
+		artmod_process[tim].id = anm:id()
+		artmod_process[tim].artmod = aid
+		artmod_process_count = artmod_process_count+1
+		news_manager.send_tip(db.actor,"start_artmod: время мс "..rand.." id аномалии "..artmod_process[tim].id.." id артмода "..artmod_process[tim].artmod.." всего варится "..artmod_process_count)
+	end
+end
+
+function finish_artmod(anm_id, aid)
+	local s_anm = alife():object(anm_id)
+	local art_sect = artmod_recepies[aid][7]
+	local art_lvl = r_float_ex(system_ini(),art_sect, "art_level")
+	if (art_lvl >= 1 and art_lvl <= 3) then
+		art_sect = generate_artefact_dan(art_sect)
+	elseif (art_lvl == 4) then
+		art_sect = art_sect.."_capsule"
+	end
+	news_manager.send_tip(db.actor,"finish_artmod: артефакт "..art_sect.." id аномалии "..anm_id.." id артмода "..aid.." всего варится "..artmod_process_count)
+	local tip = game.translate_string("st_artmod_end_desc").." "..game.translate_string(r_string_ex(system_ini(),art_sect,"inv_name"))
+	news_manager.send_custom(db.actor,tip,game.translate_string("st_artmod_end"))
+	local pos = generate_artefact_position(s_anm)
+	alife():create(art_sect,pos,s_anm.m_level_vertex_id, s_anm.m_game_vertex_id)
+	
+	xr_statistic.inc_artefacts_artmod_counter()
+end
+
+function artmod_has_item(aid)
+	if (target_items.first ~= -1 and target_items.second ~= -1 and target_items.third ~= -1 and target_items.fourth ~= -1) then
+		local a,b,c,d
+		a = level.object_by_id(target_items.first)
+		b = level.object_by_id(target_items.second)
+		c = level.object_by_id(target_items.third)
+		d = level.object_by_id(target_items.fourth)
+		if (check_section(a,artmod_recepies[aid][1]) and check_section(b,artmod_recepies[aid][2]) and check_section(c,artmod_recepies[aid][3]) and check_section(d,artmod_recepies[aid][4])) then
+			return true
+		end
+	end
+	return false
+end
+
+----------------------------------------------------------------------------------------------------------------------
+-- Функции проверки, что были выброшены предметы, необходимые для варки "Симбиона"
+----------------------------------------------------------------------------------------------------------------------
+function check_artmod_simbion(item,anm)
+	local aid = "artmod_simbion"
+	local at = artmod_recepies[aid][5]
+	local as = anom_sections[at]
+	if has_alife_info(artmod_recepies[aid][6]) then
+		if (as[anm:section()]) then
+			if (item:section() == artmod_recepies[aid][1]) then
+				level.add_pp_effector("blink.ppe", 234, false)
+				target_items.first = item:id()
+			elseif (item:section() == artmod_recepies[aid][2]) then
+				level.add_pp_effector("blink.ppe", 235, false)
+				target_items.second = item:id()
+			elseif (item:section() == artmod_recepies[aid][3]) then
+				level.add_pp_effector("blink.ppe", 236, false)
+				target_items.third = item:id()
+			elseif (item:section() == artmod_recepies[aid][4]) then
+				level.add_pp_effector("blink.ppe", 237, false)
+				target_items.fourth = item:id()
+			end
+			
+			if (target_items.first ~= -1 and target_items.second ~= -1 and target_items.third ~= -1 and target_items.fourth ~= -1) then
+				if artmod_has_item_simbion(aid) then
+					start_artmod(aid,anm)
+				end
+			end
+			
+		end
+	end
+end
+
+function artmod_has_item_simbion(aid)
+	if (target_items.first ~= -1 and target_items.second ~= -1 and target_items.third ~= -1 and target_items.fourth ~= -1) then
+		local a,b,c,d
+		a = level.object_by_id(target_items.first)
+		b = level.object_by_id(target_items.second)
+		c = level.object_by_id(target_items.third)
+		d = level.object_by_id(target_items.fourth)
+		if ((a:section() == artmod_recepies[aid][1]) and (b:section() == artmod_recepies[aid][2]) and (c:section() == artmod_recepies[aid][3]) and (d:section() == artmod_recepies[aid][4])) then
+			return true
+		end
+	end
+	return false
+end
+
+----------------------------------------------------------------------------------------------------------------------
+-- Функции проверки, что были выброшены предметы, необходимые для варки модификатов, запуск варки, и её завершение
+----------------------------------------------------------------------------------------------------------------------
+function check_artmod_uniq(item,anm)
+	local aid = "artmod_"
+	for i = 1,recepies_uniq_count do
+		local at = artmod_recepies_uniq[aid..i][5]
+		local as = anom_sections[at]
+		if has_alife_info(artmod_recepies_uniq[aid..i][6]) then
+			if (as[anm:section()]) then
+				if (item:section() == artmod_recepies_uniq[aid..i][1]) then
+					level.add_pp_effector("teleport.ppe", 1530, false)
+					local mn = tonumber(artmod_recepies_uniq[aid..i][8])*6000
+					local mx = tonumber(artmod_recepies_uniq[aid..i][9])*6000
+					local rand = math.random(mn,mx)
+					local tim = time_global()+rand
+					if (artmod_uniq_process_count > 0) then
+						for milli, action in pairs(artmod_uniq_process) do
+							if (milli == tim) then tim = tim + 111 end
+						end
+					end
+					artmod_uniq_process[tim] = {}
+					artmod_uniq_process[tim].id = anm:id()
+					artmod_uniq_process[tim].artmod = aid..i
+					artmod_uniq_process_count = artmod_uniq_process_count+1
+					alife():release(alife():object(item:id()),true)
+					news_manager.send_tip(db.actor,"start_artmod: время мс "..rand.." id аномалии "..artmod_uniq_process[tim].id.." id артмода "..artmod_uniq_process[tim].artmod.." всего уникальных варится "..artmod_uniq_process_count)
+					break
+				end
+			end
+		end
+	end
+end
+
+function finish_artmod_uniq(anm_id, aid)
+	local s_anm = alife():object(anm_id)
+	local art_sect = artmod_recepies_uniq[aid][7]
+	news_manager.send_tip(db.actor,"finish_artmod: артефакт "..art_sect.." id аномалии "..anm_id.." id артмода "..aid.." всего варится "..artmod_uniq_process_count)
+	local tip = game.translate_string("st_artmod_end_desc").." "..game.translate_string(r_string_ex(system_ini(),art_sect,"inv_name"))
+	news_manager.send_custom(db.actor,tip,game.translate_string("st_artmod_end"))
+	local pos = generate_artefact_position(s_anm)
+	alife():create(art_sect,pos,s_anm.m_level_vertex_id, s_anm.m_game_vertex_id)
+	
+	xr_statistic.inc_artefacts_artmod_counter()
+end
+
+----------------------------------------------------------------------------------------------------------------------
+-- Генерация дана для артефактов 1-3 уровней, а так же указание, что арт 3-го уровня должен появиться в капсуле
+----------------------------------------------------------------------------------------------------------------------
+function generate_artefact_dan(art_sect)
+	local rand = 1
+	------------------------------------
+	local amcnt = xr_statistic.get_artefacts_artmod_counter()
+	if amcnt > 10 then
+		rand = math.random(1,2)
+	elseif amcnt > 25 then
+		rand = math.random(2,3)
+	elseif amcnt > 40 then
+		rand = math.random(3,4)
+	elseif amcnt > 50 then
+		rand = math.random(4,5)
+	elseif amcnt > 65 then
+		rand = 5
+	end
+	------------------------------------
+	local art_sect_new = art_sect.."_d"..rand
+	if (r_float_ex(system_ini(),art_sect, "art_level") == 3) then
+		art_sect_new = art_sect_new.."_capsule"
+	end
+	if system_ini():section_exist(art_sect_new) then
+		return art_sect_new
+	else
+		return art_sect
+	end
+end
+
+----------------------------------------------------------------------------------------------------------------------
+-- Генерация позиции артефакта, чтобы он спавнился на периферии аномалии, а не внутри её
+----------------------------------------------------------------------------------------------------------------------
+function generate_artefact_position(s_anm)
+	local radius = get_anomaly_radius(s_anm)+0.5
+	
+	local pos = vector( ):set( 0, 0, 0 )
+	local valid_lvid = false
+	
+	local offset_x = radius
+	if (math.random( ) > 0.5) then
+		offset_x = 0-offset_x
+	end
+	local pos_x = (s_anm.position.x + offset_x)
+
+	local pos_y = s_anm.position.y
+
+	local offset_z = radius
+	if (math.random( ) > 0.5) then
+		offset_z = 0-offset_z
+	end
+	local pos_z = (s_anm.position.z + offset_z)
+
+	pos = vector( ):set( pos_x, pos_y, pos_z )
+	local lvid = level.vertex_id( pos )
+	if ( lvid < 4294967295 ) then
+		pos = level.vertex_position( lvid )
+		valid_lvid = true
+	end
+
+	if (valid_lvid ~= true) then
+		return
+	end
+	
+	return pos
+end
+
+----------------------------------------------------------------------------------------------------------------------
+--Различные полезные функции
+----------------------------------------------------------------------------------------------------------------------
+function get_anomaly_object_nearby()
+	for i = 1, 65534 do
+		local san = alife():object(i)
+		if san then
+			local anomaly = level.object_by_id(san.id)
+			if (anomaly and IsAnomaly(anomaly) and (anomaly:position():distance_to(db.actor:position()) <= (get_anomaly_radius(san)+1.5))) then
+				return anomaly
+			end
+		end
+	end
+end
+
+function get_anomaly_radius(sa)
+	local anom_type = sa:section_name()
+	
+	local radius = 3
+	if (anom_type == "zone_mine_acidic_weak") then radius = 2
+	elseif (anom_type == "zone_mine_gravitational_weak") then radius = 3
+	elseif (anom_type == "zone_mine_gravitational_strong") then radius = 4
+	elseif (anom_type == "zone_mine_chemical_weak") then radius = 2
+	elseif (anom_type == "zone_mine_chemical_average") then radius = 2
+	elseif (anom_type == "zone_mine_chemical_strong") then radius = 2
+	end
+	return radius
+end
+
+function check_section(item,sec)
+	if (item:section() == sec or get_section(item) == sec) then
+		return true
+	end
+	return false
+end
+
+function get_section(item)
+	return r_string_ex(system_ini(),item:section(),"art_parent",item:section())
+end
+----------------------------------------------------------------------------------------------------------------------
+--		Save/Load
+----------------------------------------------------------------------------------------------------------------------
+function save(packet)
+	packet:w_float(artmod_process_count)
+	
+	if artmod_process_count == 0 then return end
+	
+	for milli, action in pairs(artmod_process) do
+		packet:w_float(milli)
+		packet:w_float(artmod_process[milli].id)
+		packet:w_stringZ(artmod_process[milli].artmod)
+	end
+end
+----------------------------------------------------------------------------------------------------------------------
+function load(reader)
+	artmod_process_count = reader:r_float()
+	
+	if artmod_process_count == 0 then return end
+	for i = 1,artmod_process_count do
+		local milli = reader:r_float()
+		artmod_process[milli] = {}
+		artmod_process[milli].id = reader:r_float()
+		artmod_process[milli].artmod = reader:r_stringZ()
+	end
+end
+----------------------------------------------------------------------------------------------------------------------

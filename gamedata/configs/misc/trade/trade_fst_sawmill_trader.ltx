@@ -1,0 +1,294 @@
+;===============================================================================================================================================================
+;		Конфиг настройки торговли.
+;	Персонаж: торговец в туманном лесу на лесопилке
+;===============================================================================================================================================================
+;	Добавлены новые переменные, читаемые из скрипта trade_manager.script
+;	1. resupply_timeout - численная переменная, время в игровых секундах между обновлением ассортимента у торговцев. Одни сутки - 86400 игровых секунд.
+;	2. type - тип торговца, может иметь два аргумента: trader и barter. При отсутствии этой переменной автоматически выставляется barter. Необходима для того, чтобы указать, будет торговец обменивать товар, или будет полноценным торговцем, у которого можно отдельно и покупать, и продавать предметы.
+;	Для облегчения работы создан файл trade_presets.ltx, в котором установлены стандартные торговые отношения для различных групп предметов.
+;===============================================================================================================================================================
+;	Описания старых переменных (из оригинала), все работают по типу condlist:
+;	1. buy_condition - что торговец будет покупать и за какую цену
+;	2. buy_supplies - что торговец будет продавать
+;	3. sell_condition - за какую цену торговец будет продавать
+;	4. discounts - множитель ценников купли/продажи. Стандартные настройки с инфляцией по неделям указаны в файле trade_discounts.ltx
+;===============================================================================================================================================================
+;	Инклуд двух важных файлов, которые описаны выше
+#include "includes\trade_discounts.ltx"
+#include "includes\trade_presets.ltx"
+;===============================================================================================================================================================
+
+[trader]
+buy_condition = trade_generic_buy 
+sell_condition = trade_generic_sell
+buy_supplies = supplies_start
+discounts = discount_default
+resupply_timeout = 86400
+type = barter
+
+;===============================================================================================================================================================
+[trade_generic_buy]:hunter
+;monster
+mutant_part_flesh_meat			= 0.85, 0.5
+mutant_part_boar_chop			= 0.85, 0.5
+mutant_part_dog_meat			= 0.85, 0.5
+mutant_part_psevdodog_meat		= 0.85, 0.5
+mutant_part_krovosos_meat		= 0.85, 0.5
+mutant_part_snork_hand			= 0.85, 0.5
+mutant_part_chimera_meat		= 0.85, 0.5
+mutant_part_tushkano_meat		= 0.85, 0.5
+mutant_flesh_eye				= 0.85, 0.5
+mutant_boar_leg					= 0.85, 0.5
+mutant_dog_tail					= 0.85, 0.5
+mutant_psevdodog_tail			= 0.85, 0.5
+mutant_krovosos_jaw				= 0.85, 0.5
+mutant_snork_leg				= 0.85, 0.5
+mutant_burer_hand				= 0.85, 0.5
+mutant_chimera_nail				= 0.85, 0.5
+mutant_face_tushkano			= 0.85, 0.5
+mutant_hand_kontroler			= 0.85, 0.5
+mutant_poltergeist_glas			= 0.85, 0.5
+mutant_psevdogigant_hand		= 0.85, 0.5
+mutant_part_krovosos_heart		= 0.85, 0.5
+mutant_part_boar_tusk			= 0.85, 0.5
+mutant_part_chimera_corn		= 0.85, 0.5
+mutant_part_chimera_heart		= 0.85, 0.5
+mutant_part_dog_liver			= 0.85, 0.5
+mutant_part_dog_heart			= 0.85, 0.5
+mutant_part_psevdodog_fang		= 0.85, 0.5
+mutant_part_psy_dog_brain		= 0.85, 0.5
+mutant_part_snork_mask			= 0.85, 0.5
+mutant_part_controller_glass	= 0.85, 0.5
+mutant_part_burer_brain			= 0.85, 0.5
+mutant_part_pseudogigant_eye	= 0.85, 0.5
+powder_poltergeist				= 0.85, 0.5
+hide_chimera					= 0.85, 0.5
+hide_pseudogiant				= 0.85, 0.5
+hide_psy_dog					= 0.85, 0.5
+hide_pseudodog					= 0.85, 0.5
+hide_burer						= 0.85, 0.5
+hide_controller					= 0.85, 0.5
+hide_bloodsucker				= 0.85, 0.5
+hide_boar						= 0.85, 0.5
+hide_flesh						= 0.85, 0.5
+
+;food
+meat_tushkano					= 0.85, 0.5
+meat_dog						= 0.85, 0.5
+meat_pseudodog					= 0.85, 0.5
+meat_flesh						= 0.85, 0.5
+meat_boar						= 0.85, 0.5
+meat_bloodsucker				= 0.85, 0.5
+meat_snork						= 0.85, 0.5
+meat_chimera					= 0.85, 0.5
+bread							= 0.85, 0.5
+breadold						= 0.85, 0.5
+kolbasa							= 0.85, 0.5
+conserva						= 0.85, 0.5
+tomato							= 0.85, 0.5
+sausage							= 0.85, 0.5
+corn							= 0.85, 0.5
+beans							= 0.85, 0.5
+chili							= 0.85, 0.5
+salmon							= 0.85, 0.5
+raisins							= 0.85, 0.5
+chocolate						= 0.85, 0.5
+nuts							= 0.85, 0.5
+tushonka						= 0.85, 0.5
+mre								= 0.85, 0.5
+mre_2							= 0.85, 0.5
+mre_3							= 0.85, 0.5
+ration_ukr						= 0.85, 0.5
+ration_ukr_2					= 0.85, 0.5
+ration_ukr_3					= 0.85, 0.5
+ration_ukr_4					= 0.85, 0.5
+ration_ukr_5					= 0.85, 0.5
+ration_ukr_6					= 0.85, 0.5
+mineral_water					= 0.85, 0.5
+mineral_water_2					= 0.85, 0.5
+mineral_water_3					= 0.85, 0.5
+caffeine						= 0.85, 0.5
+caffeine_2						= 0.85, 0.5
+caffeine_3						= 0.85, 0.5
+caffeine_4						= 0.85, 0.5
+caffeine_5						= 0.85, 0.5
+vodka							= 0.85, 0.5
+vodka_2							= 0.85, 0.5
+vodka_3							= 0.85, 0.5
+energy_drink					= 0.85, 0.5
+flask							= 0.85, 0.5
+flask_2							= 0.85, 0.5
+flask_3							= 0.85, 0.5
+bottle_metal					= 0.85, 0.5
+bottle_metal_2					= 0.85, 0.5
+bottle_metal_3					= 0.85, 0.5
+vodka_quality					= 0.85, 0.5
+vodka_quality_2					= 0.85, 0.5
+vodka_quality_3					= 0.85, 0.5
+tobacco
+tobacco_2
+tobacco_3
+hand_rolling_tobacco
+hand_rolling_tobacco_2
+hand_rolling_tobacco_3
+cigarettes
+cigarettes_2
+cigarettes_3
+cigarettes_lucky
+cigarettes_lucky_2
+cigarettes_lucky_3
+cigarettes_russian
+cigarettes_russian_2
+cigarettes_russian_3
+
+roubles						= 1, 0.5
+
+;===============================================================================================================================================================
+[trade_generic_sell]:hunter
+;monster
+mutant_part_flesh_meat			= 1,2
+mutant_part_boar_chop			= 1,2
+mutant_part_dog_meat			= 1,2
+mutant_part_psevdodog_meat		= 1,2
+mutant_part_krovosos_meat		= 1,2
+mutant_part_snork_hand			= 1,2
+mutant_part_chimera_meat		= 1,2
+mutant_part_tushkano_meat		= 1,2
+mutant_flesh_eye				= 1,2
+mutant_boar_leg					= 1,2
+mutant_dog_tail					= 1,2
+mutant_psevdodog_tail			= 1,2
+mutant_krovosos_jaw				= 1,2
+mutant_snork_leg				= 1,2
+mutant_burer_hand				= 1,2
+mutant_chimera_nail				= 1,2
+mutant_face_tushkano			= 1,2
+mutant_hand_kontroler			= 1,2
+mutant_poltergeist_glas			= 1,2
+mutant_psevdogigant_hand		= 1,2
+mutant_part_krovosos_heart		= 1,2
+mutant_part_boar_tusk			= 1,2
+mutant_part_chimera_corn		= 1,2
+mutant_part_chimera_heart		= 1,2
+mutant_part_dog_liver			= 1,2
+mutant_part_dog_heart			= 1,2
+mutant_part_psevdodog_fang		= 1,2
+mutant_part_psy_dog_brain		= 1,2
+mutant_part_snork_mask			= 1,2
+mutant_part_controller_glass	= 1,2
+mutant_part_burer_brain			= 1,2
+mutant_part_pseudogigant_eye	= 1,2
+powder_poltergeist				= 1,2
+hide_chimera					= 1,2
+hide_pseudogiant				= 1,2
+hide_psy_dog					= 1,2
+hide_pseudodog					= 1,2
+hide_burer						= 1,2
+hide_controller					= 1,2
+hide_bloodsucker				= 1,2
+hide_boar						= 1,2
+hide_flesh						= 1,2
+
+;food
+meat_tushkano					= 1,2
+meat_dog						= 1,2
+meat_pseudodog					= 1,2
+meat_flesh						= 1,2
+meat_boar						= 1,2
+meat_bloodsucker				= 1,2
+meat_snork						= 1,2
+meat_chimera					= 1,2
+bread							= 1,2
+breadold						= 1,2
+kolbasa							= 1,2
+conserva						= 1,2
+tomato							= 1,2
+sausage							= 1,2
+corn							= 1,2
+beans							= 1,2
+chili							= 1,2
+salmon							= 1,2
+raisins							= 1,2
+chocolate						= 1,2
+nuts							= 1,2
+tushonka						= 1,2
+mre								= 1,2
+mre_2							= 1,2
+mre_3							= 1,2
+ration_ukr						= 1,2
+ration_ukr_2					= 1,2
+ration_ukr_3					= 1,2
+ration_ukr_4					= 1,2
+ration_ukr_5					= 1,2
+ration_ukr_6					= 1,2
+mineral_water					= 1,2
+mineral_water_2					= 1,2
+mineral_water_3					= 1,2
+caffeine						= 1,2
+caffeine_2						= 1,2
+caffeine_3						= 1,2
+caffeine_4						= 1,2
+caffeine_5						= 1,2
+vodka							= 1,2
+vodka_2							= 1,2
+vodka_3							= 1,2
+energy_drink					= 1,2
+flask							= 1,2
+flask_2							= 1,2
+flask_3							= 1,2
+bottle_metal					= 1,2
+bottle_metal_2					= 1,2
+bottle_metal_3					= 1,2
+vodka_quality					= 1,2
+vodka_quality_2					= 1,2
+vodka_quality_3					= 1,2
+tobacco
+tobacco_2
+tobacco_3
+hand_rolling_tobacco
+hand_rolling_tobacco_2
+hand_rolling_tobacco_3
+cigarettes
+cigarettes_2
+cigarettes_3
+cigarettes_lucky
+cigarettes_lucky_2
+cigarettes_lucky_3
+cigarettes_russian
+cigarettes_russian_2
+cigarettes_russian_3
+
+roubles						= 1, 1
+
+;===============================================================================================================================================================
+[supplies_start]
+bread					= 2, 0.8
+breadold				= 3, 0.8
+kolbasa					= 2, 0.8
+conserva				= 1, 0.8
+vodka_3					= 1, 0.8
+bottle_metal_3			= 3, 0.6
+flask_2					= 2, 0.8
+flask_3					= 1, 0.8
+cigarettes_russian_3	= 2, 0.8
+
+meat_tushkano				= 2, 0.8
+meat_dog					= 2, 0.8
+meat_snork					= 2, 0.8
+meat_pseudodog				= 2, 0.8
+meat_flesh					= 1, 0.8
+meat_boar					= 1, 0.8
+mutant_flesh_eye			= 2, 0.8
+mutant_boar_leg				= 2, 0.8
+mutant_part_boar_tusk		= 1, 0.8
+mutant_dog_tail				= 2, 0.8
+mutant_part_dog_liver		= 1, 0.8
+mutant_part_dog_heart		= 1, 0.8
+mutant_psevdodog_tail		= 2, 0.8
+mutant_part_psevdodog_fang	= 1, 0.8
+mutant_krovosos_jaw			= 1, 0.8
+mutant_snork_leg			= 2, 0.8
+mutant_burer_hand			= 1, 0.8
+mutant_chimera_nail			= 1, 0.8
+mutant_part_chimera_corn	= 1, 0.8
+mutant_face_tushkano		= 2, 0.8

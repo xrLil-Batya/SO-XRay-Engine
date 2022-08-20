@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding="windows-1251"?>
+
+<game_information_portions>
+<!-- Вскрытие управления -->
+	<info_portion id="sar_start_decoding"></info_portion>
+	<info_portion id="sar_access_decoding"></info_portion>
+	<info_portion id="sar_finish_decoding"></info_portion>
+</game_information_portions>

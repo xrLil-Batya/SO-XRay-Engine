@@ -1,0 +1,18 @@
+<w>
+	<test width="0.05" height="0.05" stretch="1">
+		<canvas width="0.05" height="0.05" stretch="1">
+			<static width="0.05" height="0.05" stretch="1">
+				<texture shader="hud\p3d">ui_hud_geiger_detector</texture>
+			</static>
+		</canvas>
+	</test>
+	
+	
+	<gas_light width="1" height="1" stretch="1">
+		<canvas width="1" height="1" stretch="1">
+			<auto_static width="0.02" height="0.02" stretch="1">
+				<texture shader="hud\p3d">ui_gas_light</texture>
+			</auto_static>
+		</canvas>
+	</gas_light>
+</w>

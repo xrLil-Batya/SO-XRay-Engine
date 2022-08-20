@@ -1,0 +1,20 @@
+[smart_terrain]
+squad_id = 22
+max_population = 1
+arrive_dist = 50
+respawn_params = respawn@agr_smart_zombie_1
+
+[respawn@agr_smart_zombie_1]
+spawn_zombied@agr_smart_zombie_1
+
+[spawn_zombied@agr_smart_zombie_1]
+spawn_squads = {+info_mutant_spawn_hard +info_mutant_spawn_medium +info_mutant_spawn_basic} agr_smart_zombie_1_squad_3, {-info_mutant_spawn_hard +info_mutant_spawn_medium +info_mutant_spawn_basic} agr_smart_zombie_1_squad_2, {-info_mutant_spawn_hard -info_mutant_spawn_medium +info_mutant_spawn_basic} agr_smart_zombie_1_squad
+spawn_num = {+info_mutant_spawn_basic} 1, 0
+
+[exclusive]
+agr_smart_zombie_1_guarder_1 = agroprom\agr_smart_zombie_1_guarders.ltx
+agr_smart_zombie_1_guarder_2 = agroprom\agr_smart_zombie_1_guarders.ltx
+agr_smart_zombie_1_guarder_3 = agroprom\agr_smart_zombie_1_guarders.ltx
+agr_smart_zombie_1_guarder_4 = agroprom\agr_smart_zombie_1_guarders.ltx
+agr_smart_zombie_1_guarder_5 = agroprom\agr_smart_zombie_1_guarders.ltx
+agr_smart_zombie_1_guarder_6 = agroprom\agr_smart_zombie_1_guarders.ltx

@@ -1,0 +1,507 @@
+-- File:        UI_PDA_ENCYCLOPEDIA.SCRIPT
+-- Description: Скрипт обработки вкладки "Справка" и её элементов в ПДА.
+-- Created:     23.09.2021
+-- Lasd edit:	03.07.2022
+-- Copyright:   ARTLantist
+-- Author:      ARTLantist
+
+encyclopedia = {
+notes = {		
+				name = "pda_notes_button",
+				article = {},
+				descr = {},
+				pict = {},
+				info = {},
+				info_cl = {}
+},
+barter = {		
+				name = "pda_barter_button",
+				article = {},
+				descr = {},
+				pict = {},
+				info = {},
+				info_cl = {}
+},
+gived_info = {	
+				name = "pda_gived_info_button",
+				article = {},
+				descr = {},
+				pict = {},
+				info = {},
+				info_cl = {}
+},
+passwords = {	
+				name = "pda_passwords_button",
+				article = {},
+				descr = {},
+				pict = {},
+				info = {},
+				info_cl = {}
+},
+recipes = {		
+				name = "pda_recipes_button",
+				article = {},
+				descr = {},
+				pict = {},
+				info = {},
+				info_cl = {}
+},
+anomalis = {	
+				name = "pda_anomalis_button",
+				article = {},
+				descr = {},
+				pict = {},
+				info = {},
+				info_cl = {}
+},
+arts = {		
+				name = "pda_arts_button",
+				article = {},
+				descr = {},
+				pict = {},
+				info = {},
+				info_cl = {}
+},
+monsters = {	
+				name = "pda_monsters_button",
+				article = {},
+				descr = {},
+				pict = {},
+				info = {},
+				info_cl = {}
+},
+locs = {		
+				name = "pda_locs_button",
+				article = {},
+				descr = {},
+				pict = {},
+				info = {},
+				info_cl = {}
+},
+recipes_m = {	
+				name = "pda_recipes_m_button",
+				article = {},
+				descr = {},
+				pict = {},
+				info = {},
+				info_cl = {}
+}
+}
+
+categories = {"notes","barter","gived_info","passwords","recipes","anomalis","arts","monsters","locs","recipes_m"}
+
+------------------------------------------------------------
+
+------------------Функция добавления новых элементов в таблицы --------------------
+--[[
+	Пример добавления новой заметки из любого другого скрипта:
+	local name = "notes" - название секции заметок (notes,barter,gived_info,passwords,recipes,anomalis,arts,monsters,locs,recipes_m)
+	local cat = "st_enc_notes_1" - название самой заметки - ссылка на секцию из xml файла
+	ui_pda_encyclopedia.add_list_item(name,cat,true) - вызов из другого скрипта, true или false - наличие изображения у данной заметки
+	------------------------------------------------------------------
+	Эта функция превращает cat (название пункта энциклопедии) в инфопоршень, и выдаёт его ГГ, а также присылает сообщение о новой статье в энциклопедии (для этого необходима категория - name).
+	Инфопоршни обязательно прописывать в info_encyclopedia.xml
+	Вся информация энциклопедии зависит от инфопоршней и названия категории, и обновляется перед каждым нажатием кнопки-категории функцией refresh_encyclopedy().
+]]--
+
+function add_list_item(category,article,with_picture)
+	local info = article.."_info"
+	if has_alife_info(info) then return end
+	db.actor:give_info_portion(info)
+	table.insert(encyclopedia[category].article, article)
+	if (with_picture) then
+		table.insert(encyclopedia[category].pict, "ui_"..article.."_picture")
+	else
+		table.insert(encyclopedia[category].pict, "ui_encyclopedia_not_picture") -- прозрачный квадрат 1х1 пикселей
+	end
+	
+	local name = "st_new_"..category
+	news_manager.send_custom(db.actor,game.translate_string(article),game.translate_string(name))
+end
+
+------------------------------------------------------------------------------------------
+-- Функция обновляет таблицу энциклопедии в зависимости от наличия категории и инфопоршня
+------------------------------------------------------------------------------------------
+function refresh_encyclopedy(category)
+	encyclopedia[category].descr = {}
+	encyclopedia[category].info = {}
+	encyclopedia[category].info_cl = {}
+	if (#encyclopedia[category]["article"] > 0) then
+		for k, cat in pairs(encyclopedia[category]["article"]) do
+			if has_alife_info(cat.."_info") then
+				table.insert(encyclopedia[category].descr, cat.."_descr")
+				table.insert(encyclopedia[category].info, cat.."_info")
+				table.insert(encyclopedia[category].info_cl, cat.."_click_info")
+			end
+		end
+	end
+end
+
+------------------------------------------------------------------------------------------
+--		ui_pda_encyclopedia_tab Initialization
+------------------------------------------------------------------------------------------
+local SINGLETON = nil
+function get_ui()
+	SINGLETON = SINGLETON or pda_encyclopedia_tab()
+	SINGLETON:Reset()
+	return SINGLETON
+end
+
+class "pda_encyclopedia_tab" (CUIScriptWnd)
+function pda_encyclopedia_tab:__init() super()
+	self:InitControls()
+	self:InitCallbacks()
+	self:InitCategories()
+end
+
+function pda_encyclopedia_tab:__finalize()
+end
+
+class "pda_encyclopedia_entry"(CUIListBoxItem)
+function pda_encyclopedia_entry:__init() super()
+	self.sect = self:GetTextItem()
+	self.sect:SetFont(GetFontLetterica16Russian())
+	self.sect:SetTextColor(GetARGB(255,220,220,220))
+end
+
+------------------------------------------------------------------------------------------
+--		ui_pda_encyclopedia_tab Interface Init
+------------------------------------------------------------------------------------------
+function pda_encyclopedia_tab:InitControls()
+	local xml = CScriptXmlInit()
+	xml:ParseFile("pda_encyclopedia.xml")
+	
+	self:SetWndRect(Frect():set(0, 0, 1024, 768))
+	xml:InitFrame("frame1", self)
+	xml:InitFrame("frame2", self)
+	xml:InitFrame("border", self)
+	xml:InitStatic("frame1:caption", self)
+	
+	self.article_list = xml:InitListBox("article_list", self)
+	self:Register(self.article_list, "article_list")
+	self.category_list = xml:InitListBox("category_list", self)
+	self:Register(self.category_list, "category_list")
+	
+	self.dsc_caption = xml:InitTextWnd("description:caption", self)
+	self.dsc_caption:SetText("")
+	self.information = xml:InitTextWnd("description:information", nil)
+	self.image_container = xml:InitStatic("description:image_container", nil)
+	self.image = xml:InitStatic("description:image_container:image", self.image_container)
+	self.scrollbar = xml:InitScrollView("description:scrollbar", self)
+	self.scrollbar:AddWindow(self.information, true)
+	self.scrollbar:AddWindow(self.image_container, true)
+
+	self.information:SetAutoDelete(false)
+	self.image_container:SetAutoDelete(false)
+	self.image:SetAutoDelete(false)
+end
+
+function pda_encyclopedia_tab:InitCallbacks()
+	self:AddCallback("article_list", ui_events.LIST_ITEM_CLICKED, self.SelectArticle, self)
+	self:AddCallback("category_list", ui_events.LIST_ITEM_CLICKED, self.SelectCategory, self)
+end
+
+function pda_encyclopedia_tab:InitCategories()
+	local item = nil
+	local section = nil
+	self.category_list:RemoveAll()
+	self.dsc_caption:SetText("")
+	for i = 1, #categories do
+		item = pda_encyclopedia_entry()
+		section = encyclopedia[categories[i]].name
+		item.sect:SetText(game.translate_string(section))
+		item.sect:SetWndSize(vector2():set(108, 18))
+		item.name = categories[i]
+		self.category_list:AddExistingItem(item)
+	end
+end
+
+function pda_encyclopedia_tab:InitArticles(category)
+
+	self.article_list:RemoveAll()
+	self.dsc_caption:SetText("")
+	refresh_encyclopedy(category)
+	local item
+	for i = 1, (#encyclopedia[category].article) do 
+		if has_alife_info(encyclopedia[category].info[i]) then
+			
+			item = pda_encyclopedia_entry()
+			item.article = encyclopedia[category].article[i]
+			item.description = encyclopedia[category].descr[i]
+			item.picture = encyclopedia[category].pict[i]
+			item.info_click = encyclopedia[category].info_cl[i]
+			
+			item.sect:SetText(game.translate_string(encyclopedia[category].article[i]))
+			item.sect:SetWndSize(vector2():set(178, 18))
+			if not has_alife_info(item.info_click) then
+				item.sect:SetTextColor(GetARGB(255,0,220,0))
+			end
+			self.article_list:AddExistingItem(item)
+		end
+	end
+end
+
+------------------------------------------------------------------------------------------
+--		ui_pda_encyclopedia_tab Callbacks
+------------------------------------------------------------------------------------------
+function pda_encyclopedia_tab:SelectCategory()
+	local item = self.category_list:GetSelectedItem()
+	
+	if (item) then
+		self:InitArticles(item.name)
+		self.scrollbar:Clear()
+		self.dsc_caption:SetText("")
+	end
+end
+
+function pda_encyclopedia_tab:SelectArticle()
+	if self.article_list:GetSize()==0 then return end
+	
+	local item = self.article_list:GetSelectedItem()
+	
+	if item then
+		if not has_alife_info(item.info_click) then
+			db.actor:give_info_portion(item.info_click)
+			item.sect:SetTextColor(GetARGB(255,220,220,220))
+		end
+		
+		self.dsc_caption:SetText(game.translate_string(item.article))
+		self.information:SetText(game.translate_string(item.description))
+		
+		self.image:InitTexture(item.picture)
+		
+		local image_width = self.image:GetTextureRect().x2 - self.image:GetTextureRect().x1
+		local image_height = self.image:GetTextureRect().y2 - self.image:GetTextureRect().y1
+		local image_offset = image_height > 0 and 7 or 0
+		local x_coefficient = (device().height / device().width) / (768 / 1024)
+		self.image_container:SetWndSize(vector2():set(image_width, image_height + image_offset))
+		self.image:SetWndSize(vector2():set(image_width * x_coefficient, image_height))
+		local pos = self.image_container:GetWndPos()
+		local pos2 = self.image:GetWndPos()
+		self.image_container:SetWndPos(vector2():set(225-(self.image_container:GetWidth()/2), pos.y))
+		self.image:SetWndPos(vector2():set(225-(self.image:GetWidth()/2), pos2.y))
+		self.image:SetStretchTexture(true)
+		
+		self.image:InitTexture(item.picture)
+		
+		local information_offset = 10
+		self.information:AdjustHeightToText()
+		self.information:SetWndSize(vector2():set(self.information:GetWidth(), self.information:GetHeight() + information_offset))
+		
+		self.scrollbar:Clear()
+		self.scrollbar:AddWindow(self.image_container, true)
+		self.image_container:SetAutoDelete(false)
+		self.image:SetAutoDelete(false)
+		
+		self.scrollbar:AddWindow(self.information, true)
+		self.information:SetAutoDelete(false)
+		
+	end
+end
+
+-------------------------------------------------------------------------------------------------------------------------------
+--		ui_pda_encyclopedia_tab Reset
+-------------------------------------------------------------------------------------------------------------------------------
+function pda_encyclopedia_tab:Reset()
+	self.scrollbar:Clear()
+	self.article_list:RemoveAll()
+	self:InitCategories()
+end
+
+-------------------------------------------------------------------------------------------------------------------------------
+--		Save/Load - Сохраняем только таблицы артиклов, т.к. по ним обновляется таблица всей энциклопедии, а также изображения
+-------------------------------------------------------------------------------------------------------------------------------
+function save(packet)
+	local c = #encyclopedia["notes"]["article"]
+	packet:w_float(c)
+	if (c > 0) then
+		for i = 1,c do
+			packet:w_stringZ(encyclopedia["notes"]["article"][i])
+			packet:w_stringZ(encyclopedia["notes"]["pict"][i])
+		end
+	end
+	
+	c = #encyclopedia["barter"]["article"]
+	packet:w_float(c)
+	if (c > 0) then
+		for i = 1,c do
+			packet:w_stringZ(encyclopedia["barter"]["article"][i])
+			packet:w_stringZ(encyclopedia["barter"]["pict"][i])
+		end
+	end
+	
+	c = #encyclopedia["gived_info"]["article"]
+	packet:w_float(c)
+	if (c > 0) then
+		for i = 1,c do
+			packet:w_stringZ(encyclopedia["gived_info"]["article"][i])
+			packet:w_stringZ(encyclopedia["gived_info"]["pict"][i])
+		end
+	end
+	
+	c = #encyclopedia["passwords"]["article"]
+	packet:w_float(c)
+	if (c > 0) then
+		for i = 1,c do
+			packet:w_stringZ(encyclopedia["passwords"]["article"][i])
+			packet:w_stringZ(encyclopedia["passwords"]["pict"][i])
+		end
+	end
+	
+	c = #encyclopedia["recipes"]["article"]
+	packet:w_float(c)
+	if (c > 0) then
+		for i = 1,c do
+			packet:w_stringZ(encyclopedia["recipes"]["article"][i])
+			packet:w_stringZ(encyclopedia["recipes"]["pict"][i])
+		end
+	end
+	
+	c = #encyclopedia["anomalis"]["article"]
+	packet:w_float(c)
+	if (c > 0) then
+		for i = 1,c do
+			packet:w_stringZ(encyclopedia["anomalis"]["article"][i])
+			packet:w_stringZ(encyclopedia["anomalis"]["pict"][i])
+		end
+	end
+	
+	c = #encyclopedia["arts"]["article"]
+	packet:w_float(c)
+	if (c > 0) then
+		for i = 1,c do
+			packet:w_stringZ(encyclopedia["arts"]["article"][i])
+			packet:w_stringZ(encyclopedia["arts"]["pict"][i])
+		end
+	end
+	
+	c = #encyclopedia["monsters"]["article"]
+	packet:w_float(c)
+	if (c > 0) then
+		for i = 1,c do
+			packet:w_stringZ(encyclopedia["monsters"]["article"][i])
+			packet:w_stringZ(encyclopedia["monsters"]["pict"][i])
+		end
+	end
+	
+	c = #encyclopedia["locs"]["article"]
+	packet:w_float(c)
+	if (c > 0) then
+		for i = 1,c do
+			packet:w_stringZ(encyclopedia["locs"]["article"][i])
+			packet:w_stringZ(encyclopedia["locs"]["pict"][i])
+		end
+	end
+	
+	c = #encyclopedia["recipes_m"]["article"]
+	packet:w_float(c)
+	if (c > 0) then
+		for i = 1,c do
+			packet:w_stringZ(encyclopedia["recipes_m"]["article"][i])
+			packet:w_stringZ(encyclopedia["recipes_m"]["pict"][i])
+		end
+	end
+	
+end
+----------------------------------------------------------------------------------------------------------------------
+function load(reader)
+	local c = reader:r_float()
+	if (c > 0) then
+		for i = 1,c do
+			local s = reader:r_stringZ()
+			table.insert(encyclopedia["notes"]["article"], s)
+			s = reader:r_stringZ()
+			table.insert(encyclopedia["notes"]["pict"], s)
+		end
+	end
+	
+	c = reader:r_float()
+	if (c > 0) then
+		for i = 1,c do
+			local s = reader:r_stringZ()
+			table.insert(encyclopedia["barter"]["article"], s)
+			s = reader:r_stringZ()
+			table.insert(encyclopedia["barter"]["pict"], s)
+		end
+	end
+	
+	c = reader:r_float()
+	if (c > 0) then
+		for i = 1,c do
+			local s = reader:r_stringZ()
+			table.insert(encyclopedia["gived_info"]["article"], s)
+			s = reader:r_stringZ()
+			table.insert(encyclopedia["gived_info"]["pict"], s)
+		end
+	end
+	
+	c = reader:r_float()
+	if (c > 0) then
+		for i = 1,c do
+			local s = reader:r_stringZ()
+			table.insert(encyclopedia["passwords"]["article"], s)
+			s = reader:r_stringZ()
+			table.insert(encyclopedia["passwords"]["pict"], s)
+		end
+	end
+	
+	c = reader:r_float()
+	if (c > 0) then
+		for i = 1,c do
+			local s = reader:r_stringZ()
+			table.insert(encyclopedia["recipes"]["article"], s)
+			s = reader:r_stringZ()
+			table.insert(encyclopedia["recipes"]["pict"], s)
+		end
+	end
+	
+	c = reader:r_float()
+	if (c > 0) then
+		for i = 1,c do
+			local s = reader:r_stringZ()
+			table.insert(encyclopedia["anomalis"]["article"], s)
+			s = reader:r_stringZ()
+			table.insert(encyclopedia["anomalis"]["pict"], s)
+		end
+	end
+	
+	c = reader:r_float()
+	if (c > 0) then
+		for i = 1,c do
+			local s = reader:r_stringZ()
+			table.insert(encyclopedia["arts"]["article"], s)
+			s = reader:r_stringZ()
+			table.insert(encyclopedia["arts"]["pict"], s)
+		end
+	end
+	
+	c = reader:r_float()
+	if (c > 0) then
+		for i = 1,c do
+			local s = reader:r_stringZ()
+			table.insert(encyclopedia["monsters"]["article"], s)
+			s = reader:r_stringZ()
+			table.insert(encyclopedia["monsters"]["pict"], s)
+		end
+	end
+	
+	c = reader:r_float()
+	if (c > 0) then
+		for i = 1,c do
+			local s = reader:r_stringZ()
+			table.insert(encyclopedia["locs"]["article"], s)
+			s = reader:r_stringZ()
+			table.insert(encyclopedia["locs"]["pict"], s)
+		end
+	end
+	
+	c = reader:r_float()
+	if (c > 0) then
+		for i = 1,c do
+			local s = reader:r_stringZ()
+			table.insert(encyclopedia["recipes_m"]["article"], s)
+			s = reader:r_stringZ()
+			table.insert(encyclopedia["recipes_m"]["pict"], s)
+		end
+	end
+end

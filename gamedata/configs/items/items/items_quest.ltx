@@ -1,0 +1,110 @@
+[quest_base]:identity_immunities
+GroupControlSection	= spawn_group
+discovery_dependency=
+$spawn 				= "devices\pda"
+$prefetch 			= 16
+class				= S_PDA
+cform				= skeleton
+visual				= dynamics\devices\dev_pda\dev_pda.ogf
+description			= st_pda_descr
+radius				= 68; 50
+default_to_ruck		= false
+sprint_allowed		= true
+control_inertion_factor = 1
+script_binding      = bind_physic_object.init
+
+inv_name			= st_pda_name
+inv_name_short		= st_pda_name
+inv_weight			= 0.1	;0.2
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 6
+inv_grid_y			= 13
+cost				= 20
+attach_angle_offset		= -1.303,0.107,-1.702   ;устанавливается в радианах Angle*PI/180
+attach_position_offset	= 0.14,0.001,0.02
+attach_bone_name		= bip01_l_hand
+auto_attach			= false
+
+;*************************************************************************
+;**					TOOLKITS
+;*************************************************************************
+
+[itm_repairkit_tier_1]:quest_base
+$spawn 				= "quest_items\toolkit_1"
+visual				= dynamics\equipments\quest\box_toolkit_1.ogf
+inv_name			= st_itm_repairkit_tier_1_name
+inv_name_short		= st_itm_repairkit_tier_1_name
+description			= st_itm_repairkit_tier_1_descr
+inv_weight			= 3.4
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 14
+inv_grid_y			= 5
+cost				= 1000
+can_trade			= true
+quest_item     		= false
+sort_in_tools 		= true
+use1_functor                             = items_manager.inv_item_craft_menu
+use1_action_functor                      = items_manager.inv_item_craft
+
+[itm_repairkit_tier_2]:itm_repairkit_tier_1
+$spawn 				= "quest_items\toolkit_2"
+visual				= dynamics\equipments\quest\box_toolkit_2.ogf
+inv_name			= st_itm_repairkit_tier_2_name
+inv_name_short		= st_itm_repairkit_tier_2_name
+description			= st_itm_repairkit_tier_2_descr
+inv_weight			= 2.1
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 11
+inv_grid_y			= 6
+cost				= 2000
+
+[itm_repairkit_tier_3]:itm_repairkit_tier_1
+$spawn 				= "quest_items\toolkit_3"
+visual				= dynamics\equipments\quest\box_toolkit_3.ogf
+inv_name			= st_itm_repairkit_tier_3_name
+inv_name_short		= st_itm_repairkit_tier_3_name
+description			= st_itm_repairkit_tier_3_descr
+inv_weight			= 2.4
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 13
+inv_grid_y			= 6
+cost				= 3000
+
+[itm_drugkit]:itm_repairkit_tier_1
+
+description			= st_drugs_kit_descr
+inv_name			= st_drugs_kit
+inv_name_short		= st_drugs_kit
+cost				= 7200
+visual				= dynamics\equipments\item_merger.ogf
+inv_weight			= 1.8
+inv_grid_x			= 14
+inv_grid_y			= 7
+inv_grid_width			= 2
+inv_grid_height			= 1
+
+
+;*************************************************************************
+;**					Jupiter
+;*************************************************************************
+
+[jup_a9_conservation_info]:quest_base
+$spawn 				= "quest_items\jup_a9_conservation_info"
+visual				= dynamics\equipments\quest\notes_writing_book_2.ogf
+inv_weight			= 0.05
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 31
+inv_grid_y			= 10
+description			= jup_a9_conservation_info_desc
+inv_name			= jup_a9_conservation_info
+inv_name_short			= jup_a9_conservation_info
+can_trade			= false
+cost 				= 0
+quest_item     			= true
+story_id 			= jup_a9_conservation_info

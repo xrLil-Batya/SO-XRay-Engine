@@ -1,0 +1,32 @@
+; как я понял, таргет надо начинать указывать с заключительной/последней цели/поршня (т.е. в конце строки будет первая цель, а в начале - последняя), так же как и титле с дескр, иначе квест не срабатывает 
+
+;второстепенные задания
+[zahvat_ryb_hutora]
+icon = ui_inGame2_Mesta_evakuatsii
+prior = 1
+storyline = false
+title = zahvat_ryb_hutor_name
+descr = zahvat_ryb_hutor_text
+target = csky_church_commander
+condlist_0 = {+renegade_5_12_squad_dead +csky_zanyali_ryb_hutor} complete
+condlist_1 = {=is_squad_enemy_to_actor(mar_csky_8_11_squad)} fail, {+csky_church_commander_dead} fail
+
+[poisk_csky_otryada]
+icon = ui_inGame2_Mesta_evakuatsii
+prior = 1
+storyline = false
+title = poisk_csky_otryada_name
+descr = {+csky_free} dologit_ob_itogah_text, {+csky_prisoners_dead} dologit_ob_itogah_text, {+csky_attak_mex_dvor +guard_prisoners_dead} pogovorit_s_prisoners_text, {+csky_attak_mex_dvor} atakovat_renegatov_text, {+csky_comander_plan_spot} vstretitsya_s_otryadom_csky_text, {+actor_give_vykup} nayti_dengi_na_vykup_text, poisk_csky_otryada_text
+target = {+csky_free} csky_church_commander, {+csky_prisoners_dead} csky_church_commander, {+csky_attak_mex_dvor +guard_prisoners_dead} csky_prisoner_1, {+csky_attak_mex_dvor} nil, {+csky_comander_plan_spot} csky_comader_chel, {+actor_give_vykup} guard_prisoners_10_5_squad, {+otryad_csky_nayden_spot} csky_prisoners_10_5_squad, mar_wound_renegade_8_8_squad
+condlist_0 = {+actor_dologil_o_prisoners} complete
+condlist_1 = {=is_squad_enemy_to_actor(mar_csky_8_11_squad)} fail %+poisk_csky_otryada_fail%
+
+[poisk_csky_guider]
+icon = ui_inGame2_Mesta_evakuatsii
+prior = 1
+storyline = false
+title = poisk_csky_guide_name
+descr = {+conductor_in_5_12} dologit_5_12_comander_text, {+mar_csky_conductor_to_5_12} soprovodit_na_ryb_hutor_text, {+mar_guide_dead} dologit_5_12_comander_text, {+5_12_provodnik_3_3_find} osmotret_nasosnuy_stanciy_text, {+provodnik_3_3_gone} provodnika_net_text, {+renegade_3_3_squad_dead} osmotret_postoyki_text, poisk_csky_guide_text
+target = {+conductor_in_5_12} csky_church_commander, {+mar_csky_conductor_to_5_12} mar_intro_guide_squad, {+mar_guide_dead} csky_church_commander, {+5_12_provodnik_3_3_find} mar_intro_guide_squad, {+provodnik_3_3_gone} csky_church_commander, {+renegade_3_3_squad_dead} nil, mar_renegade_3_3_squad
+condlist_0 = {+conductor_dologil_5_12} complete
+condlist_1 = {=is_squad_enemy_to_actor(mar_csky_8_11_squad)} fail, {=is_squad_enemy_to_actor(mar_intro_guide_squad)} fail

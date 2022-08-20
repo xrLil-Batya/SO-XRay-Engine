@@ -1,0 +1,876 @@
+;===============================================================================================================================================================
+;		Конфиг настройки торговли.
+;	Персонаж: торговец в туманном лесу на лесопилке
+;===============================================================================================================================================================
+;	Добавлены новые переменные, читаемые из скрипта trade_manager.script
+;	1. resupply_timeout - численная переменная, время в игровых секундах между обновлением ассортимента у торговцев. Одни сутки - 86400 игровых секунд.
+;	2. type - тип торговца, может иметь два аргумента: trader и barter. При отсутствии этой переменной автоматически выставляется barter. Необходима для того, чтобы указать, будет торговец обменивать товар, или будет полноценным торговцем, у которого можно отдельно и покупать, и продавать предметы.
+;	Для облегчения работы создан файл trade_presets.ltx, в котором установлены стандартные торговые отношения для различных групп предметов.
+;===============================================================================================================================================================
+;	Описания старых переменных (из оригинала), все работают по типу condlist:
+;	1. buy_condition - что торговец будет покупать и за какую цену
+;	2. buy_supplies - что торговец будет продавать
+;	3. sell_condition - за какую цену торговец будет продавать
+;	4. discounts - множитель ценников купли/продажи. Стандартные настройки с инфляцией по неделям указаны в файле trade_discounts.ltx
+;===============================================================================================================================================================
+;	Инклуд двух важных файлов, которые описаны выше
+#include "includes\trade_discounts.ltx"
+#include "includes\trade_presets.ltx"
+;===============================================================================================================================================================
+
+[trader]
+buy_condition = trade_generic_buy 
+sell_condition = trade_generic_sell
+buy_supplies = supplies_start
+discounts = discount_default
+resupply_timeout = 259200
+type = trader
+
+;===============================================================================================================================================================
+[trade_generic_buy]:trasher
+;weapon
+wpn_aps						= 0.2, 0.1
+wpn_beretta					= 0.2, 0.1
+wpn_colt1911				= 0.2, 0.1
+wpn_desert_eagle			= 0.2, 0.1
+wpn_fnp45					= 0.2, 0.1
+wpn_fnx45					= 0.2, 0.1
+wpn_fort					= 0.2, 0.1
+wpn_glock					= 0.2, 0.1
+wpn_gsh18					= 0.2, 0.1
+wpn_hpsa					= 0.2, 0.1
+wpn_mp412					= 0.2, 0.1
+wpn_oc33					= 0.2, 0.1
+wpn_pb						= 0.2, 0.1
+wpn_pm						= 0.2, 0.1
+wpn_sig220					= 0.2, 0.1
+wpn_sig220_nimble			= 0.2, 0.1
+wpn_tt33					= 0.2, 0.1
+wpn_usp						= 0.2, 0.1
+wpn_usp_nimble				= 0.2, 0.1
+wpn_walther					= 0.2, 0.1
+wpn_9a91					= 0.2, 0.1
+wpn_9a91_1p29				= 0.2, 0.1
+wpn_9a91_kobra				= 0.2, 0.1
+wpn_9a91_ps01				= 0.2, 0.1
+wpn_9a91_pso1m21			= 0.2, 0.1
+wpn_abakan					= 0.2, 0.1
+wpn_abakan_1p29				= 0.2, 0.1
+wpn_abakan_kobra			= 0.2, 0.1
+wpn_abakan_ps01				= 0.2, 0.1
+wpn_aek						= 0.2, 0.1
+wpn_aek_1p29				= 0.2, 0.1
+wpn_aek_kobra				= 0.2, 0.1
+wpn_aek_ps01				= 0.2, 0.1
+wpn_ak12					= 0.2, 0.1
+wpn_ak12_ac10632			= 0.2, 0.1
+wpn_ak12_acog				= 0.2, 0.1
+wpn_ak12_eot				= 0.2, 0.1
+wpn_ak74					= 0.2, 0.1
+wpn_ak74_1p29				= 0.2, 0.1
+wpn_ak74_kobra				= 0.2, 0.1
+wpn_ak74_ps01				= 0.2, 0.1
+wpn_ak74m					= 0.2, 0.1
+wpn_ak74m_1p29				= 0.2, 0.1
+wpn_ak74m_kobra				= 0.2, 0.1
+wpn_ak74m_ps01				= 0.2, 0.1
+wpn_ak74m_nimble			= 0.2, 0.1
+wpn_ak101					= 0.2, 0.1
+wpn_ak101_ac10632			= 0.2, 0.1
+wpn_ak101_acog				= 0.2, 0.1
+wpn_ak101_eot				= 0.2, 0.1
+wpn_ak101_1p29				= 0.2, 0.1
+wpn_ak101_kobra				= 0.2, 0.1
+wpn_ak101_ps01				= 0.2, 0.1
+wpn_akms					= 0.2, 0.1
+wpn_ak74u					= 0.2, 0.1
+wpn_ak74u_1p29				= 0.2, 0.1
+wpn_ak74u_kobra				= 0.2, 0.1
+wpn_ak74u_ps01				= 0.2, 0.1
+wpn_aug						= 0.2, 0.1
+wpn_bizon					= 0.2, 0.1
+wpn_bizon_1p29				= 0.2, 0.1
+wpn_bizon_kobra				= 0.2, 0.1
+wpn_bizon_ps01				= 0.2, 0.1
+wpn_bm16					= 0.2, 0.1
+wpn_bm16_full				= 0.2, 0.1
+wpn_fn2000					= 0.2, 0.1
+wpn_g3						= 0.2, 0.1
+wpn_g3_ac10632				= 0.2, 0.1
+wpn_g3_acog					= 0.2, 0.1
+wpn_g3_eot					= 0.2, 0.1
+wpn_g3sg1					= 0.2, 0.1
+wpn_g36						= 0.2, 0.1
+wpn_galil					= 0.2, 0.1
+wpn_ace21					= 0.2, 0.1
+wpn_ace21_ac10632			= 0.2, 0.1
+wpn_ace21_acog				= 0.2, 0.1
+wpn_ace21_eot				= 0.2, 0.1
+wpn_groza					= 0.2, 0.1
+wpn_kiparis					= 0.2, 0.1
+wpn_l85						= 0.2, 0.1
+wpn_l96a1					= 0.2, 0.1
+wpn_lr300					= 0.2, 0.1
+wpn_lr300_ac10632			= 0.2, 0.1
+wpn_lr300_acog				= 0.2, 0.1
+wpn_lr300_eot				= 0.2, 0.1
+wpn_m4						= 0.2, 0.1
+wpn_m4_ac10632				= 0.2, 0.1
+wpn_m4_acog					= 0.2, 0.1
+wpn_m4_eot					= 0.2, 0.1
+wpn_m4a1					= 0.2, 0.1
+wpn_m4a1_ac10632			= 0.2, 0.1
+wpn_m4a1_acog				= 0.2, 0.1
+wpn_m4a1_eot				= 0.2, 0.1
+wpn_m249					= 0.2, 0.1
+wpn_m249_ac10632			= 0.2, 0.1
+wpn_m249_acog				= 0.2, 0.1
+wpn_m249_eot				= 0.2, 0.1
+wpn_m79						= 0.2, 0.1
+wpn_mosin					= 0.2, 0.1
+wpn_mosin_short				= 0.2, 0.1
+wpn_mossberg590				= 0.2, 0.1
+wpn_mp5						= 0.2, 0.1
+wpn_mp5_ac10632				= 0.2, 0.1
+wpn_mp5_acog				= 0.2, 0.1
+wpn_mp5_eot					= 0.2, 0.1
+wpn_mp5sd					= 0.2, 0.1
+wpn_mp5sd_ac10632			= 0.2, 0.1
+wpn_mp5sd_acog				= 0.2, 0.1
+wpn_mp5sd_eot				= 0.2, 0.1
+wpn_mp133					= 0.2, 0.1
+wpn_mp133_short				= 0.2, 0.1
+wpn_mp153					= 0.2, 0.1
+wpn_mp153_short				= 0.2, 0.1
+wpn_pkm						= 0.2, 0.1
+wpn_pp2000					= 0.2, 0.1
+wpn_pp2000_ac10632			= 0.2, 0.1
+wpn_pp2000_acog				= 0.2, 0.1
+wpn_pp2000_eot				= 0.2, 0.1
+wpn_protecta				= 0.2, 0.1
+wpn_rpd						= 0.2, 0.1
+wpn_rpk74					= 0.2, 0.1
+wpn_rpk74_1p29				= 0.2, 0.1
+wpn_rpk74_kobra				= 0.2, 0.1
+wpn_rpk74_ps01				= 0.2, 0.1
+wpn_saiga12s				= 0.2, 0.1
+wpn_saiga12s_1p29			= 0.2, 0.1
+wpn_saiga12s_kobra			= 0.2, 0.1
+wpn_saiga12s_ps01			= 0.2, 0.1
+wpn_scar					= 0.2, 0.1
+wpn_scar_ac10632			= 0.2, 0.1
+wpn_scar_acog				= 0.2, 0.1
+wpn_scar_eot				= 0.2, 0.1
+wpn_sig550					= 0.2, 0.1
+wpn_sig550_ac10632			= 0.2, 0.1
+wpn_sig550_acog				= 0.2, 0.1
+wpn_sig550_eot				= 0.2, 0.1
+wpn_sig552					= 0.2, 0.1
+wpn_sig552_ac10632			= 0.2, 0.1
+wpn_sig552_acog				= 0.2, 0.1
+wpn_sig552_eot				= 0.2, 0.1
+wpn_sks						= 0.2, 0.1
+wpn_sks_short				= 0.2, 0.1
+wpn_spas12					= 0.2, 0.1
+wpn_sv98					= 0.2, 0.1
+wpn_svd						= 0.2, 0.1
+wpn_svd_1p29				= 0.2, 0.1
+wpn_svd_kobra				= 0.2, 0.1
+wpn_svd_ps01				= 0.2, 0.1
+wpn_svt40					= 0.2, 0.1
+wpn_svt40_short				= 0.2, 0.1
+wpn_svu						= 0.2, 0.1
+wpn_svu_1p29				= 0.2, 0.1
+wpn_svu_kobra				= 0.2, 0.1
+wpn_svu_ps01				= 0.2, 0.1
+wpn_toz34					= 0.2, 0.1
+wpn_toz34_nimble			= 0.2, 0.1
+wpn_toz34_obrez				= 0.2, 0.1
+wpn_wincheaster1300			= 0.2, 0.1
+wpn_type63					= 0.2, 0.1
+wpn_ppsh41					= 0.2, 0.1
+wpn_ump45					= 0.2, 0.1
+wpn_ump45_ac10632			= 0.2, 0.1
+wpn_ump45_acog				= 0.2, 0.1
+wpn_ump45_eot				= 0.2, 0.1
+wpn_val						= 0.2, 0.1
+wpn_val_1p29				= 0.2, 0.1
+wpn_val_kobra				= 0.2, 0.1
+wpn_val_pso1m21				= 0.2, 0.1
+wpn_vihr					= 0.2, 0.1
+wpn_vihr_1p29				= 0.2, 0.1
+wpn_vihr_kobra				= 0.2, 0.1
+wpn_vihr_ps01				= 0.2, 0.1
+wpn_vihr_pso1m21			= 0.2, 0.1
+wpn_vintorez				= 0.2, 0.1
+wpn_vintorez_1p29			= 0.2, 0.1
+wpn_vintorez_kobra			= 0.2, 0.1
+wpn_vintorez_pso1m21		= 0.2, 0.1
+wpn_vsk94					= 0.2, 0.1
+wpn_vsk94_1p29				= 0.2, 0.1
+wpn_vsk94_kobra				= 0.2, 0.1
+wpn_vsk94_pso1m21			= 0.2, 0.1
+wpn_vityaz					= 0.2, 0.1
+wpn_vityaz_ac10632			= 0.2, 0.1
+wpn_vityaz_acog				= 0.2, 0.1
+wpn_vityaz_eot				= 0.2, 0.1
+wpn_vz61					= 0.2, 0.1
+wpn_k98						= 0.2, 0.1
+wpn_g43						= 0.2, 0.1
+wpn_sig550_nimble			= 0.2, 0.1
+wpn_pkm_nimble				= 0.2, 0.1
+wpn_groza_nimble			= 0.2, 0.1
+wpn_mp5_nimble				= 0.2, 0.1
+wpn_mp5_nimble_ac10632		= 0.2, 0.1
+wpn_mp5_nimble_acog			= 0.2, 0.1
+wpn_mp5_nimble_eot			= 0.2, 0.1
+wpn_m4a1_nimble				= 0.2, 0.1
+wpn_svd_nimble				= 0.2, 0.1
+wpn_svu_nimble				= 0.2, 0.1
+wpn_svu_nimble_1p29			= 0.2, 0.1
+wpn_svu_nimble_kobra		= 0.2, 0.1
+wpn_svu_nimble_ps01			= 0.2, 0.1
+wpn_vintorez_nimble			= 0.2, 0.1
+wpn_g36_nimble				= 0.2, 0.1
+wpn_fn2000_nimble			= 0.2, 0.1
+wpn_ak74u_nimble			= 0.2, 0.1
+wpn_gauss
+wpn_gauss_custom
+wpn_gauss_custom_eot
+wpn_gauss_custom_ac10632
+wpn_gauss_custom_acog
+wpn_rg-6					= 0.2, 0.1
+wpn_rpg7					= 0.2, 0.1
+wpn_binoc					= 0.2, 0.1
+wpn_knife					= 0.2, 0.1
+wpn_knife2					= 0.2, 0.1
+wpn_knife3					= 0.2, 0.1
+wpn_knife4					= 0.2, 0.1
+wpn_knife5					= 0.2, 0.1
+wpn_hand_axe				= 0.2, 0.1
+wpn_hand_shovel				= 0.2, 0.1
+wpn_hand_crowbar			= 0.2, 0.1
+wpn_hand_hammer				= 0.2, 0.1
+
+;addons
+wpn_addon_scope				= 0.25, 0.1
+wpn_addon_scope_pu			= 0.25, 0.1
+wpn_addon_scope_zf4			= 0.25, 0.1
+wpn_addon_scope_susat		= 0.25, 0.1
+1p29						= 0.25, 0.1
+kobra						= 0.25, 0.1
+ps01						= 0.25, 0.1
+pso1m21						= 0.25, 0.1
+ac10632						= 0.25, 0.1
+acog						= 0.25, 0.1
+eot							= 0.25, 0.1
+wpn_sil_9mm					= 0.25, 0.1
+wpn_sil_45					= 0.25, 0.1
+wpn_sil_pbs1				= 0.25, 0.1
+wpn_sil_tgp-a				= 0.25, 0.1
+wpn_sil_nato				= 0.25, 0.1
+wpn_sil_kzrzp				= 0.25, 0.1
+wpn_sil_9a91				= 0.25, 0.1
+wpn_sil_gemtech				= 0.25, 0.1
+wpn_addon_grenade_launcher	= 0.25, 0.1
+wpn_addon_grenade_launcher_m203	= 0.25, 0.1
+
+;outfit
+novice_outfit				= 0.2, 0.1
+stalker_outfit				= 0.2, 0.1
+scientific_outfit			= 0.2, 0.1
+neutral_assault_outfit		= 0.2, 0.1
+exo_outfit					= 0.2, 0.1
+bandit_outfit				= 0.2, 0.1
+bandit_brownrain_outfit		= 0.2, 0.1
+bandit_blackrain_outfit		= 0.2, 0.1
+bandit_light_outfit			= 0.2, 0.1
+svoboda_light_outfit		= 0.2, 0.1
+svoboda_outfit				= 0.2, 0.1
+svoboda_scientific_outfit	= 0.2, 0.1
+svoboda_heavy_outfit		= 0.2, 0.1
+svoboda_assault_outfit		= 0.2, 0.1
+dolg_outfit					= 0.2, 0.1
+dolg_scientific_outfit		= 0.2, 0.1
+dolg_heavy_outfit			= 0.2, 0.1
+dolg_assault_outfit			= 0.2, 0.1
+monolit_outfit				= 0.2, 0.1
+monolith_scientific_outfit	= 0.2, 0.1
+monolith_assault_outfit		= 0.2, 0.1
+merc_outfit					= 0.2, 0.1
+merc_assault_outfit			= 0.2, 0.1
+ecolog_outfit				= 0.2, 0.1
+cs_light_outfit				= 0.2, 0.1
+cs_heavy_outfit				= 0.2, 0.1
+specops_outfit				= 0.2, 0.1
+military_outfit				= 0.2, 0.1
+helm_cloth_mask				= 0.2, 0.1
+helm_respirator				= 0.2, 0.1
+helm_m40					= 0.2, 0.1
+helm_hardhat				= 0.2, 0.1
+helm_tactic					= 0.2, 0.1
+helm_battle					= 0.2, 0.1
+
+;addons
+ammo_9x18_fmj				= 0.15, 0.05
+ammo_9x18_pmm				= 0.15, 0.05
+ammo_9x19_pbp				= 0.15, 0.05
+ammo_9x19_fmj				= 0.15, 0.05
+ammo_11.43x23_hydro			= 0.15, 0.05
+ammo_11.43x23_fmj			= 0.15, 0.05
+ammo_12x70_buck				= 0.15, 0.05
+ammo_12x76_zhekan			= 0.15, 0.05
+ammo_357_hp_mag_ap			= 0.15, 0.05
+ammo_357_hp_mag				= 0.15, 0.05
+ammo_5.45x39_fmj			= 0.15, 0.05
+ammo_5.45x39_ap				= 0.15, 0.05
+ammo_5.56x45_ss190			= 0.15, 0.05
+ammo_5.56x45_ap				= 0.15, 0.05
+ammo_9x39_ap				= 0.15, 0.05
+ammo_9x39_pab9				= 0.15, 0.05
+ammo_7.62x39_fmj			= 0.15, 0.05
+ammo_7.62x39_ap				= 0.15, 0.05
+ammo_7.62x51_fmj			= 0.15, 0.05
+ammo_7.62x51_ap				= 0.15, 0.05
+ammo_7.62x25_p				= 0.15, 0.05
+ammo_7.62x25_ps				= 0.15, 0.05
+ammo_7.92x33_fmj			= 0.15, 0.05
+ammo_7.92x33_ap				= 0.15, 0.05
+ammo_7.62x54_7h1			= 0.15, 0.05
+ammo_7.62x54_7h14			= 0.15, 0.05
+ammo_pkm_100				= 0.15, 0.05
+ammo_7.62x54_ap				= 0.15, 0.05
+ammo_vog-25					= 0.15, 0.05
+ammo_m209					= 0.15, 0.05
+ammo_og-7b					= 0.15, 0.05
+ammo_gauss         
+ammo_gauss_cardan  
+grenade_f1					= 0.25, 0.05
+grenade_rgd5				= 0.25, 0.05
+grenade_gd-05				= 0.25, 0.05
+grenade_smoke				= 0.25, 0.05
+mine						= 0.25, 0.05
+ied_rpg						= 0.25, 0.1
+ied							= 0.25, 0.1
+mine_wire					= 0.25, 0.1
+
+;artefacts
+af_medusa					= 0.5, 0.25
+af_medusa_d2				= 0.5, 0.25
+af_medusa_d3				= 0.5, 0.25
+af_cristall_flower			= 0.5, 0.25
+af_cristall_flower_d2		= 0.5, 0.25
+af_cristall_flower_d3		= 0.5, 0.25
+af_night_star				= 0.5, 0.25
+af_night_star_d2			= 0.5, 0.25
+af_night_star_d3			= 0.5, 0.25
+af_dummy_glassbeads			= 0.5, 0.25
+af_vyvert					= 0.5, 0.25
+af_vyvert_d2				= 0.5, 0.25
+af_vyvert_d3				= 0.5, 0.25
+af_gravi					= 0.5, 0.25
+af_gravi_d2					= 0.5, 0.25
+af_gravi_d3					= 0.5, 0.25
+af_gold_fish				= 0.5, 0.25
+af_gold_fish_d2				= 0.5, 0.25
+af_gold_fish_d3				= 0.5, 0.25
+af_fuzz_kolobok				= 0.5, 0.25
+af_eye						= 0.5, 0.25
+af_eye_d2					= 0.5, 0.25
+af_eye_d3					= 0.5, 0.25
+af_fireball					= 0.5, 0.25
+af_fireball_d2				= 0.5, 0.25
+af_fireball_d3				= 0.5, 0.25
+af_cristall					= 0.5, 0.25
+af_cristall_d2				= 0.5, 0.25
+af_cristall_d3				= 0.5, 0.25
+af_dummy_dummy				= 0.5, 0.25
+af_blood					= 0.5, 0.25
+af_blood_d2					= 0.5, 0.25
+af_blood_d3					= 0.5, 0.25
+af_mincer_meat				= 0.5, 0.25
+af_mincer_meat_d2			= 0.5, 0.25
+af_mincer_meat_d3			= 0.5, 0.25
+af_soul						= 0.5, 0.25
+af_soul_d2					= 0.5, 0.25
+af_soul_d3					= 0.5, 0.25
+af_glass					= 0.5, 0.25
+af_electra_sparkler			= 0.5, 0.25
+af_electra_sparkler_d2		= 0.5, 0.25
+af_electra_sparkler_d3		= 0.5, 0.25
+af_electra_flash			= 0.5, 0.25
+af_electra_flash_d2			= 0.5, 0.25
+af_electra_flash_d3			= 0.5, 0.25
+af_electra_moonlight		= 0.5, 0.25
+af_electra_moonlight_d2		= 0.5, 0.25
+af_electra_moonlight_d3		= 0.5, 0.25
+af_dummy_battery			= 0.5, 0.25
+af_ameba_slime				= 0.5, 0.25
+af_ameba_slime_d2			= 0.5, 0.25
+af_ameba_slime_d3			= 0.5, 0.25
+af_ameba_slug				= 0.5, 0.25
+af_ameba_slug_d2			= 0.5, 0.25
+af_ameba_slug_d3			= 0.5, 0.25
+af_ameba_mica				= 0.5, 0.25
+af_ameba_mica_d2			= 0.5, 0.25
+af_ameba_mica_d3			= 0.5, 0.25
+af_pellicle					= 0.5, 0.25
+af_rusty_thorn				= 0.5, 0.25
+af_rusty_thorn_d2			= 0.5, 0.25
+af_rusty_thorn_d3			= 0.5, 0.25
+af_rusty_kristall			= 0.5, 0.25
+af_rusty_kristall_d2		= 0.5, 0.25
+af_rusty_kristall_d3		= 0.5, 0.25
+af_rusty_sea-urchin			= 0.5, 0.25
+af_rusty_sea-urchin_d2		= 0.5, 0.25
+af_rusty_sea-urchin_d3		= 0.5, 0.25
+af_dummy_spring				= 0.5, 0.25
+
+;модификаты
+af_babka_1					= 0.75, 0.4
+af_babka_2					= 0.75, 0.4
+af_babka_3					= 0.75, 0.4
+af_babka_4					= 0.75, 0.4
+af_kolob_1					= 0.75, 0.4
+af_kolob_2					= 0.75, 0.4
+af_kolob_3					= 0.75, 0.4
+af_kolob_4					= 0.75, 0.4
+af_dkbrz_1					= 0.75, 0.4
+af_dkbrz_2					= 0.75, 0.4
+af_dkbrz_3					= 0.75, 0.4
+af_dkbrz_4					= 0.75, 0.4
+af_moonl_1					= 0.75, 0.4
+af_moonl_2					= 0.75, 0.4
+af_moonl_3					= 0.75, 0.4
+af_moonl_4					= 0.75, 0.4
+af_dummy_1					= 0.75, 0.4
+af_dummy_2					= 0.75, 0.4
+af_dummy_3					= 0.75, 0.4
+af_dummy_4					= 0.75, 0.4
+af_pell_1					= 0.75, 0.4
+af_pell_2					= 0.75, 0.4
+af_pell_3					= 0.75, 0.4
+af_pell_4					= 0.75, 0.4
+af_soul_1					= 0.75, 0.4
+af_soul_2					= 0.75, 0.4
+af_soul_3					= 0.75, 0.4
+af_soul_4					= 0.75, 0.4
+
+;drugs
+drug_charcoal				= 0.3, 0.15
+drug_charcoal_2				= 0.3, 0.15
+drug_charcoal_3				= 0.3, 0.15
+drug_charcoal_4				= 0.3, 0.15
+drug_charcoal_5				= 0.3, 0.15
+bandage						= 0.3, 0.15
+medkit						= 0.3, 0.15
+medkit_scientic				= 0.3, 0.15
+medkit_army					= 0.3, 0.15
+antirad						= 0.3, 0.15
+stimpack					= 0.3, 0.15
+stimpack_army				= 0.3, 0.15
+stimpack_scientic			= 0.3, 0.15
+drug_booster				= 0.3, 0.15
+drug_coagulant				= 0.3, 0.15
+drug_coagulant_2			= 0.3, 0.15
+drug_coagulant_3			= 0.3, 0.15
+drug_coagulant_4			= 0.3, 0.15
+drug_coagulant_5			= 0.3, 0.15
+drug_psy_blockade			= 0.3, 0.15
+drug_psy_blockade_2			= 0.3, 0.15
+drug_psy_blockade_3			= 0.3, 0.15
+drug_psy_blockade_4			= 0.3, 0.15
+drug_psy_blockade_5			= 0.3, 0.15
+drug_antidot				= 0.3, 0.15
+drug_antidot_2				= 0.3, 0.15
+drug_antidot_3				= 0.3, 0.15
+drug_radioprotector			= 0.3, 0.15
+drug_radioprotector_2		= 0.3, 0.15
+drug_anabiotic				= 0.3, 0.15
+protein						= 0.3, 0.15
+tetanus						= 0.3, 0.15
+adrenalin					= 0.3, 0.15
+salicidic_acid				= 0.3, 0.15
+glucose						= 0.3, 0.15
+glucose_s					= 0.3, 0.15
+morphine					= 0.3, 0.15
+
+;food
+meat_tushkano					= 0.2, 0.1
+meat_dog						= 0.2, 0.1
+meat_pseudodog					= 0.2, 0.1
+meat_flesh						= 0.2, 0.1
+meat_boar						= 0.2, 0.1
+meat_bloodsucker				= 0.2, 0.1
+meat_snork						= 0.2, 0.1
+meat_chimera					= 0.2, 0.1
+bread							= 0.2, 0.1
+breadold						= 0.2, 0.1
+kolbasa							= 0.2, 0.1
+conserva						= 0.2, 0.1
+tomato							= 0.2, 0.1
+sausage							= 0.2, 0.1
+corn							= 0.2, 0.1
+beans							= 0.2, 0.1
+chili							= 0.2, 0.1
+salmon							= 0.2, 0.1
+raisins							= 0.2, 0.1
+chocolate						= 0.2, 0.1
+nuts							= 0.2, 0.1
+tushonka						= 0.2, 0.1
+mre								= 0.2, 0.1
+mre_2							= 0.2, 0.1
+mre_3							= 0.2, 0.1
+ration_ukr						= 0.2, 0.1
+ration_ukr_2					= 0.2, 0.1
+ration_ukr_3					= 0.2, 0.1
+ration_ukr_4					= 0.2, 0.1
+ration_ukr_5					= 0.2, 0.1
+ration_ukr_6					= 0.2, 0.1
+mineral_water					= 0.2, 0.1
+mineral_water_2					= 0.2, 0.1
+mineral_water_3					= 0.2, 0.1
+caffeine						= 0.2, 0.1
+caffeine_2						= 0.2, 0.1
+caffeine_3						= 0.2, 0.1
+caffeine_4						= 0.2, 0.1
+caffeine_5						= 0.2, 0.1
+vodka							= 0.2, 0.1
+vodka_2							= 0.2, 0.1
+vodka_3							= 0.2, 0.1
+energy_drink					= 0.2, 0.1
+flask							= 0.2, 0.1
+flask_2							= 0.2, 0.1
+flask_3							= 0.2, 0.1
+bottle_metal					= 0.2, 0.1
+bottle_metal_2					= 0.2, 0.1
+bottle_metal_3					= 0.2, 0.1
+vodka_quality					= 0.2, 0.1
+vodka_quality_2					= 0.2, 0.1
+vodka_quality_3					= 0.2, 0.1
+tobacco							= 0.2, 0.1
+tobacco_2						= 0.2, 0.1
+tobacco_3						= 0.2, 0.1
+hand_rolling_tobacco			= 0.2, 0.1
+hand_rolling_tobacco_2			= 0.2, 0.1
+hand_rolling_tobacco_3			= 0.2, 0.1
+cigarettes						= 0.2, 0.1
+cigarettes_2					= 0.2, 0.1
+cigarettes_3					= 0.2, 0.1
+cigarettes_lucky				= 0.2, 0.1
+cigarettes_lucky_2				= 0.2, 0.1
+cigarettes_lucky_3				= 0.2, 0.1
+cigarettes_russian				= 0.2, 0.1
+cigarettes_russian_2			= 0.2, 0.1
+cigarettes_russian_3			= 0.2, 0.1
+
+;misc
+matches						= 0.2, 0.1
+cooking						= 0.2, 0.1
+fieldcooker					= 0.2, 0.1
+wood_stove					= 0.2, 0.1
+kerosene
+kerosene_5
+kerosene_4
+kerosene_3
+kerosene_2
+charcoal					= 0.2, 0.1
+charcoal_3					= 0.2, 0.1
+charcoal_2					= 0.2, 0.1
+explo_balon_gas_8
+explo_balon_gas_7
+explo_balon_gas_6
+explo_balon_gas_5
+explo_balon_gas_4
+explo_balon_gas_3
+explo_balon_gas_2
+explo_balon_gas
+explo_jerrycan_fuel_8
+explo_jerrycan_fuel_7
+explo_jerrycan_fuel_6
+explo_jerrycan_fuel_5
+explo_jerrycan_fuel_4
+explo_jerrycan_fuel_3
+explo_jerrycan_fuel_2
+explo_jerrycan_fuel
+kit_hunt					= 0.2, 0.1
+backpack_basic				= 0.2, 0.1
+backpack_light				= 0.2, 0.1
+backpack_heavy				= 0.2, 0.1
+airtank						= 0.2, 0.1
+exobackpack					= 0.2, 0.1
+beadspread					= 0.2, 0.1
+itm_sleepbag				= 0.2, 0.1
+compression_bag				= 0.2, 0.1
+bouch_small					= 0.2, 0.1
+bouch_dual					= 0.2, 0.1
+zayaz_b						= 0.2, 0.1
+zayaz_a						= 0.2, 0.1
+zayaz_h						= 0.2, 0.1
+zayaz_t						= 0.2, 0.1
+art_belt1					= 0.2, 0.1
+art_belt2					= 0.2, 0.1
+art_belt3					= 0.2, 0.1
+art_belt4					= 0.2, 0.1
+art_belt5					= 0.2, 0.1
+
+;device
+af_surge					= 0.25, 0.15
+af_frames					= 0.25, 0.15
+af_grid						= 0.25, 0.15
+af_freon					= 0.25, 0.15
+af_cooler					= 0.25, 0.15
+af_kevlar					= 0.25, 0.15
+af_plates					= 0.25, 0.15
+af_ironplate				= 0.25, 0.15
+af_camelbak					= 0.25, 0.15
+af_iam						= 0.25, 0.15
+af_aac						= 0.25, 0.15
+af_aam						= 0.25, 0.15
+lead_box					= 0.25, 0.15
+dosimeter					= 0.25, 0.15
+geiger						= 0.25, 0.15
+anomaly_detector			= 0.25, 0.15
+anomaly_elite				= 0.25, 0.15
+arc_art_box_basic			= 0.25, 0.15
+detector_craft				= 0.25, 0.15
+detector_simple				= 0.25, 0.15
+detector_advanced			= 0.25, 0.15
+detector_elite				= 0.25, 0.15
+detector_scientific			= 0.25, 0.15
+batteries_dead				= 0.2, 0.05
+batteries					= 0.2, 0.05
+batteries_ccell				= 0.2, 0.05
+dev_torch					= 0.2, 0.05
+device_pda
+
+;monster
+mutant_part_flesh_meat			= 0.3, 0.2
+mutant_part_boar_chop			= 0.3, 0.2
+mutant_part_dog_meat			= 0.3, 0.2
+mutant_part_psevdodog_meat		= 0.3, 0.2
+mutant_part_krovosos_meat		= 0.3, 0.2
+mutant_part_snork_hand			= 0.3, 0.2
+mutant_part_chimera_meat		= 0.3, 0.2
+mutant_part_tushkano_meat		= 0.3, 0.2
+mutant_flesh_eye				= 0.3, 0.2
+mutant_boar_leg					= 0.3, 0.2
+mutant_dog_tail					= 0.3, 0.2
+mutant_psevdodog_tail			= 0.3, 0.2
+mutant_krovosos_jaw				= 0.3, 0.2
+mutant_snork_leg				= 0.3, 0.2
+mutant_burer_hand				= 0.3, 0.2
+mutant_chimera_nail				= 0.3, 0.2
+mutant_face_tushkano			= 0.3, 0.2
+mutant_hand_kontroler			= 0.3, 0.2
+mutant_poltergeist_glas			= 0.3, 0.2
+mutant_psevdogigant_hand		= 0.3, 0.2
+mutant_part_krovosos_heart		= 0.3, 0.2
+mutant_part_boar_tusk			= 0.3, 0.2
+mutant_part_chimera_corn		= 0.3, 0.2
+mutant_part_chimera_heart		= 0.3, 0.2
+mutant_part_dog_liver			= 0.3, 0.2
+mutant_part_dog_heart			= 0.3, 0.2
+mutant_part_psevdodog_fang		= 0.3, 0.2
+mutant_part_psy_dog_brain		= 0.3, 0.2
+mutant_part_snork_mask			= 0.3, 0.2
+mutant_part_controller_glass	= 0.3, 0.2
+mutant_part_burer_brain			= 0.3, 0.2
+mutant_part_pseudogigant_eye	= 0.3, 0.2
+powder_poltergeist				= 0.3, 0.2
+hide_chimera					= 0.3, 0.2
+hide_pseudogiant				= 0.3, 0.2
+hide_psy_dog					= 0.3, 0.2
+hide_pseudodog					= 0.3, 0.2
+hide_burer						= 0.3, 0.2
+hide_controller					= 0.3, 0.2
+hide_bloodsucker				= 0.3, 0.2
+hide_boar						= 0.3, 0.2
+hide_flesh						= 0.3, 0.2
+
+;trash
+guitar_a						= 0.2, 0.1
+harmonica_a						= 0.2, 0.1
+old_book						= 0.2, 0.1
+jar								= 0.2, 0.1
+grooming						= 0.2, 0.1
+spareparts						= 0.2, 0.1
+walkie							= 0.2, 0.1
+cards							= 0.2, 0.1
+ammo_bad						= 0.2, 0.1
+boots							= 0.2, 0.1
+swiss							= 0.2, 0.1
+headlamp						= 0.2, 0.1
+mirror							= 0.2, 0.1
+welding_goggles					= 0.2, 0.1
+jewelry_box						= 0.3, 0.3
+book1							= 0.2, 0.1
+book2							= 0.2, 0.1
+book3							= 0.2, 0.1
+picture_woman					= 0.2, 0.1
+flashlight_broken				= 0.2, 0.1
+underwear						= 0.2, 0.1
+roubles							= 0.5, 0.5
+porn							= 0.2, 0.1
+porn2							= 0.2, 0.1
+survivalguide					= 0.2, 0.1
+tarpaulin						= 0.2, 0.1
+rope							= 0.2, 0.1
+synthrope						= 0.2, 0.1
+cutlery							= 0.2, 0.1
+radio							= 0.2, 0.1
+radio2							= 0.2, 0.1
+grease							= 0.2, 0.1
+steel_wool						= 0.2, 0.1
+textile_patch_b					= 0.2, 0.1
+textile_patch_m					= 0.2, 0.1
+textile_patch_e					= 0.2, 0.1
+copper_coil						= 0.2, 0.1
+textolite						= 0.2, 0.1
+transistors						= 0.2, 0.1
+capacitors						= 0.2, 0.1
+colophony						= 0.2, 0.1
+explo_balon_gas_0
+explo_jerrycan_fuel_0
+
+;repair
+sharpening_stones				= 0.25, 0.1
+sharpening_stones_2				= 0.25, 0.1
+sharpening_stones_3				= 0.25, 0.1
+sharpening_stones_4				= 0.25, 0.1
+cleaning_kit_p					= 0.25, 0.1
+cleaning_kit_p_2				= 0.25, 0.1
+cleaning_kit_p_3				= 0.25, 0.1
+cleaning_kit_s					= 0.25, 0.1
+cleaning_kit_s_2				= 0.25, 0.1
+cleaning_kit_s_3				= 0.25, 0.1
+cleaning_kit_r					= 0.25, 0.1
+cleaning_kit_r_2				= 0.25, 0.1
+cleaning_kit_r_3				= 0.25, 0.1
+toolkit_p						= 0.25, 0.1
+toolkit_p_0						= 0.25, 0.1
+toolkit_s						= 0.25, 0.1
+toolkit_s_0						= 0.25, 0.1
+toolkit_r						= 0.25, 0.1
+toolkit_r_0						= 0.25, 0.1
+glue_a							= 0.25, 0.1
+glue_a_2						= 0.25, 0.1
+glue_e							= 0.25, 0.1
+glue_e_2						= 0.25, 0.1
+sewing_kit_b					= 0.25, 0.1
+sewing_kit_b_2					= 0.25, 0.1
+sewing_kit_b_3					= 0.25, 0.1
+sewing_kit_b_4					= 0.25, 0.1
+sewing_kit_a					= 0.25, 0.1
+sewing_kit_a_2					= 0.25, 0.1
+sewing_kit_a_3					= 0.25, 0.1
+sewing_kit_a_4					= 0.25, 0.1
+sewing_kit_h					= 0.25, 0.1
+sewing_kit_h_2					= 0.25, 0.1
+sewing_kit_h_3					= 0.25, 0.1
+sewing_kit_h_4					= 0.25, 0.1
+armor_repair_fa					= 0.25, 0.1
+armor_repair_fa_2				= 0.25, 0.1
+armor_repair_pro				= 0.25, 0.1
+armor_repair_pro_0				= 0.25, 0.1
+helmet_repair_kit				= 0.25, 0.1
+helmet_repair_kit_0				= 0.25, 0.1
+itm_repairkit_tier_1			= 0.25, 0.1
+itm_repairkit_tier_2			= 0.25, 0.1
+itm_repairkit_tier_3			= 0.25, 0.1
+itm_drugkit						= 0.25, 0.1
+
+;===============================================================================================================================================================
+[trade_generic_sell]:default_trader
+;food
+meat_tushkano
+meat_dog
+meat_pseudodog
+meat_flesh
+meat_boar
+meat_bloodsucker
+meat_snork
+meat_chimera
+
+;misc
+kerosene
+kerosene_5
+kerosene_4
+kerosene_3
+kerosene_2
+explo_balon_gas_8
+explo_balon_gas_7
+explo_balon_gas_6
+explo_balon_gas_5
+explo_balon_gas_4
+explo_balon_gas_3
+explo_balon_gas_2
+explo_balon_gas
+explo_jerrycan_fuel_8
+explo_jerrycan_fuel_7
+explo_jerrycan_fuel_6
+explo_jerrycan_fuel_5
+explo_jerrycan_fuel_4
+explo_jerrycan_fuel_3
+explo_jerrycan_fuel_2
+explo_jerrycan_fuel
+airtank
+exobackpack
+bouch_small
+bouch_dual
+zayaz_b
+zayaz_a
+zayaz_h
+zayaz_t
+device_pda
+
+;trash
+jewelry_box
+roubles
+copper_coil
+textolite
+transistors
+capacitors
+colophony
+explo_balon_gas_0
+explo_jerrycan_fuel_0
+
+;===============================================================================================================================================================
+[supplies_start]
+;[equipment]
+wpn_knife				= 1, 1
+wpn_knife2				= 1, 1
+helm_cloth_mask			= 1, 1
+novice_outfit			= 1, 1
+backpack_basic			= 1, 1
+ammo_9x18_fmj			= 5, 1
+ammo_9x19_fmj			= 4, 1
+
+;[medcine]
+drug_charcoal_5			= 3, 1
+bandage					= 6, 1
+drug_coagulant_5		= 2, 1
+caffeine_5				= 3, 1
+
+;[food]
+bread					= 3, 1
+breadold				= 4, 1
+kolbasa					= 3, 1
+conserva				= 2, 1
+flask_3					= 3, 1
+bottle_metal_3			= 3, 1
+mineral_water_3			= 2, 1
+energy_drink			= 3, 1
+cigarettes_russian_3	= 2, 1
+cigarettes_3			= 2, 1
+
+;[misc]
+matches					= 4, 1
+cooking					= 5, 1
+charcoal_3				= 2, 1
+beadspread				= 1, 1
+batteries_dead			= 4, 1
+batteries				= 3, 1
+batteries_ccell			= 1, 1
+af_iam					= 2, 2
+lead_box				= 2, 2

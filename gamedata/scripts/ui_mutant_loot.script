@@ -1,0 +1,265 @@
+-- ui_loot
+-- Alundaio
+-- ponney68
+--[[
+   Copyright (C) 2012 Alundaio
+
+   This program is free software; you can redistribute and/or modify
+   it under the terms of the Open S.T.A.L.K.E.R. Mod License version 1.0.
+-]]
+----------------------------------------------------------------------------------------------------------------------
+-- Файл:        		UI_MUTANT_LOOT.SCRIPT
+-- Описание:    		Скриптовый интерфейс обыска трупов мутантов.
+-- Последняя редакция:	17.08.2021
+-- Адаптация:       	ARTLantist
+----------------------------------------------------------------------------------------------------------------------
+
+class "ui_loot" (CUIScriptWnd)
+
+function ui_loot:__init(owner,obj) super()
+	self.owner = owner
+	self.section = obj:section()
+	self.clsid = obj:clsid()
+	self.id = obj:id()
+	self.obj = obj
+	
+	self:InitControls()
+	self:InitCallBacks()
+
+	self:FillList()
+end
+
+function ui_loot:__finalize()
+end
+
+function ui_loot:FillList()
+	self.list_parts:RemoveAll()
+	
+	self.loot = utils.load_var(self.obj,"loot",nil)
+	if not self.loot then
+		self.loot = utils.load_var(self.obj,"se_loot",nil)
+	end
+	
+	if not self.loot then
+		self.loot = {}
+		items_manager.loot_mutant(self.obj,self.clsid,self.loot)
+		utils.save_var(self.obj,"loot",self.loot)
+		utils.save_var(self.obj,"se_loot",self.loot)
+	end
+	
+	local is_there_loot
+	for sec,t in pairs(self.loot) do
+		self:add_list_parts(sec,t.count)
+		is_there_loot = true
+	end
+
+	if (is_there_loot) then
+		self:ShowDialog(true)
+	else
+		SetHudMsg(game.translate_string("st_body_nothing"),3)
+		self.loot = nil
+		actor_effects.hide_weapon_effect(false)
+		utils.save_var(self.obj,"loot",self.loot)
+		utils.save_var(self.obj,"se_loot",self.loot)
+		utils.save_var(self.obj,"looted","true")
+	end
+end
+
+function ui_loot:InitControls()
+	self.xml = CScriptXmlInit()
+	self:SetWndRect(Frect():set(0,0,1024,768))
+	self.xml:ParseFile("ui_loot.xml")
+	self.window = self.xml:InitStatic("window", self)
+	
+	self.picture = self.xml:InitStatic("window:icon", self.window)
+	
+	self:SetMutantImage()
+	
+	self.xml:InitFrame("window:list_parts_frame", self.window)
+	self.list_parts = self.xml:InitListBox("window:list_parts", self.window)
+	self.list_parts:ShowSelectedItem(true)
+	self:Register(self.list_parts, "list_parts")
+	self:Register(self.xml:Init3tButton("window:btn_loot", self.window), "btn_loot")
+	self:Register(self.xml:Init3tButton("window:btn_all", self.window), "btn_all")
+	self:Register(self.xml:Init3tButton("window:btn_quit", self.window), "btn_quit")
+
+end
+
+function ui_loot:SetMutantImage()
+	local mutant_pictures =
+	{
+
+	snork				= {file="ui\\ui_actor_monsters_pda",x="393",y="0",special="0"},
+	dog					= {file="ui\\ui_actor_monsters_pda",x="0",y="800",special="0"},
+	pseudodog			= {file="ui\\ui_actor_monsters_pda",x="393",y="200",special="0"},
+	psy_dog				= {file="ui\\ui_actor_monsters_pda",x="393",y="200",special="0"},
+	poltergeist			= {file="ui\\ui_actor_monsters_pda",x="0",y="400",special="0"},
+	bloodsucker			= {file="ui\\ui_actor_monsters_pda",x="393",y="400",special="0"},
+	controller			= {file="ui\\ui_actor_monsters_pda",x="393",y="800",special="0"},
+	chimera				= {file="ui\\ui_actor_monsters_pda",x="0",y="600",special="0"},
+	tushkano			= {file="ui\\ui_actor_monsters_pda",x="0",y="0",special="0"},
+	rat					= {file="ui\\ui_actor_monsters_pda",x="0",y="0",special="0"},
+	flesh				= {file="ui\\ui_actor_monsters_pda",x="393",y="600",special="0"},
+
+	burer				= {file="ui\\ui_actor_monsters_pda_1",x="0",y="0",special="0"},
+	boar				= {file="ui\\ui_actor_monsters_pda_1",x="393",y="0",special="0"},
+	giant				= {file="ui\\ui_actor_monsters_pda_1",x="0",y="200",special="0"},
+	
+	cat					= {file="ui\\ui_actor_monsters_pda_2",x="0",y="0",special="0"},
+	fracture			= {file="ui\\ui_actor_monsters_pda_2",x="393",y="200",special="0"},
+	bird				= {file="ui\\ui_actor_monsters_pda_2",x="393",y="0",special="0"},
+	zombie				= {file="ui\\ui_actor_monsters_pda_2",x="0",y="200",special="0"},
+	}
+
+	local mutant_id = game.translate_string(system_ini():r_string(self.section,"species"))
+
+	local mutant_f = "ui\\ui_actor_monsters_pda_1"
+	local mutant_x = 0
+	local mutant_y = 0
+
+	mutant_f = tostring(mutant_pictures[mutant_id].file)
+	mutant_x = tostring(mutant_pictures[mutant_id].x)
+	mutant_y = tostring(mutant_pictures[mutant_id].y)
+
+	local x1 = mutant_x
+	local y1 = mutant_y
+	local mutant_width = 393
+	local mutant_height = 200
+
+	local x2 = x1 + mutant_width
+	local y2 = y1 + mutant_height
+
+	self.image = self.xml:InitStatic("window:icon_monster", self.window)
+	self.image:InitTexture(tostring(mutant_f))
+	self.image:SetTextureRect(Frect():set(x1,y1,x2,y2))
+end
+
+function ui_loot:InitCallBacks()
+	self:AddCallback("list_parts", ui_events.LIST_ITEM_CLICKED, self.list_parts_list_item_clicked, self)
+	self:AddCallback("list_parts", ui_events.WINDOW_LBUTTON_DB_CLICK, self.list_parts_window_lbutton_db_click, self)
+	self:AddCallback("btn_loot", ui_events.BUTTON_CLICKED, self.btn_loot_button_clicked, self)
+	self:AddCallback("btn_all", ui_events.BUTTON_CLICKED, self.btn_all_button_clicked, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.btn_quit_button_clicked, self)
+end
+
+
+function ui_loot:list_parts_list_item_clicked()
+	if self.list_parts:GetSize()==0 then return end
+
+	local item = self.list_parts:GetSelectedItem()
+	if not (item) then
+		self.picture:SetTextureRect(Frect():set(0,0,0,0))
+		return
+	end
+
+	local sec_item = item.sec
+	if (sec_item == nil) then
+		self.list_parts:RemoveItem(item)
+		return
+	end
+
+	local w,h = item.width,item.height
+	w,h = w/1,h/0.85
+	self.picture:InitTexture("ui\\ui_icon_equipment")
+	self.picture:SetTextureRect(Frect():set(item.x1,item.y1,item.x2,item.y2))
+	self.picture:SetWndSize(vector2():set(w,h))
+
+	if not (self.picture.x) then
+		local pos = self.picture:GetWndPos()
+		self.picture.x = pos.x
+		self.picture.y = pos.y
+	end
+
+	self.picture:SetWndPos(vector2():set(self.picture.x-w/2, self.picture.y-h/2))
+end
+
+function ui_loot:list_parts_window_lbutton_db_click()
+	self:btn_loot_button_clicked()
+end
+
+function ui_loot:btn_loot_button_clicked()
+	local item = self.list_parts:GetSelectedItem()
+	if not item then return end
+	
+	alife():create(item.sec,db.actor:position(),0,0,0)
+	self.loot[item.sec].count = self.loot[item.sec].count - 1
+	if self.loot[item.sec].count == 0 then
+		self.loot[item.sec] = nil
+	end
+
+	local counts = 0
+	for sec,t in pairs(self.loot) do
+		counts = counts+t.count
+	end
+	if counts == 0 then
+		self.loot = nil
+		utils.save_var(self.obj,"looted","true")
+	end
+	
+	utils.save_var(self.obj,"loot",self.loot)
+	utils.save_var(self.obj,"se_loot",self.loot)
+	self:HideDialog()
+end
+
+function ui_loot:btn_all_button_clicked()
+	for sec,t in pairs(self.loot) do
+		for i=1,t.count do
+			alife():create(sec, db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+		end
+	end
+	
+	self.loot = nil
+
+	utils.save_var(self.obj,"loot",self.loot)
+	utils.save_var(self.obj,"se_loot",self.loot)
+	utils.save_var(self.obj,"looted","true")
+	self:HideDialog()
+end
+
+function ui_loot:btn_quit_button_clicked()
+	actor_effects.hide_weapon_effect(false)
+	self:HideDialog()
+end
+
+
+function ui_loot:OnKeyboard(dik, keyboard_action)
+	CUIScriptWnd.OnKeyboard(self,dik,keyboard_action)
+	if (keyboard_action == ui_events.WINDOW_KEY_PRESSED) then
+		if (dik == DIK_keys.DIK_ESCAPE) then
+			self:btn_quit_button_clicked()
+		end
+	end
+	return true
+end
+
+function ui_loot:add_list_parts(sec,count)
+	local _itm = list_parts_item()
+	local item_name = game.translate_string(r_string_ex(system_ini(),sec,"inv_name") or "none")
+	_itm.text_item:SetText(item_name.." ".."x"..count)
+	_itm.text_item:SetWndSize(vector2():set(220, 18))
+ 	self.list_parts:AddExistingItem(_itm)
+	
+	_itm.sec = sec
+	_itm.count = count
+		
+	local inv_grid_width = system_ini():r_float(sec,"inv_grid_width")
+	local inv_grid_height = system_ini():r_float(sec,"inv_grid_height")
+	local inv_grid_x = system_ini():r_float(sec,"inv_grid_x")
+	local inv_grid_y = system_ini():r_float(sec,"inv_grid_y")
+
+	_itm.x1 = inv_grid_x*50
+	_itm.y1 = inv_grid_y*50
+
+	_itm.width = inv_grid_width*50
+	_itm.height = inv_grid_height*50
+
+	_itm.x2 = _itm.x1 + _itm.width
+	_itm.y2 = _itm.y1 + _itm.height
+end
+
+class "list_parts_item"(CUIListBoxItem)
+function list_parts_item:__init() super()
+	self.text_item = self:GetTextItem()
+	self.text_item:SetFont(GetFontLetterica18Russian())
+	self.text_item:SetTextColor(GetARGB(255,216,186,140))
+end

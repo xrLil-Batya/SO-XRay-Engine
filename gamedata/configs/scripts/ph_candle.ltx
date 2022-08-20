@@ -1,0 +1,10 @@
+[logic]
+active = ph_idle@use
+
+[ph_idle@use]
+nonscript_usable = true
+tips = candle_zone_tip
+on_use = ph_idle@wait %=turn_on_candle%
+
+[ph_idle@wait]
+on_timer = 6500 | ph_idle@use

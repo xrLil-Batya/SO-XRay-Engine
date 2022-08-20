@@ -1,0 +1,15 @@
+[logic]
+active = ph_button@active
+
+[ph_button@active]
+on_info = {+yan_labx16_switcher_3_off} ph_idle@nil
+anim = idle
+tooltip = tips_tranformer_off
+on_press = ph_button@deactivate %=play_sound(lim_electro_fience_swither)%
+
+[ph_button@deactivate]
+anim = off
+on_timer = 500 | ph_idle@nil %+yan_labx16_switcher_3_off%
+
+[ph_idle@nil]
+on_info = %=play_sound(system_message_4)%

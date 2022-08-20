@@ -1,0 +1,18 @@
+bread = 1, prob=0.2 \n
+breadold = 1, prob=0.2 \n
+meat_pseudodog = 1, prob=0.2 \n
+meat_dog = 1, prob=0.2 \n
+meat_boar = 1, prob=0.2 \n
+meat_flesh = 1, prob=0.2 \n
+kolbasa = 1, prob=0.2 \n
+corn = 1, prob=0.15 \n
+chili = 1, prob=0.15\n
+conserva = 1, prob=0.15 \n
+vodka_2 = 1, prob=0.15 \n
+bottle_metal_2 = 1, prob=0.15 \n
+mineral_water_2 = 1, prob=0.15 \n
+energy_drink = 1, prob=0.1 \n
+flask_3 = 1, prob=0.15 \n
+cigarettes_3 = 1, prob=0.15 \n
+cigarettes_russian_3 = 1, prob=0.15 \n
+tobacco_2 = 1, prob=0.15 \n

@@ -1,0 +1,586 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;; Cooking equipments ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[matches]:identity_immunities
+GroupControlSection = spawn_group 
+discovery_dependency =
+$spawn 					= "devices\cooking\matches"
+cform 					= skeleton 
+class 					= II_ATTCH 
+visual					= dynamics\equipments\item_ignition_set.ogf
+description				= st_matches_descr
+inv_name				= st_matches
+inv_name_short			= st_matches
+inv_weight				= 0.05
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x				= 30
+inv_grid_y				= 4
+cost					= 200
+can_trade				= true
+quest_item      		= false
+item_show_condition 	= true
+sort_in_misc 			= true
+attach_angle_offset 	= 0.000000, -1.204452, -1.262921 
+attach_position_offset 	= 0.081856, -0.035081, 0.011694 
+attach_bone_name 		= bip01_l_hand 
+auto_attach 			= false 
+
+[cooking]:booster
+$spawn 				= "devices\cooking\cooking"
+visual				= dynamics\equipments\trade\ckit.ogf
+inv_name			= st_cooking
+inv_name_short		= st_cooking
+description			= st_cooking_descr
+inv_weight			= 0.110
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 31
+inv_grid_y			= 4
+cost				= 200
+can_trade			= true
+quest_item      	= false
+use_condition       = false
+sort_in_misc 		= true
+cooking_use_parts	= true
+cooking_refuse		= 
+cooking_parts_include    = mutant_part_tushkano_meat, mutant_part_flesh_meat, mutant_part_dog_meat, mutant_part_psevdodog_meat, mutant_part_snork_hand
+
+[wood_stove]:booster
+$spawn 				= "devices\cooking\wood_stove"
+can_trade			= true
+quest_item      	= false
+visual					= dynamics\cooking\wood_stove.ogf
+cost					= 2900
+inv_name				= st_wood_stove
+inv_name_short				= st_wood_stove
+description				= st_wood_stove_descr
+inv_weight				= 3.1
+inv_grid_width			= 2
+inv_grid_height			= 2
+inv_grid_x				= 26
+inv_grid_y				= 4
+sort_in_misc 			= true
+
+cooking_use_parts	 	= true
+cooking_refuse			= charcoal_3, charcoal_2, charcoal
+cooking_parts_include    = mutant_part_tushkano_meat, mutant_part_flesh_meat, mutant_part_boar_chop, mutant_part_dog_meat, mutant_part_psevdodog_meat, mutant_part_snork_hand
+
+;use_sound			= interface\inv_cooking
+
+[fieldcooker]:wood_stove
+$spawn 				= "devices\cooking\fieldcooker"
+visual					= dynamics\cooking\multi_fuel_stove.ogf
+cost					= 6000
+inv_name				= st_fieldcooker
+inv_name_short				= st_fieldcooker
+description				= st_fieldcooker_descr
+inv_weight				= 0.36
+inv_grid_width			= 2
+inv_grid_height			= 1
+inv_grid_x				= 28
+inv_grid_y				= 4
+sort_in_misc 			= true
+
+cooking_use_parts	 	= true
+cooking_refuse			= explo_jerrycan_fuel_8, explo_jerrycan_fuel_7, explo_jerrycan_fuel_6, explo_jerrycan_fuel_5, explo_jerrycan_fuel_4, explo_jerrycan_fuel_3, explo_jerrycan_fuel_2, explo_jerrycan_fuel, explo_balon_gas_8, explo_balon_gas_7, explo_balon_gas_6, explo_balon_gas_5, explo_balon_gas_4, explo_balon_gas_3, explo_balon_gas_2, explo_balon_gas, kerosene_5, kerosene_4, kerosene_3, kerosene_2, kerosene, charcoal_3, charcoal_2, charcoal
+cooking_parts_include    = mutant_part_tushkano_meat, mutant_part_flesh_meat, mutant_part_boar_chop, mutant_part_dog_meat, mutant_part_psevdodog_meat, mutant_part_snork_hand, mutant_part_krovosos_meat, mutant_part_chimera_meat
+
+;use_sound			= interface\inv_cooking
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;; Cooking fuels ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[kerosene_5]:identity_immunities,delayed_action_fuse,default_weapon_params
+$spawn 				= "devices\cooking\kerosene_5"
+$prefetch 			= 16
+class				= S_EXPLO
+cform				= skeleton
+visual				= dynamics\cooking\kerosene.ogf
+radius				= 68
+
+description			= st_kerosene_descr
+inv_name			= st_kerosene_5
+inv_name_short			= st_kerosene_5
+
+inv_grid_width     = 1
+inv_grid_height    = 2
+inv_grid_x         = 18
+inv_grid_y         = 4
+
+cost				= 1000
+
+box_size			= 1
+
+inv_weight			= 5.11
+
+attach_angle_offset		= -0.287979, 1.560923, 1.544060
+attach_position_offset		= 0.096910, -0.013594, 0.107925
+attach_bone_name		= bip01_r_hand
+auto_attach				= false
+use_condition = false
+
+;-------------------------------------------------------------------------------
+blast				= 5
+blast_r				= 5
+blast_impulse		= 5
+;delete
+blast_impulse_factor = 1
+
+frags				= 0
+frags_r				= 0
+frag_hit			= 0
+frag_hit_impulse	= 0
+
+hit_type_blast		= explosion
+hit_type_frag		= fire_wound
+
+up_throw_factor		= 0.46
+;-------------------------------------------------------------------------------
+wm_size                  = 0.1
+
+explode_particles		 = explosions\explosion_mobiltank
+
+light_color		         = 1.9,1.3,0.5
+light_range		         = 1.0
+light_time 		         = 1
+
+;трассы от осколков
+fragment_speed				= 0		;скорость осколков (м/с)
+explode_duration		 = 0		;подолжительность взрыва (с)
+time_to_explode			= 0.f
+wallmark_section		= explosion_marks
+
+;звуки
+snd_explode = weapons\explo\fuelcan_boom
+
+immunities_sect			= explosive_jerrycan_immunities_sect
+
+repair_part_bonus	 	= 0.03
+
+
+[kerosene_4]:kerosene_5
+$spawn 				= "devices\cooking\kerosene_4"
+inv_name			= st_kerosene_4
+inv_name_short			= st_kerosene_4
+inv_grid_x         = 19
+inv_grid_y         = 4
+
+cost				= 800
+
+inv_weight			= 4.11
+
+[kerosene_3]:kerosene_5
+$spawn 				= "devices\cooking\kerosene_3"
+inv_name			= st_kerosene_3
+inv_name_short			= st_kerosene_3
+inv_grid_x         = 20
+inv_grid_y         = 4
+
+cost				= 600
+inv_weight			= 3.11
+
+[kerosene_2]:kerosene_5
+$spawn 				= "devices\cooking\kerosene_2"
+inv_name			= st_kerosene_2
+inv_name_short			= st_kerosene_2
+inv_grid_x         = 21
+inv_grid_y         =4
+
+cost				= 400
+inv_weight			= 2.11
+
+[kerosene]:kerosene_5
+$spawn 				= "devices\cooking\kerosene"
+inv_name			= st_kerosene
+inv_name_short			= st_kerosene
+inv_grid_x         = 22
+inv_grid_y         = 4
+
+cost				= 200
+inv_weight			= 1.11
+
+[charcoal_3]:kerosene_5
+$spawn 				= "devices\cooking\charcoal_3"
+visual				= dynamics\cooking\charcoal.ogf
+
+description			= st_charcoal_descr
+inv_name			= st_charcoal_3
+inv_name_short			= st_charcoal_3
+inv_grid_x         = 23
+inv_grid_y         = 4
+
+cost				= 450
+inv_weight			= 3.1
+
+[charcoal_2]:charcoal_3
+$spawn 				= "devices\cooking\charcoal_2"
+inv_name			= st_charcoal_2
+inv_name_short			= st_charcoal_2
+inv_grid_x         = 24
+inv_grid_y         = 4
+
+cost				= 300
+inv_weight			= 2.1
+
+[charcoal]:charcoal_3
+$spawn 				= "devices\cooking\charcoal"
+inv_name			= st_charcoal
+inv_name_short			= st_charcoal
+inv_grid_x         = 25
+inv_grid_y         = 4
+
+cost				= 150
+inv_weight			= 1.1
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;; Explosives fuel ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[explo_jerrycan_fuel_8]:identity_immunities,delayed_action_fuse,default_weapon_params ;x8
+$spawn 				= "weapons\explosive\mobiltank"
+$prefetch 			= 16
+class				= S_EXPLO
+cform				= skeleton
+visual				= dynamics\balon\kanistra.ogf
+radius				= 68; 50
+description			= st_jerrycan_fuel_descr
+inv_name			= st_jerrycan_fuel
+inv_name_short		= st_jerrycan_fuel
+inv_grid_width     = 2
+inv_grid_height    = 2
+inv_grid_x         = 18
+inv_grid_y         = 2
+cost				= 1500
+inv_weight			= 7.52
+attach_angle_offset		= -0.287979, 1.560923, 1.544060
+attach_position_offset		= 0.096910, -0.013594, 0.107925
+attach_bone_name		= bip01_r_hand
+auto_attach				= false
+blast				= 3.8
+blast_r				= 5.6
+blast_impulse		= 126
+;delete
+blast_impulse_factor = 1
+frags				= 39
+frags_r				= 28
+frag_hit			= 0.09
+frag_hit_impulse	= 48
+hit_type_blast		= explosion
+hit_type_frag		= fire_wound
+up_throw_factor		= 0.46
+wm_size                  = 0.1
+explode_particles		 = explosions\explosion_mobiltank
+light_color		         = 1.9,1.3,0.5
+light_range		         = 30.0
+light_time 		         = 1
+;трассы от осколков
+fragment_speed				= 96		;скорость осколков (м/с)
+explode_duration		 = 3		;подолжительность взрыва (с)
+time_to_explode			= 1.f
+wallmark_section		= explosion_marks
+;звуки
+snd_explode = weapons\explo\kanistra_01
+snd_explode1 = weapons\explo\kanistra_02
+snd_explode2 = weapons\explo\kanistra_03
+snd_explode2 = weapons\explo\kanistra_04
+immunities_sect			= explosive_jerrycan_immunities_sect
+repair_part_bonus	 	= 0.02
+
+
+[explo_jerrycan_fuel_7]:explo_jerrycan_fuel_8
+
+description			= st_jerrycan_fuel2_descr
+inv_name			= st_jerrycan_fuel2
+inv_name_short			= st_jerrycan_fuel2
+inv_grid_x         = 20
+
+cost				= 1350
+inv_weight			= 6.78
+
+[explo_jerrycan_fuel_6]:explo_jerrycan_fuel_8
+description			= st_jerrycan_fuel3_descr
+inv_name			= st_jerrycan_fuel3
+inv_name_short			= st_jerrycan_fuel3
+inv_grid_x         = 22
+
+cost				= 1200
+inv_weight			= 6.04
+
+[explo_jerrycan_fuel_5]:explo_jerrycan_fuel_8
+
+description			= st_jerrycan_fuel4_descr
+inv_name			= st_jerrycan_fuel4
+inv_name_short			= st_jerrycan_fuel4
+inv_grid_x         = 24
+
+cost				= 1050
+inv_weight			= 5.30
+
+[explo_jerrycan_fuel_4]:explo_jerrycan_fuel_8
+description			= st_jerrycan_fuel5_descr
+inv_name			= st_jerrycan_fuel5
+inv_name_short			= st_jerrycan_fuel5
+inv_grid_x         = 26
+
+cost				= 900
+inv_weight			= 4.56
+
+[explo_jerrycan_fuel_3]:explo_jerrycan_fuel_8
+description			= st_jerrycan_fuel6_descr
+inv_name			= st_jerrycan_fuel6
+inv_name_short			= st_jerrycan_fuel6
+inv_grid_x         = 28
+
+cost				= 750
+inv_weight			= 3.82
+
+repair_part_bonus	 	= 0.02
+
+[explo_jerrycan_fuel_2]:explo_jerrycan_fuel_8
+description			= st_jerrycan_fuel7_descr
+inv_name			= st_jerrycan_fuel7
+inv_name_short			= st_jerrycan_fuel7
+inv_grid_x         = 30
+
+cost				= 600
+inv_weight			= 3.08
+
+[explo_jerrycan_fuel]:explo_jerrycan_fuel_8
+description			= st_jerrycan_fuel8_descr
+inv_name			= st_jerrycan_fuel8
+inv_name_short			= st_jerrycan_fuel8
+inv_grid_x         = 32
+
+cost				= 450
+inv_weight			= 2.34
+
+[explo_jerrycan_fuel_0]:identity_immunities
+$spawn 				= "devices\roubles"
+$prefetch 			= 16
+class				= II_ATTCH
+cform				= skeleton
+visual				= dynamics\balon\kanistra.ogf
+radius				= 68; 50
+
+description			= st_jerrycan_fuel_empty_descr
+inv_name			= st_jerrycan_fuel_empty
+inv_name_short		= st_jerrycan_fuel_empty
+
+inv_grid_width     = 2
+inv_grid_height    = 2
+inv_grid_x         = 34
+inv_grid_y         = 2
+
+cost				= 300
+inv_weight			= 1.6
+
+attach_angle_offset		= -0.287979, 1.560923, 1.544060
+attach_position_offset		= 0.096910, -0.013594, 0.107925
+attach_bone_name		= bip01_r_hand
+auto_attach				= false
+
+immunities_sect			= explosive_jerrycan_immunities_sect
+
+repair_part_bonus	 	= 0.02
+
+[explo_balon_gas_8]:identity_immunities,delayed_action_fuse,default_weapon_params
+$spawn 				= "weapons\explosive\mobiltank"
+$prefetch 			= 16
+class				= S_EXPLO
+cform				= skeleton
+visual				= dynamics\balon\gaz_balon.ogf
+radius				= 68; 50
+
+description			= st_balon_gas_descr
+inv_name			= st_balon_gas
+inv_name_short		= st_balon_gas
+
+inv_grid_width     = 2
+inv_grid_height    = 2
+inv_grid_x         = 18
+inv_grid_y         = 0
+
+cost				= 1500
+
+inv_weight			= 8.0
+
+attach_angle_offset		= -0.287979, 1.560923, 1.544060
+attach_position_offset		= 0.096910, -0.013594, 0.107925
+attach_bone_name		= bip01_r_hand
+auto_attach				= false
+
+;-------------------------------------------------------------------------------
+blast				= 4.6
+blast_r				= 6.4
+blast_impulse		= 130
+;delete
+blast_impulse_factor = 1
+
+frags				= 28
+frags_r				= 36
+frag_hit			= 0.11
+frag_hit_impulse	= 66
+
+hit_type_blast		= explosion
+hit_type_frag		= fire_wound
+
+up_throw_factor		= 0.54
+;-------------------------------------------------------------------------------
+wm_size                  = 0.1
+
+explode_particles		 = explosions\explosion_barrel
+
+light_color		         = 1.9,1.3,0.5
+light_range		         = 30.0
+light_time 		         = 1
+
+;трассы от осколков
+fragment_speed				= 206		;скорость осколков (м/с)
+
+explode_duration		 = 2		;подолжительность взрыва (с)
+time_to_explode			= 1.f
+;wallmarks
+wallmark_section		= explosion_marks
+
+;звуки
+snd_explode = weapons\explo\kanistra_01
+snd_explode1 = weapons\explo\kanistra_02
+snd_explode2 = weapons\explo\kanistra_03
+snd_explode2 = weapons\explo\kanistra_04
+immunities_sect			= explosive_jerrycan_immunities_sect
+
+repair_part_bonus	 	= 0.03
+
+
+[explo_balon_gas_7]:explo_balon_gas_8
+$spawn 				= "weapons\explosive\explo_balon_gas_7"
+description			= st_balon_gas2_descr
+inv_name			= st_balon_gas2
+inv_name_short			= st_balon_gas2
+
+inv_grid_width     = 2
+inv_grid_height    = 2
+inv_grid_x         = 20
+cost				= 1350
+inv_weight			= 7.5
+
+
+[explo_balon_gas_6]:explo_balon_gas_8
+$spawn 				= "weapons\explosive\explo_balon_gas_6"
+description			= st_balon_gas3_descr
+inv_name			= st_balon_gas3
+inv_name_short			= st_balon_gas3
+inv_grid_width     = 2
+inv_grid_height    = 2
+inv_grid_x         = 22
+cost				= 1200
+inv_weight			= 7.0
+
+attach_angle_offset		= -0.287979, 1.560923, 1.544060
+attach_position_offset		= 0.096910, -0.013594, 0.107925
+attach_bone_name		= bip01_r_hand
+auto_attach				= false
+
+
+[explo_balon_gas_5]:explo_balon_gas_8
+$spawn 				= "weapons\explosive\explo_balon_gas_5"
+description			= st_balon_gas4_descr
+inv_name			= st_balon_gas4
+inv_name_short			= st_balon_gas4
+inv_grid_width     = 2
+inv_grid_height    = 2
+inv_grid_x         = 24
+cost				= 1050
+inv_weight			= 6.5
+
+
+[explo_balon_gas_4]:explo_balon_gas_8
+$spawn 				= "weapons\explosive\explo_balon_gas_4"
+description			= st_balon_gas5_descr
+inv_name			= st_balon_gas5
+inv_name_short		= st_balon_gas5
+inv_grid_width     = 2
+inv_grid_height    = 2
+inv_grid_x         = 26
+cost				= 900
+inv_weight			= 6.0
+
+
+[explo_balon_gas_3]:explo_balon_gas_8
+$spawn 				= "weapons\explosive\explo_balon_gas_3"
+description			= st_balon_gas6_descr
+inv_name			= st_balon_gas6
+inv_name_short			= st_balon_gas6
+inv_grid_width     = 2
+inv_grid_height    = 2
+inv_grid_x         = 28
+cost				= 750
+inv_weight			= 5.5
+
+
+[explo_balon_gas_2]:explo_balon_gas_8
+$spawn 				= "weapons\explosive\explo_balon_gas_2"
+description			= st_balon_gas7_descr
+inv_name			= st_balon_gas7
+inv_name_short			= st_balon_gas7
+inv_grid_width     = 2
+inv_grid_height    = 2
+inv_grid_x         = 30
+cost				= 600
+inv_weight			= 5.0
+
+
+[explo_balon_gas]:explo_balon_gas_8
+$spawn 				= "weapons\explosive\explo_balon_gas_8"
+description			= st_balon_gas8_descr
+inv_name			= st_balon_gas8
+inv_name_short			= st_balon_gas8
+inv_grid_width     = 2
+inv_grid_height    = 2
+inv_grid_x         = 32
+cost				= 450
+inv_weight			= 4.5
+
+
+[explo_balon_gas_0]:identity_immunities
+$spawn 				= "devices\roubles"
+$prefetch 			= 16
+class				= II_ATTCH
+cform				= skeleton
+visual				= dynamics\balon\gaz_balon.ogf
+radius				= 68
+
+description			= st_balon_gas_empty_descr
+inv_name			= st_balon_gas_empty
+inv_name_short			= st_balon_gas_empty
+
+inv_grid_width     = 2
+inv_grid_height    = 2
+inv_grid_x         = 34
+inv_grid_y         = 0
+
+cost				= 300
+
+inv_weight			= 4.0
+
+attach_angle_offset		= -0.287979, 1.560923, 1.544060
+attach_position_offset		= 0.096910, -0.013594, 0.107925
+attach_bone_name		= bip01_r_hand
+auto_attach				= false
+
+repair_part_bonus	 	= 0.03
+
+[explosive_jerrycan_immunities_sect]
+;коэффициенты дл¤ попаданий различными типами хитов
+burn_immunity			= 2.0
+strike_immunity			= 0.0
+shock_immunity			= 1.0
+wound_immunity			= 0.0
+radiation_immunity		= 0.0
+telepatic_immunity		= 0.0
+chemical_burn_immunity	= 0.0
+explosion_immunity		= 2.0
+fire_wound_immunity		= 5.0

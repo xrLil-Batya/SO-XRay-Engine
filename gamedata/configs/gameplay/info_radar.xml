@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding="windows-1251"?>
+
+<game_information_portions>
+   <!--   Кодовая дверь  --> 
+  <info_portion id="rad_code_door_unlocked" /> 
+    <!--   отключаем выжигатель  --> 
+  <info_portion id="bar_deactivate_radar_done" /> 
+
+<info_portion id="leader_task_complete" />
+</game_information_portions>

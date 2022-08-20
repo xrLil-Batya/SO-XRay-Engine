@@ -1,0 +1,54 @@
+[smart_terrain]
+squad_id = 8
+max_population = 5
+arrive_dist = 150
+att_restr = esc_arm_base_sr_attack
+def_restr = esc_arm_base_sr_defence
+spawn_point = esc_arm_base_default_spawn
+respawn_params = respawn@esc_arm_base
+
+[respawn@esc_arm_base]
+spawn_army_1@esc_arm_base
+spawn_army_2@esc_arm_base
+
+[spawn_army_1@esc_arm_base]
+spawn_squads = esc_arm_base_squad_1
+spawn_num = {!squad_exist(esc_arm_base_squad_1)} 1, 0
+
+[spawn_army_2@esc_arm_base]
+spawn_squads = esc_arm_base_squad_2
+spawn_num = {!squad_exist(esc_arm_base_squad_2)} 1, 0
+
+
+[exclusive]
+;exclusive npc
+;guarders day jobs
+esc_arm_base_guarder_1_day = escape\esc_arm_base_guarders.ltx
+esc_arm_base_guarder_2_day = escape\esc_arm_base_guarders.ltx
+esc_arm_base_guarder_3_day = escape\esc_arm_base_guarders.ltx
+esc_arm_base_guarder_4_day = escape\esc_arm_base_guarders.ltx
+esc_arm_base_guarder_5_day = escape\esc_arm_base_guarders.ltx
+esc_arm_base_guarder_6_day = escape\esc_arm_base_guarders.ltx
+esc_arm_base_guarder_7_day = escape\esc_arm_base_guarders.ltx
+esc_arm_base_guarder_8_day = escape\esc_arm_base_guarders.ltx
+esc_arm_base_guarder_9_day = escape\esc_arm_base_guarders.ltx
+esc_arm_base_guarder_10_day = escape\esc_arm_base_guarders.ltx
+esc_arm_base_guarder_11_day = escape\esc_arm_base_guarders.ltx
+esc_arm_base_guarder_12_day = escape\esc_arm_base_guarders.ltx
+esc_arm_base_guarder_13_day = escape\esc_arm_base_guarders.ltx
+esc_arm_base_guarder_14_day = escape\esc_arm_base_guarders.ltx
+;guarders night jobs
+esc_arm_base_guarder_1_night = escape\esc_arm_base_guarders.ltx
+esc_arm_base_guarder_2_night = escape\esc_arm_base_guarders.ltx
+esc_arm_base_guarder_3_night = escape\esc_arm_base_guarders.ltx
+esc_arm_base_guarder_4_night = escape\esc_arm_base_guarders.ltx
+esc_arm_base_guarder_5_night = escape\esc_arm_base_guarders.ltx
+esc_arm_base_guarder_6_night = escape\esc_arm_base_guarders.ltx
+esc_arm_base_guarder_7_night = escape\esc_arm_base_guarders.ltx
+esc_arm_base_guarder_8_night = escape\esc_arm_base_guarders.ltx
+esc_arm_base_guarder_9_night = escape\esc_arm_base_guarders.ltx
+esc_arm_base_guarder_10_night = escape\esc_arm_base_guarders.ltx
+esc_arm_base_guarder_11_night = escape\esc_arm_base_guarders.ltx
+esc_arm_base_guarder_12_night = escape\esc_arm_base_guarders.ltx
+esc_arm_base_guarder_13_night = escape\esc_arm_base_guarders.ltx
+esc_arm_base_guarder_14_night = escape\esc_arm_base_guarders.ltx

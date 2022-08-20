@@ -1,0 +1,34 @@
+<w>
+    <file name="ui\ui_new_game_factions">
+
+    <texture id="bandit_big"     x="712" y="0"   width="104" height="80" />
+    <texture id="dolg_big"       x="712" y="80"  width="104" height="80" />
+    <texture id="ecolog_big"     x="712" y="160" width="104" height="80" />
+    <texture id="freedom_big"    x="712" y="240" width="104" height="80" />
+    <texture id="killer_big"     x="816" y="0"   width="104" height="80" />
+    <texture id="army_big"       x="816" y="80"  width="104" height="80" />
+    <texture id="monolith_big"   x="816" y="160" width="104" height="80" />
+    <texture id="stalker_big"    x="816" y="240" width="104" height="80" />
+    <texture id="zombied_big"    x="920" y="0"   width="104" height="80" />
+    <texture id="renegade_big"   x="920" y="80"  width="104" height="80" />
+    <texture id="csky_big"       x="920" y="160" width="104" height="80" />
+
+    <texture id="bandit_logo"     x="89"  y="0"   width="88" height="88" />
+    <texture id="dolg_logo"       x="0"   y="89"  width="88" height="88" />
+    <texture id="ecolog_logo"     x="89"  y="178" width="88" height="88" />
+    <texture id="freedom_logo"    x="89"  y="89"  width="88" height="88" />
+    <texture id="killer_logo"     x="178" y="89"  width="88" height="88" />
+    <texture id="army_logo"       x="0"   y="178" width="88" height="88" />
+    <texture id="monolith_logo"   x="178" y="178" width="88" height="88" />
+    <texture id="stalker_logo"    x="0"   y="0"   width="88" height="88" />
+    <texture id="zombied_logo"    x="267" y="0"   width="88" height="88" />
+    <texture id="renegade_logo"   x="267" y="178" width="88" height="88" />
+    <texture id="csky_logo"       x="178" y="0"   width="88" height="88" />
+    
+	<texture id="actor_big"       x="816" y="240" width="104" height="80" />
+	<texture id="actor_logo"      x="0"   y="0"   width="88"  height="88" />
+	
+    <texture id="logos_big_empty" x="1023" y="1023" width="1" height="1" />
+
+   </file>
+</w>

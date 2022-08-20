@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding="windows-1251"?>
+
+<game_information_portions>
+<info_portion id="agr_megafone_broken" /> 
+<info_portion id="agr_task_generators_stop" />
+<info_portion id="agr_generator_1_off" /> 
+<info_portion id="agr_generator_2_off" /> 
+<info_portion id="agr_generator_3_off" /> 
+<info_portion id="dolg_base_enemy_to_actor" />
+</game_information_portions>

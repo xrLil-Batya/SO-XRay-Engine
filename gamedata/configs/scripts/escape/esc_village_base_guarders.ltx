@@ -1,0 +1,361 @@
+;---------------------------------------------Guarders day jobs-------------------------------------------------
+[logic@esc_village_base_guarder_1_day]
+active = walker@guarder_1_day
+suitable = {=is_day !is_squad_commander} true
+prior = 200
+[walker@guarder_1_day]
+path_walk = guarder_1_walk
+path_look = guarder_1_look
+use_camp = false
+gather_items_enabled = false
+help_wounded_enabled = true
+corpse_detection_enabled = true
+def_state_standing = guard
+
+
+[logic@esc_village_base_guarder_2_day]
+active = walker@guarder_2_day
+suitable = {=is_day !is_squad_commander} true
+prior = 200
+[walker@guarder_2_day]
+path_walk = guarder_2_walk
+path_look = guarder_2_look
+use_camp = false
+gather_items_enabled = false
+help_wounded_enabled = true
+corpse_detection_enabled = true
+def_state_standing = guard
+
+[logic@esc_village_base_guarder_3_day]
+active = walker@guarder_3_day
+suitable = {=is_day !is_squad_commander} true
+prior = 180
+[walker@guarder_3_day]
+path_walk = guarder_3_day_walk
+path_look = guarder_3_day_look
+use_camp = false
+gather_items_enabled = false
+help_wounded_enabled = true
+corpse_detection_enabled = true
+def_state_standing = guard
+
+
+[logic@esc_village_base_guarder_4_day]
+active = animpoint@guarder_4_day
+suitable = {=is_day} true
+prior = 160
+[animpoint@guarder_4_day]
+cover_name = esc_village_base_animpoint_4
+reach_movement = walk_noweap
+use_camp = true
+gather_items_enabled = true
+help_wounded_enabled = true
+corpse_detection_enabled = true
+
+
+[logic@esc_village_base_guarder_5_day]
+active = animpoint@guarder_5_day
+suitable = {=is_day} true
+prior = 160
+[animpoint@guarder_5_day]
+cover_name = esc_village_base_animpoint_5
+reach_movement = walk_noweap
+use_camp = true
+gather_items_enabled = true
+help_wounded_enabled = true
+corpse_detection_enabled = true
+
+
+[logic@esc_village_base_guarder_6_day]
+active = animpoint@guarder_6_day
+suitable = {=is_day} true
+prior = 160
+[animpoint@guarder_6_day]
+cover_name = esc_village_base_animpoint_6
+reach_movement = walk_noweap
+use_camp = true
+gather_items_enabled = true
+help_wounded_enabled = true
+corpse_detection_enabled = true
+
+
+[logic@esc_village_base_guarder_7_day]
+active = animpoint@guarder_7_day
+suitable = {=is_day} true
+prior = 160
+[animpoint@guarder_7_day]
+cover_name = esc_village_base_animpoint_7
+reach_movement = walk_noweap
+use_camp = true
+gather_items_enabled = true
+help_wounded_enabled = true
+corpse_detection_enabled = true
+
+
+[logic@esc_village_base_guarder_8_day]
+active = animpoint@guarder_8_day
+suitable = {=is_day} true
+prior = 150
+[animpoint@guarder_8_day]
+cover_name = esc_village_base_animpoint_8
+reach_movement = walk_noweap
+use_camp = true
+gather_items_enabled = true
+help_wounded_enabled = true
+corpse_detection_enabled = true
+
+
+[logic@esc_village_base_guarder_9_day]
+active = animpoint@guarder_9_day
+suitable = {=is_day} true
+prior = 130
+[animpoint@guarder_9_day]
+cover_name = esc_village_base_animpoint_9
+reach_movement = walk_noweap
+use_camp = true
+gather_items_enabled = true
+help_wounded_enabled = true
+corpse_detection_enabled = true
+
+
+[logic@esc_village_base_guarder_10_day]
+active = animpoint@guarder_10_day
+suitable = {=is_day} true
+prior = 130
+[animpoint@guarder_10_day]
+cover_name = esc_village_base_animpoint_10
+reach_movement = walk_noweap
+use_camp = true
+gather_items_enabled = true
+help_wounded_enabled = true
+corpse_detection_enabled = true
+
+
+[logic@esc_village_base_guarder_11_day]
+active = animpoint@guarder_11_day
+suitable = {=is_day} true
+prior = 130
+[animpoint@guarder_11_day]
+cover_name = esc_village_base_animpoint_11
+reach_movement = walk_noweap
+use_camp = true
+gather_items_enabled = true
+help_wounded_enabled = true
+corpse_detection_enabled = true
+
+
+[logic@esc_village_base_guarder_12_day]
+active = animpoint@guarder_12_day
+suitable = {=is_day} true
+prior = 140
+[animpoint@guarder_12_day]
+cover_name = esc_village_base_animpoint_12
+reach_movement = walk_noweap
+use_camp = true
+gather_items_enabled = true
+help_wounded_enabled = true
+corpse_detection_enabled = true
+
+
+[logic@esc_village_base_guarder_13_day]
+active = animpoint@guarder_13_day
+suitable = {=is_day} true
+prior = 140
+[animpoint@guarder_13_day]
+cover_name = esc_village_base_animpoint_13
+reach_movement = walk_noweap
+use_camp = true
+gather_items_enabled = true
+help_wounded_enabled = true
+corpse_detection_enabled = true
+
+
+;---------------------------------------------Guarders night jobs-----------------------------------------------
+[logic@esc_village_base_guarder_1_night]
+active = walker@guarder_1_night
+suitable = {!is_day !is_squad_commander} true
+prior = 180
+[walker@guarder_1_night]
+path_walk = guarder_1_walk
+path_look = guarder_1_look
+use_camp = false
+gather_items_enabled = false
+help_wounded_enabled = true
+corpse_detection_enabled = true
+def_state_standing = guard
+
+
+[logic@esc_village_base_guarder_2_night]
+active = walker@guarder_2_night
+suitable = {!is_day !is_squad_commander} true
+prior = 180
+[walker@guarder_2_night]
+path_walk = guarder_2_walk
+path_look = guarder_2_look
+use_camp = false
+gather_items_enabled = false
+help_wounded_enabled = true
+corpse_detection_enabled = true
+def_state_standing = guard
+
+[logic@esc_village_base_guarder_3_night]
+active = walker@guarder_3_night
+suitable = {!is_day !is_squad_commander} true
+prior = 150
+[walker@guarder_3_night]
+path_walk = guarder_3_night_walk
+path_look = guarder_3_night_look
+use_camp = false
+gather_items_enabled = false
+help_wounded_enabled = false
+corpse_detection_enabled = false
+def_state_standing = sleep
+def_state_moving = walk_noweap
+
+
+[logic@esc_village_base_guarder_4_night]
+active = walker@guarder_4_night
+suitable = {!is_day} true
+prior = 150
+[walker@guarder_4_night]
+path_walk = guarder_4_night_walk
+path_look = guarder_4_night_look
+use_camp = false
+gather_items_enabled = false
+help_wounded_enabled = false
+corpse_detection_enabled = false
+def_state_standing = sleep
+def_state_moving = walk_noweap
+
+
+[logic@esc_village_base_guarder_5_night]
+active = walker@guarder_5_night
+suitable = {!is_day} true
+prior = 150
+[walker@guarder_5_night]
+path_walk = guarder_5_night_walk
+path_look = guarder_5_night_look
+use_camp = false
+gather_items_enabled = false
+help_wounded_enabled = false
+corpse_detection_enabled = false
+def_state_standing = sleep
+def_state_moving = walk_noweap
+
+
+[logic@esc_village_base_guarder_6_night]
+active = walker@guarder_6_night
+suitable = {!is_day} true
+prior = 150
+[walker@guarder_6_night]
+path_walk = guarder_6_night_walk
+path_look = guarder_6_night_look
+use_camp = false
+gather_items_enabled = false
+help_wounded_enabled = false
+corpse_detection_enabled = false
+def_state_standing = sleep
+def_state_moving = walk_noweap
+
+
+[logic@esc_village_base_guarder_7_night]
+active = walker@guarder_7_night
+suitable = {!is_day} true
+prior = 150
+[walker@guarder_7_night]
+path_walk = guarder_7_night_walk
+path_look = guarder_7_night_look
+use_camp = false
+gather_items_enabled = false
+help_wounded_enabled = false
+corpse_detection_enabled = false
+def_state_standing = sleep
+def_state_moving = walk_noweap
+
+
+[logic@esc_village_base_guarder_8_night]
+active = walker@guarder_8_night
+suitable = {!is_day} true
+prior = 150
+[walker@guarder_8_night]
+path_walk = guarder_8_night_walk
+path_look = guarder_8_night_look
+use_camp = false
+gather_items_enabled = false
+help_wounded_enabled = false
+corpse_detection_enabled = false
+def_state_standing = sleep
+def_state_moving = walk_noweap
+
+
+[logic@esc_village_base_guarder_9_night]
+active = animpoint@guarder_9_night
+suitable = {!is_day} true
+prior = 120
+[animpoint@guarder_9_night]
+cover_name = esc_village_base_animpoint_9
+reach_movement = walk_noweap
+use_camp = true
+gather_items_enabled = true
+help_wounded_enabled = true
+corpse_detection_enabled = true
+
+
+[logic@esc_village_base_guarder_10_night]
+active = walker@guarder_10_night
+suitable = {!is_day} true
+prior = 150
+[walker@guarder_10_night]
+path_walk = guarder_10_night_walk
+path_look = guarder_10_night_look
+use_camp = false
+gather_items_enabled = false
+help_wounded_enabled = false
+corpse_detection_enabled = false
+def_state_standing = sleep
+def_state_moving = walk_noweap
+
+
+[logic@esc_village_base_guarder_11_night]
+active = walker@guarder_11_night
+suitable = {!is_day} true
+prior = 150
+[walker@guarder_11_night]
+path_walk = guarder_11_night_walk
+path_look = guarder_11_night_look
+use_camp = false
+gather_items_enabled = false
+help_wounded_enabled = false
+corpse_detection_enabled = false
+def_state_standing = sleep
+def_state_moving = walk_noweap
+
+
+[logic@esc_village_base_guarder_12_night]
+active = walker@guarder_12_night
+suitable = {!is_day} true
+prior = 150
+[walker@guarder_12_night]
+path_walk = guarder_12_night_walk
+path_look = guarder_12_night_look
+use_camp = false
+gather_items_enabled = false
+help_wounded_enabled = false
+corpse_detection_enabled = false
+def_state_standing = sleep
+def_state_moving = walk_noweap
+
+
+[logic@esc_village_base_guarder_13_night]
+active = walker@guarder_13_night
+suitable = {!is_day} true
+prior = 150
+[walker@guarder_13_night]
+path_walk = guarder_13_night_walk
+path_look = guarder_13_night_look
+use_camp = false
+gather_items_enabled = false
+help_wounded_enabled = false
+corpse_detection_enabled = false
+def_state_standing = sleep
+def_state_moving = walk_noweap

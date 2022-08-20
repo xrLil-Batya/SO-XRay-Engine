@@ -1,0 +1,34 @@
+[smart_terrain]
+squad_id = 25
+max_population = 5
+arrive_dist = 100
+att_restr = esc_farm_base_sr_attack
+def_restr = esc_farm_base_sr_defence
+spawn_point = esc_farm_base_default_spawn
+respawn_params = respawn@farm
+
+[respawn@farm]
+spawn_stalker@farm
+
+[spawn_stalker@farm]
+spawn_squads = esc_farm_base_squad
+spawn_num = {!squad_exist(esc_farm_base_squad)} 1, 0
+
+[exclusive]
+;exclusive npc
+;guarders day jobs
+esc_farm_base_guarder_1 = escape\esc_farm_base_guarders.ltx
+esc_farm_base_guarder_2 = escape\esc_farm_base_guarders.ltx
+esc_farm_base_guarder_3 = escape\esc_farm_base_guarders.ltx
+esc_farm_base_guarder_4 = escape\esc_farm_base_guarders.ltx
+esc_farm_base_guarder_5 = escape\esc_farm_base_guarders.ltx
+esc_farm_base_guarder_6 = escape\esc_farm_base_guarders.ltx
+esc_farm_base_guarder_7 = escape\esc_farm_base_guarders.ltx
+esc_farm_base_guarder_8 = escape\esc_farm_base_guarders.ltx
+esc_farm_base_guarder_9 = escape\esc_farm_base_guarders.ltx
+esc_farm_base_guarder_10 = escape\esc_farm_base_guarders.ltx
+esc_farm_base_guarder_11 = escape\esc_farm_base_guarders.ltx
+esc_farm_base_guarder_12 = escape\esc_farm_base_guarders.ltx
+esc_farm_base_guarder_13 = escape\esc_farm_base_guarders.ltx
+esc_farm_base_guarder_14 = escape\esc_farm_base_guarders.ltx
+esc_farm_base_guarder_15 = escape\esc_farm_base_guarders.ltx

@@ -1,0 +1,39 @@
+[logic]
+active = ph_door@closed
+
+[ph_door@locked]
+locked = true
+closed = true
+snd_open_start = trader_door_open_start
+on_info = {!actor_has_weapon} ph_door@closed
+on_info2 = {+val_freedom_base_under_attack} ph_door@locked_alarm
+on_info3 = {=dist_to_actor_ge(10) =actor_has_weapon} ph_door@closed
+tip_open = tip_door_closed_hide_weapon
+
+[ph_door@closed]
+locked = false
+closed = true
+snd_open_start = trader_door_open_start
+snd_close_start = trader_door_close_start
+snd_close_stop = trader_door_close_stop
+on_use = ph_door@open
+on_info = {+val_freedom_base_under_attack} ph_door@locked_alarm
+on_info2 = {=dist_to_actor_le(10) =actor_has_weapon} ph_door@locked
+
+[ph_door@open]
+locked = false
+closed = false
+snd_open_start = trader_door_open_start
+snd_close_start = trader_door_close_start
+snd_close_stop = trader_door_close_stop
+on_use = ph_door@closed
+on_info = {+val_freedom_base_under_attack} ph_door@locked_alarm
+on_info2 = {=dist_to_actor_le(10) =actor_has_weapon} ph_door@locked
+;on_info3 = {=dist_to_actor_ge(10) =actor_has_weapon} ph_door@closed
+
+[ph_door@locked_alarm]
+closed = true
+locked = true
+snd_open_start = trader_door_open_start
+tip_open = tip_door_closed_base_alarm
+on_info = {!actor_in_zone(val_freedom_base_no_weapon_zone)} ph_door@closed

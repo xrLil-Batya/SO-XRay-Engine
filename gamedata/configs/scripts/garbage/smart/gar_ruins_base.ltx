@@ -1,0 +1,24 @@
+[smart_terrain]
+squad_id = 2
+max_population = 3
+att_restr = gar_ruins_base_sr_attack
+def_restr = gar_ruins_base_sr_defence
+arrive_dist = 80
+respawn_params = respawn@gar_ruins_base
+
+[respawn@gar_ruins_base]
+spawn_stalker@gar_ruins_base
+
+[spawn_stalker@gar_ruins_base]
+spawn_squads = gar_ruins_base_squad
+spawn_num = {!squad_exist(gar_ruins_base_squad)} 1, 0
+
+[exclusive]
+gar_ruins_base_guarder_1 = garbage\gar_ruins_base_guarders.ltx
+gar_ruins_base_guarder_2 = garbage\gar_ruins_base_guarders.ltx
+gar_ruins_base_guarder_3 = garbage\gar_ruins_base_guarders.ltx
+gar_ruins_base_guarder_4 = garbage\gar_ruins_base_guarders.ltx
+gar_ruins_base_guarder_5 = garbage\gar_ruins_base_guarders.ltx
+gar_ruins_base_guarder_6 = garbage\gar_ruins_base_guarders.ltx
+gar_ruins_base_guarder_7 = garbage\gar_ruins_base_guarders.ltx
+gar_ruins_base_guarder_8 = garbage\gar_ruins_base_guarders.ltx

@@ -1,0 +1,43 @@
+[smart_terrain]
+squad_id = 3
+max_population = 2
+att_restr = fst_kpp_sr_attack
+def_restr = fst_kpp_sr_defence
+;smart_control = smart_control@kpp
+respawn_params = respawn@kpp
+arrive_dist = 120
+
+[respawn@kpp]
+spawn_bandits@kpp
+
+[spawn_bandits@kpp]
+spawn_squads = fst_kpp_bandits_squad
+spawn_num = {!squad_exist(fst_kpp_bandits_squad)} 1, 0
+
+;[smart_control@kpp]
+;noweap_zone = 
+;ignore_zone = 
+;alarm_start_sound =
+;alarm_stop_sound =
+
+[exclusive]
+;guarders day jobs
+fst_kpp_guarder_1_day = forest\fst_kpp_guarders.ltx
+fst_kpp_guarder_2_day = forest\fst_kpp_guarders.ltx
+fst_kpp_guarder_3_day = forest\fst_kpp_guarders.ltx
+fst_kpp_guarder_4_day = forest\fst_kpp_guarders.ltx
+fst_kpp_guarder_5_day = forest\fst_kpp_guarders.ltx
+fst_kpp_guarder_6_day = forest\fst_kpp_guarders.ltx
+fst_kpp_guarder_7_day = forest\fst_kpp_guarders.ltx
+fst_kpp_guarder_8_day = forest\fst_kpp_guarders.ltx
+fst_kpp_guarder_9_day = forest\fst_kpp_guarders.ltx
+;guarders night jobs
+fst_kpp_guarder_1_night = forest\fst_kpp_guarders.ltx
+fst_kpp_guarder_2_night = forest\fst_kpp_guarders.ltx
+fst_kpp_guarder_3_night = forest\fst_kpp_guarders.ltx
+fst_kpp_guarder_4_night = forest\fst_kpp_guarders.ltx
+fst_kpp_guarder_5_night = forest\fst_kpp_guarders.ltx
+fst_kpp_guarder_6_night = forest\fst_kpp_guarders.ltx
+fst_kpp_guarder_7_night = forest\fst_kpp_guarders.ltx
+fst_kpp_guarder_8_night = forest\fst_kpp_guarders.ltx
+fst_kpp_guarder_9_night = forest\fst_kpp_guarders.ltx

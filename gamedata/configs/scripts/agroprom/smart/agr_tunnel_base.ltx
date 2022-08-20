@@ -1,0 +1,24 @@
+[smart_terrain]
+squad_id = 2
+max_population = 2
+arrive_dist = 80
+respawn_params = respawn@agr_tunnel_base
+
+[respawn@agr_tunnel_base]
+spawn_bandit@agr_tunnel_base
+spawn_bandit_attack@agr_tunnel_base
+
+[spawn_bandit@agr_tunnel_base]
+spawn_squads = agr_tunnel_base_squad
+spawn_num = {!squad_exist(agr_tunnel_base_squad)} 1, 0
+
+[spawn_bandit_attack@agr_tunnel_base]
+spawn_squads = agr_tunnel_attack_squad
+spawn_num = {+info_human_sim_start} 1, 0
+
+[exclusive]
+agr_tunnel_base_guarder_1 = agroprom\agr_tunnel_base_guarders.ltx
+agr_tunnel_base_guarder_2 = agroprom\agr_tunnel_base_guarders.ltx
+agr_tunnel_base_guarder_3 = agroprom\agr_tunnel_base_guarders.ltx
+agr_tunnel_base_guarder_4 = agroprom\agr_tunnel_base_guarders.ltx
+agr_tunnel_base_guarder_5 = agroprom\agr_tunnel_base_guarders.ltx

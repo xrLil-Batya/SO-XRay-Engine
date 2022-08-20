@@ -1,0 +1,66 @@
+[smart_terrain]
+squad_id = 1
+max_population = 6
+att_restr = fst_sawmill_sr_attack
+def_restr = fst_sawmill_sr_defence
+;smart_control = smart_control@mill
+respawn_params = respawn@sawmill
+arrive_dist = 65
+
+[respawn@sawmill]
+spawn_hunter@sawmill
+
+[spawn_hunter@sawmill]
+spawn_squads = fst_sawmill_squad
+spawn_num = {!squad_exist(fst_sawmill_squad)} 1, 0
+
+[smart_control@mill]
+;noweap_zone = 
+;ignore_zone = 
+;alarm_start_sound =
+;alarm_stop_sound =
+
+[exclusive]
+;exclusive npc
+fst_voron = forest\fst_sawmill_voron.ltx
+fst_gonta = forest\fst_sawmill_gonta.ltx
+fst_crab = forest\fst_sawmill_crab.ltx
+fst_vobla = forest\fst_sawmill_vobla.ltx
+fst_trader = forest\fst_sawmill_trader.ltx
+fst_technic = forest\fst_sawmill_technic.ltx
+;guarders day jobs
+fst_sawmill_guarder_1_day = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_2_day = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_3_day = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_4_day = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_5_day = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_6_day = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_7_day = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_8_day = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_9_day = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_10_day = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_11_day = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_12_day = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_13_day = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_14_day = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_15_day = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_16_day = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_17_day = forest\fst_sawmill_guarders.ltx
+;guarders night jobs
+fst_sawmill_guarder_1_night = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_2_night = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_3_night = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_4_night = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_5_night = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_6_night = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_7_night = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_8_night = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_9_night = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_10_night = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_11_night = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_12_night = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_13_night = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_14_night = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_15_night = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_16_night = forest\fst_sawmill_guarders.ltx
+fst_sawmill_guarder_17_night = forest\fst_sawmill_guarders.ltx

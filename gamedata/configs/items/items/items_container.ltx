@@ -1,0 +1,2435 @@
+
+[af_iam]:af_base
+$spawn					= "artefacts\af_iam"
+class 					= S_PDA
+visual					= dynamics\equipments\aa\iam
+description				= st_af_iam_descr
+inv_name				= st_af_iam_name
+inv_name_short			= st_af_iam_name
+inv_weight				= 1.2
+inv_grid_x				= 11
+inv_grid_y				= 5
+1icon_layer_x       	= 0
+1icon_layer_y      		= 60
+1icon_layer_scale   	= 0.45
+use1_functor 			= items_manager.container_fill_menu
+use1_action_functor 	= items_manager.container_fill
+use2_functor 			= items_manager.container_remove_menu
+use2_action_functor 	= items_manager.container_remove
+belt					= false
+cost					= 5400
+antirad					= -0.000065
+radius					= 68
+hit_on_take				= 0
+
+;------------------------------------------------------------------------------------------
+
+[af_aac]:af_base
+$spawn					= "artefacts\af_aac"
+class 					= S_PDA
+visual					= dynamics\equipments\aa\aac
+description				= st_af_aac_descr
+inv_name				= st_af_aac_name
+inv_name_short			= st_af_aac_name
+inv_weight				= 0.8
+inv_grid_x				= 12
+inv_grid_y				= 5
+inv_grid_width			= 1
+inv_grid_height			= 1
+1icon_layer_x       	= 0
+1icon_layer_y      		= 60
+1icon_layer_scale   	= 0.45
+use1_functor 			= items_manager.container_fill_menu
+use1_action_functor 	= items_manager.container_fill
+use2_functor 			= items_manager.container_remove_menu
+use2_action_functor 	= items_manager.container_remove
+belt					= false
+cost					= 21300
+antirad					= -0.000130
+radius					= 68
+hit_on_take				= 0
+
+
+;------------------------------------------------------------------------------------------
+
+[af_aam]:af_base
+$spawn					= "artefacts\af_aam"
+class 					= S_PDA
+visual					= dynamics\equipments\aa\aam
+description				= st_af_aam_descr
+inv_name				= st_af_aam_name
+inv_name_short			= st_af_aam_name
+inv_weight				= 0.6
+inv_grid_x				= 13
+inv_grid_y				= 5
+inv_grid_width			= 1
+inv_grid_height			= 1
+1icon_layer_x       	= 0
+1icon_layer_y      		= 60
+1icon_layer_scale   	= 0.45
+use1_functor 			= items_manager.container_fill_menu
+use1_action_functor 	= items_manager.container_fill
+use2_functor 			= items_manager.container_remove_menu
+use2_action_functor 	= items_manager.container_remove
+belt					= false
+cost					= 29500
+antirad					= -0.000200
+radius					= 68
+hit_on_take				= 0
+
+
+;------------------------------------------------------------------------------------------
+
+[lead_box]:af_iam
+class					= S_PDA
+$spawn					= "artefacts\lead_box"
+inv_weight 				= 2.0
+cost					= 4400
+description				= st_lead_box_descr
+inv_name				= st_lead_box_name
+inv_name_short			= st_lead_box_name
+use1_functor 			= items_manager.container_fill_menu
+use1_action_functor 	= items_manager.container_fill
+use2_functor 			= items_manager.container_remove_menu
+use2_action_functor 	= items_manager.container_remove
+visual					= dynamics\equipments\lead_box_open.ogf
+inv_grid_width			= 1
+inv_grid_height			= 2
+inv_grid_x				= 9
+inv_grid_y				= 5
+1icon_layer_x       	= 0
+1icon_layer_y      		= 170
+1icon_layer_scale   	= 0.45
+belt					= false
+antirad					= -0.0005
+hit_on_take				= 0
+
+;------------------------------------------------------------------------------------------
+
+[lead_box_closed]:lead_box
+class					= S_PDA
+$spawn					= "artefacts\lead_box_closed"
+description				= st_lead_box_closed_descr
+inv_name				= st_lead_box_closed_name
+inv_name_short			= st_lead_box_closed_name
+visual					= dynamics\equipments\lead_box_closed.ogf
+inv_grid_width			= 1
+inv_grid_height			= 2
+inv_grid_x				= 10
+inv_grid_y				= 5
+radiation_restore_speed = 0 
+
+[af_belt]
+class				= ARTEFACT
+belt				= true
+hit_on_take			= 0
+
+[af_ruck]:af_belt
+belt				= false
+hit_on_take			= 0
+
+;------------------------------------------------------------------------------------------
+;----------------------IAM WITH ARTEFACT---------------------------------------------------
+;------------------------------------------------------------------------------------------
+
+[af_capsule_base_af_iam]:af_iam,af_belt
+description			= st_af_capsule_descr
+inv_name			= st_af_capsule_af_iam_name
+inv_name_short		= st_af_capsule_af_iam_name
+1icon_layer        	= af_capsule_base
+
+[af_m_capsule_base_af_iam]:af_iam,af_belt
+description			= st_af_m_capsule_descr
+inv_name			= st_af_capsule_af_iam_name
+inv_name_short		= st_af_capsule_af_iam_name
+1icon_layer        	= af_m_capsule_base
+
+[af_medusa_af_iam]:af_iam,af_belt
+description			= st_af_medusa_descr
+inv_name			= st_af_medusa_af_iam_name
+inv_name_short		= st_af_medusa_af_iam_name
+1icon_layer        	= af_medusa
+
+[af_medusa_d1_af_iam]:af_medusa_af_iam
+[af_medusa_d2_af_iam]:af_medusa_af_iam
+[af_medusa_d3_af_iam]:af_medusa_af_iam
+[af_medusa_d4_af_iam]:af_medusa_af_iam
+[af_medusa_d5_af_iam]:af_medusa_af_iam
+
+[af_cristall_flower_af_iam]:af_iam,af_belt
+description			= st_af_cristall_flower_descr
+inv_name			= st_af_cristall_flower_af_iam_name
+inv_name_short		= st_af_cristall_flower_af_iam_name
+1icon_layer        	= af_cristall_flower
+
+[af_cristall_flower_d1_af_iam]:af_cristall_flower_af_iam
+[af_cristall_flower_d2_af_iam]:af_cristall_flower_af_iam
+[af_cristall_flower_d3_af_iam]:af_cristall_flower_af_iam
+[af_cristall_flower_d4_af_iam]:af_cristall_flower_af_iam
+[af_cristall_flower_d5_af_iam]:af_cristall_flower_af_iam
+
+[af_night_star_af_iam]:af_iam,af_belt
+description			= st_af_night_star_descr
+inv_name			= st_af_night_star_af_iam_name
+inv_name_short		= st_af_night_star_af_iam_name
+1icon_layer        	= af_night_star
+
+[af_night_star_d1_af_iam]:af_night_star_af_iam
+[af_night_star_d2_af_iam]:af_night_star_af_iam
+[af_night_star_d3_af_iam]:af_night_star_af_iam
+[af_night_star_d4_af_iam]:af_night_star_af_iam
+[af_night_star_d5_af_iam]:af_night_star_af_iam
+
+[af_dummy_glassbeads_af_iam]:af_iam,af_belt
+description			= st_af_dummy_glassbeads_descr
+inv_name			= st_af_dummy_glassbeads_af_iam_name
+inv_name_short		= st_af_dummy_glassbeads_af_iam_name
+1icon_layer        	= af_dummy_glassbeads
+
+[af_night_star_capsule_af_iam]:af_capsule_base_af_iam
+[af_night_star_d1_capsule_af_iam]:af_capsule_base_af_iam
+[af_night_star_d2_capsule_af_iam]:af_capsule_base_af_iam
+[af_night_star_d3_capsule_af_iam]:af_capsule_base_af_iam
+[af_night_star_d4_capsule_af_iam]:af_capsule_base_af_iam
+[af_night_star_d5_capsule_af_iam]:af_capsule_base_af_iam
+[af_dummy_glassbeads_capsule_af_iam]:af_capsule_base_af_iam
+
+[af_babka_1_af_iam]:af_iam,af_belt
+description			= st_af_babka_1_descr
+inv_name			= st_af_babka_1_af_iam_name
+inv_name_short		= st_af_babka_1_af_iam_name
+1icon_layer        	= af_babka_1
+
+[af_babka_2_af_iam]:af_iam,af_belt
+description			= st_af_babka_2_descr
+inv_name			= st_af_babka_2_af_iam_name
+inv_name_short		= st_af_babka_2_af_iam_name
+1icon_layer        	= af_babka_2
+
+[af_babka_3_af_iam]:af_iam,af_belt
+description			= st_af_babka_3_descr
+inv_name			= st_af_babka_3_af_iam_name
+inv_name_short		= st_af_babka_3_af_iam_name
+1icon_layer        	= af_babka_3
+
+[af_babka_4_af_iam]:af_iam,af_belt
+description			= st_af_babka_4_descr
+inv_name			= st_af_babka_4_af_iam_name
+inv_name_short		= st_af_babka_4_af_iam_name
+1icon_layer        	= af_babka_4
+
+[af_vyvert_af_iam]:af_iam,af_belt
+description			= st_af_vyvert_descr
+inv_name			= st_af_vyvert_af_iam_name
+inv_name_short		= st_af_vyvert_af_iam_name
+1icon_layer        	= af_vyvert
+
+[af_vyvert_d1_af_iam]:af_vyvert_af_iam
+[af_vyvert_d2_af_iam]:af_vyvert_af_iam
+[af_vyvert_d3_af_iam]:af_vyvert_af_iam
+[af_vyvert_d4_af_iam]:af_vyvert_af_iam
+[af_vyvert_d5_af_iam]:af_vyvert_af_iam
+
+[af_gravi_af_iam]:af_iam,af_belt
+description			= st_af_gravi_descr
+inv_name			= st_af_gravi_af_iam_name
+inv_name_short		= st_af_gravi_af_iam_name
+1icon_layer        	= af_gravi
+
+[af_gravi_d1_af_iam]:af_gravi_af_iam
+[af_gravi_d2_af_iam]:af_gravi_af_iam
+[af_gravi_d3_af_iam]:af_gravi_af_iam
+[af_gravi_d4_af_iam]:af_gravi_af_iam
+[af_gravi_d5_af_iam]:af_gravi_af_iam
+
+[af_gold_fish_af_iam]:af_iam,af_belt
+description			= st_af_gold_fish_descr
+inv_name			= st_af_gold_fish_af_iam_name
+inv_name_short		= st_af_gold_fish_af_iam_name
+1icon_layer        	= af_gold_fish
+
+[af_gold_fish_d1_af_iam]:af_gold_fish_af_iam
+[af_gold_fish_d2_af_iam]:af_gold_fish_af_iam
+[af_gold_fish_d3_af_iam]:af_gold_fish_af_iam
+[af_gold_fish_d4_af_iam]:af_gold_fish_af_iam
+[af_gold_fish_d5_af_iam]:af_gold_fish_af_iam
+
+[af_fuzz_kolobok_af_iam]:af_iam,af_belt
+description			= st_af_fuzz_kolobok_descr
+inv_name			= st_af_fuzz_kolobok_af_iam_name
+inv_name_short		= st_af_fuzz_kolobok_af_iam_name
+1icon_layer        	= af_fuzz_kolobok
+
+[af_gold_fish_capsule_af_iam]:af_capsule_base_af_iam
+[af_gold_fish_d1_capsule_af_iam]:af_capsule_base_af_iam
+[af_gold_fish_d2_capsule_af_iam]:af_capsule_base_af_iam
+[af_gold_fish_d3_capsule_af_iam]:af_capsule_base_af_iam
+[af_gold_fish_d4_capsule_af_iam]:af_capsule_base_af_iam
+[af_gold_fish_d5_capsule_af_iam]:af_capsule_base_af_iam
+[af_fuzz_kolobok_capsule_af_iam]:af_capsule_base_af_iam
+
+[af_kolob_1_af_iam]:af_iam,af_belt
+description			= st_af_kolob_1_descr
+inv_name			= st_af_kolob_1_af_iam_name
+inv_name_short		= st_af_kolob_1_af_iam_name
+1icon_layer        	= af_kolob_1
+
+[af_kolob_2_af_iam]:af_iam,af_belt
+description			= st_af_kolob_2_descr
+inv_name			= st_af_kolob_2_af_iam_name
+inv_name_short		= st_af_kolob_2_af_iam_name
+1icon_layer        	= af_kolob_2
+
+[af_kolob_3_af_iam]:af_iam,af_belt
+description			= st_af_kolob_3_descr
+inv_name			= st_af_kolob_3_af_iam_name
+inv_name_short		= st_af_kolob_3_af_iam_name
+1icon_layer        	= af_kolob_3
+
+[af_kolob_4_af_iam]:af_iam,af_belt
+description			= st_af_kolob_4_descr
+inv_name			= st_af_kolob_4_af_iam_name
+inv_name_short		= st_af_kolob_4_af_iam_name
+1icon_layer        	= af_kolob_4
+
+[af_eye_af_iam]:af_iam,af_belt
+description			= st_af_eye_descr
+inv_name			= st_af_eye_af_iam_name
+inv_name_short		= st_af_eye_af_iam_name
+1icon_layer        	= af_eye
+
+[af_eye_d1_af_iam]:af_eye_af_iam
+[af_eye_d2_af_iam]:af_eye_af_iam
+[af_eye_d3_af_iam]:af_eye_af_iam
+[af_eye_d4_af_iam]:af_eye_af_iam
+[af_eye_d5_af_iam]:af_eye_af_iam
+
+[af_fireball_af_iam]:af_iam,af_belt
+description			= st_af_fireball_descr
+inv_name			= st_af_fireball_af_iam_name
+inv_name_short		= st_af_fireball_af_iam_name
+1icon_layer        	= af_fireball
+
+[af_fireball_d1_af_iam]:af_fireball_af_iam
+[af_fireball_d2_af_iam]:af_fireball_af_iam
+[af_fireball_d3_af_iam]:af_fireball_af_iam
+[af_fireball_d4_af_iam]:af_fireball_af_iam
+[af_fireball_d5_af_iam]:af_fireball_af_iam
+
+[af_cristall_af_iam]:af_iam,af_belt
+description			= st_af_cristall_descr
+inv_name			= st_af_cristall_af_iam_name
+inv_name_short		= st_af_cristall_af_iam_name
+1icon_layer        	= af_cristall
+
+[af_cristall_d1_af_iam]:af_cristall_af_iam
+[af_cristall_d2_af_iam]:af_cristall_af_iam
+[af_cristall_d3_af_iam]:af_cristall_af_iam
+[af_cristall_d4_af_iam]:af_cristall_af_iam
+[af_cristall_d5_af_iam]:af_cristall_af_iam
+
+[af_dummy_dummy_af_iam]:af_iam,af_belt
+description			= st_af_dummy_dummy_descr
+inv_name			= st_af_dummy_dummy_af_iam_name
+inv_name_short		= st_af_dummy_dummy_af_iam_name
+1icon_layer        	= af_dummy_dummy
+
+[af_cristall_capsule_af_iam]:af_capsule_base_af_iam
+[af_cristall_d1_capsule_af_iam]:af_capsule_base_af_iam
+[af_cristall_d2_capsule_af_iam]:af_capsule_base_af_iam
+[af_cristall_d3_capsule_af_iam]:af_capsule_base_af_iam
+[af_cristall_d4_capsule_af_iam]:af_capsule_base_af_iam
+[af_cristall_d5_capsule_af_iam]:af_capsule_base_af_iam
+[af_dummy_dummy_capsule_af_iam]:af_capsule_base_af_iam
+
+[af_dummy_1_af_iam]:af_iam,af_belt
+description			= st_af_dummy_1_descr
+inv_name			= st_af_dummy_1_af_iam_name
+inv_name_short		= st_af_dummy_1_af_iam_name
+1icon_layer        	= af_dummy_1
+
+[af_dummy_2_af_iam]:af_iam,af_belt
+description			= st_af_dummy_2_descr
+inv_name			= st_af_dummy_2_af_iam_name
+inv_name_short		= st_af_dummy_2_af_iam_name
+1icon_layer        	= af_dummy_2
+
+[af_dummy_3_af_iam]:af_iam,af_belt
+description			= st_af_dummy_3_descr
+inv_name			= st_af_dummy_3_af_iam_name
+inv_name_short		= st_af_dummy_3_af_iam_name
+1icon_layer        	= af_dummy_3
+
+[af_dummy_4_af_iam]:af_iam,af_belt
+description			= st_af_dummy_4_descr
+inv_name			= st_af_dummy_4_af_iam_name
+inv_name_short		= st_af_dummy_4_af_iam_name
+1icon_layer        	= af_dummy_4
+
+[af_blood_af_iam]:af_iam,af_belt
+description			= st_af_blood_descr
+inv_name			= st_af_blood_af_iam_name
+inv_name_short		= st_af_blood_af_iam_name
+1icon_layer        	= af_blood
+
+[af_blood_d1_af_iam]:af_blood_af_iam
+[af_blood_d2_af_iam]:af_blood_af_iam
+[af_blood_d3_af_iam]:af_blood_af_iam
+[af_blood_d4_af_iam]:af_blood_af_iam
+[af_blood_d5_af_iam]:af_blood_af_iam
+
+[af_mincer_meat_af_iam]:af_iam,af_belt
+description			= st_af_mincer_meat_descr
+inv_name			= st_af_mincer_meat_af_iam_name
+inv_name_short		= st_af_mincer_meat_af_iam_name
+1icon_layer        	= af_mincer_meat
+
+[af_mincer_meat_d1_af_iam]:af_mincer_meat_af_iam
+[af_mincer_meat_d2_af_iam]:af_mincer_meat_af_iam
+[af_mincer_meat_d3_af_iam]:af_mincer_meat_af_iam
+[af_mincer_meat_d4_af_iam]:af_mincer_meat_af_iam
+[af_mincer_meat_d5_af_iam]:af_mincer_meat_af_iam
+
+[af_soul_af_iam]:af_iam,af_belt
+description			= st_af_soul_descr
+inv_name			= st_af_soul_af_iam_name
+inv_name_short		= st_af_soul_af_iam_name
+1icon_layer        	= af_soul
+
+[af_soul_d1_af_iam]:af_soul_af_iam
+[af_soul_d2_af_iam]:af_soul_af_iam
+[af_soul_d3_af_iam]:af_soul_af_iam
+[af_soul_d4_af_iam]:af_soul_af_iam
+[af_soul_d5_af_iam]:af_soul_af_iam
+
+[af_glass_af_iam]:af_iam,af_belt
+description			= st_af_glass_descr
+inv_name			= st_af_glass_af_iam_name
+inv_name_short		= st_af_glass_af_iam_name
+1icon_layer        	= af_glass
+
+[af_soul_capsule_af_iam]:af_capsule_base_af_iam
+[af_soul_d1_capsule_af_iam]:af_capsule_base_af_iam
+[af_soul_d2_capsule_af_iam]:af_capsule_base_af_iam
+[af_soul_d3_capsule_af_iam]:af_capsule_base_af_iam
+[af_soul_d4_capsule_af_iam]:af_capsule_base_af_iam
+[af_soul_d5_capsule_af_iam]:af_capsule_base_af_iam
+[af_glass_capsule_af_iam]:af_capsule_base_af_iam
+
+[af_soul_1_af_iam]:af_iam,af_belt
+description			= st_af_soul_1_descr
+inv_name			= st_af_soul_1_af_iam_name
+inv_name_short		= st_af_soul_1_af_iam_name
+1icon_layer        	= af_soul_1
+
+[af_soul_2_af_iam]:af_iam,af_belt
+description			= st_af_soul_2_descr
+inv_name			= st_af_soul_2_af_iam_name
+inv_name_short		= st_af_soul_2_af_iam_name
+1icon_layer        	= af_soul_2
+
+[af_soul_3_af_iam]:af_iam,af_belt
+description			= st_af_soul_3_descr
+inv_name			= st_af_soul_3_af_iam_name
+inv_name_short		= st_af_soul_3_af_iam_name
+1icon_layer        	= af_soul_3
+
+[af_soul_4_af_iam]:af_iam,af_belt
+description			= st_af_soul_4_descr
+inv_name			= st_af_soul_4_af_iam_name
+inv_name_short		= st_af_soul_4_af_iam_name
+1icon_layer        	= af_soul_4
+
+[af_electra_sparkler_af_iam]:af_iam,af_belt
+description			= st_af_electra_sparkler_descr
+inv_name			= st_af_electra_sparkler_af_iam_name
+inv_name_short		= st_af_electra_sparkler_af_iam_name
+1icon_layer        	= af_electra_sparkler
+
+[af_electra_sparkler_d1_af_iam]:af_electra_sparkler_af_iam
+[af_electra_sparkler_d2_af_iam]:af_electra_sparkler_af_iam
+[af_electra_sparkler_d3_af_iam]:af_electra_sparkler_af_iam
+[af_electra_sparkler_d4_af_iam]:af_electra_sparkler_af_iam
+[af_electra_sparkler_d5_af_iam]:af_electra_sparkler_af_iam
+
+[af_electra_flash_af_iam]:af_iam,af_belt
+description			= st_af_electra_flash_descr
+inv_name			= st_af_electra_flash_af_iam_name
+inv_name_short		= st_af_electra_flash_af_iam_name
+1icon_layer        	= af_electra_flash
+
+[af_electra_flash_d1_af_iam]:af_electra_flash_af_iam
+[af_electra_flash_d2_af_iam]:af_electra_flash_af_iam
+[af_electra_flash_d3_af_iam]:af_electra_flash_af_iam
+[af_electra_flash_d4_af_iam]:af_electra_flash_af_iam
+[af_electra_flash_d5_af_iam]:af_electra_flash_af_iam
+
+[af_electra_moonlight_af_iam]:af_iam,af_belt
+description			= st_af_electra_moonlight_descr
+inv_name			= st_af_electra_moonlight_af_iam_name
+inv_name_short		= st_af_electra_moonlight_af_iam_name
+1icon_layer        	= af_electra_moonlight
+
+[af_electra_moonlight_d1_af_iam]:af_electra_moonlight_af_iam
+[af_electra_moonlight_d2_af_iam]:af_electra_moonlight_af_iam
+[af_electra_moonlight_d3_af_iam]:af_electra_moonlight_af_iam
+[af_electra_moonlight_d4_af_iam]:af_electra_moonlight_af_iam
+[af_electra_moonlight_d5_af_iam]:af_electra_moonlight_af_iam
+
+[af_dummy_battery_af_iam]:af_iam,af_belt
+description			= st_af_dummy_battery_descr
+inv_name			= st_af_dummy_battery_af_iam_name
+inv_name_short		= st_af_dummy_battery_af_iam_name
+1icon_layer        	= af_dummy_battery
+
+[af_electra_moonlight_capsule_af_iam]:af_capsule_base_af_iam
+[af_electra_moonlight_d1_capsule_af_iam]:af_capsule_base_af_iam
+[af_electra_moonlight_d2_capsule_af_iam]:af_capsule_base_af_iam
+[af_electra_moonlight_d3_capsule_af_iam]:af_capsule_base_af_iam
+[af_electra_moonlight_d4_capsule_af_iam]:af_capsule_base_af_iam
+[af_electra_moonlight_d5_capsule_af_iam]:af_capsule_base_af_iam
+[af_dummy_battery_capsule_af_iam]:af_capsule_base_af_iam
+
+[af_moonl_1_af_iam]:af_iam,af_belt
+description			= st_af_moonl_1_descr
+inv_name			= st_af_moonl_1_af_iam_name
+inv_name_short		= st_af_moonl_1_af_iam_name
+1icon_layer        	= af_moonl_1
+
+[af_moonl_2_af_iam]:af_iam,af_belt
+description			= st_af_moonl_2_descr
+inv_name			= st_af_moonl_2_af_iam_name
+inv_name_short		= st_af_moonl_2_af_iam_name
+1icon_layer        	= af_moonl_2
+
+[af_moonl_3_af_iam]:af_iam,af_belt
+description			= st_af_moonl_3_descr
+inv_name			= st_af_moonl_3_af_iam_name
+inv_name_short		= st_af_moonl_3_af_iam_name
+1icon_layer        	= af_moonl_3
+
+[af_moonl_4_af_iam]:af_iam,af_belt
+description			= st_af_moonl_4_descr
+inv_name			= st_af_moonl_4_af_iam_name
+inv_name_short		= st_af_moonl_4_af_iam_name
+1icon_layer        	= af_moonl_4
+
+[af_ameba_slime_af_iam]:af_iam,af_belt
+description			= st_af_ameba_slime_descr
+inv_name			= st_af_ameba_slime_af_iam_name
+inv_name_short		= st_af_ameba_slime_af_iam_name
+1icon_layer        	= af_ameba_slime
+
+[af_ameba_slime_d1_af_iam]:af_ameba_slime_af_iam
+[af_ameba_slime_d2_af_iam]:af_ameba_slime_af_iam
+[af_ameba_slime_d3_af_iam]:af_ameba_slime_af_iam
+[af_ameba_slime_d4_af_iam]:af_ameba_slime_af_iam
+[af_ameba_slime_d5_af_iam]:af_ameba_slime_af_iam
+
+[af_ameba_slug_af_iam]:af_iam,af_belt
+description			= st_af_ameba_slug_descr
+inv_name			= st_af_ameba_slug_af_iam_name
+inv_name_short		= st_af_ameba_slug_af_iam_name
+1icon_layer        	= af_ameba_slug
+
+[af_ameba_slug_d1_af_iam]:af_ameba_slug_af_iam
+[af_ameba_slug_d2_af_iam]:af_ameba_slug_af_iam
+[af_ameba_slug_d3_af_iam]:af_ameba_slug_af_iam
+[af_ameba_slug_d4_af_iam]:af_ameba_slug_af_iam
+[af_ameba_slug_d5_af_iam]:af_ameba_slug_af_iam
+
+[af_ameba_mica_af_iam]:af_iam,af_belt
+description			= st_af_ameba_mica_descr
+inv_name			= st_af_ameba_mica_af_iam_name
+inv_name_short		= st_af_ameba_mica_af_iam_name
+1icon_layer        	= af_ameba_mica
+
+[af_ameba_mica_d1_af_iam]:af_ameba_mica_af_iam
+[af_ameba_mica_d2_af_iam]:af_ameba_mica_af_iam
+[af_ameba_mica_d3_af_iam]:af_ameba_mica_af_iam
+[af_ameba_mica_d4_af_iam]:af_ameba_mica_af_iam
+[af_ameba_mica_d5_af_iam]:af_ameba_mica_af_iam
+
+[af_pellicle_af_iam]:af_iam,af_belt
+description			= st_af_pellicle_descr
+inv_name			= st_af_pellicle_af_iam_name
+inv_name_short		= st_af_pellicle_af_iam_name
+1icon_layer        	= af_pellicle
+
+[af_ameba_mica_capsule_af_iam]:af_capsule_base_af_iam
+[af_ameba_mica_d1_capsule_af_iam]:af_capsule_base_af_iam
+[af_ameba_mica_d2_capsule_af_iam]:af_capsule_base_af_iam
+[af_ameba_mica_d3_capsule_af_iam]:af_capsule_base_af_iam
+[af_ameba_mica_d4_capsule_af_iam]:af_capsule_base_af_iam
+[af_ameba_mica_d5_capsule_af_iam]:af_capsule_base_af_iam
+[af_pellicle_capsule_af_iam]:af_capsule_base_af_iam
+
+[af_pell_1_af_iam]:af_iam,af_belt
+description			= st_af_pell_1_descr
+inv_name			= st_af_pell_1_af_iam_name
+inv_name_short		= st_af_pell_1_af_iam_name
+1icon_layer        	= af_pell_1
+
+[af_pell_2_af_iam]:af_iam,af_belt
+description			= st_af_pell_2_descr
+inv_name			= st_af_pell_2_af_iam_name
+inv_name_short		= st_af_pell_2_af_iam_name
+1icon_layer        	= af_pell_2
+
+[af_pell_3_af_iam]:af_iam,af_belt
+description			= st_af_pell_3_descr
+inv_name			= st_af_pell_3_af_iam_name
+inv_name_short		= st_af_pell_3_af_iam_name
+1icon_layer        	= af_pell_3
+
+[af_pell_4_af_iam]:af_iam,af_belt
+description			= st_af_pell_4_descr
+inv_name			= st_af_pell_4_af_iam_name
+inv_name_short		= st_af_pell_4_af_iam_name
+1icon_layer        	= af_pell_4
+
+[af_rusty_thorn_af_iam]:af_iam,af_belt
+description			= st_af_rusty_thorn_descr
+inv_name			= st_af_rusty_thorn_af_iam_name
+inv_name_short		= st_af_rusty_thorn_af_iam_name
+1icon_layer        	= af_rusty_thorn
+
+[af_rusty_thorn_d1_af_iam]:af_rusty_thorn_af_iam
+[af_rusty_thorn_d2_af_iam]:af_rusty_thorn_af_iam
+[af_rusty_thorn_d3_af_iam]:af_rusty_thorn_af_iam
+[af_rusty_thorn_d4_af_iam]:af_rusty_thorn_af_iam
+[af_rusty_thorn_d5_af_iam]:af_rusty_thorn_af_iam
+
+[af_rusty_kristall_af_iam]:af_iam,af_belt
+description			= st_af_rusty_kristall_descr
+inv_name			= st_af_rusty_kristall_af_iam_name
+inv_name_short		= st_af_rusty_kristall_af_iam_name
+1icon_layer        	= af_rusty_kristall
+
+[af_rusty_kristall_d1_af_iam]:af_rusty_kristall_af_iam
+[af_rusty_kristall_d2_af_iam]:af_rusty_kristall_af_iam
+[af_rusty_kristall_d3_af_iam]:af_rusty_kristall_af_iam
+[af_rusty_kristall_d4_af_iam]:af_rusty_kristall_af_iam
+[af_rusty_kristall_d5_af_iam]:af_rusty_kristall_af_iam
+
+[af_rusty_sea-urchin_af_iam]:af_iam,af_belt
+description			= st_af_rusty_sea-urchin_descr
+inv_name			= st_af_rusty_sea-urchin_af_iam_name
+inv_name_short		= st_af_rusty_sea-urchin_af_iam_name
+1icon_layer        	= af_rusty_sea-urchin
+
+[af_rusty_sea-urchin_d1_af_iam]:af_rusty_sea-urchin_af_iam
+[af_rusty_sea-urchin_d2_af_iam]:af_rusty_sea-urchin_af_iam
+[af_rusty_sea-urchin_d3_af_iam]:af_rusty_sea-urchin_af_iam
+[af_rusty_sea-urchin_d4_af_iam]:af_rusty_sea-urchin_af_iam
+[af_rusty_sea-urchin_d5_af_iam]:af_rusty_sea-urchin_af_iam
+
+[af_dummy_spring_af_iam]:af_iam,af_belt
+description			= st_af_dummy_spring_descr
+inv_name			= st_af_dummy_spring_af_iam_name
+inv_name_short		= st_af_dummy_spring_af_iam_name
+1icon_layer        	= af_dummy_spring
+
+[af_rusty_sea-urchin_capsule_af_iam]:af_capsule_base_af_iam
+[af_rusty_sea-urchin_d1_capsule_af_iam]:af_capsule_base_af_iam
+[af_rusty_sea-urchin_d2_capsule_af_iam]:af_capsule_base_af_iam
+[af_rusty_sea-urchin_d3_capsule_af_iam]:af_capsule_base_af_iam
+[af_rusty_sea-urchin_d4_capsule_af_iam]:af_capsule_base_af_iam
+[af_rusty_sea-urchin_d5_capsule_af_iam]:af_capsule_base_af_iam
+[af_dummy_spring_capsule_af_iam]:af_capsule_base_af_iam
+
+[af_dkbrz_1_af_iam]:af_iam,af_belt
+description			= st_af_dkbrz_1_descr
+inv_name			= st_af_dkbrz_1_af_iam_name
+inv_name_short		= st_af_dkbrz_1_af_iam_name
+1icon_layer        	= af_dkbrz_1
+
+[af_dkbrz_2_af_iam]:af_iam,af_belt
+description			= st_af_dkbrz_2_descr
+inv_name			= st_af_dkbrz_2_af_iam_name
+inv_name_short		= st_af_dkbrz_2_af_iam_name
+1icon_layer        	= af_dkbrz_2
+
+[af_dkbrz_3_af_iam]:af_iam,af_belt
+description			= st_af_dkbrz_3_descr
+inv_name			= st_af_dkbrz_3_af_iam_name
+inv_name_short		= st_af_dkbrz_3_af_iam_name
+1icon_layer        	= af_dkbrz_3
+
+[af_dkbrz_4_af_iam]:af_iam,af_belt
+description			= st_af_dkbrz_4_descr
+inv_name			= st_af_dkbrz_4_af_iam_name
+inv_name_short		= st_af_dkbrz_4_af_iam_name
+1icon_layer        	= af_dkbrz_4
+
+[af_mayatnik_tuman_af_iam]:af_iam,af_belt
+description			= st_af_mayatnik_tuman_descr
+inv_name			= st_af_mayatnik_tuman_af_iam_name
+inv_name_short		= st_af_mayatnik_tuman_af_iam_name
+1icon_layer        	= af_mayatnik_tuman
+[af_mayatnik_tuman_capsule_af_iam]:af_m_capsule_base_af_iam
+
+[af_mayatnik_les_af_iam]:af_iam,af_belt
+description			= st_af_mayatnik_les_descr
+inv_name			= st_af_mayatnik_les_af_iam_name
+inv_name_short		= st_af_mayatnik_les_af_iam_name
+1icon_layer        	= af_mayatnik_les
+[af_mayatnik_les_capsule_af_iam]:af_m_capsule_base_af_iam
+
+[af_mayatnik_radar_af_iam]:af_iam,af_belt
+description			= st_af_mayatnik_radar_descr
+inv_name			= st_af_mayatnik_radar_af_iam_name
+inv_name_short		= st_af_mayatnik_radar_af_iam_name
+1icon_layer        	= af_mayatnik_radar
+[af_mayatnik_radar_capsule_af_iam]:af_m_capsule_base_af_iam
+
+[af_mayatnik_nicola_af_iam]:af_iam,af_belt
+description			= st_af_mayatnik_nicola_descr
+inv_name			= st_af_mayatnik_nicola_af_iam_name
+inv_name_short		= st_af_mayatnik_nicola_af_iam_name
+1icon_layer        	= af_mayatnik_nicola
+[af_mayatnik_nicola_capsule_af_iam]:af_m_capsule_base_af_iam
+
+[af_mayatnik_prip_af_iam]:af_iam,af_belt
+description			= st_af_mayatnik_prip_descr
+inv_name			= st_af_mayatnik_prip_af_iam_name
+inv_name_short		= st_af_mayatnik_prip_af_iam_name
+1icon_layer        	= af_mayatnik_prip
+[af_mayatnik_prip_capsule_af_iam]:af_m_capsule_base_af_iam
+
+[af_mayatnik_chernob_af_iam]:af_iam,af_belt
+description			= st_af_mayatnik_chernob_descr
+inv_name			= st_af_mayatnik_chernob_af_iam_name
+inv_name_short		= st_af_mayatnik_chernob_af_iam_name
+1icon_layer        	= af_mayatnik_chernob
+[af_mayatnik_chernob_capsule_af_iam]:af_m_capsule_base_af_iam
+
+;------------------------------------------------------------------------------------------
+;----------------------AAC WITH ARTEFACT---------------------------------------------------
+;------------------------------------------------------------------------------------------
+
+[af_capsule_base_af_aac]:af_aac,af_belt
+description			= st_af_capsule_descr
+inv_name			= st_af_capsule_af_aac_name
+inv_name_short		= st_af_capsule_af_aac_name
+1icon_layer        	= af_capsule_base
+
+[af_m_capsule_base_af_aac]:af_aac,af_belt
+description			= st_af_m_capsule_descr
+inv_name			= st_af_capsule_af_aac_name
+inv_name_short		= st_af_capsule_af_aac_name
+1icon_layer        	= af_m_capsule_base
+
+[af_medusa_af_aac]:af_aac,af_belt
+description			= st_af_medusa_descr
+inv_name			= st_af_medusa_af_aac_name
+inv_name_short		= st_af_medusa_af_aac_name
+1icon_layer        	= af_medusa
+
+[af_medusa_d1_af_aac]:af_medusa_af_aac
+[af_medusa_d2_af_aac]:af_medusa_af_aac
+[af_medusa_d3_af_aac]:af_medusa_af_aac
+[af_medusa_d4_af_aac]:af_medusa_af_aac
+[af_medusa_d5_af_aac]:af_medusa_af_aac
+
+[af_cristall_flower_af_aac]:af_aac,af_belt
+description			= st_af_cristall_flower_descr
+inv_name			= st_af_cristall_flower_af_aac_name
+inv_name_short		= st_af_cristall_flower_af_aac_name
+1icon_layer        	= af_cristall_flower
+
+[af_cristall_flower_d1_af_aac]:af_cristall_flower_af_aac
+[af_cristall_flower_d2_af_aac]:af_cristall_flower_af_aac
+[af_cristall_flower_d3_af_aac]:af_cristall_flower_af_aac
+[af_cristall_flower_d4_af_aac]:af_cristall_flower_af_aac
+[af_cristall_flower_d5_af_aac]:af_cristall_flower_af_aac
+
+[af_night_star_af_aac]:af_aac,af_belt
+description			= st_af_night_star_descr
+inv_name			= st_af_night_star_af_aac_name
+inv_name_short		= st_af_night_star_af_aac_name
+1icon_layer        	= af_night_star
+
+[af_night_star_d1_af_aac]:af_night_star_af_aac
+[af_night_star_d2_af_aac]:af_night_star_af_aac
+[af_night_star_d3_af_aac]:af_night_star_af_aac
+[af_night_star_d4_af_aac]:af_night_star_af_aac
+[af_night_star_d5_af_aac]:af_night_star_af_aac
+
+[af_dummy_glassbeads_af_aac]:af_aac,af_belt
+description			= st_af_dummy_glassbeads_descr
+inv_name			= st_af_dummy_glassbeads_af_aac_name
+inv_name_short		= st_af_dummy_glassbeads_af_aac_name
+1icon_layer        	= af_dummy_glassbeads
+
+[af_night_star_capsule_af_aac]:af_capsule_base_af_aac
+[af_night_star_d1_capsule_af_aac]:af_capsule_base_af_aac
+[af_night_star_d2_capsule_af_aac]:af_capsule_base_af_aac
+[af_night_star_d3_capsule_af_aac]:af_capsule_base_af_aac
+[af_night_star_d4_capsule_af_aac]:af_capsule_base_af_aac
+[af_night_star_d5_capsule_af_aac]:af_capsule_base_af_aac
+[af_dummy_glassbeads_capsule_af_aac]:af_capsule_base_af_aac
+
+[af_babka_1_af_aac]:af_aac,af_belt
+description			= st_af_babka_1_descr
+inv_name			= st_af_babka_1_af_aac_name
+inv_name_short		= st_af_babka_1_af_aac_name
+1icon_layer        	= af_babka_1
+
+[af_babka_2_af_aac]:af_aac,af_belt
+description			= st_af_babka_2_descr
+inv_name			= st_af_babka_2_af_aac_name
+inv_name_short		= st_af_babka_2_af_aac_name
+1icon_layer        	= af_babka_2
+
+[af_babka_3_af_aac]:af_aac,af_belt
+description			= st_af_babka_3_descr
+inv_name			= st_af_babka_3_af_aac_name
+inv_name_short		= st_af_babka_3_af_aac_name
+1icon_layer        	= af_babka_3
+
+[af_babka_4_af_aac]:af_aac,af_belt
+description			= st_af_babka_4_descr
+inv_name			= st_af_babka_4_af_aac_name
+inv_name_short		= st_af_babka_4_af_aac_name
+1icon_layer        	= af_babka_4
+
+[af_vyvert_af_aac]:af_aac,af_belt
+description			= st_af_vyvert_descr
+inv_name			= st_af_vyvert_af_aac_name
+inv_name_short		= st_af_vyvert_af_aac_name
+1icon_layer        	= af_vyvert
+
+[af_vyvert_d1_af_aac]:af_vyvert_af_aac
+[af_vyvert_d2_af_aac]:af_vyvert_af_aac
+[af_vyvert_d3_af_aac]:af_vyvert_af_aac
+[af_vyvert_d4_af_aac]:af_vyvert_af_aac
+[af_vyvert_d5_af_aac]:af_vyvert_af_aac
+
+[af_gravi_af_aac]:af_aac,af_belt
+description			= st_af_gravi_descr
+inv_name			= st_af_gravi_af_aac_name
+inv_name_short		= st_af_gravi_af_aac_name
+1icon_layer        	= af_gravi
+
+[af_gravi_d1_af_aac]:af_gravi_af_aac
+[af_gravi_d2_af_aac]:af_gravi_af_aac
+[af_gravi_d3_af_aac]:af_gravi_af_aac
+[af_gravi_d4_af_aac]:af_gravi_af_aac
+[af_gravi_d5_af_aac]:af_gravi_af_aac
+
+[af_gold_fish_af_aac]:af_aac,af_belt
+description			= st_af_gold_fish_descr
+inv_name			= st_af_gold_fish_af_aac_name
+inv_name_short		= st_af_gold_fish_af_aac_name
+1icon_layer        	= af_gold_fish
+
+[af_gold_fish_d1_af_aac]:af_gold_fish_af_aac
+[af_gold_fish_d2_af_aac]:af_gold_fish_af_aac
+[af_gold_fish_d3_af_aac]:af_gold_fish_af_aac
+[af_gold_fish_d4_af_aac]:af_gold_fish_af_aac
+[af_gold_fish_d5_af_aac]:af_gold_fish_af_aac
+
+[af_fuzz_kolobok_af_aac]:af_aac,af_belt
+description			= st_af_fuzz_kolobok_descr
+inv_name			= st_af_fuzz_kolobok_af_aac_name
+inv_name_short		= st_af_fuzz_kolobok_af_aac_name
+1icon_layer        	= af_fuzz_kolobok
+
+[af_gold_fish_capsule_af_aac]:af_capsule_base_af_aac
+[af_gold_fish_d1_capsule_af_aac]:af_capsule_base_af_aac
+[af_gold_fish_d2_capsule_af_aac]:af_capsule_base_af_aac
+[af_gold_fish_d3_capsule_af_aac]:af_capsule_base_af_aac
+[af_gold_fish_d4_capsule_af_aac]:af_capsule_base_af_aac
+[af_gold_fish_d5_capsule_af_aac]:af_capsule_base_af_aac
+[af_fuzz_kolobok_capsule_af_aac]:af_capsule_base_af_aac
+
+[af_kolob_1_af_aac]:af_aac,af_belt
+description			= st_af_kolob_1_descr
+inv_name			= st_af_kolob_1_af_aac_name
+inv_name_short		= st_af_kolob_1_af_aac_name
+1icon_layer        	= af_kolob_1
+
+[af_kolob_2_af_aac]:af_aac,af_belt
+description			= st_af_kolob_2_descr
+inv_name			= st_af_kolob_2_af_aac_name
+inv_name_short		= st_af_kolob_2_af_aac_name
+1icon_layer        	= af_kolob_2
+
+[af_kolob_3_af_aac]:af_aac,af_belt
+description			= st_af_kolob_3_descr
+inv_name			= st_af_kolob_3_af_aac_name
+inv_name_short		= st_af_kolob_3_af_aac_name
+1icon_layer        	= af_kolob_3
+
+[af_kolob_4_af_aac]:af_aac,af_belt
+description			= st_af_kolob_4_descr
+inv_name			= st_af_kolob_4_af_aac_name
+inv_name_short		= st_af_kolob_4_af_aac_name
+1icon_layer        	= af_kolob_4
+
+[af_eye_af_aac]:af_aac,af_belt
+description			= st_af_eye_descr
+inv_name			= st_af_eye_af_aac_name
+inv_name_short		= st_af_eye_af_aac_name
+1icon_layer        	= af_eye
+
+[af_eye_d1_af_aac]:af_eye_af_aac
+[af_eye_d2_af_aac]:af_eye_af_aac
+[af_eye_d3_af_aac]:af_eye_af_aac
+[af_eye_d4_af_aac]:af_eye_af_aac
+[af_eye_d5_af_aac]:af_eye_af_aac
+
+[af_fireball_af_aac]:af_aac,af_belt
+description			= st_af_fireball_descr
+inv_name			= st_af_fireball_af_aac_name
+inv_name_short		= st_af_fireball_af_aac_name
+1icon_layer        	= af_fireball
+
+[af_fireball_d1_af_aac]:af_fireball_af_aac
+[af_fireball_d2_af_aac]:af_fireball_af_aac
+[af_fireball_d3_af_aac]:af_fireball_af_aac
+[af_fireball_d4_af_aac]:af_fireball_af_aac
+[af_fireball_d5_af_aac]:af_fireball_af_aac
+
+[af_cristall_af_aac]:af_aac,af_belt
+description			= st_af_cristall_descr
+inv_name			= st_af_cristall_af_aac_name
+inv_name_short		= st_af_cristall_af_aac_name
+1icon_layer        	= af_cristall
+
+[af_cristall_d1_af_aac]:af_cristall_af_aac
+[af_cristall_d2_af_aac]:af_cristall_af_aac
+[af_cristall_d3_af_aac]:af_cristall_af_aac
+[af_cristall_d4_af_aac]:af_cristall_af_aac
+[af_cristall_d5_af_aac]:af_cristall_af_aac
+
+[af_dummy_dummy_af_aac]:af_aac,af_belt
+description			= st_af_dummy_dummy_descr
+inv_name			= st_af_dummy_dummy_af_aac_name
+inv_name_short		= st_af_dummy_dummy_af_aac_name
+1icon_layer        	= af_dummy_dummy
+
+[af_cristall_capsule_af_aac]:af_capsule_base_af_aac
+[af_cristall_d1_capsule_af_aac]:af_capsule_base_af_aac
+[af_cristall_d2_capsule_af_aac]:af_capsule_base_af_aac
+[af_cristall_d3_capsule_af_aac]:af_capsule_base_af_aac
+[af_cristall_d4_capsule_af_aac]:af_capsule_base_af_aac
+[af_cristall_d5_capsule_af_aac]:af_capsule_base_af_aac
+[af_dummy_dummy_capsule_af_aac]:af_capsule_base_af_aac
+
+[af_dummy_1_af_aac]:af_aac,af_belt
+description			= st_af_dummy_1_descr
+inv_name			= st_af_dummy_1_af_aac_name
+inv_name_short		= st_af_dummy_1_af_aac_name
+1icon_layer        	= af_dummy_1
+
+[af_dummy_2_af_aac]:af_aac,af_belt
+description			= st_af_dummy_2_descr
+inv_name			= st_af_dummy_2_af_aac_name
+inv_name_short		= st_af_dummy_2_af_aac_name
+1icon_layer        	= af_dummy_2
+
+[af_dummy_3_af_aac]:af_aac,af_belt
+description			= st_af_dummy_3_descr
+inv_name			= st_af_dummy_3_af_aac_name
+inv_name_short		= st_af_dummy_3_af_aac_name
+1icon_layer        	= af_dummy_3
+
+[af_dummy_4_af_aac]:af_aac,af_belt
+description			= st_af_dummy_4_descr
+inv_name			= st_af_dummy_4_af_aac_name
+inv_name_short		= st_af_dummy_4_af_aac_name
+1icon_layer        	= af_dummy_4
+
+[af_blood_af_aac]:af_aac,af_belt
+description			= st_af_blood_descr
+inv_name			= st_af_blood_af_aac_name
+inv_name_short		= st_af_blood_af_aac_name
+1icon_layer        	= af_blood
+
+[af_blood_d1_af_aac]:af_blood_af_aac
+[af_blood_d2_af_aac]:af_blood_af_aac
+[af_blood_d3_af_aac]:af_blood_af_aac
+[af_blood_d4_af_aac]:af_blood_af_aac
+[af_blood_d5_af_aac]:af_blood_af_aac
+
+[af_mincer_meat_af_aac]:af_aac,af_belt
+description			= st_af_mincer_meat_descr
+inv_name			= st_af_mincer_meat_af_aac_name
+inv_name_short		= st_af_mincer_meat_af_aac_name
+1icon_layer        	= af_mincer_meat
+
+[af_mincer_meat_d1_af_aac]:af_mincer_meat_af_aac
+[af_mincer_meat_d2_af_aac]:af_mincer_meat_af_aac
+[af_mincer_meat_d3_af_aac]:af_mincer_meat_af_aac
+[af_mincer_meat_d4_af_aac]:af_mincer_meat_af_aac
+[af_mincer_meat_d5_af_aac]:af_mincer_meat_af_aac
+
+[af_soul_af_aac]:af_aac,af_belt
+description			= st_af_soul_descr
+inv_name			= st_af_soul_af_aac_name
+inv_name_short		= st_af_soul_af_aac_name
+1icon_layer        	= af_soul
+
+[af_soul_d1_af_aac]:af_soul_af_aac
+[af_soul_d2_af_aac]:af_soul_af_aac
+[af_soul_d3_af_aac]:af_soul_af_aac
+[af_soul_d4_af_aac]:af_soul_af_aac
+[af_soul_d5_af_aac]:af_soul_af_aac
+
+[af_glass_af_aac]:af_aac,af_belt
+description			= st_af_glass_descr
+inv_name			= st_af_glass_af_aac_name
+inv_name_short		= st_af_glass_af_aac_name
+1icon_layer        	= af_glass
+
+[af_soul_capsule_af_aac]:af_capsule_base_af_aac
+[af_soul_d1_capsule_af_aac]:af_capsule_base_af_aac
+[af_soul_d2_capsule_af_aac]:af_capsule_base_af_aac
+[af_soul_d3_capsule_af_aac]:af_capsule_base_af_aac
+[af_soul_d4_capsule_af_aac]:af_capsule_base_af_aac
+[af_soul_d5_capsule_af_aac]:af_capsule_base_af_aac
+[af_glass_capsule_af_aac]:af_capsule_base_af_aac
+
+[af_soul_1_af_aac]:af_aac,af_belt
+description			= st_af_soul_1_descr
+inv_name			= st_af_soul_1_af_aac_name
+inv_name_short		= st_af_soul_1_af_aac_name
+1icon_layer        	= af_soul_1
+
+[af_soul_2_af_aac]:af_aac,af_belt
+description			= st_af_soul_2_descr
+inv_name			= st_af_soul_2_af_aac_name
+inv_name_short		= st_af_soul_2_af_aac_name
+1icon_layer        	= af_soul_2
+
+[af_soul_3_af_aac]:af_aac,af_belt
+description			= st_af_soul_3_descr
+inv_name			= st_af_soul_3_af_aac_name
+inv_name_short		= st_af_soul_3_af_aac_name
+1icon_layer        	= af_soul_3
+
+[af_soul_4_af_aac]:af_aac,af_belt
+description			= st_af_soul_4_descr
+inv_name			= st_af_soul_4_af_aac_name
+inv_name_short		= st_af_soul_4_af_aac_name
+1icon_layer        	= af_soul_4
+
+[af_electra_sparkler_af_aac]:af_aac,af_belt
+description			= st_af_electra_sparkler_descr
+inv_name			= st_af_electra_sparkler_af_aac_name
+inv_name_short		= st_af_electra_sparkler_af_aac_name
+1icon_layer        	= af_electra_sparkler
+
+[af_electra_sparkler_d1_af_aac]:af_electra_sparkler_af_aac
+[af_electra_sparkler_d2_af_aac]:af_electra_sparkler_af_aac
+[af_electra_sparkler_d3_af_aac]:af_electra_sparkler_af_aac
+[af_electra_sparkler_d4_af_aac]:af_electra_sparkler_af_aac
+[af_electra_sparkler_d5_af_aac]:af_electra_sparkler_af_aac
+
+[af_electra_flash_af_aac]:af_aac,af_belt
+description			= st_af_electra_flash_descr
+inv_name			= st_af_electra_flash_af_aac_name
+inv_name_short		= st_af_electra_flash_af_aac_name
+1icon_layer        	= af_electra_flash
+
+[af_electra_flash_d1_af_aac]:af_electra_flash_af_aac
+[af_electra_flash_d2_af_aac]:af_electra_flash_af_aac
+[af_electra_flash_d3_af_aac]:af_electra_flash_af_aac
+[af_electra_flash_d4_af_aac]:af_electra_flash_af_aac
+[af_electra_flash_d5_af_aac]:af_electra_flash_af_aac
+
+[af_electra_moonlight_af_aac]:af_aac,af_belt
+description			= st_af_electra_moonlight_descr
+inv_name			= st_af_electra_moonlight_af_aac_name
+inv_name_short		= st_af_electra_moonlight_af_aac_name
+1icon_layer        	= af_electra_moonlight
+
+[af_electra_moonlight_d1_af_aac]:af_electra_moonlight_af_aac
+[af_electra_moonlight_d2_af_aac]:af_electra_moonlight_af_aac
+[af_electra_moonlight_d3_af_aac]:af_electra_moonlight_af_aac
+[af_electra_moonlight_d4_af_aac]:af_electra_moonlight_af_aac
+[af_electra_moonlight_d5_af_aac]:af_electra_moonlight_af_aac
+
+[af_dummy_battery_af_aac]:af_aac,af_belt
+description			= st_af_dummy_battery_descr
+inv_name			= st_af_dummy_battery_af_aac_name
+inv_name_short		= st_af_dummy_battery_af_aac_name
+1icon_layer        	= af_dummy_battery
+
+[af_electra_moonlight_capsule_af_aac]:af_capsule_base_af_aac
+[af_electra_moonlight_d1_capsule_af_aac]:af_capsule_base_af_aac
+[af_electra_moonlight_d2_capsule_af_aac]:af_capsule_base_af_aac
+[af_electra_moonlight_d3_capsule_af_aac]:af_capsule_base_af_aac
+[af_electra_moonlight_d4_capsule_af_aac]:af_capsule_base_af_aac
+[af_electra_moonlight_d5_capsule_af_aac]:af_capsule_base_af_aac
+[af_dummy_battery_capsule_af_aac]:af_capsule_base_af_aac
+
+[af_moonl_1_af_aac]:af_aac,af_belt
+description			= st_af_moonl_1_descr
+inv_name			= st_af_moonl_1_af_aac_name
+inv_name_short		= st_af_moonl_1_af_aac_name
+1icon_layer        	= af_moonl_1
+
+[af_moonl_2_af_aac]:af_aac,af_belt
+description			= st_af_moonl_2_descr
+inv_name			= st_af_moonl_2_af_aac_name
+inv_name_short		= st_af_moonl_2_af_aac_name
+1icon_layer        	= af_moonl_2
+
+[af_moonl_3_af_aac]:af_aac,af_belt
+description			= st_af_moonl_3_descr
+inv_name			= st_af_moonl_3_af_aac_name
+inv_name_short		= st_af_moonl_3_af_aac_name
+1icon_layer        	= af_moonl_3
+
+[af_moonl_4_af_aac]:af_aac,af_belt
+description			= st_af_moonl_4_descr
+inv_name			= st_af_moonl_4_af_aac_name
+inv_name_short		= st_af_moonl_4_af_aac_name
+1icon_layer        	= af_moonl_4
+
+[af_ameba_slime_af_aac]:af_aac,af_belt
+description			= st_af_ameba_slime_descr
+inv_name			= st_af_ameba_slime_af_aac_name
+inv_name_short		= st_af_ameba_slime_af_aac_name
+1icon_layer        	= af_ameba_slime
+
+[af_ameba_slime_d1_af_aac]:af_ameba_slime_af_aac
+[af_ameba_slime_d2_af_aac]:af_ameba_slime_af_aac
+[af_ameba_slime_d3_af_aac]:af_ameba_slime_af_aac
+[af_ameba_slime_d4_af_aac]:af_ameba_slime_af_aac
+[af_ameba_slime_d5_af_aac]:af_ameba_slime_af_aac
+
+[af_ameba_slug_af_aac]:af_aac,af_belt
+description			= st_af_ameba_slug_descr
+inv_name			= st_af_ameba_slug_af_aac_name
+inv_name_short		= st_af_ameba_slug_af_aac_name
+1icon_layer        	= af_ameba_slug
+
+[af_ameba_slug_d1_af_aac]:af_ameba_slug_af_aac
+[af_ameba_slug_d2_af_aac]:af_ameba_slug_af_aac
+[af_ameba_slug_d3_af_aac]:af_ameba_slug_af_aac
+[af_ameba_slug_d4_af_aac]:af_ameba_slug_af_aac
+[af_ameba_slug_d5_af_aac]:af_ameba_slug_af_aac
+
+[af_ameba_mica_af_aac]:af_aac,af_belt
+description			= st_af_ameba_mica_descr
+inv_name			= st_af_ameba_mica_af_aac_name
+inv_name_short		= st_af_ameba_mica_af_aac_name
+1icon_layer        	= af_ameba_mica
+
+[af_ameba_mica_d1_af_aac]:af_ameba_mica_af_aac
+[af_ameba_mica_d2_af_aac]:af_ameba_mica_af_aac
+[af_ameba_mica_d3_af_aac]:af_ameba_mica_af_aac
+[af_ameba_mica_d4_af_aac]:af_ameba_mica_af_aac
+[af_ameba_mica_d5_af_aac]:af_ameba_mica_af_aac
+
+[af_pellicle_af_aac]:af_aac,af_belt
+description			= st_af_pellicle_descr
+inv_name			= st_af_pellicle_af_aac_name
+inv_name_short		= st_af_pellicle_af_aac_name
+1icon_layer        	= af_pellicle
+
+[af_ameba_mica_capsule_af_aac]:af_capsule_base_af_aac
+[af_ameba_mica_d1_capsule_af_aac]:af_capsule_base_af_aac
+[af_ameba_mica_d2_capsule_af_aac]:af_capsule_base_af_aac
+[af_ameba_mica_d3_capsule_af_aac]:af_capsule_base_af_aac
+[af_ameba_mica_d4_capsule_af_aac]:af_capsule_base_af_aac
+[af_ameba_mica_d5_capsule_af_aac]:af_capsule_base_af_aac
+[af_pellicle_capsule_af_aac]:af_capsule_base_af_aac
+
+[af_pell_1_af_aac]:af_aac,af_belt
+description			= st_af_pell_1_descr
+inv_name			= st_af_pell_1_af_aac_name
+inv_name_short		= st_af_pell_1_af_aac_name
+1icon_layer        	= af_pell_1
+
+[af_pell_2_af_aac]:af_aac,af_belt
+description			= st_af_pell_2_descr
+inv_name			= st_af_pell_2_af_aac_name
+inv_name_short		= st_af_pell_2_af_aac_name
+1icon_layer        	= af_pell_2
+
+[af_pell_3_af_aac]:af_aac,af_belt
+description			= st_af_pell_3_descr
+inv_name			= st_af_pell_3_af_aac_name
+inv_name_short		= st_af_pell_3_af_aac_name
+1icon_layer        	= af_pell_3
+
+[af_pell_4_af_aac]:af_aac,af_belt
+description			= st_af_pell_4_descr
+inv_name			= st_af_pell_4_af_aac_name
+inv_name_short		= st_af_pell_4_af_aac_name
+1icon_layer        	= af_pell_4
+
+[af_rusty_thorn_af_aac]:af_aac,af_belt
+description			= st_af_rusty_thorn_descr
+inv_name			= st_af_rusty_thorn_af_aac_name
+inv_name_short		= st_af_rusty_thorn_af_aac_name
+1icon_layer        	= af_rusty_thorn
+
+[af_rusty_thorn_d1_af_aac]:af_rusty_thorn_af_aac
+[af_rusty_thorn_d2_af_aac]:af_rusty_thorn_af_aac
+[af_rusty_thorn_d3_af_aac]:af_rusty_thorn_af_aac
+[af_rusty_thorn_d4_af_aac]:af_rusty_thorn_af_aac
+[af_rusty_thorn_d5_af_aac]:af_rusty_thorn_af_aac
+
+[af_rusty_kristall_af_aac]:af_aac,af_belt
+description			= st_af_rusty_kristall_descr
+inv_name			= st_af_rusty_kristall_af_aac_name
+inv_name_short		= st_af_rusty_kristall_af_aac_name
+1icon_layer        	= af_rusty_kristall
+
+[af_rusty_kristall_d1_af_aac]:af_rusty_kristall_af_aac
+[af_rusty_kristall_d2_af_aac]:af_rusty_kristall_af_aac
+[af_rusty_kristall_d3_af_aac]:af_rusty_kristall_af_aac
+[af_rusty_kristall_d4_af_aac]:af_rusty_kristall_af_aac
+[af_rusty_kristall_d5_af_aac]:af_rusty_kristall_af_aac
+
+[af_rusty_sea-urchin_af_aac]:af_aac,af_belt
+description			= st_af_rusty_sea-urchin_descr
+inv_name			= st_af_rusty_sea-urchin_af_aac_name
+inv_name_short		= st_af_rusty_sea-urchin_af_aac_name
+1icon_layer        	= af_rusty_sea-urchin
+
+[af_rusty_sea-urchin_d1_af_aac]:af_rusty_sea-urchin_af_aac
+[af_rusty_sea-urchin_d2_af_aac]:af_rusty_sea-urchin_af_aac
+[af_rusty_sea-urchin_d3_af_aac]:af_rusty_sea-urchin_af_aac
+[af_rusty_sea-urchin_d4_af_aac]:af_rusty_sea-urchin_af_aac
+[af_rusty_sea-urchin_d5_af_aac]:af_rusty_sea-urchin_af_aac
+
+[af_dummy_spring_af_aac]:af_aac,af_belt
+description			= st_af_dummy_spring_descr
+inv_name			= st_af_dummy_spring_af_aac_name
+inv_name_short		= st_af_dummy_spring_af_aac_name
+1icon_layer        	= af_dummy_spring
+
+[af_rusty_sea-urchin_capsule_af_aac]:af_capsule_base_af_aac
+[af_rusty_sea-urchin_d1_capsule_af_aac]:af_capsule_base_af_aac
+[af_rusty_sea-urchin_d2_capsule_af_aac]:af_capsule_base_af_aac
+[af_rusty_sea-urchin_d3_capsule_af_aac]:af_capsule_base_af_aac
+[af_rusty_sea-urchin_d4_capsule_af_aac]:af_capsule_base_af_aac
+[af_rusty_sea-urchin_d5_capsule_af_aac]:af_capsule_base_af_aac
+[af_dummy_spring_capsule_af_aac]:af_capsule_base_af_aac
+
+[af_dkbrz_1_af_aac]:af_aac,af_belt
+description			= st_af_dkbrz_1_descr
+inv_name			= st_af_dkbrz_1_af_aac_name
+inv_name_short		= st_af_dkbrz_1_af_aac_name
+1icon_layer        	= af_dkbrz_1
+
+[af_dkbrz_2_af_aac]:af_aac,af_belt
+description			= st_af_dkbrz_2_descr
+inv_name			= st_af_dkbrz_2_af_aac_name
+inv_name_short		= st_af_dkbrz_2_af_aac_name
+1icon_layer        	= af_dkbrz_2
+
+[af_dkbrz_3_af_aac]:af_aac,af_belt
+description			= st_af_dkbrz_3_descr
+inv_name			= st_af_dkbrz_3_af_aac_name
+inv_name_short		= st_af_dkbrz_3_af_aac_name
+1icon_layer        	= af_dkbrz_3
+
+[af_dkbrz_4_af_aac]:af_aac,af_belt
+description			= st_af_dkbrz_4_descr
+inv_name			= st_af_dkbrz_4_af_aac_name
+inv_name_short		= st_af_dkbrz_4_af_aac_name
+1icon_layer        	= af_dkbrz_4
+
+[af_mayatnik_tuman_af_aac]:af_aac,af_belt
+description			= st_af_mayatnik_tuman_descr
+inv_name			= st_af_mayatnik_tuman_af_aac_name
+inv_name_short		= st_af_mayatnik_tuman_af_aac_name
+1icon_layer        	= af_mayatnik_tuman
+[af_mayatnik_tuman_capsule_af_aac]:af_m_capsule_base_af_aac
+
+[af_mayatnik_les_af_aac]:af_aac,af_belt
+description			= st_af_mayatnik_les_descr
+inv_name			= st_af_mayatnik_les_af_aac_name
+inv_name_short		= st_af_mayatnik_les_af_aac_name
+1icon_layer        	= af_mayatnik_les
+[af_mayatnik_les_capsule_af_aac]:af_m_capsule_base_af_aac
+
+[af_mayatnik_radar_af_aac]:af_aac,af_belt
+description			= st_af_mayatnik_radar_descr
+inv_name			= st_af_mayatnik_radar_af_aac_name
+inv_name_short		= st_af_mayatnik_radar_af_aac_name
+1icon_layer        	= af_mayatnik_radar
+[af_mayatnik_radar_capsule_af_aac]:af_m_capsule_base_af_aac
+
+[af_mayatnik_nicola_af_aac]:af_aac,af_belt
+description			= st_af_mayatnik_nicola_descr
+inv_name			= st_af_mayatnik_nicola_af_aac_name
+inv_name_short		= st_af_mayatnik_nicola_af_aac_name
+1icon_layer        	= af_mayatnik_nicola
+[af_mayatnik_nicola_capsule_af_aac]:af_m_capsule_base_af_aac
+
+[af_mayatnik_prip_af_aac]:af_aac,af_belt
+description			= st_af_mayatnik_prip_descr
+inv_name			= st_af_mayatnik_prip_af_aac_name
+inv_name_short		= st_af_mayatnik_prip_af_aac_name
+1icon_layer        	= af_mayatnik_prip
+[af_mayatnik_prip_capsule_af_aac]:af_m_capsule_base_af_aac
+
+[af_mayatnik_chernob_af_aac]:af_aac,af_belt
+description			= st_af_mayatnik_chernob_descr
+inv_name			= st_af_mayatnik_chernob_af_aac_name
+inv_name_short		= st_af_mayatnik_chernob_af_aac_name
+1icon_layer        	= af_mayatnik_chernob
+[af_mayatnik_chernob_capsule_af_aac]:af_m_capsule_base_af_aac
+
+
+;------------------------------------------------------------------------------------------
+;----------------------AAM WITH ARTEFACT---------------------------------------------------
+;------------------------------------------------------------------------------------------
+
+[af_capsule_base_af_aam]:af_aam,af_belt
+description			= st_af_capsule_descr
+inv_name			= st_af_capsule_af_aam_name
+inv_name_short		= st_af_capsule_af_aam_name
+1icon_layer        	= af_capsule_base
+
+[af_m_capsule_base_af_aam]:af_aam,af_belt
+description			= st_af_m_capsule_descr
+inv_name			= st_af_capsule_af_aam_name
+inv_name_short		= st_af_capsule_af_aam_name
+1icon_layer        	= af_m_capsule_base
+
+[af_medusa_af_aam]:af_aam,af_belt
+description			= st_af_medusa_descr
+inv_name			= st_af_medusa_af_aam_name
+inv_name_short		= st_af_medusa_af_aam_name
+1icon_layer        	= af_medusa
+
+[af_medusa_d1_af_aam]:af_medusa_af_aam
+[af_medusa_d2_af_aam]:af_medusa_af_aam
+[af_medusa_d3_af_aam]:af_medusa_af_aam
+[af_medusa_d4_af_aam]:af_medusa_af_aam
+[af_medusa_d5_af_aam]:af_medusa_af_aam
+
+[af_cristall_flower_af_aam]:af_aam,af_belt
+description			= st_af_cristall_flower_descr
+inv_name			= st_af_cristall_flower_af_aam_name
+inv_name_short		= st_af_cristall_flower_af_aam_name
+1icon_layer        	= af_cristall_flower
+
+[af_cristall_flower_d1_af_aam]:af_cristall_flower_af_aam
+[af_cristall_flower_d2_af_aam]:af_cristall_flower_af_aam
+[af_cristall_flower_d3_af_aam]:af_cristall_flower_af_aam
+[af_cristall_flower_d4_af_aam]:af_cristall_flower_af_aam
+[af_cristall_flower_d5_af_aam]:af_cristall_flower_af_aam
+
+[af_night_star_af_aam]:af_aam,af_belt
+description			= st_af_night_star_descr
+inv_name			= st_af_night_star_af_aam_name
+inv_name_short		= st_af_night_star_af_aam_name
+1icon_layer        	= af_night_star
+
+[af_night_star_d1_af_aam]:af_night_star_af_aam
+[af_night_star_d2_af_aam]:af_night_star_af_aam
+[af_night_star_d3_af_aam]:af_night_star_af_aam
+[af_night_star_d4_af_aam]:af_night_star_af_aam
+[af_night_star_d5_af_aam]:af_night_star_af_aam
+
+[af_dummy_glassbeads_af_aam]:af_aam,af_belt
+description			= st_af_dummy_glassbeads_descr
+inv_name			= st_af_dummy_glassbeads_af_aam_name
+inv_name_short		= st_af_dummy_glassbeads_af_aam_name
+1icon_layer        	= af_dummy_glassbeads
+
+[af_night_star_capsule_af_aam]:af_capsule_base_af_aam
+[af_night_star_d1_capsule_af_aam]:af_capsule_base_af_aam
+[af_night_star_d2_capsule_af_aam]:af_capsule_base_af_aam
+[af_night_star_d3_capsule_af_aam]:af_capsule_base_af_aam
+[af_night_star_d4_capsule_af_aam]:af_capsule_base_af_aam
+[af_night_star_d5_capsule_af_aam]:af_capsule_base_af_aam
+[af_dummy_glassbeads_capsule_af_aam]:af_capsule_base_af_aam
+
+[af_babka_1_af_aam]:af_aam,af_belt
+description			= st_af_babka_1_descr
+inv_name			= st_af_babka_1_af_aam_name
+inv_name_short		= st_af_babka_1_af_aam_name
+1icon_layer        	= af_babka_1
+
+[af_babka_2_af_aam]:af_aam,af_belt
+description			= st_af_babka_2_descr
+inv_name			= st_af_babka_2_af_aam_name
+inv_name_short		= st_af_babka_2_af_aam_name
+1icon_layer        	= af_babka_2
+
+[af_babka_3_af_aam]:af_aam,af_belt
+description			= st_af_babka_3_descr
+inv_name			= st_af_babka_3_af_aam_name
+inv_name_short		= st_af_babka_3_af_aam_name
+1icon_layer        	= af_babka_3
+
+[af_babka_4_af_aam]:af_aam,af_belt
+description			= st_af_babka_4_descr
+inv_name			= st_af_babka_4_af_aam_name
+inv_name_short		= st_af_babka_4_af_aam_name
+1icon_layer        	= af_babka_4
+
+[af_vyvert_af_aam]:af_aam,af_belt
+description			= st_af_vyvert_descr
+inv_name			= st_af_vyvert_af_aam_name
+inv_name_short		= st_af_vyvert_af_aam_name
+1icon_layer        	= af_vyvert
+
+[af_vyvert_d1_af_aam]:af_vyvert_af_aam
+[af_vyvert_d2_af_aam]:af_vyvert_af_aam
+[af_vyvert_d3_af_aam]:af_vyvert_af_aam
+[af_vyvert_d4_af_aam]:af_vyvert_af_aam
+[af_vyvert_d5_af_aam]:af_vyvert_af_aam
+
+[af_gravi_af_aam]:af_aam,af_belt
+description			= st_af_gravi_descr
+inv_name			= st_af_gravi_af_aam_name
+inv_name_short		= st_af_gravi_af_aam_name
+1icon_layer        	= af_gravi
+
+[af_gravi_d1_af_aam]:af_gravi_af_aam
+[af_gravi_d2_af_aam]:af_gravi_af_aam
+[af_gravi_d3_af_aam]:af_gravi_af_aam
+[af_gravi_d4_af_aam]:af_gravi_af_aam
+[af_gravi_d5_af_aam]:af_gravi_af_aam
+
+[af_gold_fish_af_aam]:af_aam,af_belt
+description			= st_af_gold_fish_descr
+inv_name			= st_af_gold_fish_af_aam_name
+inv_name_short		= st_af_gold_fish_af_aam_name
+1icon_layer        	= af_gold_fish
+
+[af_gold_fish_d1_af_aam]:af_gold_fish_af_aam
+[af_gold_fish_d2_af_aam]:af_gold_fish_af_aam
+[af_gold_fish_d3_af_aam]:af_gold_fish_af_aam
+[af_gold_fish_d4_af_aam]:af_gold_fish_af_aam
+[af_gold_fish_d5_af_aam]:af_gold_fish_af_aam
+
+[af_fuzz_kolobok_af_aam]:af_aam,af_belt
+description			= st_af_fuzz_kolobok_descr
+inv_name			= st_af_fuzz_kolobok_af_aam_name
+inv_name_short		= st_af_fuzz_kolobok_af_aam_name
+1icon_layer        	= af_fuzz_kolobok
+
+[af_gold_fish_capsule_af_aam]:af_capsule_base_af_aam
+[af_gold_fish_d1_capsule_af_aam]:af_capsule_base_af_aam
+[af_gold_fish_d2_capsule_af_aam]:af_capsule_base_af_aam
+[af_gold_fish_d3_capsule_af_aam]:af_capsule_base_af_aam
+[af_gold_fish_d4_capsule_af_aam]:af_capsule_base_af_aam
+[af_gold_fish_d5_capsule_af_aam]:af_capsule_base_af_aam
+[af_fuzz_kolobok_capsule_af_aam]:af_capsule_base_af_aam
+
+[af_kolob_1_af_aam]:af_aam,af_belt
+description			= st_af_kolob_1_descr
+inv_name			= st_af_kolob_1_af_aam_name
+inv_name_short		= st_af_kolob_1_af_aam_name
+1icon_layer        	= af_kolob_1
+
+[af_kolob_2_af_aam]:af_aam,af_belt
+description			= st_af_kolob_2_descr
+inv_name			= st_af_kolob_2_af_aam_name
+inv_name_short		= st_af_kolob_2_af_aam_name
+1icon_layer        	= af_kolob_2
+
+[af_kolob_3_af_aam]:af_aam,af_belt
+description			= st_af_kolob_3_descr
+inv_name			= st_af_kolob_3_af_aam_name
+inv_name_short		= st_af_kolob_3_af_aam_name
+1icon_layer        	= af_kolob_3
+
+[af_kolob_4_af_aam]:af_aam,af_belt
+description			= st_af_kolob_4_descr
+inv_name			= st_af_kolob_4_af_aam_name
+inv_name_short		= st_af_kolob_4_af_aam_name
+1icon_layer        	= af_kolob_4
+
+[af_eye_af_aam]:af_aam,af_belt
+description			= st_af_eye_descr
+inv_name			= st_af_eye_af_aam_name
+inv_name_short		= st_af_eye_af_aam_name
+1icon_layer        	= af_eye
+
+[af_eye_d1_af_aam]:af_eye_af_aam
+[af_eye_d2_af_aam]:af_eye_af_aam
+[af_eye_d3_af_aam]:af_eye_af_aam
+[af_eye_d4_af_aam]:af_eye_af_aam
+[af_eye_d5_af_aam]:af_eye_af_aam
+
+[af_fireball_af_aam]:af_aam,af_belt
+description			= st_af_fireball_descr
+inv_name			= st_af_fireball_af_aam_name
+inv_name_short		= st_af_fireball_af_aam_name
+1icon_layer        	= af_fireball
+
+[af_fireball_d1_af_aam]:af_fireball_af_aam
+[af_fireball_d2_af_aam]:af_fireball_af_aam
+[af_fireball_d3_af_aam]:af_fireball_af_aam
+[af_fireball_d4_af_aam]:af_fireball_af_aam
+[af_fireball_d5_af_aam]:af_fireball_af_aam
+
+[af_cristall_af_aam]:af_aam,af_belt
+description			= st_af_cristall_descr
+inv_name			= st_af_cristall_af_aam_name
+inv_name_short		= st_af_cristall_af_aam_name
+1icon_layer        	= af_cristall
+
+[af_cristall_d1_af_aam]:af_cristall_af_aam
+[af_cristall_d2_af_aam]:af_cristall_af_aam
+[af_cristall_d3_af_aam]:af_cristall_af_aam
+[af_cristall_d4_af_aam]:af_cristall_af_aam
+[af_cristall_d5_af_aam]:af_cristall_af_aam
+
+[af_dummy_dummy_af_aam]:af_aam,af_belt
+description			= st_af_dummy_dummy_descr
+inv_name			= st_af_dummy_dummy_af_aam_name
+inv_name_short		= st_af_dummy_dummy_af_aam_name
+1icon_layer        	= af_dummy_dummy
+
+[af_cristall_capsule_af_aam]:af_capsule_base_af_aam
+[af_cristall_d1_capsule_af_aam]:af_capsule_base_af_aam
+[af_cristall_d2_capsule_af_aam]:af_capsule_base_af_aam
+[af_cristall_d3_capsule_af_aam]:af_capsule_base_af_aam
+[af_cristall_d4_capsule_af_aam]:af_capsule_base_af_aam
+[af_cristall_d5_capsule_af_aam]:af_capsule_base_af_aam
+[af_dummy_dummy_capsule_af_aam]:af_capsule_base_af_aam
+
+[af_dummy_1_af_aam]:af_aam,af_belt
+description			= st_af_dummy_1_descr
+inv_name			= st_af_dummy_1_af_aam_name
+inv_name_short		= st_af_dummy_1_af_aam_name
+1icon_layer        	= af_dummy_1
+
+[af_dummy_2_af_aam]:af_aam,af_belt
+description			= st_af_dummy_2_descr
+inv_name			= st_af_dummy_2_af_aam_name
+inv_name_short		= st_af_dummy_2_af_aam_name
+1icon_layer        	= af_dummy_2
+
+[af_dummy_3_af_aam]:af_aam,af_belt
+description			= st_af_dummy_3_descr
+inv_name			= st_af_dummy_3_af_aam_name
+inv_name_short		= st_af_dummy_3_af_aam_name
+1icon_layer        	= af_dummy_3
+
+[af_dummy_4_af_aam]:af_aam,af_belt
+description			= st_af_dummy_4_descr
+inv_name			= st_af_dummy_4_af_aam_name
+inv_name_short		= st_af_dummy_4_af_aam_name
+1icon_layer        	= af_dummy_4
+
+[af_blood_af_aam]:af_aam,af_belt
+description			= st_af_blood_descr
+inv_name			= st_af_blood_af_aam_name
+inv_name_short		= st_af_blood_af_aam_name
+1icon_layer        	= af_blood
+
+[af_blood_d1_af_aam]:af_blood_af_aam
+[af_blood_d2_af_aam]:af_blood_af_aam
+[af_blood_d3_af_aam]:af_blood_af_aam
+[af_blood_d4_af_aam]:af_blood_af_aam
+[af_blood_d5_af_aam]:af_blood_af_aam
+
+[af_mincer_meat_af_aam]:af_aam,af_belt
+description			= st_af_mincer_meat_descr
+inv_name			= st_af_mincer_meat_af_aam_name
+inv_name_short		= st_af_mincer_meat_af_aam_name
+1icon_layer        	= af_mincer_meat
+
+[af_mincer_meat_d1_af_aam]:af_mincer_meat_af_aam
+[af_mincer_meat_d2_af_aam]:af_mincer_meat_af_aam
+[af_mincer_meat_d3_af_aam]:af_mincer_meat_af_aam
+[af_mincer_meat_d4_af_aam]:af_mincer_meat_af_aam
+[af_mincer_meat_d5_af_aam]:af_mincer_meat_af_aam
+
+[af_soul_af_aam]:af_aam,af_belt
+description			= st_af_soul_descr
+inv_name			= st_af_soul_af_aam_name
+inv_name_short		= st_af_soul_af_aam_name
+1icon_layer        	= af_soul
+
+[af_soul_d1_af_aam]:af_soul_af_aam
+[af_soul_d2_af_aam]:af_soul_af_aam
+[af_soul_d3_af_aam]:af_soul_af_aam
+[af_soul_d4_af_aam]:af_soul_af_aam
+[af_soul_d5_af_aam]:af_soul_af_aam
+
+[af_glass_af_aam]:af_aam,af_belt
+description			= st_af_glass_descr
+inv_name			= st_af_glass_af_aam_name
+inv_name_short		= st_af_glass_af_aam_name
+1icon_layer        	= af_glass
+
+[af_soul_capsule_af_aam]:af_capsule_base_af_aam
+[af_soul_d1_capsule_af_aam]:af_capsule_base_af_aam
+[af_soul_d2_capsule_af_aam]:af_capsule_base_af_aam
+[af_soul_d3_capsule_af_aam]:af_capsule_base_af_aam
+[af_soul_d4_capsule_af_aam]:af_capsule_base_af_aam
+[af_soul_d5_capsule_af_aam]:af_capsule_base_af_aam
+[af_glass_capsule_af_aam]:af_capsule_base_af_aam
+
+[af_soul_1_af_aam]:af_aam,af_belt
+description			= st_af_soul_1_descr
+inv_name			= st_af_soul_1_af_aam_name
+inv_name_short		= st_af_soul_1_af_aam_name
+1icon_layer        	= af_soul_1
+
+[af_soul_2_af_aam]:af_aam,af_belt
+description			= st_af_soul_2_descr
+inv_name			= st_af_soul_2_af_aam_name
+inv_name_short		= st_af_soul_2_af_aam_name
+1icon_layer        	= af_soul_2
+
+[af_soul_3_af_aam]:af_aam,af_belt
+description			= st_af_soul_3_descr
+inv_name			= st_af_soul_3_af_aam_name
+inv_name_short		= st_af_soul_3_af_aam_name
+1icon_layer        	= af_soul_3
+
+[af_soul_4_af_aam]:af_aam,af_belt
+description			= st_af_soul_4_descr
+inv_name			= st_af_soul_4_af_aam_name
+inv_name_short		= st_af_soul_4_af_aam_name
+1icon_layer        	= af_soul_4
+
+[af_electra_sparkler_af_aam]:af_aam,af_belt
+description			= st_af_electra_sparkler_descr
+inv_name			= st_af_electra_sparkler_af_aam_name
+inv_name_short		= st_af_electra_sparkler_af_aam_name
+1icon_layer        	= af_electra_sparkler
+
+[af_electra_sparkler_d1_af_aam]:af_electra_sparkler_af_aam
+[af_electra_sparkler_d2_af_aam]:af_electra_sparkler_af_aam
+[af_electra_sparkler_d3_af_aam]:af_electra_sparkler_af_aam
+[af_electra_sparkler_d4_af_aam]:af_electra_sparkler_af_aam
+[af_electra_sparkler_d5_af_aam]:af_electra_sparkler_af_aam
+
+[af_electra_flash_af_aam]:af_aam,af_belt
+description			= st_af_electra_flash_descr
+inv_name			= st_af_electra_flash_af_aam_name
+inv_name_short		= st_af_electra_flash_af_aam_name
+1icon_layer        	= af_electra_flash
+
+[af_electra_flash_d1_af_aam]:af_electra_flash_af_aam
+[af_electra_flash_d2_af_aam]:af_electra_flash_af_aam
+[af_electra_flash_d3_af_aam]:af_electra_flash_af_aam
+[af_electra_flash_d4_af_aam]:af_electra_flash_af_aam
+[af_electra_flash_d5_af_aam]:af_electra_flash_af_aam
+
+[af_electra_moonlight_af_aam]:af_aam,af_belt
+description			= st_af_electra_moonlight_descr
+inv_name			= st_af_electra_moonlight_af_aam_name
+inv_name_short		= st_af_electra_moonlight_af_aam_name
+1icon_layer        	= af_electra_moonlight
+
+[af_electra_moonlight_d1_af_aam]:af_electra_moonlight_af_aam
+[af_electra_moonlight_d2_af_aam]:af_electra_moonlight_af_aam
+[af_electra_moonlight_d3_af_aam]:af_electra_moonlight_af_aam
+[af_electra_moonlight_d4_af_aam]:af_electra_moonlight_af_aam
+[af_electra_moonlight_d5_af_aam]:af_electra_moonlight_af_aam
+
+[af_dummy_battery_af_aam]:af_aam,af_belt
+description			= st_af_dummy_battery_descr
+inv_name			= st_af_dummy_battery_af_aam_name
+inv_name_short		= st_af_dummy_battery_af_aam_name
+1icon_layer        	= af_dummy_battery
+
+[af_electra_moonlight_capsule_af_aam]:af_capsule_base_af_aam
+[af_electra_moonlight_d1_capsule_af_aam]:af_capsule_base_af_aam
+[af_electra_moonlight_d2_capsule_af_aam]:af_capsule_base_af_aam
+[af_electra_moonlight_d3_capsule_af_aam]:af_capsule_base_af_aam
+[af_electra_moonlight_d4_capsule_af_aam]:af_capsule_base_af_aam
+[af_electra_moonlight_d5_capsule_af_aam]:af_capsule_base_af_aam
+[af_dummy_battery_capsule_af_aam]:af_capsule_base_af_aam
+
+[af_moonl_1_af_aam]:af_aam,af_belt
+description			= st_af_moonl_1_descr
+inv_name			= st_af_moonl_1_af_aam_name
+inv_name_short		= st_af_moonl_1_af_aam_name
+1icon_layer        	= af_moonl_1
+
+[af_moonl_2_af_aam]:af_aam,af_belt
+description			= st_af_moonl_2_descr
+inv_name			= st_af_moonl_2_af_aam_name
+inv_name_short		= st_af_moonl_2_af_aam_name
+1icon_layer        	= af_moonl_2
+
+[af_moonl_3_af_aam]:af_aam,af_belt
+description			= st_af_moonl_3_descr
+inv_name			= st_af_moonl_3_af_aam_name
+inv_name_short		= st_af_moonl_3_af_aam_name
+1icon_layer        	= af_moonl_3
+
+[af_moonl_4_af_aam]:af_aam,af_belt
+description			= st_af_moonl_4_descr
+inv_name			= st_af_moonl_4_af_aam_name
+inv_name_short		= st_af_moonl_4_af_aam_name
+1icon_layer        	= af_moonl_4
+
+[af_ameba_slime_af_aam]:af_aam,af_belt
+description			= st_af_ameba_slime_descr
+inv_name			= st_af_ameba_slime_af_aam_name
+inv_name_short		= st_af_ameba_slime_af_aam_name
+1icon_layer        	= af_ameba_slime
+
+[af_ameba_slime_d1_af_aam]:af_ameba_slime_af_aam
+[af_ameba_slime_d2_af_aam]:af_ameba_slime_af_aam
+[af_ameba_slime_d3_af_aam]:af_ameba_slime_af_aam
+[af_ameba_slime_d4_af_aam]:af_ameba_slime_af_aam
+[af_ameba_slime_d5_af_aam]:af_ameba_slime_af_aam
+
+[af_ameba_slug_af_aam]:af_aam,af_belt
+description			= st_af_ameba_slug_descr
+inv_name			= st_af_ameba_slug_af_aam_name
+inv_name_short		= st_af_ameba_slug_af_aam_name
+1icon_layer        	= af_ameba_slug
+
+[af_ameba_slug_d1_af_aam]:af_ameba_slug_af_aam
+[af_ameba_slug_d2_af_aam]:af_ameba_slug_af_aam
+[af_ameba_slug_d3_af_aam]:af_ameba_slug_af_aam
+[af_ameba_slug_d4_af_aam]:af_ameba_slug_af_aam
+[af_ameba_slug_d5_af_aam]:af_ameba_slug_af_aam
+
+[af_ameba_mica_af_aam]:af_aam,af_belt
+description			= st_af_ameba_mica_descr
+inv_name			= st_af_ameba_mica_af_aam_name
+inv_name_short		= st_af_ameba_mica_af_aam_name
+1icon_layer        	= af_ameba_mica
+
+[af_ameba_mica_d1_af_aam]:af_ameba_mica_af_aam
+[af_ameba_mica_d2_af_aam]:af_ameba_mica_af_aam
+[af_ameba_mica_d3_af_aam]:af_ameba_mica_af_aam
+[af_ameba_mica_d4_af_aam]:af_ameba_mica_af_aam
+[af_ameba_mica_d5_af_aam]:af_ameba_mica_af_aam
+
+[af_pellicle_af_aam]:af_aam,af_belt
+description			= st_af_pellicle_descr
+inv_name			= st_af_pellicle_af_aam_name
+inv_name_short		= st_af_pellicle_af_aam_name
+1icon_layer        	= af_pellicle
+
+[af_ameba_mica_capsule_af_aam]:af_capsule_base_af_aam
+[af_ameba_mica_d1_capsule_af_aam]:af_capsule_base_af_aam
+[af_ameba_mica_d2_capsule_af_aam]:af_capsule_base_af_aam
+[af_ameba_mica_d3_capsule_af_aam]:af_capsule_base_af_aam
+[af_ameba_mica_d4_capsule_af_aam]:af_capsule_base_af_aam
+[af_ameba_mica_d5_capsule_af_aam]:af_capsule_base_af_aam
+[af_pellicle_capsule_af_aam]:af_capsule_base_af_aam
+
+[af_pell_1_af_aam]:af_aam,af_belt
+description			= st_af_pell_1_descr
+inv_name			= st_af_pell_1_af_aam_name
+inv_name_short		= st_af_pell_1_af_aam_name
+1icon_layer        	= af_pell_1
+
+[af_pell_2_af_aam]:af_aam,af_belt
+description			= st_af_pell_2_descr
+inv_name			= st_af_pell_2_af_aam_name
+inv_name_short		= st_af_pell_2_af_aam_name
+1icon_layer        	= af_pell_2
+
+[af_pell_3_af_aam]:af_aam,af_belt
+description			= st_af_pell_3_descr
+inv_name			= st_af_pell_3_af_aam_name
+inv_name_short		= st_af_pell_3_af_aam_name
+1icon_layer        	= af_pell_3
+
+[af_pell_4_af_aam]:af_aam,af_belt
+description			= st_af_pell_4_descr
+inv_name			= st_af_pell_4_af_aam_name
+inv_name_short		= st_af_pell_4_af_aam_name
+1icon_layer        	= af_pell_4
+
+[af_rusty_thorn_af_aam]:af_aam,af_belt
+description			= st_af_rusty_thorn_descr
+inv_name			= st_af_rusty_thorn_af_aam_name
+inv_name_short		= st_af_rusty_thorn_af_aam_name
+1icon_layer        	= af_rusty_thorn
+
+[af_rusty_thorn_d1_af_aam]:af_rusty_thorn_af_aam
+[af_rusty_thorn_d2_af_aam]:af_rusty_thorn_af_aam
+[af_rusty_thorn_d3_af_aam]:af_rusty_thorn_af_aam
+[af_rusty_thorn_d4_af_aam]:af_rusty_thorn_af_aam
+[af_rusty_thorn_d5_af_aam]:af_rusty_thorn_af_aam
+
+[af_rusty_kristall_af_aam]:af_aam,af_belt
+description			= st_af_rusty_kristall_descr
+inv_name			= st_af_rusty_kristall_af_aam_name
+inv_name_short		= st_af_rusty_kristall_af_aam_name
+1icon_layer        	= af_rusty_kristall
+
+[af_rusty_kristall_d1_af_aam]:af_rusty_kristall_af_aam
+[af_rusty_kristall_d2_af_aam]:af_rusty_kristall_af_aam
+[af_rusty_kristall_d3_af_aam]:af_rusty_kristall_af_aam
+[af_rusty_kristall_d4_af_aam]:af_rusty_kristall_af_aam
+[af_rusty_kristall_d5_af_aam]:af_rusty_kristall_af_aam
+
+[af_rusty_sea-urchin_af_aam]:af_aam,af_belt
+description			= st_af_rusty_sea-urchin_descr
+inv_name			= st_af_rusty_sea-urchin_af_aam_name
+inv_name_short		= st_af_rusty_sea-urchin_af_aam_name
+1icon_layer        	= af_rusty_sea-urchin
+
+[af_rusty_sea-urchin_d1_af_aam]:af_rusty_sea-urchin_af_aam
+[af_rusty_sea-urchin_d2_af_aam]:af_rusty_sea-urchin_af_aam
+[af_rusty_sea-urchin_d3_af_aam]:af_rusty_sea-urchin_af_aam
+[af_rusty_sea-urchin_d4_af_aam]:af_rusty_sea-urchin_af_aam
+[af_rusty_sea-urchin_d5_af_aam]:af_rusty_sea-urchin_af_aam
+
+[af_dummy_spring_af_aam]:af_aam,af_belt
+description			= st_af_dummy_spring_descr
+inv_name			= st_af_dummy_spring_af_aam_name
+inv_name_short		= st_af_dummy_spring_af_aam_name
+1icon_layer        	= af_dummy_spring
+
+[af_rusty_sea-urchin_capsule_af_aam]:af_capsule_base_af_aam
+[af_rusty_sea-urchin_d1_capsule_af_aam]:af_capsule_base_af_aam
+[af_rusty_sea-urchin_d2_capsule_af_aam]:af_capsule_base_af_aam
+[af_rusty_sea-urchin_d3_capsule_af_aam]:af_capsule_base_af_aam
+[af_rusty_sea-urchin_d4_capsule_af_aam]:af_capsule_base_af_aam
+[af_rusty_sea-urchin_d5_capsule_af_aam]:af_capsule_base_af_aam
+[af_dummy_spring_capsule_af_aam]:af_capsule_base_af_aam
+
+[af_dkbrz_1_af_aam]:af_aam,af_belt
+description			= st_af_dkbrz_1_descr
+inv_name			= st_af_dkbrz_1_af_aam_name
+inv_name_short		= st_af_dkbrz_1_af_aam_name
+1icon_layer        	= af_dkbrz_1
+
+[af_dkbrz_2_af_aam]:af_aam,af_belt
+description			= st_af_dkbrz_2_descr
+inv_name			= st_af_dkbrz_2_af_aam_name
+inv_name_short		= st_af_dkbrz_2_af_aam_name
+1icon_layer        	= af_dkbrz_2
+
+[af_dkbrz_3_af_aam]:af_aam,af_belt
+description			= st_af_dkbrz_3_descr
+inv_name			= st_af_dkbrz_3_af_aam_name
+inv_name_short		= st_af_dkbrz_3_af_aam_name
+1icon_layer        	= af_dkbrz_3
+
+[af_dkbrz_4_af_aam]:af_aam,af_belt
+description			= st_af_dkbrz_4_descr
+inv_name			= st_af_dkbrz_4_af_aam_name
+inv_name_short		= st_af_dkbrz_4_af_aam_name
+1icon_layer        	= af_dkbrz_4
+
+[af_mayatnik_tuman_af_aam]:af_aam,af_belt
+description			= st_af_mayatnik_tuman_descr
+inv_name			= st_af_mayatnik_tuman_af_aam_name
+inv_name_short		= st_af_mayatnik_tuman_af_aam_name
+1icon_layer        	= af_mayatnik_tuman
+[af_mayatnik_tuman_capsule_af_aam]:af_m_capsule_base_af_aam
+
+[af_mayatnik_les_af_aam]:af_aam,af_belt
+description			= st_af_mayatnik_les_descr
+inv_name			= st_af_mayatnik_les_af_aam_name
+inv_name_short		= st_af_mayatnik_les_af_aam_name
+1icon_layer        	= af_mayatnik_les
+[af_mayatnik_les_capsule_af_aam]:af_m_capsule_base_af_aam
+
+[af_mayatnik_radar_af_aam]:af_aam,af_belt
+description			= st_af_mayatnik_radar_descr
+inv_name			= st_af_mayatnik_radar_af_aam_name
+inv_name_short		= st_af_mayatnik_radar_af_aam_name
+1icon_layer        	= af_mayatnik_radar
+[af_mayatnik_radar_capsule_af_aam]:af_m_capsule_base_af_aam
+
+[af_mayatnik_nicola_af_aam]:af_aam,af_belt
+description			= st_af_mayatnik_nicola_descr
+inv_name			= st_af_mayatnik_nicola_af_aam_name
+inv_name_short		= st_af_mayatnik_nicola_af_aam_name
+1icon_layer        	= af_mayatnik_nicola
+[af_mayatnik_nicola_capsule_af_aam]:af_m_capsule_base_af_aam
+
+[af_mayatnik_prip_af_aam]:af_aam,af_belt
+description			= st_af_mayatnik_prip_descr
+inv_name			= st_af_mayatnik_prip_af_aam_name
+inv_name_short		= st_af_mayatnik_prip_af_aam_name
+1icon_layer        	= af_mayatnik_prip
+[af_mayatnik_prip_capsule_af_aam]:af_m_capsule_base_af_aam
+
+[af_mayatnik_chernob_af_aam]:af_aam,af_belt
+description			= st_af_mayatnik_chernob_descr
+inv_name			= st_af_mayatnik_chernob_af_aam_name
+inv_name_short		= st_af_mayatnik_chernob_af_aam_name
+1icon_layer        	= af_mayatnik_chernob
+[af_mayatnik_chernob_capsule_af_aam]:af_m_capsule_base_af_aam
+
+
+;------------------------------------------------------------------------------------------
+;----------------------LEAD BOX WITH ARTEFACT---------------------------------------------------
+;------------------------------------------------------------------------------------------
+
+[af_capsule_base_lead_box]:lead_box,af_belt
+description			= st_af_capsule_descr
+inv_name			= st_af_capsule_lead_box_name
+inv_name_short		= st_af_capsule_lead_box_name
+1icon_layer        	= af_capsule_base
+
+[af_m_capsule_base_lead_box]:lead_box,af_belt
+description			= st_af_m_capsule_descr
+inv_name			= st_af_capsule_lead_box_name
+inv_name_short		= st_af_capsule_lead_box_name
+1icon_layer        	= af_m_capsule_base
+
+[af_medusa_lead_box]:lead_box,af_belt
+description			= st_af_medusa_descr
+inv_name			= st_af_medusa_lead_box_name
+inv_name_short		= st_af_medusa_lead_box_name
+1icon_layer        	= af_medusa
+
+[af_medusa_d1_lead_box]:af_medusa_lead_box
+[af_medusa_d2_lead_box]:af_medusa_lead_box
+[af_medusa_d3_lead_box]:af_medusa_lead_box
+[af_medusa_d4_lead_box]:af_medusa_lead_box
+[af_medusa_d5_lead_box]:af_medusa_lead_box
+
+[af_cristall_flower_lead_box]:lead_box,af_belt
+description			= st_af_cristall_flower_descr
+inv_name			= st_af_cristall_flower_lead_box_name
+inv_name_short		= st_af_cristall_flower_lead_box_name
+1icon_layer        	= af_cristall_flower
+
+[af_cristall_flower_d1_lead_box]:af_cristall_flower_lead_box
+[af_cristall_flower_d2_lead_box]:af_cristall_flower_lead_box
+[af_cristall_flower_d3_lead_box]:af_cristall_flower_lead_box
+[af_cristall_flower_d4_lead_box]:af_cristall_flower_lead_box
+[af_cristall_flower_d5_lead_box]:af_cristall_flower_lead_box
+
+[af_night_star_lead_box]:lead_box,af_belt
+description			= st_af_night_star_descr
+inv_name			= st_af_night_star_lead_box_name
+inv_name_short		= st_af_night_star_lead_box_name
+1icon_layer        	= af_night_star
+
+[af_night_star_d1_lead_box]:af_night_star_lead_box
+[af_night_star_d2_lead_box]:af_night_star_lead_box
+[af_night_star_d3_lead_box]:af_night_star_lead_box
+[af_night_star_d4_lead_box]:af_night_star_lead_box
+[af_night_star_d5_lead_box]:af_night_star_lead_box
+
+[af_dummy_glassbeads_lead_box]:lead_box,af_belt
+description			= st_af_dummy_glassbeads_descr
+inv_name			= st_af_dummy_glassbeads_lead_box_name
+inv_name_short		= st_af_dummy_glassbeads_lead_box_name
+1icon_layer        	= af_dummy_glassbeads
+
+[af_night_star_capsule_lead_box]:af_capsule_base_lead_box
+[af_night_star_d1_capsule_lead_box]:af_capsule_base_lead_box
+[af_night_star_d2_capsule_lead_box]:af_capsule_base_lead_box
+[af_night_star_d3_capsule_lead_box]:af_capsule_base_lead_box
+[af_night_star_d4_capsule_lead_box]:af_capsule_base_lead_box
+[af_night_star_d5_capsule_lead_box]:af_capsule_base_lead_box
+[af_dummy_glassbeads_capsule_lead_box]:af_capsule_base_lead_box
+
+[af_babka_1_lead_box]:lead_box,af_belt
+description			= st_af_babka_1_descr
+inv_name			= st_af_babka_1_lead_box_name
+inv_name_short		= st_af_babka_1_lead_box_name
+1icon_layer        	= af_babka_1
+
+[af_babka_2_lead_box]:lead_box,af_belt
+description			= st_af_babka_2_descr
+inv_name			= st_af_babka_2_lead_box_name
+inv_name_short		= st_af_babka_2_lead_box_name
+1icon_layer        	= af_babka_2
+
+[af_babka_3_lead_box]:lead_box,af_belt
+description			= st_af_babka_3_descr
+inv_name			= st_af_babka_3_lead_box_name
+inv_name_short		= st_af_babka_3_lead_box_name
+1icon_layer        	= af_babka_3
+
+[af_babka_4_lead_box]:lead_box,af_belt
+description			= st_af_babka_4_descr
+inv_name			= st_af_babka_4_lead_box_name
+inv_name_short		= st_af_babka_4_lead_box_name
+1icon_layer        	= af_babka_4
+
+[af_vyvert_lead_box]:lead_box,af_belt
+description			= st_af_vyvert_descr
+inv_name			= st_af_vyvert_lead_box_name
+inv_name_short		= st_af_vyvert_lead_box_name
+1icon_layer        	= af_vyvert
+
+[af_vyvert_d1_lead_box]:af_vyvert_lead_box
+[af_vyvert_d2_lead_box]:af_vyvert_lead_box
+[af_vyvert_d3_lead_box]:af_vyvert_lead_box
+[af_vyvert_d4_lead_box]:af_vyvert_lead_box
+[af_vyvert_d5_lead_box]:af_vyvert_lead_box
+
+[af_gravi_lead_box]:lead_box,af_belt
+description			= st_af_gravi_descr
+inv_name			= st_af_gravi_lead_box_name
+inv_name_short		= st_af_gravi_lead_box_name
+1icon_layer        	= af_gravi
+
+[af_gravi_d1_lead_box]:af_gravi_lead_box
+[af_gravi_d2_lead_box]:af_gravi_lead_box
+[af_gravi_d3_lead_box]:af_gravi_lead_box
+[af_gravi_d4_lead_box]:af_gravi_lead_box
+[af_gravi_d5_lead_box]:af_gravi_lead_box
+
+[af_gold_fish_lead_box]:lead_box,af_belt
+description			= st_af_gold_fish_descr
+inv_name			= st_af_gold_fish_lead_box_name
+inv_name_short		= st_af_gold_fish_lead_box_name
+1icon_layer        	= af_gold_fish
+
+[af_gold_fish_d1_lead_box]:af_gold_fish_lead_box
+[af_gold_fish_d2_lead_box]:af_gold_fish_lead_box
+[af_gold_fish_d3_lead_box]:af_gold_fish_lead_box
+[af_gold_fish_d4_lead_box]:af_gold_fish_lead_box
+[af_gold_fish_d5_lead_box]:af_gold_fish_lead_box
+
+[af_fuzz_kolobok_lead_box]:lead_box,af_belt
+description			= st_af_fuzz_kolobok_descr
+inv_name			= st_af_fuzz_kolobok_lead_box_name
+inv_name_short		= st_af_fuzz_kolobok_lead_box_name
+1icon_layer        	= af_fuzz_kolobok
+
+[af_gold_fish_capsule_lead_box]:af_capsule_base_lead_box
+[af_gold_fish_d1_capsule_lead_box]:af_capsule_base_lead_box
+[af_gold_fish_d2_capsule_lead_box]:af_capsule_base_lead_box
+[af_gold_fish_d3_capsule_lead_box]:af_capsule_base_lead_box
+[af_gold_fish_d4_capsule_lead_box]:af_capsule_base_lead_box
+[af_gold_fish_d5_capsule_lead_box]:af_capsule_base_lead_box
+[af_fuzz_kolobok_capsule_lead_box]:af_capsule_base_lead_box
+
+[af_kolob_1_lead_box]:lead_box,af_belt
+description			= st_af_kolob_1_descr
+inv_name			= st_af_kolob_1_lead_box_name
+inv_name_short		= st_af_kolob_1_lead_box_name
+1icon_layer        	= af_kolob_1
+
+[af_kolob_2_lead_box]:lead_box,af_belt
+description			= st_af_kolob_2_descr
+inv_name			= st_af_kolob_2_lead_box_name
+inv_name_short		= st_af_kolob_2_lead_box_name
+1icon_layer        	= af_kolob_2
+
+[af_kolob_3_lead_box]:lead_box,af_belt
+description			= st_af_kolob_3_descr
+inv_name			= st_af_kolob_3_lead_box_name
+inv_name_short		= st_af_kolob_3_lead_box_name
+1icon_layer        	= af_kolob_3
+
+[af_kolob_4_lead_box]:lead_box,af_belt
+description			= st_af_kolob_4_descr
+inv_name			= st_af_kolob_4_lead_box_name
+inv_name_short		= st_af_kolob_4_lead_box_name
+1icon_layer        	= af_kolob_4
+
+[af_eye_lead_box]:lead_box,af_belt
+description			= st_af_eye_descr
+inv_name			= st_af_eye_lead_box_name
+inv_name_short		= st_af_eye_lead_box_name
+1icon_layer        	= af_eye
+
+[af_eye_d1_lead_box]:af_eye_lead_box
+[af_eye_d2_lead_box]:af_eye_lead_box
+[af_eye_d3_lead_box]:af_eye_lead_box
+[af_eye_d4_lead_box]:af_eye_lead_box
+[af_eye_d5_lead_box]:af_eye_lead_box
+
+[af_fireball_lead_box]:lead_box,af_belt
+description			= st_af_fireball_descr
+inv_name			= st_af_fireball_lead_box_name
+inv_name_short		= st_af_fireball_lead_box_name
+1icon_layer        	= af_fireball
+
+[af_fireball_d1_lead_box]:af_fireball_lead_box
+[af_fireball_d2_lead_box]:af_fireball_lead_box
+[af_fireball_d3_lead_box]:af_fireball_lead_box
+[af_fireball_d4_lead_box]:af_fireball_lead_box
+[af_fireball_d5_lead_box]:af_fireball_lead_box
+
+[af_cristall_lead_box]:lead_box,af_belt
+description			= st_af_cristall_descr
+inv_name			= st_af_cristall_lead_box_name
+inv_name_short		= st_af_cristall_lead_box_name
+1icon_layer        	= af_cristall
+
+[af_cristall_d1_lead_box]:af_cristall_lead_box
+[af_cristall_d2_lead_box]:af_cristall_lead_box
+[af_cristall_d3_lead_box]:af_cristall_lead_box
+[af_cristall_d4_lead_box]:af_cristall_lead_box
+[af_cristall_d5_lead_box]:af_cristall_lead_box
+
+[af_dummy_dummy_lead_box]:lead_box,af_belt
+description			= st_af_dummy_dummy_descr
+inv_name			= st_af_dummy_dummy_lead_box_name
+inv_name_short		= st_af_dummy_dummy_lead_box_name
+1icon_layer        	= af_dummy_dummy
+
+[af_cristall_capsule_lead_box]:af_capsule_base_lead_box
+[af_cristall_d1_capsule_lead_box]:af_capsule_base_lead_box
+[af_cristall_d2_capsule_lead_box]:af_capsule_base_lead_box
+[af_cristall_d3_capsule_lead_box]:af_capsule_base_lead_box
+[af_cristall_d4_capsule_lead_box]:af_capsule_base_lead_box
+[af_cristall_d5_capsule_lead_box]:af_capsule_base_lead_box
+[af_dummy_dummy_capsule_lead_box]:af_capsule_base_lead_box
+
+[af_dummy_1_lead_box]:lead_box,af_belt
+description			= st_af_dummy_1_descr
+inv_name			= st_af_dummy_1_lead_box_name
+inv_name_short		= st_af_dummy_1_lead_box_name
+1icon_layer        	= af_dummy_1
+
+[af_dummy_2_lead_box]:lead_box,af_belt
+description			= st_af_dummy_2_descr
+inv_name			= st_af_dummy_2_lead_box_name
+inv_name_short		= st_af_dummy_2_lead_box_name
+1icon_layer        	= af_dummy_2
+
+[af_dummy_3_lead_box]:lead_box,af_belt
+description			= st_af_dummy_3_descr
+inv_name			= st_af_dummy_3_lead_box_name
+inv_name_short		= st_af_dummy_3_lead_box_name
+1icon_layer        	= af_dummy_3
+
+[af_dummy_4_lead_box]:lead_box,af_belt
+description			= st_af_dummy_4_descr
+inv_name			= st_af_dummy_4_lead_box_name
+inv_name_short		= st_af_dummy_4_lead_box_name
+1icon_layer        	= af_dummy_4
+
+[af_blood_lead_box]:lead_box,af_belt
+description			= st_af_blood_descr
+inv_name			= st_af_blood_lead_box_name
+inv_name_short		= st_af_blood_lead_box_name
+1icon_layer        	= af_blood
+
+[af_blood_d1_lead_box]:af_blood_lead_box
+[af_blood_d2_lead_box]:af_blood_lead_box
+[af_blood_d3_lead_box]:af_blood_lead_box
+[af_blood_d4_lead_box]:af_blood_lead_box
+[af_blood_d5_lead_box]:af_blood_lead_box
+
+[af_mincer_meat_lead_box]:lead_box,af_belt
+description			= st_af_mincer_meat_descr
+inv_name			= st_af_mincer_meat_lead_box_name
+inv_name_short		= st_af_mincer_meat_lead_box_name
+1icon_layer        	= af_mincer_meat
+
+[af_mincer_meat_d1_lead_box]:af_mincer_meat_lead_box
+[af_mincer_meat_d2_lead_box]:af_mincer_meat_lead_box
+[af_mincer_meat_d3_lead_box]:af_mincer_meat_lead_box
+[af_mincer_meat_d4_lead_box]:af_mincer_meat_lead_box
+[af_mincer_meat_d5_lead_box]:af_mincer_meat_lead_box
+
+[af_soul_lead_box]:lead_box,af_belt
+description			= st_af_soul_descr
+inv_name			= st_af_soul_lead_box_name
+inv_name_short		= st_af_soul_lead_box_name
+1icon_layer        	= af_soul
+
+[af_soul_d1_lead_box]:af_soul_lead_box
+[af_soul_d2_lead_box]:af_soul_lead_box
+[af_soul_d3_lead_box]:af_soul_lead_box
+[af_soul_d4_lead_box]:af_soul_lead_box
+[af_soul_d5_lead_box]:af_soul_lead_box
+
+[af_glass_lead_box]:lead_box,af_belt
+description			= st_af_glass_descr
+inv_name			= st_af_glass_lead_box_name
+inv_name_short		= st_af_glass_lead_box_name
+1icon_layer        	= af_glass
+
+[af_soul_capsule_lead_box]:af_capsule_base_lead_box
+[af_soul_d1_capsule_lead_box]:af_capsule_base_lead_box
+[af_soul_d2_capsule_lead_box]:af_capsule_base_lead_box
+[af_soul_d3_capsule_lead_box]:af_capsule_base_lead_box
+[af_soul_d4_capsule_lead_box]:af_capsule_base_lead_box
+[af_soul_d5_capsule_lead_box]:af_capsule_base_lead_box
+[af_glass_capsule_lead_box]:af_capsule_base_lead_box
+
+[af_soul_1_lead_box]:lead_box,af_belt
+description			= st_af_soul_1_descr
+inv_name			= st_af_soul_1_lead_box_name
+inv_name_short		= st_af_soul_1_lead_box_name
+1icon_layer        	= af_soul_1
+
+[af_soul_2_lead_box]:lead_box,af_belt
+description			= st_af_soul_2_descr
+inv_name			= st_af_soul_2_lead_box_name
+inv_name_short		= st_af_soul_2_lead_box_name
+1icon_layer        	= af_soul_2
+
+[af_soul_3_lead_box]:lead_box,af_belt
+description			= st_af_soul_3_descr
+inv_name			= st_af_soul_3_lead_box_name
+inv_name_short		= st_af_soul_3_lead_box_name
+1icon_layer        	= af_soul_3
+
+[af_soul_4_lead_box]:lead_box,af_belt
+description			= st_af_soul_4_descr
+inv_name			= st_af_soul_4_lead_box_name
+inv_name_short		= st_af_soul_4_lead_box_name
+1icon_layer        	= af_soul_4
+
+[af_electra_sparkler_lead_box]:lead_box,af_belt
+description			= st_af_electra_sparkler_descr
+inv_name			= st_af_electra_sparkler_lead_box_name
+inv_name_short		= st_af_electra_sparkler_lead_box_name
+1icon_layer        	= af_electra_sparkler
+
+[af_electra_sparkler_d1_lead_box]:af_electra_sparkler_lead_box
+[af_electra_sparkler_d2_lead_box]:af_electra_sparkler_lead_box
+[af_electra_sparkler_d3_lead_box]:af_electra_sparkler_lead_box
+[af_electra_sparkler_d4_lead_box]:af_electra_sparkler_lead_box
+[af_electra_sparkler_d5_lead_box]:af_electra_sparkler_lead_box
+
+[af_electra_flash_lead_box]:lead_box,af_belt
+description			= st_af_electra_flash_descr
+inv_name			= st_af_electra_flash_lead_box_name
+inv_name_short		= st_af_electra_flash_lead_box_name
+1icon_layer        	= af_electra_flash
+
+[af_electra_flash_d1_lead_box]:af_electra_flash_lead_box
+[af_electra_flash_d2_lead_box]:af_electra_flash_lead_box
+[af_electra_flash_d3_lead_box]:af_electra_flash_lead_box
+[af_electra_flash_d4_lead_box]:af_electra_flash_lead_box
+[af_electra_flash_d5_lead_box]:af_electra_flash_lead_box
+
+[af_electra_moonlight_lead_box]:lead_box,af_belt
+description			= st_af_electra_moonlight_descr
+inv_name			= st_af_electra_moonlight_lead_box_name
+inv_name_short		= st_af_electra_moonlight_lead_box_name
+1icon_layer        	= af_electra_moonlight
+
+[af_electra_moonlight_d1_lead_box]:af_electra_moonlight_lead_box
+[af_electra_moonlight_d2_lead_box]:af_electra_moonlight_lead_box
+[af_electra_moonlight_d3_lead_box]:af_electra_moonlight_lead_box
+[af_electra_moonlight_d4_lead_box]:af_electra_moonlight_lead_box
+[af_electra_moonlight_d5_lead_box]:af_electra_moonlight_lead_box
+
+[af_dummy_battery_lead_box]:lead_box,af_belt
+description			= st_af_dummy_battery_descr
+inv_name			= st_af_dummy_battery_lead_box_name
+inv_name_short		= st_af_dummy_battery_lead_box_name
+1icon_layer        	= af_dummy_battery
+
+[af_electra_moonlight_capsule_lead_box]:af_capsule_base_lead_box
+[af_electra_moonlight_d1_capsule_lead_box]:af_capsule_base_lead_box
+[af_electra_moonlight_d2_capsule_lead_box]:af_capsule_base_lead_box
+[af_electra_moonlight_d3_capsule_lead_box]:af_capsule_base_lead_box
+[af_electra_moonlight_d4_capsule_lead_box]:af_capsule_base_lead_box
+[af_electra_moonlight_d5_capsule_lead_box]:af_capsule_base_lead_box
+[af_dummy_battery_capsule_lead_box]:af_capsule_base_lead_box
+
+[af_moonl_1_lead_box]:lead_box,af_belt
+description			= st_af_moonl_1_descr
+inv_name			= st_af_moonl_1_lead_box_name
+inv_name_short		= st_af_moonl_1_lead_box_name
+1icon_layer        	= af_moonl_1
+
+[af_moonl_2_lead_box]:lead_box,af_belt
+description			= st_af_moonl_2_descr
+inv_name			= st_af_moonl_2_lead_box_name
+inv_name_short		= st_af_moonl_2_lead_box_name
+1icon_layer        	= af_moonl_2
+
+[af_moonl_3_lead_box]:lead_box,af_belt
+description			= st_af_moonl_3_descr
+inv_name			= st_af_moonl_3_lead_box_name
+inv_name_short		= st_af_moonl_3_lead_box_name
+1icon_layer        	= af_moonl_3
+
+[af_moonl_4_lead_box]:lead_box,af_belt
+description			= st_af_moonl_4_descr
+inv_name			= st_af_moonl_4_lead_box_name
+inv_name_short		= st_af_moonl_4_lead_box_name
+1icon_layer        	= af_moonl_4
+
+[af_ameba_slime_lead_box]:lead_box,af_belt
+description			= st_af_ameba_slime_descr
+inv_name			= st_af_ameba_slime_lead_box_name
+inv_name_short		= st_af_ameba_slime_lead_box_name
+1icon_layer        	= af_ameba_slime
+
+[af_ameba_slime_d1_lead_box]:af_ameba_slime_lead_box
+[af_ameba_slime_d2_lead_box]:af_ameba_slime_lead_box
+[af_ameba_slime_d3_lead_box]:af_ameba_slime_lead_box
+[af_ameba_slime_d4_lead_box]:af_ameba_slime_lead_box
+[af_ameba_slime_d5_lead_box]:af_ameba_slime_lead_box
+
+[af_ameba_slug_lead_box]:lead_box,af_belt
+description			= st_af_ameba_slug_descr
+inv_name			= st_af_ameba_slug_lead_box_name
+inv_name_short		= st_af_ameba_slug_lead_box_name
+1icon_layer        	= af_ameba_slug
+
+[af_ameba_slug_d1_lead_box]:af_ameba_slug_lead_box
+[af_ameba_slug_d2_lead_box]:af_ameba_slug_lead_box
+[af_ameba_slug_d3_lead_box]:af_ameba_slug_lead_box
+[af_ameba_slug_d4_lead_box]:af_ameba_slug_lead_box
+[af_ameba_slug_d5_lead_box]:af_ameba_slug_lead_box
+
+[af_ameba_mica_lead_box]:lead_box,af_belt
+description			= st_af_ameba_mica_descr
+inv_name			= st_af_ameba_mica_lead_box_name
+inv_name_short		= st_af_ameba_mica_lead_box_name
+1icon_layer        	= af_ameba_mica
+
+[af_ameba_mica_d1_lead_box]:af_ameba_mica_lead_box
+[af_ameba_mica_d2_lead_box]:af_ameba_mica_lead_box
+[af_ameba_mica_d3_lead_box]:af_ameba_mica_lead_box
+[af_ameba_mica_d4_lead_box]:af_ameba_mica_lead_box
+[af_ameba_mica_d5_lead_box]:af_ameba_mica_lead_box
+
+[af_pellicle_lead_box]:lead_box,af_belt
+description			= st_af_pellicle_descr
+inv_name			= st_af_pellicle_lead_box_name
+inv_name_short		= st_af_pellicle_lead_box_name
+1icon_layer        	= af_pellicle
+
+[af_ameba_mica_capsule_lead_box]:af_capsule_base_lead_box
+[af_ameba_mica_d1_capsule_lead_box]:af_capsule_base_lead_box
+[af_ameba_mica_d2_capsule_lead_box]:af_capsule_base_lead_box
+[af_ameba_mica_d3_capsule_lead_box]:af_capsule_base_lead_box
+[af_ameba_mica_d4_capsule_lead_box]:af_capsule_base_lead_box
+[af_ameba_mica_d5_capsule_lead_box]:af_capsule_base_lead_box
+[af_pellicle_capsule_lead_box]:af_capsule_base_lead_box
+
+[af_pell_1_lead_box]:lead_box,af_belt
+description			= st_af_pell_1_descr
+inv_name			= st_af_pell_1_lead_box_name
+inv_name_short		= st_af_pell_1_lead_box_name
+1icon_layer        	= af_pell_1
+
+[af_pell_2_lead_box]:lead_box,af_belt
+description			= st_af_pell_2_descr
+inv_name			= st_af_pell_2_lead_box_name
+inv_name_short		= st_af_pell_2_lead_box_name
+1icon_layer        	= af_pell_2
+
+[af_pell_3_lead_box]:lead_box,af_belt
+description			= st_af_pell_3_descr
+inv_name			= st_af_pell_3_lead_box_name
+inv_name_short		= st_af_pell_3_lead_box_name
+1icon_layer        	= af_pell_3
+
+[af_pell_4_lead_box]:lead_box,af_belt
+description			= st_af_pell_4_descr
+inv_name			= st_af_pell_4_lead_box_name
+inv_name_short		= st_af_pell_4_lead_box_name
+1icon_layer        	= af_pell_4
+
+[af_rusty_thorn_lead_box]:lead_box,af_belt
+description			= st_af_rusty_thorn_descr
+inv_name			= st_af_rusty_thorn_lead_box_name
+inv_name_short		= st_af_rusty_thorn_lead_box_name
+1icon_layer        	= af_rusty_thorn
+
+[af_rusty_thorn_d1_lead_box]:af_rusty_thorn_lead_box
+[af_rusty_thorn_d2_lead_box]:af_rusty_thorn_lead_box
+[af_rusty_thorn_d3_lead_box]:af_rusty_thorn_lead_box
+[af_rusty_thorn_d4_lead_box]:af_rusty_thorn_lead_box
+[af_rusty_thorn_d5_lead_box]:af_rusty_thorn_lead_box
+
+[af_rusty_kristall_lead_box]:lead_box,af_belt
+description			= st_af_rusty_kristall_descr
+inv_name			= st_af_rusty_kristall_lead_box_name
+inv_name_short		= st_af_rusty_kristall_lead_box_name
+1icon_layer        	= af_rusty_kristall
+
+[af_rusty_kristall_d1_lead_box]:af_rusty_kristall_lead_box
+[af_rusty_kristall_d2_lead_box]:af_rusty_kristall_lead_box
+[af_rusty_kristall_d3_lead_box]:af_rusty_kristall_lead_box
+[af_rusty_kristall_d4_lead_box]:af_rusty_kristall_lead_box
+[af_rusty_kristall_d5_lead_box]:af_rusty_kristall_lead_box
+
+[af_rusty_sea-urchin_lead_box]:lead_box,af_belt
+description			= st_af_rusty_sea-urchin_descr
+inv_name			= st_af_rusty_sea-urchin_lead_box_name
+inv_name_short		= st_af_rusty_sea-urchin_lead_box_name
+1icon_layer        	= af_rusty_sea-urchin
+
+[af_rusty_sea-urchin_d1_lead_box]:af_rusty_sea-urchin_lead_box
+[af_rusty_sea-urchin_d2_lead_box]:af_rusty_sea-urchin_lead_box
+[af_rusty_sea-urchin_d3_lead_box]:af_rusty_sea-urchin_lead_box
+[af_rusty_sea-urchin_d4_lead_box]:af_rusty_sea-urchin_lead_box
+[af_rusty_sea-urchin_d5_lead_box]:af_rusty_sea-urchin_lead_box
+
+[af_dummy_spring_lead_box]:lead_box,af_belt
+description			= st_af_dummy_spring_descr
+inv_name			= st_af_dummy_spring_lead_box_name
+inv_name_short		= st_af_dummy_spring_lead_box_name
+1icon_layer        	= af_dummy_spring
+
+[af_rusty_sea-urchin_capsule_lead_box]:af_capsule_base_lead_box
+[af_rusty_sea-urchin_d1_capsule_lead_box]:af_capsule_base_lead_box
+[af_rusty_sea-urchin_d2_capsule_lead_box]:af_capsule_base_lead_box
+[af_rusty_sea-urchin_d3_capsule_lead_box]:af_capsule_base_lead_box
+[af_rusty_sea-urchin_d4_capsule_lead_box]:af_capsule_base_lead_box
+[af_rusty_sea-urchin_d5_capsule_lead_box]:af_capsule_base_lead_box
+[af_dummy_spring_capsule_lead_box]:af_capsule_base_lead_box
+
+[af_dkbrz_1_lead_box]:lead_box,af_belt
+description			= st_af_dkbrz_1_descr
+inv_name			= st_af_dkbrz_1_lead_box_name
+inv_name_short		= st_af_dkbrz_1_lead_box_name
+1icon_layer        	= af_dkbrz_1
+
+[af_dkbrz_2_lead_box]:lead_box,af_belt
+description			= st_af_dkbrz_2_descr
+inv_name			= st_af_dkbrz_2_lead_box_name
+inv_name_short		= st_af_dkbrz_2_lead_box_name
+1icon_layer        	= af_dkbrz_2
+
+[af_dkbrz_3_lead_box]:lead_box,af_belt
+description			= st_af_dkbrz_3_descr
+inv_name			= st_af_dkbrz_3_lead_box_name
+inv_name_short		= st_af_dkbrz_3_lead_box_name
+1icon_layer        	= af_dkbrz_3
+
+[af_dkbrz_4_lead_box]:lead_box,af_belt
+description			= st_af_dkbrz_4_descr
+inv_name			= st_af_dkbrz_4_lead_box_name
+inv_name_short		= st_af_dkbrz_4_lead_box_name
+1icon_layer        	= af_dkbrz_4
+
+[af_mayatnik_tuman_lead_box]:lead_box,af_belt
+description			= st_af_mayatnik_tuman_descr
+inv_name			= st_af_mayatnik_tuman_lead_box_name
+inv_name_short		= st_af_mayatnik_tuman_lead_box_name
+1icon_layer        	= af_mayatnik_tuman
+[af_mayatnik_tuman_capsule_lead_box]:af_m_capsule_base_lead_box
+
+[af_mayatnik_les_lead_box]:lead_box,af_belt
+description			= st_af_mayatnik_les_descr
+inv_name			= st_af_mayatnik_les_lead_box_name
+inv_name_short		= st_af_mayatnik_les_lead_box_name
+1icon_layer        	= af_mayatnik_les
+[af_mayatnik_les_capsule_lead_box]:af_m_capsule_base_lead_box
+
+[af_mayatnik_radar_lead_box]:lead_box,af_belt
+description			= st_af_mayatnik_radar_descr
+inv_name			= st_af_mayatnik_radar_lead_box_name
+inv_name_short		= st_af_mayatnik_radar_lead_box_name
+1icon_layer        	= af_mayatnik_radar
+[af_mayatnik_radar_capsule_lead_box]:af_m_capsule_base_lead_box
+
+[af_mayatnik_nicola_lead_box]:lead_box,af_belt
+description			= st_af_mayatnik_nicola_descr
+inv_name			= st_af_mayatnik_nicola_lead_box_name
+inv_name_short		= st_af_mayatnik_nicola_lead_box_name
+1icon_layer        	= af_mayatnik_nicola
+[af_mayatnik_nicola_capsule_lead_box]:af_m_capsule_base_lead_box
+
+[af_mayatnik_prip_lead_box]:lead_box,af_belt
+description			= st_af_mayatnik_prip_descr
+inv_name			= st_af_mayatnik_prip_lead_box_name
+inv_name_short		= st_af_mayatnik_prip_lead_box_name
+1icon_layer        	= af_mayatnik_prip
+[af_mayatnik_prip_capsule_lead_box]:af_m_capsule_base_lead_box
+
+[af_mayatnik_chernob_lead_box]:lead_box,af_belt
+description			= st_af_mayatnik_chernob_descr
+inv_name			= st_af_mayatnik_chernob_lead_box_name
+inv_name_short		= st_af_mayatnik_chernob_lead_box_name
+1icon_layer        	= af_mayatnik_chernob
+[af_mayatnik_chernob_capsule_lead_box]:af_m_capsule_base_lead_box

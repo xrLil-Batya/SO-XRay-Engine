@@ -1,0 +1,13 @@
+; смарт на дороге между деревней и лесопилкой
+
+[smart_terrain]
+squad_id = 19
+max_population = 1
+respawn_params = respawn@smart_monster_10
+
+[respawn@smart_monster_10]
+spawn_tushkano@smart_monster_10
+
+[spawn_tushkano@smart_monster_10]
+spawn_squads = {+info_mutant_spawn_hard +info_mutant_spawn_medium +info_mutant_spawn_basic} fst_smart_monster_10_squad_3, {-info_mutant_spawn_hard +info_mutant_spawn_medium +info_mutant_spawn_basic} fst_smart_monster_10_squad_2, {-info_mutant_spawn_hard -info_mutant_spawn_medium +info_mutant_spawn_basic} fst_smart_monster_10_squad
+spawn_num = 1

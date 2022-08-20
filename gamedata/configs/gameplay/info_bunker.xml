@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding="windows-1251"?>
+
+<game_information_portions>
+   <!--   Кодовая дверь  --> 
+  <info_portion id="bun_codelock_open" /> 
+  <info_portion id="bun_door_closed" /> 
+  <info_portion id="bun_open_door" /> 
+
+  <info_portion id="bun_codelock2_open" /> 
+  <info_portion id="bun_door2_closed" /> 
+  <info_portion id="bun_open_door2" /> 
+ 
+</game_information_portions>

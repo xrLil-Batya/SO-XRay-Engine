@@ -1,0 +1,13 @@
+
+[logic]
+active = sr_idle@0
+
+[sr_idle@0]
+on_actor_inside = {!actor_has_weapon} sr_no_weapon
+on_info = {=is_squad_enemy_to_actor(val_freedom_barmen_squad)} sr_idle@1 %+val_freedom_base_under_attack%
+
+[sr_no_weapon]
+on_actor_inside = {=actor_has_weapon} sr_idle@0
+
+[sr_idle@1]
+on_info = {+val_freedom_base_under_attack} %=set_squad_enemy_to_actor(val_freedom_trader_squad) =set_squad_enemy_to_actor(val_freedom_leader_squad) =set_squad_enemy_to_actor(val_freedom_medic_squad)% 

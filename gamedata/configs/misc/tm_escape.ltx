@@ -1,0 +1,24 @@
+; как я понял, таргет надо начинать указывать с заключительной/последней цели/поршня (т.е. в конце строки будет первая цель, а в начале - последняя), так же как и титле с дескр, иначе квест не срабатывает 
+;сюжетные задания
+
+[pribytie_v_zonu]
+icon = ui_inGame2_Mesta_evakuatsii
+prior = 100
+storyline = true
+title = {+snaryaga_u_tehnika_poluchena} esc_smart_terrain_3_16_veshi_polucheny_text, esc_smart_terrain_3_16_pribytie_v_zonu_name
+descr = {+poluchit_snaryagu_u_tehnika} esc_smart_terrain_3_16_poluchit_veshi_text, esc_smart_terrain_3_16_pribytie_v_zonu_text
+target = {+snaryaga_u_tehnika_poluchena} esc_mil_polkovnik, {+poluchit_snaryagu_u_tehnika} esc_army_tehnik, esc_mil_polkovnik
+condlist_0 = {+vse_snaryagenie_polucheno} complete
+condlist_1 = {+esc_3_16_enemy} fail
+
+
+;второстепенные задания
+[sydba_csky]
+icon = ui_inGame2_Put_v_pripyat
+prior = 1
+storyline = false
+title = {+actor_teleport_to_marsh_1} nayti_informaciu_name, {+perhod_na_bolota_otkryt} perehod_nayden_name, poisk_perehoda_na_bolota_name
+descr = {+actor_na_csky_base} actor_na_csky_base_text, {+popast_to_csky_base} popast_to_csky_base_text, {+pogovorit_s_comandirom_otryada +church_csky_go_to_5_12} go_with_csky_to_church_text, {+pogovorit_s_comandirom_otryada} pogovorit_s_comandirom_otryada_text, {+actor_go_with_csky_to_church} go_with_csky_to_church_text, {+actor_has_pda_csky_1_0 +wounded_csky_dead} go_with_csky_to_church_text, {+actor_has_pda_csky_1_0} otpravitsya_k_wyshke_text, {+actor_teleport_to_marsh_1} osmotret_mestnost_text, {+perhod_na_bolota_otkryt} perehod_nayden_text, {+esc_3_16_enemy +novice_base_enemy_to_actor -perhod_na_bolota_otkryt} perehod_ishi_sam_text, poisk_perehoda_na_bolota_text
+target = {+actor_vynes_renegade_sam +csky_zanyali_ryb_hutor} nil, {+pogovorit_s_comandirom_otryada +actor_no_help_to_church} nil, {+pogovorit_s_comandirom_otryada +actor_help_to_church} nil, {+pogovorit_s_comandirom_otryada} csky_church_commander, {+actor_go_with_csky_to_church} nil, {+actor_has_pda_csky_1_0 +wounded_csky_dead} nil, {+actor_has_pda_csky_1_0 -wounded_csky_dead} mar_wounded_csky_6_11, {+actor_teleport_to_marsh_1} nil, {+perhod_na_bolota_otkryt} esc_clc_m1, nil
+condlist_0 = {+mar_intro_talk_with_guide_started +mar_intro_talk_with_medic_started +mar_intro_talk_with_barman_break} complete
+condlist_1 = {=is_squad_enemy_to_actor(mar_csky_8_11_squad)} fail, {+csky_church_commander_dead} fail, {+mar_guide_dead} fail, {+fate_csky_out} fail

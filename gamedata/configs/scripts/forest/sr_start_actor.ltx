@@ -1,0 +1,19 @@
+[logic]
+active = sr_idle
+
+[sr_idle]
+on_info = {+dsc_start_game} {=actor_in_zone(darkscape_start_sr)} sr_cutscene %= run_postprocess(fade_in_out) =actor_on_start_game_damage +dsc_start_game%
+
+[sr_cutscene]
+point = dsc_camera_start_walk
+look = dsc_camera_start_look
+on_timer = 3300 | % =play_sound(dsc_intro_getting_up) %
+cam_effector = scenario_cam\darkscape\darkscape_start_camera
+global_cameffect = true
+enable_ui_on_end = true
+on_signal = cameff_end | %=stop_sr_cutscene =start_slot % sr_idle@save
+
+[sr_idle@save]
+on_timer = 1000 | %=scenario_autosave(st_save_zat_a1_game_start)% sr_idle@nil
+
+[sr_idle@nil]

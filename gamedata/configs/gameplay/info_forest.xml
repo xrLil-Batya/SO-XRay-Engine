@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding="windows-1251"?>
+
+<game_information_portions>
+	<info_portion id="info_tech_not_first"></info_portion>
+	<info_portion id="info_tech_first_instr"></info_portion>
+	<info_portion id="dsc_instr_1"></info_portion>
+	<info_portion id="info_voron_start"></info_portion>
+	<info_portion id="info_actor_ate_medkit"></info_portion>
+	<info_portion id="info_actor_ate_conserva"></info_portion>
+	<info_portion id="info_actor_ate_bread"></info_portion>
+	<info_portion id="info_actor_ate_water"></info_portion>
+	<info_portion id="info_actor_ate_finish"></info_portion>
+	<info_portion id="info_actor_ate_all"></info_portion>
+	<info_portion id="info_actor_questions_1"></info_portion>
+	<info_portion id="info_actor_questions_2"></info_portion>
+	<info_portion id="info_actor_questions_3"></info_portion>
+	<info_portion id="info_actor_questions_4"></info_portion>
+	<info_portion id="info_actor_questions_5"></info_portion>
+	<info_portion id="info_actor_have_materials"></info_portion>
+	<info_portion id="info_actor_materials_finish"></info_portion>
+	<info_portion id="info_actor_sleep"></info_portion>
+	<info_portion id="info_voron_artefact_start"></info_portion>
+	<info_portion id="info_voron_artefact_have"></info_portion>
+	<info_portion id="info_voron_artefact_finish"></info_portion>
+	<info_portion id="info_voron_default"></info_portion>
+	<info_portion id="info_trader_artefact_have"></info_portion>
+	<info_portion id="info_trader_artefact_start"></info_portion>
+	<info_portion id="info_trader_artefact_finish"></info_portion>
+	<info_portion id="info_gonta_guide_start"></info_portion>
+	<info_portion id="info_gonta_guide_to_dog"></info_portion>
+	<info_portion id="info_gonta_guide_kill_dog"></info_portion>
+	<info_portion id="info_gonta_guide_finish"></info_portion>
+	<info_portion id="info_trader_posilka_start"></info_portion>
+</game_information_portions>

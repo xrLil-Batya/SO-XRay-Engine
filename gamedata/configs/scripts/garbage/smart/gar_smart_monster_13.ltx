@@ -1,0 +1,13 @@
+; смарт на баррикадах возле депо
+
+[smart_terrain]
+squad_id = 21
+max_population = 1
+respawn_params = respawn@gar_smart_monster_13
+
+[respawn@gar_smart_monster_13]
+spawn_mix_dog_psevdodog@gar_smart_monster_13
+
+[spawn_mix_dog_psevdodog@gar_smart_monster_13]
+spawn_squads = {+info_mutant_spawn_hard +info_mutant_spawn_medium +info_mutant_spawn_basic} gar_smart_monster_13_squad_2, {-info_mutant_spawn_hard +info_mutant_spawn_medium +info_mutant_spawn_basic} gar_smart_monster_13_squad
+spawn_num = {+info_mutant_spawn_medium +info_mutant_spawn_basic} 1, 0

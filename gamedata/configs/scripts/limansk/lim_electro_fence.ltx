@@ -1,0 +1,12 @@
+[logic]
+active = sr_idle
+
+[sr_idle]
+on_actor_inside = %=hit_actor(0.9)% sr_idle@pause
+on_info = {+lim_electro_fence_off} sr_idle@nil
+
+[sr_idle@pause]
+on_timer = 100 | sr_idle ;250 | sr_idle
+on_info = {+lim_electro_fence_off} sr_idle@nil
+
+[sr_idle@nil]
