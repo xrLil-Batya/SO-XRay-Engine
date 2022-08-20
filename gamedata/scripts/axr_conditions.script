@@ -1,0 +1,91 @@
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- Файл:        		AXR_CONDITIONS.SCRIPT
+-- Описание:    		Скрипт обработки состояния предметов, портящихся со временем - артефактов, еды, частей тел мутантов.
+-- Создан:      		20.08.2022
+-- Последняя редакция:	...
+-- Автор:       		ARTLantist
+-- Copyright:   		ARTLantist
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+local ini = ini_file("plugins\\art_battery.ltx")
+local Traders = utils.collect_section(ini,"trader_sections",true)
+
+function on_game_start()
+	RegisterScriptCallback("actor_on_update",actor_on_update)
+	RegisterScriptCallback("artefact_on_update",artefact_on_update)
+	RegisterScriptCallback("item_on_update",item_on_update)
+end
+
+-----------------------------------------------------------------------------------------------------------------------------
+-- Апдейт состояния артефактов
+
+function actor_on_update(d)
+	local delta = d/1000
+	
+	-- Проверяем артефакты на поясе ГГ - и портим их
+	local function check_belt(actor,art)
+		if (art) then
+			local fDegradateSpeed = r_float_ex(system_ini(),art:section(),"degradate_speed",0)
+			if (fDegradateSpeed > 0) then
+				fDegradateSpeed = fDegradateSpeed * delta * (math.random(90,110)/100)
+				art:set_condition(art:condition() - fDegradateSpeed)
+			end
+		end
+	end
+	
+	db.actor:iterate_belt(check_belt, db.actor)
+end
+
+function artefact_on_update(art,d)
+	local delta = d/1000
+	
+	if (art) then
+		-- Проверяем, что артефакт ещё не выдохся. Если выдохся - удаляем его и дальше ничего не делать.
+		local bDegradate = r_bool_ex(system_ini(),art:section(),"degradate")
+		if (bDegradate and art:condition() < 0.05) then
+			alife():release(alife_object(art:id()),true)
+			return
+		end
+		
+		-- Артефакты не вечные, поэтому даже вне пояса чуть-чуть портятся (в 3 раза медленнее, чем на поясе)
+		local fDegradateSpeed = r_float_ex(system_ini(),art:section(),"degradate_speed",0)
+		if (fDegradateSpeed > 0) then
+			fDegradateSpeed = fDegradateSpeed * delta * 0.33 * (math.random(90,110)/100)
+			art:set_condition(art:condition() - fDegradateSpeed)
+		end
+	end
+end
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+-- Апдейт состояния предметов
+
+function item_on_update(itm,d)
+	local delta = d/1000
+	
+	if (itm) then
+		-- Сперва проверяем, кто владелец предмета. Если торговец - то останавливаемся. У торговцев предметы не портятся
+		local parent = itm:parent()
+		if Traders[parent:section()] then
+			if db.actor then news_manager.send_tip(db.actor,parent:section()) end
+			return
+		end
+		-- Проверяем, что предмет может портиться.
+		local bDegradate = r_bool_ex(system_ini(),itm:section(),"item_condition_degradate")
+		if (bDegradate) then
+		
+			-- Проверяем, что предмет ещё не испортился. Если испортился - удаляем его и дальше ничего не делать.
+			if (itm:condition() < 0.05) then
+				alife():release(alife():object(itm:id()))
+				return
+			end
+			
+			-- Портим предмет
+			local fDegradateSpeed = r_float_ex(system_ini(),itm:section(),"item_condition_degradate_speed",0)
+			if (fDegradateSpeed > 0) then
+				fDegradateSpeed = fDegradateSpeed * delta * (math.random(90,110)/100)
+				itm:set_condition(itm:condition() - fDegradateSpeed)
+			end
+		end
+	end
+end

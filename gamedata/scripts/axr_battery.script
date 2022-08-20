@@ -1,0 +1,152 @@
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- Файл:        		AXR_BATTERY.SCRIPT
+-- Описание:    		Скрипт обработки состояния предметов, имеющих питание от аккумулятора.
+-- Создан:      		20.08.2022
+-- Последняя редакция:	...
+-- Автор:       		ARTLantist
+-- Copyright:   		ARTLantist
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+local ini = ini_file("plugins\\art_battery.ltx")
+local Batteries = utils.collect_section(ini,"battery_sections",true)
+
+function on_game_start()
+	RegisterScriptCallback("actor_on_update",actor_on_update)
+	RegisterScriptCallback("CUIActorMenu_OnItemDropped",battery_drag_dropped)
+end
+
+function actor_on_update(d)
+	
+	local delta = d/1000
+	
+	UpdateLight(delta)
+	UpdateDetector(delta)
+	UpdatePDA(delta)
+end
+
+function battery_drag_dropped(bat,itm,from_slot,to_slot)
+	
+	if not Batteries[bat:section()] then return end
+	if not system_ini():line_exist(itm:section(), "battery_max") then return end
+	if itm:condition() == 1 then return end
+	
+	local s_bat = alife():object(bat:id())
+	
+	local BatSec = bat:section()
+	local ItmSec = itm:section()
+	local BatteryPower = math.random((r_float_ex(system_ini(),BatSec,"battery_power_min",0)), (r_float_ex(system_ini(),BatSec,"battery_power_max",0)))
+	local ItmPower = r_float_ex(system_ini(),ItmSec,"battery_max",0)
+	if ItmPower == 0 then return end
+	local ItmCond = itm:condition()
+	local ItmAddCond = BatteryPower/ItmPower
+	clamp(ItmAddCond,0,ItmCond)
+	
+	itm:set_condition(ItmCond+ItmAddCond)
+	xr_sound.set_sound_play(db.actor:id(),"inv_batt_use")
+	alife():release(s_bat)
+	
+end
+
+-----------------------------------------------------------------------------------------------------------------------------
+-- Апдейты предметов, имеющих заряд - фонарика, девайсов, ПДА
+
+function UpdateLight(delta)
+	-- У налобного фонаря постепенно уменьшается яркость света - смысла выключать его теперь нет.
+	local light = db.actor:object("device_torch")
+	local torch = db.actor:item_in_slot(FAKE_TORCH_SLOT)
+	if not torch then
+		if light:torch_enabled() then
+			light:enable_torch(false)
+		end
+		return
+	end
+	
+	if (light:torch_enabled()) then	
+		local bat_max = r_float_ex(system_ini(),torch:section(),"battery_max",0)
+		local degr_speed = r_float_ex(system_ini(),torch:section(),"item_condition_degradate_speed",0)
+		if (bat_max == 0 or degr_speed == 0) then return end
+		
+		local degr = degr_speed/bat_max
+		degr = degr*delta
+		
+		torch:set_condition(torch:condition()-degr)
+		
+		light:torch_set_color_r(1.0*torch:condition())
+		light:torch_set_color_g(1.0*torch:condition())
+		light:torch_set_color_b(1.0*torch:condition())
+		light:torch_set_inertion(20)
+	end
+end
+
+function UpdateDetector(delta)
+	-- Если детектор разряжен - скрываем его. Больше не нужны костыли на выбрасывание, достаточно функции switch_state(2)
+	local obj = db.actor:active_detector()
+	
+	if not obj then return end
+	
+	if (obj:condition() > 0.02) then	
+		local bat_max = r_float_ex(system_ini(),obj:section(),"battery_max",0)
+		local degr_speed = r_float_ex(system_ini(),obj:section(),"item_condition_degradate_speed",0)
+		if (bat_max == 0 or degr_speed == 0) then return end
+		
+		local degr = degr_speed/bat_max
+		degr = degr*delta
+		
+		obj:set_condition(obj:condition()-degr)
+	else
+		obj:switch_state(2)
+		if (obj:section() == "device_flashlight") then
+			SetHudMsg(game.translate_string("st_flashlight_battery_low"),3)
+		else
+			SetHudMsg(game.translate_string("st_detector_battery_low"),3)
+		end
+	end
+	
+end
+
+function UpdatePDA(delta)
+	-- Если ПДА разряжен - закрываем меню ПДА.
+	local PDA = db.actor:item_in_slot(PDA_SLOT)
+	if not PDA then return end
+	
+	local bat_max = r_float_ex(system_ini(),PDA:section(),"battery_max",0)
+	local degr_speed = r_float_ex(system_ini(),PDA:section(),"item_condition_degradate_speed",0)
+	if (bat_max == 0 or degr_speed == 0) then return end
+	
+	local degr = degr_speed/bat_max
+	degr = degr*delta
+	
+	local hud = get_hud()
+	if hud:PdaMenuStatus() then
+		if PDA:condition() > 0.02 then
+			PDA:set_condition(PDA:condition()-degr)
+		else
+			hud:HidePdaMenu()
+			SetHudMsg(game.translate_string("st_pda_battery_low"),3)
+		end
+	end
+	
+end
+
+-----------------------------------------------------------------------------------------------------------------------------
+-- Функция отнимания заряда при использовании (для дозиметра)
+
+function remove_condition_use_battery(itm,val)
+	if not itm then return end
+	
+	if val then
+		clamp(val,0,itm:condition())
+		itm:set_condition(itm:condition()-val)
+	else
+		--если нет val, то читаем из конфига, сколько тратится заряда за использование, если таких параметров нет, то заряд не уменьшается
+		local bat_max = r_float_ex(system_ini(),itm:section(),"battery_max",0)
+		local bat_degr = r_float_ex(system_ini(),itm:section(),"use_battery_degradate",0)
+		if (bat_max and bat_degr) then
+			local degr = bat_degr/bat_max
+			clamp(degr,0,itm:condition())
+			itm:set_condition(itm:condition()-degr)
+		end
+	end
+end
+
+-----------------------------------------------------------------------------------------------------------------------------

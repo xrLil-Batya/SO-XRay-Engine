@@ -1703,7 +1703,6 @@ void CActor::UpdateArtefactsOnBeltAndOutfit()
 		CArtefact*	artefact = smart_cast<CArtefact*>(*it);
 		if(artefact)
 		{
-			artefact->SetCondition(artefact->GetCondition()-(artefact->m_degradate_speed * f_update_time));
 			conditions().ChangeBleeding	(artefact->m_fBleedingRestoreSpeed  * artefact->GetCondition() * f_update_time);
 			conditions().ChangeHealth	(artefact->m_fHealthRestoreSpeed    * artefact->GetCondition() * f_update_time);
 			conditions().ChangePower	(artefact->m_fPowerRestoreSpeed     * artefact->GetCondition() * f_update_time);
@@ -1728,7 +1727,7 @@ void CActor::UpdateArtefactsOnBeltAndOutfit()
 		CArtefact*	artefact = smart_cast<CArtefact*>(*itr);
 		if(artefact)
 		{
-			if(artefact->m_fRadiationRestoreSpeed>0.0f) 
+			if(artefact->m_fRadiationRestoreSpeed>0.0f)
 			{
 				float val = artefact->m_fRadiationRestoreSpeed - conditions().GetBoostRadiationImmunity();
 				conditions().ChangeRadiation(val * f_update_time);
