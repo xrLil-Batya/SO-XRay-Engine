@@ -21,25 +21,30 @@ void CUIDialogWnd::Show(bool status)
 
 bool CUIDialogWnd::OnKeyboardHold(int dik)
 {
-	if(!IR_process()) return false;
-	return inherited::OnKeyboardHold(dik);
+	if (!IR_process())
+        return false;
+    return inherited::OnKeyboardHold(dik);
 }
 
 bool CUIDialogWnd::OnKeyboardAction(int dik, EUIMessages keyboard_action)
 {
-	if(!IR_process()) return false;
-	if (inherited::OnKeyboardAction(dik, keyboard_action) )
-		return true;
-	return false;
+	if (!IR_process())
+        return false;
+    if (inherited::OnKeyboardAction(dik, keyboard_action))
+        return true;
+    return false;
 }
 
 bool CUIDialogWnd::IR_process()
 {
-	if(!IsEnabled())					return false;
+	if (!IsEnabled())
+        return false;
 
-	if(GetHolder()->IgnorePause())		return true;
+    if (GetHolder() && GetHolder()->IgnorePause())
+        return true;
 
-	if(Device.Paused()&&!WorkInPause())	return false;
+    if (Device.Paused() && !WorkInPause())
+        return false;
 	
 	return true;
 }
