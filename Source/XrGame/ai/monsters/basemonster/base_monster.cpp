@@ -962,26 +962,17 @@ float   CBaseMonster::get_attack_on_move_prepare_time()
 	return override_if_debug("aom_prepare_time", m_attack_on_move_params.prepare_time);
 }
 
-float   CBaseMonster::get_psy_influence ()
+float CBaseMonster::get_psy_influence() { return m_psy_aura.calculate(); }
+float CBaseMonster::get_radiation_influence() { return m_radiation_aura.calculate(); }
+float CBaseMonster::get_fire_influence() { return m_fire_aura.calculate(); }
+float CBaseMonster::get_psy_enabled_for_dead() { return m_psy_aura.get_enabled_for_dead(); }
+float CBaseMonster::get_radiation_enabled_for_dead() { return m_radiation_aura.get_enabled_for_dead(); }
+float CBaseMonster::get_fire_enabled_for_dead() { return m_fire_aura.get_enabled_for_dead(); }
+void CBaseMonster::play_detector_sound()
 {
-	return m_psy_aura.calculate();
-}
-
-float   CBaseMonster::get_radiation_influence ()
-{
-	return m_radiation_aura.calculate();
-}
-
-float   CBaseMonster::get_fire_influence ()
-{
-	return m_fire_aura.calculate();
-}
-
-void   CBaseMonster::play_detector_sound()
-{
-	m_psy_aura.play_detector_sound();
-	m_radiation_aura.play_detector_sound();
-	m_fire_aura.play_detector_sound();
+    m_psy_aura.play_detector_sound();
+    m_radiation_aura.play_detector_sound();
+    m_fire_aura.play_detector_sound();
 }
 
 bool CBaseMonster::is_jumping()

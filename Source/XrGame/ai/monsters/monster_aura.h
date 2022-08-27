@@ -33,6 +33,7 @@ public:
 	void				update_schedule				();
 	void				play_detector_sound			();
 	void				on_monster_death			();
+	bool				get_enabled_for_dead		();
 
 private:
 	bool				check_work_condition		() const;
