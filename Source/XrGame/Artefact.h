@@ -19,6 +19,8 @@ public:
 
 	virtual void					Load							(LPCSTR section);
 	virtual BOOL					net_Spawn						(CSE_Abstract* DC);
+	virtual void			net_Export				(NET_Packet& P);
+	virtual void			net_Import				(NET_Packet& P);
 	virtual void					net_Destroy						();
 
 	virtual void					OnH_A_Chield					();
@@ -37,6 +39,9 @@ public:
 	virtual BOOL					renderable_ShadowReceive		()		{ return TRUE;	}
 	virtual void					create_physic_shell				();
 
+	virtual void					save					(NET_Packet &output_packet);
+	virtual void					load					(IReader &input_packet);
+
 	virtual CArtefact*				cast_artefact					()		{return this;}
 
 protected:
@@ -54,11 +59,11 @@ protected:
 	float							m_fTrailLightRange;
 	u8								m_af_rank;
 	bool							m_bLightsEnabled;
-	float							m_additional_weight;
 
 	virtual void					UpdateLights					();
 public:
 	IC u8							GetAfRank						() const		{return m_af_rank;}
+	IC void							SetAfRank						(u8 val)		{m_af_rank = val;}
 	IC bool							CanBeActivated					()				{return m_bCanSpawnZone;};
 	void							ActivateArtefact				();
 	void							FollowByPath					(LPCSTR path_name, int start_idx, Fvector magic_force);
@@ -79,7 +84,13 @@ public:
 	float 							m_fSatietyRestoreSpeed;
 	float							m_fPowerRestoreSpeed;
 	float							m_fBleedingRestoreSpeed;
-	CHitImmunity 					m_ArtefactHitImmunities;
+	float							m_fPsyHealthRestoreSpeed;
+	float							m_fJumpSpeed;
+	float							m_fWalkAccel;
+	HitImmunity::HitTypeSVec		m_ArtefactHitImmunities;
+	float							m_additional_weight;
+	float							m_degradate_speed;
+	u8								m_bHitOnTake;
 public:
 	enum EAFHudStates {
 		eActivating = eLastBaseState+1,
@@ -96,7 +107,7 @@ public:
 	virtual void					Show				();
 	virtual	void					UpdateXForm			();
 	virtual bool					Action				(u16 cmd, u32 flags);
-	virtual void					OnStateSwitch		(u32 S);
+	virtual void					OnStateSwitch		(u32 S, u32 oldState);
 	virtual void					OnAnimationEnd		(u32 state);
 	virtual bool					IsHidden			()	const	{return GetState()==eHidden;}
 

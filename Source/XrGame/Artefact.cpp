@@ -33,6 +33,7 @@
 
 CArtefact::CArtefact() 
 {
+	m_flags.set(FUsingCondition, TRUE);
 	shedule.t_min				= 20;
 	shedule.t_max				= 50;
 	m_sParticlesName			= NULL;
@@ -40,11 +41,26 @@ CArtefact::CArtefact()
 	m_activationObj				= NULL;
 	m_detectorObj				= NULL;
 	m_additional_weight			= 0.0f;
+	m_degradate_speed			= 0.0f;
 }
 
 
 CArtefact::~CArtefact() 
 {}
+
+void CArtefact::net_Export(NET_Packet& P)
+{
+	inherited::net_Export	(P);
+	P.w_float_q8			(GetCondition(),0.0f,1.0f);
+}
+
+void CArtefact::net_Import(NET_Packet& P)
+{
+	inherited::net_Import	(P);
+	float _cond;
+	P.r_float_q8			(_cond,0.0f,1.0f);
+	SetCondition			(_cond);
+}
 
 void CArtefact::Load(LPCSTR section) 
 {
@@ -60,21 +76,36 @@ void CArtefact::Load(LPCSTR section)
 			&m_TrailLightColor.r, &m_TrailLightColor.g, &m_TrailLightColor.b);
 		m_fTrailLightRange	= pSettings->r_float(section,"trail_light_range");
 	}
-
+	m_bHitOnTake			 = READ_IF_EXISTS(pSettings, r_u8, section, "hit_on_take", 0);
 
 	m_fHealthRestoreSpeed    = pSettings->r_float	(section,"health_restore_speed"		);
 	m_fRadiationRestoreSpeed = pSettings->r_float	(section,"radiation_restore_speed"	);
 	m_fSatietyRestoreSpeed   = pSettings->r_float	(section,"satiety_restore_speed"	);
 	m_fPowerRestoreSpeed     = pSettings->r_float	(section,"power_restore_speed"		);
 	m_fBleedingRestoreSpeed  = pSettings->r_float	(section,"bleeding_restore_speed"	);
+	m_fPsyHealthRestoreSpeed  = pSettings->r_float	(section,"psyhealth_restore_speed"	);
 	
-	if(pSettings->section_exist(pSettings->r_string(section,"hit_absorbation_sect")))
-	{
-		m_ArtefactHitImmunities.LoadImmunities(pSettings->r_string(section,"hit_absorbation_sect"),pSettings);
-	}
+    m_fJumpSpeed = READ_IF_EXISTS(pSettings, r_float, section, "jump_speed", 0.f);
+    m_fWalkAccel = READ_IF_EXISTS(pSettings, r_float, section, "walk_accel", 0.f);
+
+	LPCSTR hit_sect = pSettings->r_string(section, "hit_absorbation_sect");
+    if (pSettings->section_exist(hit_sect))
+    {
+        m_ArtefactHitImmunities[ALife::eHitTypeBurn] = READ_IF_EXISTS(pSettings, r_float, hit_sect, "burn_immunity",0.f);
+		m_ArtefactHitImmunities[ALife::eHitTypeStrike] = READ_IF_EXISTS(pSettings, r_float, hit_sect, "strike_immunity", 0.f);
+		m_ArtefactHitImmunities[ALife::eHitTypeShock] = READ_IF_EXISTS(pSettings, r_float, hit_sect, "shock_immunity", 0.f);
+		m_ArtefactHitImmunities[ALife::eHitTypeWound] = READ_IF_EXISTS(pSettings, r_float, hit_sect, "wound_immunity", 0.f);
+		m_ArtefactHitImmunities[ALife::eHitTypeRadiation] = READ_IF_EXISTS(pSettings, r_float, hit_sect, "radiation_immunity", 0.f);
+		m_ArtefactHitImmunities[ALife::eHitTypeTelepatic] = READ_IF_EXISTS(pSettings, r_float, hit_sect, "telepatic_immunity", 0.f);
+		m_ArtefactHitImmunities[ALife::eHitTypeChemicalBurn] = READ_IF_EXISTS(pSettings, r_float, hit_sect, "chemical_burn_immunity", 0.f);
+		m_ArtefactHitImmunities[ALife::eHitTypeExplosion] = READ_IF_EXISTS(pSettings, r_float, hit_sect, "explosion_immunity", 0.f);
+		m_ArtefactHitImmunities[ALife::eHitTypeFireWound] = READ_IF_EXISTS(pSettings, r_float, hit_sect, "fire_wound_immunity", 0.f);
+		m_ArtefactHitImmunities[ALife::eHitTypeLightBurn] = m_ArtefactHitImmunities[ALife::eHitTypeBurn];
+    }
 	m_bCanSpawnZone			= !!pSettings->line_exist("artefact_spawn_zones", section);
 	m_af_rank				= pSettings->r_u8(section, "af_rank");
 	m_additional_weight		= pSettings->r_float(section,"additional_inventory_weight");
+    m_degradate_speed		= READ_IF_EXISTS(pSettings, r_float, section, "degradate_speed",0.f);
 }
 
 BOOL CArtefact::net_Spawn(CSE_Abstract* DC) 
@@ -399,9 +430,9 @@ bool CArtefact::Action(u16 cmd, u32 flags)
 	return inherited::Action(cmd,flags);
 }
 
-void CArtefact::OnStateSwitch(u32 S)
+void CArtefact::OnStateSwitch(u32 S, u32 oldState)
 {
-	inherited::OnStateSwitch	(S);
+	inherited::OnStateSwitch	(S, oldState);
 	switch(S){
 	case eShowing:
 		{
@@ -484,6 +515,58 @@ void CArtefact::ForceTransform(const Fmatrix& m)
 	VERIFY( PPhysicsShell() );
 	XFORM().set(m);
 	PPhysicsShell()->SetGlTransformDynamic( m );// XFORM().set(m);
+}
+
+void CArtefact::save(NET_Packet &output_packet)
+{	
+	inherited::save		(output_packet);
+	output_packet.w_u8(m_bHitOnTake);
+	output_packet.w_float(m_additional_weight);
+	output_packet.w_float(m_degradate_speed);
+	output_packet.w_float(m_fHealthRestoreSpeed);
+	output_packet.w_float(m_fRadiationRestoreSpeed);
+	output_packet.w_float(m_fSatietyRestoreSpeed);
+	output_packet.w_float(m_fPowerRestoreSpeed);
+	output_packet.w_float(m_fBleedingRestoreSpeed);
+	output_packet.w_float(m_fPsyHealthRestoreSpeed);
+	output_packet.w_float(m_fJumpSpeed);
+	output_packet.w_float(m_fWalkAccel);
+    output_packet.w_float(m_ArtefactHitImmunities[ALife::eHitTypeRadiation]);
+    output_packet.w_float(m_ArtefactHitImmunities[ALife::eHitTypeBurn]);
+    output_packet.w_float(m_ArtefactHitImmunities[ALife::eHitTypeChemicalBurn]);
+    output_packet.w_float(m_ArtefactHitImmunities[ALife::eHitTypeTelepatic]);
+    output_packet.w_float(m_ArtefactHitImmunities[ALife::eHitTypeShock]);
+    output_packet.w_float(m_ArtefactHitImmunities[ALife::eHitTypeWound]);
+    output_packet.w_float(m_ArtefactHitImmunities[ALife::eHitTypeFireWound]);
+    output_packet.w_float(m_ArtefactHitImmunities[ALife::eHitTypeExplosion]);
+    output_packet.w_float(m_ArtefactHitImmunities[ALife::eHitTypeStrike]);
+	output_packet.w_u8(m_af_rank);
+}
+
+void CArtefact::load(IReader &input_packet)
+{
+	inherited::load		(input_packet);
+	m_bHitOnTake = input_packet.r_u8();
+	m_additional_weight = input_packet.r_float();
+	m_degradate_speed = input_packet.r_float();
+	m_fHealthRestoreSpeed = input_packet.r_float();
+	m_fRadiationRestoreSpeed = input_packet.r_float();
+	m_fSatietyRestoreSpeed = input_packet.r_float();
+	m_fPowerRestoreSpeed = input_packet.r_float();
+	m_fBleedingRestoreSpeed = input_packet.r_float();
+	m_fPsyHealthRestoreSpeed = input_packet.r_float();
+	m_fJumpSpeed = input_packet.r_float();
+	m_fWalkAccel = input_packet.r_float();
+	m_ArtefactHitImmunities[ALife::eHitTypeRadiation] = input_packet.r_float();
+	m_ArtefactHitImmunities[ALife::eHitTypeBurn] = input_packet.r_float();
+	m_ArtefactHitImmunities[ALife::eHitTypeChemicalBurn] = input_packet.r_float();
+	m_ArtefactHitImmunities[ALife::eHitTypeTelepatic] = input_packet.r_float();
+	m_ArtefactHitImmunities[ALife::eHitTypeShock] = input_packet.r_float();
+	m_ArtefactHitImmunities[ALife::eHitTypeWound] = input_packet.r_float();
+	m_ArtefactHitImmunities[ALife::eHitTypeFireWound] = input_packet.r_float();
+	m_ArtefactHitImmunities[ALife::eHitTypeExplosion] = input_packet.r_float();
+	m_ArtefactHitImmunities[ALife::eHitTypeStrike] = input_packet.r_float();
+	m_af_rank = input_packet.r_u8();
 }
 
 void CArtefact::CreateArtefactActivation()
