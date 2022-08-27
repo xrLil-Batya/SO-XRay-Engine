@@ -1171,7 +1171,7 @@ void CApplication::LoadBegin	()
 		g_appLoaded			= FALSE;
 
 #ifndef DEDICATED_SERVER
-		_InitializeFont		(pFontSystem,"ui_font_letterica18_russian",0);
+		_InitializeFont		(pFontSystem,"ui_font_graffiti19_russian",0);
 
 		m_pRender->LoadBegin();
 #endif
@@ -1223,8 +1223,8 @@ PROTECT_API void CApplication::LoadDraw		()
 
 void CApplication::LoadTitleInt(LPCSTR str1, LPCSTR str2, LPCSTR str3)
 {
-	xr_strcpy					(ls_header, str1);
-	xr_strcpy					(ls_tip_number, str2);
+	//xr_strcpy					(ls_header, str1);
+	//xr_strcpy					(ls_tip_number, str2);
 	xr_strcpy					(ls_tip, str3);
 //	LoadDraw					();
 }
