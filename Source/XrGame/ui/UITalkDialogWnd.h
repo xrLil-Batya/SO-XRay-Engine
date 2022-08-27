@@ -48,6 +48,8 @@ public:
 	CUI3tButton			UIToTradeButton;
 //	CUI3tButton			UIToExitButton;
 
+	CUIStatic			UIOurIcon;
+	CUIStatic			UIOthersIcon;
 	CUICharacterInfo	UICharacterInfoLeft;
 	CUICharacterInfo	UICharacterInfoRight;
 

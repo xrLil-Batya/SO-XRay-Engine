@@ -35,9 +35,6 @@ CUIRankingWnd::CUIRankingWnd()
 	m_actor_ch_info				= NULL;
 	m_previous_time				= Device.dwTimeGlobal;
 	m_delay						= 3000;
-	m_last_monster_icon_back	= "";
-	m_last_monster_icon			= "";
-	m_last_weapon_icon			= "";
 }
 
 CUIRankingWnd::~CUIRankingWnd()
@@ -135,17 +132,6 @@ void CUIRankingWnd::Init()
 	m_center_caption->SetText( buf );
 
 
-	m_monster_icon_back		= UIHelper::CreateStatic(xml, "monster_icon_back", this);
-	m_monster_icon			= UIHelper::CreateStatic(xml, "monster_icon", this);
-	m_monster_background	= UIHelper::CreateFrameWindow(xml, "monster_background", this);
-	m_monster_over			= UIHelper::CreateFrameWindow(xml, "monster_over", this);
-
-	m_favorite_weapon_bckgrnd	= UIHelper::CreateStatic(xml, "favorite_weapon_back", this);
-	m_favorite_weapon_icon		= UIHelper::CreateStatic(xml, "favorite_weapon_icon", this);
-	m_favorite_weapon_ramka		= UIHelper::CreateFrameWindow(xml, "favorite_weapon_ramka", this);
-	m_favorite_weapon_over		= UIHelper::CreateFrameWindow(xml, "favorite_weapon_over", this);
-
-
 	m_achievements_background	= UIHelper::CreateFrameWindow(xml, "achievements_background", this);
 	m_achievements = xr_new<CUIScrollView>();
 	CUIXmlInit::InitScrollView(xml, "achievements_wnd", 0, m_achievements);
@@ -187,8 +173,6 @@ void CUIRankingWnd::update_info()
 	for(; b!=e; b++)
 		(*b)->Update();
 	get_statistic();
-	get_best_monster();
-	get_favorite_weapon();
 }
 
 void CUIRankingWnd::DrawHint()
@@ -218,74 +202,10 @@ void CUIRankingWnd::get_statistic()
 	}
 
 }
-void CUIRankingWnd::get_best_monster()
-{
-	luabind::functor<LPCSTR> funct;
-	R_ASSERT(ai().script_engine().functor("pda.get_monster_back", funct));
-	LPCSTR str = funct();
-	if(!xr_strcmp(str, ""))
-		return;
 
-	if(xr_strcmp(str, m_last_monster_icon_back))
-	{
-		m_monster_icon_back->TextureOn();
-		m_monster_icon_back->InitTexture(str);
-		m_last_monster_icon_back = str;
-	}
-
-	R_ASSERT(ai().script_engine().functor("pda.get_monster_icon", funct));
-	str = funct();
-	if(!xr_strcmp(str, ""))
-		return;
-
-	if(xr_strcmp(str, m_last_monster_icon))
-	{
-		m_monster_icon->TextureOn();
-		m_monster_icon->InitTexture(str);
-		m_last_monster_icon = str;
-	}
-}
-void CUIRankingWnd::get_favorite_weapon()
-{
-	luabind::functor<LPCSTR> funct;
-	R_ASSERT(ai().script_engine().functor("pda.get_favorite_weapon", funct));
-	LPCSTR str = funct();
-
-	if(!xr_strcmp(str, ""))
-		return;
-
-	if(xr_strcmp(str, m_last_weapon_icon))
-	{
-		if(pSettings->section_exist(str) && pSettings->line_exist(str, "upgr_icon_x"))
-		{
-			m_favorite_weapon_icon->SetShader(InventoryUtilities::GetWeaponUpgradeIconsShader());
-			if(!xr_strcmp(str, "wpn_rpg7"))
-				m_favorite_weapon_icon->SetShader(InventoryUtilities::GetOutfitUpgradeIconsShader());
-
-			Frect				tex_rect;
-			tex_rect.x1			= float(pSettings->r_u32(str, "upgr_icon_x"));
-			tex_rect.y1			= float(pSettings->r_u32(str, "upgr_icon_y"));
-			tex_rect.x2			= float(pSettings->r_u32(str, "upgr_icon_width"));
-			tex_rect.y2			= float(pSettings->r_u32(str, "upgr_icon_height"));
-			tex_rect.rb.add		(tex_rect.lt);
-			m_favorite_weapon_icon->SetTextureRect(tex_rect);
-			m_favorite_weapon_icon->TextureOn();
-			m_favorite_weapon_icon->SetTextureColor(color_rgba(255,255,255,255));
-			m_favorite_weapon_icon->SetWndSize(Fvector2().set((tex_rect.x2-tex_rect.x1)*UI().get_current_kx()*0.8, (tex_rect.y2-tex_rect.y1)*0.8));
-			m_favorite_weapon_icon->SetStretchTexture(true);
-		}
-		m_last_weapon_icon = str;
-	}
-}
 
 void CUIRankingWnd::ResetAll()
 {
-	m_last_monster_icon_back	= "";
-	m_last_monster_icon			= "";
-	m_last_weapon_icon			= "";
-	m_monster_icon_back->TextureOff();
-	m_monster_icon->TextureOff();
-	m_favorite_weapon_icon->TextureOff();
 	ACHIEVES_VEC_IT b = m_achieves_vec.begin(), e = m_achieves_vec.end();
 	for(; b!=e; b++)
 		(*b)->Reset();

@@ -26,6 +26,7 @@
 #include "UITaskWnd.h"
 #include "UIRankingWnd.h"
 #include "UILogsWnd.h"
+#include "UIScriptWnd.h"
 
 #define PDA_XML		"pda.xml"
 
@@ -36,7 +37,6 @@ void RearrangeTabButtons(CUITabControl* pTab);
 CUIPdaWnd::CUIPdaWnd()
 {
 	pUITaskWnd       = NULL;
-//-	pUIFactionWarWnd = NULL;
 	pUIRankingWnd    = NULL;
 	pUILogsWnd       = NULL;
 	m_hint_wnd       = NULL;
@@ -46,7 +46,6 @@ CUIPdaWnd::CUIPdaWnd()
 CUIPdaWnd::~CUIPdaWnd()
 {
 	delete_data( pUITaskWnd );
-//-	delete_data( pUIFactionWarWnd );
 	delete_data( pUIRankingWnd );
 	delete_data( pUILogsWnd );
 	delete_data( m_hint_wnd );
@@ -79,13 +78,9 @@ void CUIPdaWnd::Init()
 
 	if ( IsGameTypeSingle() )
 	{
-		pUITaskWnd					= xr_new<CUITaskWnd>();
-		pUITaskWnd->hint_wnd		= m_hint_wnd;
-		pUITaskWnd->Init			();
-
-//-		pUIFactionWarWnd				= xr_new<CUIFactionWarWnd>();
-//-		pUIFactionWarWnd->hint_wnd		= m_hint_wnd;
-//-		pUIFactionWarWnd->Init			();
+		pUITaskWnd						= xr_new<CUITaskWnd>();
+		pUITaskWnd->hint_wnd			= m_hint_wnd;
+		pUITaskWnd->Init				();
 
 		pUIRankingWnd					= xr_new<CUIRankingWnd>();
 		pUIRankingWnd->Init				();
@@ -141,20 +136,25 @@ void CUIPdaWnd::Show(bool status)
 	inherited::Show						(status);
 	if(status)
 	{
-		InventoryUtilities::SendInfoToActor	("ui_pda");
-		
-		if ( !m_pActiveDialog )
+		InventoryUtilities::SendInfoToActor("ui_pda");
+		if (m_sActiveSection == NULL || strcmp(m_sActiveSection.c_str(), "") == 0)
 		{
-			SetActiveSubdialog				("eptTasks");
+			SetActiveSubdialog("eptTasks");
+			UITabControl->SetActiveTab("eptTasks");
 		}
-		m_pActiveDialog->Show				(true);
+		else
+			SetActiveSubdialog(m_sActiveSection);
 	}else
 	{
-		InventoryUtilities::SendInfoToActor	("ui_pda_hide");
+		InventoryUtilities::SendInfoToActor("ui_pda_hide");
 		CurrentGameUI()->UIMainIngameWnd->SetFlashIconState_(CUIMainIngameWnd::efiPdaTask, false);
-		m_pActiveDialog->Show				(false);
-		g_btnHint->Discard					();
-		g_statHint->Discard					();
+		if (m_pActiveDialog)
+		{
+			m_pActiveDialog->Show(false);
+			m_pActiveDialog = pUITaskWnd; //hack for script window
+		}
+		g_btnHint->Discard();
+		g_statHint->Discard();
 	}
 }
 
@@ -169,22 +169,18 @@ void CUIPdaWnd::Update()
 
 void CUIPdaWnd::SetActiveSubdialog(const shared_str& section)
 {
-	if ( m_sActiveSection == section ) return;
-
-	if ( m_pActiveDialog )
+	if (m_pActiveDialog)
 	{
-		UIMainPdaFrame->DetachChild( m_pActiveDialog );
-		m_pActiveDialog->Show( false );
+		//if (m_sActiveSection == section) return;
+		if (UIMainPdaFrame->IsChild(m_pActiveDialog))
+			UIMainPdaFrame->DetachChild(m_pActiveDialog);
+		m_pActiveDialog->Show(false);
 	}
 
 	if ( section == "eptTasks" )
 	{
 		m_pActiveDialog = pUITaskWnd;
 	}
-//-	else if ( section == "eptFractionWar" )
-//-	{
-//-		m_pActiveDialog = pUIFactionWarWnd;
-//-	}
 	else if ( section == "eptRanking" )
 	{
 		m_pActiveDialog = pUIRankingWnd;
@@ -194,16 +190,25 @@ void CUIPdaWnd::SetActiveSubdialog(const shared_str& section)
 		m_pActiveDialog = pUILogsWnd;
 	}
 
-	R_ASSERT						(m_pActiveDialog);
-	UIMainPdaFrame->AttachChild		(m_pActiveDialog);
-	m_pActiveDialog->Show			(true);
+	luabind::functor<CUIDialogWndEx*> funct;
+    if (ai().script_engine().functor("pda.set_active_subdialog", funct))
+    {
+        CUIDialogWndEx* ret = funct((LPCSTR)section.c_str());
+        CUIWindow* pScriptWnd = ret ? smart_cast<CUIWindow*>(ret) : (0);
+        if (pScriptWnd)
+            m_pActiveDialog = pScriptWnd;
+    }
 
-	if ( UITabControl->GetActiveId() != section )
-	{
-		UITabControl->SetActiveTab( section );
-	}
-	m_sActiveSection = section;
-	SetActiveCaption();
+    if (m_pActiveDialog)
+    {
+        if (!UIMainPdaFrame->IsChild(m_pActiveDialog))
+            UIMainPdaFrame->AttachChild(m_pActiveDialog);
+        m_pActiveDialog->Show(true);
+        m_sActiveSection = section;
+        SetActiveCaption();
+    }
+    else
+        m_sActiveSection = "";
 }
 
 void CUIPdaWnd::SetActiveCaption()
@@ -219,6 +224,7 @@ void CUIPdaWnd::SetActiveCaption()
 			string256 buf;
 			strconcat( sizeof(buf), buf, m_caption_const.c_str(), cur );
 			SetCaption( buf );
+			UITabControl->Show(true);
 			return;
 		}
 	}
@@ -256,10 +262,6 @@ void CUIPdaWnd::DrawHint()
 	{
 		pUITaskWnd->DrawHint();
 	}
-//-	else if ( m_pActiveDialog == pUIFactionWarWnd )
-//-	{
-//		m_hint_wnd->Draw();
-//-	}
 	else if ( m_pActiveDialog == pUIRankingWnd )
 	{
 		pUIRankingWnd->DrawHint();
@@ -290,10 +292,9 @@ void CUIPdaWnd::Reset()
 {
 	inherited::ResetAll		();
 
-	if ( pUITaskWnd )		pUITaskWnd->ResetAll();
-//-	if ( pUIFactionWarWnd )	pUITaskWnd->ResetAll();
-	if ( pUIRankingWnd )	pUIRankingWnd->ResetAll();
-	if ( pUILogsWnd )		pUILogsWnd->ResetAll();
+	if ( pUITaskWnd )			pUITaskWnd->ResetAll();
+	if ( pUIRankingWnd )		pUIRankingWnd->ResetAll();
+	if ( pUILogsWnd )			pUILogsWnd->ResetAll();
 }
 
 void CUIPdaWnd::SetCaption( LPCSTR text )
