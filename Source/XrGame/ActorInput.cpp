@@ -4,6 +4,7 @@
 #include "Torch.h"
 #include "trade.h"
 #include "../xrEngine/CameraBase.h"
+#include "script_game_object.h"
 
 #ifdef DEBUG
 #	include "PHDebug.h"
@@ -24,6 +25,8 @@
 #include "UI/UIStatic.h"
 #include "UI/UIActorMenu.h"
 #include "UI/UIDragDropReferenceList.h"
+#include "UI/UIHudStatesWnd.h"
+#include "UI/UIMainIngameWnd.h"
 #include "CharacterPhysicsSupport.h"
 #include "InventoryBox.h"
 #include "player_hud.h"
@@ -45,6 +48,10 @@ void CActor::IR_OnKeyboardPress(int cmd)
 	if (IsTalking())	return;
 	if (m_input_external_handler && !m_input_external_handler->authorized(cmd))	return;
 	
+	/* avo: script callback */
+	callback(GameObject::eKeyPress)(cmd);
+	/* avo: end */
+
 	switch (cmd)
 	{
 	case kWPN_FIRE:
@@ -91,58 +98,80 @@ void CActor::IR_OnKeyboardPress(int cmd)
 		{
 			mstate_wishful |= mcJump;
 		}break;
-	case kSPRINT_TOGGLE:	
+	case kSPRINT_TOGGLE:
 		{
-			mstate_wishful ^= mcSprint;
-		}break;
-	case kCROUCH:	
+			if (psActorFlags.test(AF_SPRINT_TOGGLE))
+			{
+				if (psActorFlags.test(AF_WALK_TOGGLE)) mstate_wishful &= ~mcAccel;
+				if (psActorFlags.test(AF_CROUCH_TOGGLE)) mstate_wishful &= ~mcCrouch;
+				mstate_wishful ^= mcSprint;
+			}
+		}
+		break;
+	case kFREELOOK:
+	{
+		if (psActorFlags.test(AF_FREELOOK_TOGGLE))
 		{
-		if( psActorFlags.test(AF_CROUCH_TOGGLE) )
-			mstate_wishful ^= mcCrouch;
-		}break;
+			if (cam_freelook == eflDisabled && CanUseFreelook())
+			{
+				cam_SetFreelook();
+			}
+			else if (cam_freelook == eflEnabled)
+			{
+				cam_UnsetFreelook();
+			}
+		}
+	}
+	case kCROUCH:
+		{
+			if (psActorFlags.test(AF_CROUCH_TOGGLE))
+				mstate_wishful ^= mcCrouch;
+		}
+		break;
+	case kACCEL:
+		{
+			if (psActorFlags.test(AF_WALK_TOGGLE))
+				mstate_wishful ^= mcAccel;
+		}
+		break;
+	case kL_LOOKOUT:
+		{
+			if (psActorFlags.test(AF_LOOKOUT_TOGGLE))
+			{
+				mstate_wishful &= ~mcRLookout;
+				mstate_wishful ^= mcLLookout;
+			}
+		}
+		break;
+	case kR_LOOKOUT:
+		{
+			if (psActorFlags.test(AF_LOOKOUT_TOGGLE))
+			{
+				mstate_wishful &= ~mcLLookout;
+				mstate_wishful ^= mcRLookout;
+			}
+		}
+		break;
 	case kCAM_1:	cam_Set			(eacFirstEye);				break;
 	case kCAM_2:	cam_Set			(eacLookAt);				break;
 	case kCAM_3:	cam_Set			(eacFreeLook);				break;
-	case kNIGHT_VISION:
+	case kSHOWHUD:
 		{
-			SwitchNightVision();
-			break;
-		}
-	case kTORCH:
-		{
-			SwitchTorch();
-			break;
-		}
-
+			CUIHudStatesWnd* wnd = CurrentGameUI()->UIMainIngameWnd->get_hud_states();
+			VERIFY( wnd );
+			if ( !wnd ) return;
+			wnd->ShowHud();
+	}break; 
 	case kDETECTOR:
 		{
 			PIItem det_active					= inventory().ItemFromSlot(DETECTOR_SLOT);
 			if(det_active)
 			{
-				CCustomDetector* det			= smart_cast<CCustomDetector*>(det_active);
-				det->ToggleDetector				(g_player_hud->attached_item(0)!=NULL);
+				CCustomDevice* det			= smart_cast<CCustomDevice*>(det_active);
+				det->ToggleDevice				(g_player_hud->attached_item(0)!=NULL);
 				return;
 			}
 		}break;
-/*
-	case kFLARE:{
-			PIItem fl_active = inventory().ItemFromSlot(FLARE_SLOT);
-			if(fl_active)
-			{
-				CFlare* fl			= smart_cast<CFlare*>(fl_active);
-				fl->DropFlare		();
-				return				;
-			}
-
-			PIItem fli = inventory().Get(CLSID_DEVICE_FLARE, true);
-			if(!fli)			return;
-
-			CFlare* fl			= smart_cast<CFlare*>(fli);
-			
-			if(inventory().Slot(fl))
-				fl->ActivateFlare	();
-		}break;
-*/
 	case kUSE:
 		ActorUse();
 		break;
@@ -167,13 +196,18 @@ void CActor::IR_OnKeyboardPress(int cmd)
 			const shared_str& item_name		= g_quick_use_slots[cmd-kQUICK_USE_1];
 			if(item_name.size())
 			{
-				PIItem itm = inventory().GetAny(item_name.c_str());
+				PIItem itm = inventory().Get(item_name.c_str(), false);
 
 				if(itm)
 				{
 					if (IsGameTypeSingle())
 					{
-						inventory().Eat				(itm);
+						if (itm->GetScriptAnim())
+							callback(GameObject::eUseInvObject)((smart_cast<CGameObject*>(itm))->lua_game_object());
+						else {
+							inventory().Ruck			(itm);
+							inventory().Eat				(itm);
+						}
 					} else
 					{
 						inventory().ClientEat		(itm);
@@ -217,7 +251,12 @@ void CActor::IR_OnKeyboardRelease(int cmd)
 	if (m_input_external_handler && !m_input_external_handler->authorized(cmd))	return;
 
 	if (g_Alive())	
-	{
+	{	
+		/* avo: script callback */
+		callback(GameObject::eKeyRelease)(cmd);
+		/* avo: end */
+		if (cmd == kUSE) 
+			m_bPickupMode = false;
 		if(m_holder)
 		{
 			m_holder->OnKeyboardRelease(cmd);
@@ -244,7 +283,10 @@ void CActor::IR_OnKeyboardHold(int cmd)
 	if (Remote() || !g_Alive())					return;
 	if (m_input_external_handler && !m_input_external_handler->authorized(cmd))	return;
 	if (IsTalking())							return;
-
+	
+	/* avo: script callback */
+	if (g_actor) g_actor->callback(GameObject::eKeyHold)(cmd);
+	/* avo: end */
 	if(m_holder)
 	{
 		m_holder->OnKeyboardHold(cmd);
@@ -263,28 +305,70 @@ void CActor::IR_OnKeyboardHold(int cmd)
 	switch(cmd)
 	{
 	case kUP:
-	case kDOWN: 
-		cam_Active()->Move( (cmd==kUP) ? kDOWN : kUP, 0, LookFactor);									break;
-	case kCAM_ZOOM_IN: 
-	case kCAM_ZOOM_OUT: 
-		cam_Active()->Move(cmd);												break;
+	case kDOWN:
+		if(cam_freelook != eflEnabling && cam_freelook != eflDisabling) cam_Active()->Move((cmd == kUP) ? kDOWN : kUP, 0, LookFactor);
+		break;
+	case kCAM_ZOOM_IN:
+	case kCAM_ZOOM_OUT:
+		cam_Active()->Move(cmd);
+		break;
 	case kLEFT:
 	case kRIGHT:
-		if (eacFreeLook!=cam_active) cam_Active()->Move(cmd, 0, LookFactor);	break;
-
-	case kACCEL:	mstate_wishful |= mcAccel;									break;
-	case kL_STRAFE:	mstate_wishful |= mcLStrafe;								break;
-	case kR_STRAFE:	mstate_wishful |= mcRStrafe;								break;
-	case kL_LOOKOUT:mstate_wishful |= mcLLookout;								break;
-	case kR_LOOKOUT:mstate_wishful |= mcRLookout;								break;
-	case kFWD:		mstate_wishful |= mcFwd;									break;
-	case kBACK:		mstate_wishful |= mcBack;									break;
+		if (eacFreeLook != cam_active && cam_freelook != eflEnabling && cam_freelook != eflDisabling) cam_Active()->Move(cmd, 0, LookFactor);
+		break;
+	case kL_STRAFE: mstate_wishful |= mcLStrafe;
+		break;
+	case kR_STRAFE: mstate_wishful |= mcRStrafe;
+		break;
+	case kL_LOOKOUT:
+		{
+			if (!psActorFlags.test(AF_LOOKOUT_TOGGLE) && cam_freelook == eflDisabled)
+				mstate_wishful |= mcLLookout;
+		}
+		break;
+	case kR_LOOKOUT:
+		{
+			if (!psActorFlags.test(AF_LOOKOUT_TOGGLE) && cam_freelook == eflDisabled)
+				mstate_wishful |= mcRLookout;
+		}
+		break;
+	case kFWD: mstate_wishful |= mcFwd;
+		break;
+	case kBACK: mstate_wishful |= mcBack;
+		break;
 	case kCROUCH:
 		{
-			if( !psActorFlags.test(AF_CROUCH_TOGGLE) )
-					mstate_wishful |= mcCrouch;
-
-		}break;
+			if (!psActorFlags.test(AF_CROUCH_TOGGLE))
+				mstate_wishful |= mcCrouch;
+		}
+		break;
+	case kACCEL:
+		{
+			if (!psActorFlags.test(AF_WALK_TOGGLE))
+				mstate_wishful |= mcAccel;
+		}
+	break;
+	case kFREELOOK:
+	{
+		if (!psActorFlags.test(AF_FREELOOK_TOGGLE))
+		{
+			if (cam_freelook == eflDisabled && CanUseFreelook())
+			{
+				cam_SetFreelook();
+			}
+		}
+	}
+	break;
+	case kSPRINT_TOGGLE:
+		{
+			if (!psActorFlags.test(AF_SPRINT_TOGGLE))
+			{
+				if (psActorFlags.test(AF_WALK_TOGGLE)) mstate_wishful &= ~mcAccel;
+				if (psActorFlags.test(AF_CROUCH_TOGGLE)) mstate_wishful &= ~mcCrouch;
+				mstate_wishful |= mcSprint;
+			}
+		}
+		break;
 	}
 }
 
@@ -308,6 +392,9 @@ void CActor::IR_OnMouseMove(int dx, int dy)
 		m_holder->OnMouseMove(dx,dy);
 		return;
 	}
+
+	if (cam_freelook == eflEnabling || cam_freelook == eflDisabling)
+		return;
 
 	float LookFactor = GetLookFactor();
 
@@ -466,6 +553,8 @@ void CActor::ActorUse()
 
 		}
 	}
+	m_bPickupMode = true;
+	PickupModeUpdate_COD();
 }
 
 BOOL CActor::HUDview				( )const 
@@ -557,17 +646,10 @@ float	CActor::GetLookFactor()
 	if (m_input_external_handler) 
 		return m_input_external_handler->mouse_scale_factor();
 
-	
-	float factor	= 1.f;
+	if (cam_freelook != eflDisabled)
+		return 1.5f;
 
-	PIItem pItem	= inventory().ActiveItem();
-
-	if (pItem)
-		factor *= pItem->GetControlInertionFactor();
-
-	VERIFY(!fis_zero(factor));
-
-	return factor;
+	return 1.f;
 }
 
 void CActor::set_input_external_handler(CActorInputHandler *handler) 
@@ -681,8 +763,8 @@ void CActor::NoClipFly(int cmd)
 			PIItem det_active = inventory().ItemFromSlot(DETECTOR_SLOT);
 			if(det_active)
 			{
-				CCustomDetector* det = smart_cast<CCustomDetector*>(det_active);
-				det->ToggleDetector(g_player_hud->attached_item(0)!=NULL);
+				CCustomDevice* det = smart_cast<CCustomDevice*>(det_active);
+				det->ToggleDevice(g_player_hud->attached_item(0)!=NULL);
 				return;
 			}
 		}

@@ -194,7 +194,6 @@ void CActor::g_cl_CheckControls(u32 mstate_wf, Fvector &vControlAccel, float &Ju
 			Jump				= m_fJumpSpeed;
 			m_fJumpTime			= s_fJumpTime;
 
-
 			//уменьшить силу игрока из-за выполненого прыжка
 			if (!GodMode())
 				conditions().ConditionJump(inventory().TotalWeight() / MaxCarryWeight());
@@ -445,15 +444,26 @@ bool CActor::g_LadderOrient()
 void CActor::g_cl_Orientate	(u32 mstate_rl, float dt)
 {
 	// capture camera into torso (only for FirstEye & LookAt cameras)
-	if (eacFreeLook!=cam_active)
+	if (eacFreeLook != cam_active)
 	{
-		r_torso.yaw		=	cam_Active()->GetWorldYaw	();
-		r_torso.pitch	=	cam_Active()->GetWorldPitch	();
+		if (cam_freelook == eflDisabled)
+		{
+			r_torso.yaw = cam_Active()->GetWorldYaw();
+			r_torso.pitch = cam_Active()->GetWorldPitch();
+		}
+		else
+		{
+			CCameraBase* C = cam_Active();
+			r_torso.yaw = angle_lerp(cam_Active()->GetWorldYaw(), -old_torso_yaw, freelook_cam_control);
+			float old_pitch = cam_Active()->GetWorldPitch();
+			float new_pitch = old_pitch > 0.f ? old_pitch * .6f : old_pitch *.8f;
+			r_torso.pitch = angle_lerp(old_pitch, new_pitch, freelook_cam_control);
+		}
 	}
 	else
 	{
-		r_torso.yaw		=	cam_FirstEye()->GetWorldYaw	();
-		r_torso.pitch	=	cam_FirstEye()->GetWorldPitch	();
+		r_torso.yaw = cam_FirstEye()->GetWorldYaw();
+		r_torso.pitch = cam_FirstEye()->GetWorldPitch();
 	}
 
 	unaffected_r_torso.yaw		= r_torso.yaw;
@@ -620,21 +630,26 @@ float CActor::MaxWalkWeight() const
 	return max_w;
 }
 #include "artefact.h"
+#include "ActorBackpack.h"
 float CActor::get_additional_weight() const
 {
 	float res = 0.0f ;
 	CCustomOutfit* outfit	= GetOutfit();
-	if ( outfit )
-	{
-		res				+= outfit->m_additional_weight;
+	if ( outfit ){
+		res				+= (outfit->m_additional_weight * outfit->GetCondition());
 	}
-
+	
+	CBackpack* pBackpack = smart_cast<CBackpack*>(inventory().ItemFromSlot(BACKPACK_SLOT));
+	if ( pBackpack ){
+		res				+= (pBackpack->m_additional_weight * pBackpack->GetCondition());
+	}
+	
 	for(TIItemContainer::const_iterator it = inventory().m_belt.begin(); 
 		inventory().m_belt.end() != it; ++it) 
 	{
 		CArtefact*	artefact = smart_cast<CArtefact*>(*it);
 		if(artefact)
-			res			+= artefact->AdditionalInventoryWeight();
+			res			+= (artefact->AdditionalInventoryWeight() * artefact->GetCondition());
 	}
 
 	return res;

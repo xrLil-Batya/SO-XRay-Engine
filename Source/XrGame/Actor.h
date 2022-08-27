@@ -311,6 +311,14 @@ public:
 	CActorCameraManager&	Cameras				() 	{VERIFY(m_pActorEffector); return *m_pActorEffector;}
 	IC CCameraBase*			cam_Active			()	{return cameras[cam_active];}
 	IC CCameraBase*			cam_FirstEye		()	{return cameras[eacFirstEye];}
+	//Swartz: actor shadow
+	IC EActorCameras active_cam() { return cam_active; } //KD: need to know which cam active outside actor methods
+	//-Swartz
+
+	// Rezy - Freelook
+	u8 cam_freelook;
+	float freelook_cam_control;
+	float old_torso_yaw;
 
 protected:
 	virtual	void			cam_Set					(EActorCameras style);
@@ -319,6 +327,10 @@ protected:
 	void					camUpdateLadder			(float dt);
 	void					cam_SetLadder			();
 	void					cam_UnsetLadder			();
+	void camUpdateFreelook(float dt);
+	void cam_SetFreelook();
+	void cam_UnsetFreelook();
+	bool CanUseFreelook();
 	float					currentFOV				();
 
 	// Cameras
@@ -334,6 +346,9 @@ protected:
 	//менеджер эффекторов, есть у каждого актрера
 	CActorCameraManager*	m_pActorEffector;
 	static float			f_Ladder_cam_limit;
+public: //--#SM+#--
+	float fFPCamYawMagnitude;
+	float fFPCamPitchMagnitude;
 public:
 	virtual void			feel_touch_new				(CObject* O);
 	virtual void			feel_touch_delete			(CObject* O);
@@ -386,6 +401,8 @@ public:
 	bool					g_LadderOrient			() ;
 //	void					UpdateMotionIcon		(u32 mstate_rl);
 
+	IC float				GetJumpSpeed			()	const			{return m_fJumpSpeed;}
+	IC void					SetJumpSpeed			(float _factor) { m_fJumpSpeed = _factor;}
 	bool					CanAccelerate			();
 	bool					CanJump					();
 	bool					CanMove					();
@@ -406,8 +423,15 @@ protected:
 
 	BOOL					m_bJumpKeyPressed;
 
+public:
+	// Lex Addon (correct by Suhar_) 6.07.2016		(begin)
 	float					m_fWalkAccel;
+	float					m_fBaseWalkAccel;
+	float					m_fWalkAccelLimit;
 	float					m_fJumpSpeed;
+	float					m_fBaseJumpSpeed;
+	float					m_fJumpSpeedLimit;
+	// Lex Addon (correct by Suhar_) 6.07.2016		(end)
 	float					m_fRunFactor;
 	float					m_fRunBackFactor;
 	float					m_fWalkBackFactor;
@@ -745,6 +769,11 @@ private:
 	bool					m_disabled_hitmarks;
 	bool					m_inventory_disabled;
 //static CPhysicsShell		*actor_camera_shell;
+protected:
+	bool m_bSafemode;
+public:
+	bool is_safemode() { return m_bSafemode; }
+	void set_safemode(bool status);
 
 DECLARE_SCRIPT_REGISTER_FUNCTION
 };

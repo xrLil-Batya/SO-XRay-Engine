@@ -115,6 +115,8 @@ public:
 	virtual bool			ApplyBooster			(const SBooster& B, const shared_str& sect);
 	float	GetMaxPowerRestoreSpeed					() {return m_max_power_restore_speed;};
 	float	GetMaxWoundProtection					() {return m_max_wound_protection;};
+	float	GetMaxStrikeProtection					() {return m_max_strike_protection;};
+	float	GetMaxExplosionProtection				() {return m_max_explosion_protection;};
 	float	GetMaxFireWoundProtection				() {return m_max_fire_wound_protection;};
 
 protected:
@@ -146,6 +148,8 @@ protected:
 	float	m_f_time_affected;
 	float	m_max_power_restore_speed;
 	float	m_max_wound_protection;
+	float	m_max_strike_protection;
+	float	m_max_explosion_protection;
 	float	m_max_fire_wound_protection;
 
 	mutable bool m_bLimping;
