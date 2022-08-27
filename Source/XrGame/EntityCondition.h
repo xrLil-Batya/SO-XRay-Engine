@@ -68,6 +68,7 @@ struct SMedicineInfluenceValues{
 	float fAlcohol;
 	float fTimeTotal;
 	float fTimeCurrent;
+	float fPsy;
 
 	SMedicineInfluenceValues():fTimeCurrent(-1.0f){}
 	bool InProcess (){return fTimeCurrent>0.0f;}

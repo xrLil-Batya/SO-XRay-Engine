@@ -3,17 +3,15 @@
 
 class CUIArtefactDetectorSimple;
 
-class CSimpleDetector :public CCustomDetector
+class CSimpleDetector : public CCustomDetector
 {
-	typedef CCustomDetector	inherited;
+	typedef CCustomDetector inherited;
 public:
-					CSimpleDetector				();
-	virtual			~CSimpleDetector			();
-	
-protected:
-//.	virtual void 	UpdateZones					();
-	virtual void 	UpdateAf					();
-	virtual void 	CreateUI					();
-	CUIArtefactDetectorSimple&	ui				();
-};
+	CSimpleDetector();
+	virtual ~CSimpleDetector();
 
+protected:
+	virtual void UpdateAf();
+	virtual void CreateUI();
+	CUIArtefactDetectorSimple& ui();
+};

@@ -144,8 +144,14 @@ bool CGrenade::DropGrenade()
 
 void CGrenade::DiscardState()
 {
-	if(IsGameTypeSingle() && (GetState()==eReady || GetState()==eThrow) )
-		OnStateSwitch(eIdle);
+	if (IsGameTypeSingle())
+	{
+		u32 state = GetState();
+		if (state == eReady || state == eThrow)
+		{
+			OnStateSwitch(eIdle, state);
+		}
+	}
 }
 
 void CGrenade::SendHiddenItem						()
@@ -239,18 +245,18 @@ void CGrenade::PutNextToSlot()
 
 	if (smart_cast<CInventoryOwner*>(H_Parent()) && m_pInventory)
 	{
-		CGrenade *pNext						= smart_cast<CGrenade*>(	m_pInventory->Same(this,true)		);
-		if(!pNext) pNext					= smart_cast<CGrenade*>(	m_pInventory->SameSlot(GRENADE_SLOT, this, true)	);
+		CGrenade *pNext						= smart_cast<CGrenade*>(	m_pInventory->Same(this,false)		);
+		if(!pNext) pNext					= smart_cast<CGrenade*>(	m_pInventory->SameSlot(ZAYAZ_GREN, this, false)	);
 
 		VERIFY								(pNext != this);
 
-		if(pNext && m_pInventory->Slot(pNext->BaseSlot(),pNext) )
+		if(pNext && m_pInventory->Slot(GRENADE_SLOT,pNext) )
 		{
 			pNext->u_EventGen				(P, GEG_PLAYER_ITEM2SLOT, pNext->H_Parent()->ID());
 			P.w_u16							(pNext->ID());
-			P.w_u16							(pNext->BaseSlot());
+			P.w_u16							(GRENADE_SLOT);
 			pNext->u_EventSend				(P);
-			m_pInventory->SetActiveSlot		(pNext->BaseSlot());
+			m_pInventory->SetActiveSlot		(GRENADE_SLOT);
 		}else
 		{
 			CActor* pActor = smart_cast<CActor*>( m_pInventory->GetOwner());
@@ -295,8 +301,8 @@ bool CGrenade::Action(u16 cmd, u32 flags)
 			{
 				if(m_pInventory)
 				{
-					TIItemContainer::iterator it = m_pInventory->m_ruck.begin();
-					TIItemContainer::iterator it_e = m_pInventory->m_ruck.end();
+					TIItemContainer::iterator it = m_pInventory->m_zayaz.begin();
+					TIItemContainer::iterator it_e = m_pInventory->m_zayaz.end();
 					for(;it!=it_e;++it) 
 					{
 						CGrenade *pGrenade = smart_cast<CGrenade*>(*it);
@@ -304,7 +310,7 @@ bool CGrenade::Action(u16 cmd, u32 flags)
 						{
 							m_pInventory->Ruck			(this);
 							m_pInventory->SetActiveSlot	(NO_ACTIVE_SLOT);
-							m_pInventory->Slot			(pGrenade->BaseSlot(),pGrenade);
+							m_pInventory->Slot			(GRENADE_SLOT,pGrenade);
 							return						true;
 						}
 					}

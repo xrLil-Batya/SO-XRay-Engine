@@ -31,6 +31,9 @@
 #include "ai_obstacle.h"
 #include "magic_box3.h"
 #include "animation_movement_controller.h"
+#include "game_object_space.h"
+#include "alife_simulator.h"
+#include "alife_object_registry.h"
 #include "../xrengine/xr_collide_form.h"
 extern MagicBox3 MagicMinBox (int iQuantity, const Fvector* akPoint);
 
@@ -71,6 +74,14 @@ CGameObject::~CGameObject		()
 	xr_delete					(m_ai_location);
 	xr_delete					(m_callbacks);
 	xr_delete					(m_ai_obstacle);
+}
+
+CSE_ALifeDynamicObject* CGameObject::alife_object() const
+{
+	const CALifeSimulator *sim = ai().get_alife();
+	if (sim)
+		return sim->objects().object(ID(), true);
+	return NULL;
 }
 
 void CGameObject::init			()
