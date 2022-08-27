@@ -1,6 +1,7 @@
 //#include "stdafx.h"
 #include "pch_script.h"
 #include "UIActorMenu.h"
+#include "UIActorStateInfo.h"
 #include "UIInventoryUpgradeWnd.h"
 #include "UIInvUpgradeInfo.h"
 
@@ -21,44 +22,45 @@
 
 void CUIActorMenu::InitUpgradeMode()
 {
-	m_PartnerCharacterInfo->Show( true );
-	m_PartnerMoney->Show( false );
-	m_pUpgradeWnd->Show( true );
-	m_pQuickSlot->Show(true);
-	
-	InitInventoryContents( m_pInventoryBagList );
-	VERIFY( m_pPartnerInvOwner );
-	m_pPartnerInvOwner->StartTrading();
-//-	UpdateUpgradeItem();
+    m_PartnerCharacterInfo->Show(true);
+    m_PartnerMoney->Show(false);
+    m_pUpgradeWnd->Show(true);
+    m_pQuickSlot->Show(true);
+    m_RightBackground->Show(false);
+
+    InitInventoryContents(m_pInventoryBagList);
+    VERIFY(m_pPartnerInvOwner);
+    m_pPartnerInvOwner->StartTrading();
 }
 
 void CUIActorMenu::DeInitUpgradeMode()
 {
-	m_PartnerCharacterInfo->Show( false );
-	m_pUpgradeWnd->Show( false );
-	m_pUpgradeWnd->set_info_cur_upgrade( NULL );
-	m_pUpgradeWnd->m_btn_repair->Enable( false );
+    m_PartnerCharacterInfo->Show(false);
+    m_pUpgradeWnd->Show(false);
+    m_pUpgradeWnd->set_info_cur_upgrade(NULL);
+    m_pUpgradeWnd->m_btn_repair->Enable(false);
 
-	if ( m_upgrade_selected )
-	{
-		m_upgrade_selected->Mark( false );
-		m_upgrade_selected = NULL;
-	}
-	if ( m_pPartnerInvOwner )
-	{
-		m_pPartnerInvOwner->StopTrading();
-	}
+    if (m_upgrade_selected)
+    {
+        m_upgrade_selected->Mark(false);
+        m_upgrade_selected = NULL;
+    }
+    if (m_pPartnerInvOwner)
+    {
+        m_pPartnerInvOwner->StopTrading();
+    }
 
-	if(!CurrentGameUI())
-		return;
-	//только если находимся в режиме single
-	CUIGameSP* pGameSP = smart_cast<CUIGameSP*>(CurrentGameUI());
-	if(!pGameSP) return;
+    if (!CurrentGameUI())
+        return;
+    //только если находимся в режиме single
+    CUIGameSP* pGameSP = smart_cast<CUIGameSP*>(CurrentGameUI());
+    if (!pGameSP)
+        return;
 
-	if(pGameSP->TalkMenu->IsShown())
-	{
-		pGameSP->TalkMenu->NeedUpdateQuestions();
-	}
+    if (pGameSP->TalkMenu->IsShown())
+    {
+        pGameSP->TalkMenu->NeedUpdateQuestions();
+    }
 }
 
 void CUIActorMenu::SetupUpgradeItem()

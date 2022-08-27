@@ -2,6 +2,9 @@
 
 #include "UIWindow.h"
 #include "UIWndCallback.h"
+#include "UIActorMenu.h"
+#include "inventory_item.h"
+#include "inventory_space.h"
 
 class CUICellContainer;
 class CUIScrollBar;
@@ -29,6 +32,7 @@ typedef UI_CELLS_VEC::iterator		UI_CELLS_VEC_IT;
 class CUIDragDropListEx :public CUIWindow, public CUIWndCallback
 {
 private:
+	CPhysicsShellHolder*		m_object;
 	typedef CUIWindow inherited;
 
 	enum{	
@@ -45,8 +49,11 @@ private:
 	bool					m_bConditionProgBarVisible;
 protected:
 	CUICellItem*			m_selected_item;
+	CUICellItem*			m_pCurrentCellItem;
 	CUICellContainer*		m_container;
 	CUIScrollBar*			m_vScrollBar;
+	CUICellItem*			CurrentItem					();
+	PIItem					CurrentIItem				();
 
 	virtual void	__stdcall		OnScrollV				(CUIWindow* w, void* pData);
 	virtual void	__stdcall		OnItemStartDragging		(CUIWindow* w, void* pData);
@@ -58,6 +65,8 @@ protected:
 	virtual void	__stdcall		OnItemFocusReceived		(CUIWindow* w, void* pData);
 	virtual void	__stdcall		OnItemFocusLost			(CUIWindow* w, void* pData);
 	virtual void	__stdcall		OnItemFocusedUpdate		(CUIWindow* w, void* pData);
+
+	DECLARE_SCRIPT_REGISTER_FUNCTION
 	
 public:
 	static CUIDragItem*		m_drag_item;
@@ -132,6 +141,7 @@ public:
 			void			clear_select_armament();
 			Ivector2		PickCell			(const Fvector2& abs_pos);
 			CUICell&		GetCellAt			(const Ivector2& pos);
+			CUICellContainer* GetContainer() { return m_container; }; //Alundaio
 
 public:
 	//UIWindow overriding
@@ -168,6 +178,9 @@ protected:
 public:							
 								CUICellContainer	(CUIDragDropListEx* parent);
 	virtual						~CUICellContainer	();
+	Ivector2		PickCell(const Fvector2& abs_pos); //Alundaio made public
+	bool			ValidCell(const Ivector2& pos) const; //Alundaio made public 
+	CUICell&		GetCellAt(const Ivector2& pos);
 protected:
 	virtual		void			Draw				();
 
@@ -178,8 +191,8 @@ protected:
 	IC const	Ivector2&		CellsSpacing		()								{return m_cellSpacing;};	
 				void			SetCellsSpacing		(const Ivector2& new_sz);
 				Ivector2		TopVisibleCell		();
-				CUICell&		GetCellAt			(const Ivector2& pos);
-				Ivector2		PickCell			(const Fvector2& abs_pos);
+				
+
 				Ivector2		GetItemPos			(CUICellItem* itm);
 				Ivector2		FindFreeCell		(const Ivector2& size);
 				bool			HasFreeSpace		(const Ivector2& size);
@@ -190,7 +203,7 @@ protected:
 
 				void			PlaceItemAtPos		(CUICellItem* itm, Ivector2& cell_pos);
 				CUICellItem*	RemoveItem			(CUICellItem* itm, bool force_root);
-				bool			ValidCell			(const Ivector2& pos) const;
+				
 
 				void			Grow				();
 				void			Shrink				();
