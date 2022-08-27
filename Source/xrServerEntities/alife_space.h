@@ -89,9 +89,9 @@ namespace ALife {
 		eHitTypeChemicalBurn,
 		eHitTypeRadiation,
 		eHitTypeTelepatic,
+		eHitTypeStrike,
 		eHitTypeWound,
 		eHitTypeFireWound,
-		eHitTypeStrike,
 		eHitTypeExplosion,
 		eHitTypeWound_2,		//knife's alternative fire
 //		eHitTypePhysicStrike,
@@ -105,6 +105,10 @@ namespace ALife {
 		infl_acid,
 		infl_psi,
 		infl_electra,
+		infl_strike,
+		infl_wound,
+		infl_firewound,
+		infl_explosion,
 		infl_max_count
 	};
 
@@ -114,6 +118,7 @@ namespace ALife {
 		ePowerRestoreSpeed,
 		eBleedingRestoreSpeed,
 		eRadiationRestoreSpeed,
+		ePsyHealthRestoreSpeed,
 		eRestoreTypeMax,
 	};
 
