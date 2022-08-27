@@ -5,6 +5,7 @@ class CInventory;
 class CInventoryItem;
 class CHudItem;
 class CInventoryOwner;
+class CUIDragDropListEx;
 
 class CInventorySlot
 {									
@@ -13,10 +14,16 @@ public:
 	virtual					~CInventorySlot		();
 
 	bool					CanBeActivated		() const;
+	
+	TIItemContainer m_ammunitions;
 
 	PIItem					m_pIItem;
 	bool					m_bPersistent;
 	bool					m_bAct;
+	void addItem(PIItem item);
+	void eraseAll();
+	void eraseItem(PIItem item);
+	bool checkItem(const CInventoryItem* pIItem) const;
 };
 
 class priority_group
@@ -62,6 +69,8 @@ public:
 	bool 					CanPutInBelt		(PIItem pIItem);
 	bool 					CanPutInRuck		(PIItem pIItem) const;
 
+	void UpdateZayaz();
+
 	bool					CanTakeItem			(CInventoryItem *inventory_item) const;
 
 
@@ -95,6 +104,7 @@ public:
 	// get all the items with the same section name
 	virtual u32				dwfGetSameItemCount	(LPCSTR caSection, bool SearchAll = false);	
 	virtual u32				dwfGetGrenadeCount	(LPCSTR caSection, bool SearchAll);	
+	virtual u32 dwfGetZayazCount(u32 Type);	
 	// get all the items with the same object id
 	virtual bool			bfCheckForObject	(ALife::_OBJECT_ID tObjectID);	
 	PIItem					get_object_by_id	(ALife::_OBJECT_ID tObjectID);
@@ -128,8 +138,9 @@ public:
 	TIItemContainer			m_all;
 	TIItemContainer			m_ruck, m_belt;
 	TIItemContainer			m_activ_last_items;
+	TIItemContainer m_zayaz;
 
-protected:
+public:
 	TISlotArr				m_slots;
 public:
 	//возвращает все кроме PDA в слоте и болта
@@ -139,6 +150,8 @@ public:
 	void				SetMaxWeight				(float weight)			{m_fMaxWeight = weight;}
 
 	u32					BeltWidth					() const;
+	u32 SlotWidth(u16 slot_id) const;
+	u32 SlotHeight(u16 slot_id) const;
 
 	inline	CInventoryOwner*GetOwner				() const				{ return m_pOwner; }
 	
