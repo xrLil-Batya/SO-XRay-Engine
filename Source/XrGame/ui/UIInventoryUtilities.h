@@ -32,6 +32,7 @@ namespace InventoryUtilities
 bool GreaterRoomInRuck	(PIItem item1, PIItem item2);
 //для проверки свободного места
 bool FreeRoom_inBelt	(TIItemContainer& item_list, PIItem item, int width, int height);
+bool FreeRoom_inSlot	(TIItemContainer item_list, PIItem item, int width, int height);
 
 
 // get shader for BuyWeaponWnd

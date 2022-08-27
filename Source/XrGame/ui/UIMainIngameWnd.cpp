@@ -106,20 +106,8 @@ void CUIMainIngameWnd::Init()
 
 	Enable(false);
 
-//	AttachChild					(&UIStaticHealth);	xml_init.InitStatic			(uiXml, "static_health", 0, &UIStaticHealth);
-//	AttachChild					(&UIStaticArmor);	xml_init.InitStatic			(uiXml, "static_armor", 0, &UIStaticArmor);
-//	AttachChild					(&UIWeaponBack);
-//	xml_init.InitStatic			(uiXml, "static_weapon", 0, &UIWeaponBack);
 
-/*	UIWeaponBack.AttachChild	(&UIWeaponSignAmmo);
-	xml_init.InitStatic			(uiXml, "static_ammo", 0, &UIWeaponSignAmmo);
-	UIWeaponSignAmmo.SetEllipsis	(CUIStatic::eepEnd, 2);
-
-	UIWeaponBack.AttachChild	(&UIWeaponIcon);
-	xml_init.InitStatic			(uiXml, "static_wpn_icon", 0, &UIWeaponIcon);
-	UIWeaponIcon.SetShader		(GetEquipmentIconsShader());
-	UIWeaponIcon_rect			= UIWeaponIcon.GetWndRect();
-*/	//---------------------------------------------------------
+	//---------------------------------------------------------
 	UIPickUpItemIcon			= UIHelper::CreateStatic		(uiXml, "pick_up_item", this);
 	UIPickUpItemIcon->SetShader	(GetEquipmentIconsShader());
 
@@ -141,6 +129,13 @@ void CUIMainIngameWnd::Init()
 	xml_init.InitScrollView		(uiXml, "icons_scroll_view", 0, m_UIIcons);
 	AttachChild					(m_UIIcons);
 	
+	//ARTLantist new hud icons for conditions actor's
+	m_ind_health			= UIHelper::CreateStatic(uiXml, "indicator_health", this);
+	m_ind_psy_health		= UIHelper::CreateStatic(uiXml, "indicator_psy_health", this);
+	m_ind_hungry			= UIHelper::CreateStatic(uiXml, "indicator_hungry", this);
+	m_ind_stamina			= UIHelper::CreateStatic(uiXml, "indicator_stamina", this);
+	//ARTLantist end
+
 	m_ind_bleeding			= UIHelper::CreateStatic(uiXml, "indicator_bleeding", this);
 	m_ind_radiation			= UIHelper::CreateStatic(uiXml, "indicator_radiation", this);
 	m_ind_starvation		= UIHelper::CreateStatic(uiXml, "indicator_starvation", this);
@@ -166,24 +161,9 @@ void CUIMainIngameWnd::Init()
 	m_ind_boost_power		->Show(false);
 	m_ind_boost_rad			->Show(false);
 	
-	// Загружаем иконки 
-/*	if ( IsGameTypeSingle() )
-	{
-		xml_init.InitStatic		(uiXml, "starvation_static", 0, &UIStarvationIcon);
-		UIStarvationIcon.Show	(false);
-
-//		xml_init.InitStatic		(uiXml, "psy_health_static", 0, &UIPsyHealthIcon);
-//		UIPsyHealthIcon.Show	(false);
-	}
-*/
+	
 	UIWeaponJammedIcon			= UIHelper::CreateStatic(uiXml, "weapon_jammed_static", NULL);
 	UIWeaponJammedIcon->Show	(false);
-
-//	xml_init.InitStatic			(uiXml, "radiation_static", 0, &UIRadiaitionIcon);
-//	UIRadiaitionIcon.Show		(false);
-
-//	xml_init.InitStatic			(uiXml, "wound_static", 0, &UIWoundIcon);
-//	UIWoundIcon.Show			(false);
 
 	UIInvincibleIcon			= UIHelper::CreateStatic(uiXml, "invincible_static", NULL);
 	UIInvincibleIcon->Show		(false);
@@ -331,9 +311,6 @@ void CUIMainIngameWnd::Update()
 
 	UIZoneMap->Update();
 	
-//	UIHealthBar.SetProgressPos	(m_pActor->GetfHealth()*100.0f);
-//	UIMotionIcon->SetPower		(m_pActor->conditions().GetPower()*100.0f);
-	
 	UpdatePickUpItem			();
 
 	if( Device.dwFrame % 10 )
@@ -464,21 +441,6 @@ void CUIMainIngameWnd::SetWarningIconColor(EWarningIcons icon, const u32 cl)
 	case ewiWeaponJammed:
 		SetWarningIconColorUI	(UIWeaponJammedIcon, cl);
 		if (bMagicFlag) break;
-
-/*	case ewiRadiation:
-		SetWarningIconColorUI	(&UIRadiaitionIcon, cl);
-		if (bMagicFlag) break;
-	case ewiWound:
-		SetWarningIconColorUI	(&UIWoundIcon, cl);
-		if (bMagicFlag) break;
-
-	case ewiStarvation:
-		SetWarningIconColorUI	(&UIStarvationIcon, cl);
-		if (bMagicFlag) break;	
-	case ewiPsyHealth:
-		SetWarningIconColorUI	(&UIPsyHealthIcon, cl);
-		if (bMagicFlag) break;
-*/
 	case ewiInvincible:
 		SetWarningIconColorUI	(UIInvincibleIcon, cl);
 		if (bMagicFlag) break;
@@ -563,8 +525,6 @@ void CUIMainIngameWnd::AnimateContacts(bool b_snd)
 		HUD_SOUND_ITEM::PlaySound	(m_contactSnd, Fvector().set(0,0,0), 0, true );
 
 }
-
-
 void CUIMainIngameWnd::SetPickUpItem	(CInventoryItem* PickUpItem)
 {
 	m_pPickUpItem = PickUpItem;
@@ -578,43 +538,7 @@ void CUIMainIngameWnd::UpdatePickUpItem	()
 		return;
 	};
 
-
-	shared_str sect_name	= m_pPickUpItem->object().cNameSect();
-
-	//properties used by inventory menu
-	int m_iGridWidth	= pSettings->r_u32(sect_name, "inv_grid_width");
-	int m_iGridHeight	= pSettings->r_u32(sect_name, "inv_grid_height");
-
-	int m_iXPos			= pSettings->r_u32(sect_name, "inv_grid_x");
-	int m_iYPos			= pSettings->r_u32(sect_name, "inv_grid_y");
-
-	float scale_x = m_iPickUpItemIconWidth/
-		float(m_iGridWidth*INV_GRID_WIDTH);
-
-	float scale_y = m_iPickUpItemIconHeight/
-		float(m_iGridHeight*INV_GRID_HEIGHT);
-
-	scale_x = (scale_x>1) ? 1.0f : scale_x;
-	scale_y = (scale_y>1) ? 1.0f : scale_y;
-
-	float scale = scale_x<scale_y?scale_x:scale_y;
-
-	Frect					texture_rect;
-	texture_rect.lt.set		(m_iXPos*INV_GRID_WIDTH, m_iYPos*INV_GRID_HEIGHT);
-	texture_rect.rb.set		(m_iGridWidth*INV_GRID_WIDTH, m_iGridHeight*INV_GRID_HEIGHT);
-	texture_rect.rb.add		(texture_rect.lt);
-	UIPickUpItemIcon->GetStaticItem()->SetTextureRect(texture_rect);
-	UIPickUpItemIcon->SetStretchTexture(true);
-
-
-	UIPickUpItemIcon->SetWidth(m_iGridWidth*INV_GRID_WIDTH*scale*UI().get_current_kx());
-	UIPickUpItemIcon->SetHeight(m_iGridHeight*INV_GRID_HEIGHT*scale);
-
-	UIPickUpItemIcon->SetWndPos(Fvector2().set(	m_iPickUpItemIconX+(m_iPickUpItemIconWidth-UIPickUpItemIcon->GetWidth())/2.0f,
-												m_iPickUpItemIconY+(m_iPickUpItemIconHeight-UIPickUpItemIcon->GetHeight())/2.0f) );
-
-	UIPickUpItemIcon->SetTextureColor(color_rgba(255,255,255,192));
-	UIPickUpItemIcon->Show(true);
+	UIPickUpItemIcon->Show(false);
 };
 
 void CUIMainIngameWnd::OnConnected()
@@ -665,6 +589,10 @@ void CUIMainIngameWnd::UpdateMainIndicators()
 	UpdateQuickSlots();
 	if (IsGameTypeSingle())
 		CurrentGameUI()->PdaMenu().UpdateRankingWnd();
+	
+	CUIXml						uiXml;
+	uiXml.Load					(CONFIG_PATH, UI_PATH, MAININGAME_XML);
+	float coeff = 0.f;
 
 	u8 flags = 0;
 	flags |= LA_CYCLIC;
@@ -696,119 +624,146 @@ void CUIMainIngameWnd::UpdateMainIndicators()
 			m_ind_bleeding->SetColorAnimation("ui_fast_blinking_alpha", flags);
 		}
 	}
-// Radiation icon
-	float radiation = pActor->conditions().GetRadiation();
-	if(fis_zero(radiation, EPS))
+// Health icon
+	float health = pActor->conditions().GetHealth();
+	if(fis_zero(health, EPS))
 	{
-		m_ind_radiation->Show(false);
-		m_ind_radiation->ResetColorAnimation();
+		m_ind_health->Show(false);
+		m_ind_health->ResetColorAnimation();
 	}
 	else
 	{
-		m_ind_radiation->Show(true);
-		if(radiation<0.35f)
+		if( health<0.92f )
 		{
-			m_ind_radiation->InitTexture("ui_inGame2_circle_radiation_green");
-			m_ind_radiation->SetColorAnimation("ui_slow_blinking_alpha", flags);
+			u32 r,g,a;
+			float fr,fg,fa;
+			fr = (200-(200*health));
+			fg = (180*health);
+			fa = (250-(240*health));
+			r = (int)fr;
+			g = (int)fg;
+			a = (int)fa;
+			m_ind_health->Show(true);
+			m_ind_health->InitTexture("ui_inGame2_health_sensor");
+			m_ind_health->SetTextureColor( color_rgba(r,g,0,a) );
+			if( health<0.1f ){
+				m_ind_health->SetColorAnimation("ui_fast_blinking_alpha", flags);
+			}
+			coeff += 1;
 		}
-		else if(radiation<0.7f)
-		{
-			m_ind_radiation->InitTexture("ui_inGame2_circle_radiation_yellow");
-			m_ind_radiation->SetColorAnimation("ui_medium_blinking_alpha", flags);
-		}
-		else
-		{
-			m_ind_radiation->InitTexture("ui_inGame2_circle_radiation_red");
-			m_ind_radiation->SetColorAnimation("ui_fast_blinking_alpha", flags);
+		else {
+			m_ind_health->Show(false);
 		}
 	}
-
+// Psy Health icon
+	float psy = pActor->conditions().GetPsy();
+	if(fis_zero(psy, EPS))
+	{
+		m_ind_psy_health->Show(false);
+	}
+	else
+	{
+		if( psy<0.9f )
+		{
+			u32 r,g,a;
+			float fr,fg,fa;
+			fr = (200-(200*psy));
+			fg = (180*psy);
+			fa = (250-(240*psy));
+			r = (int)fr;
+			g = (int)fg;
+			a = (int)fa;
+			m_ind_psy_health->Show(true);
+			m_ind_psy_health->InitTexture("ui_inGame2_psy_h_sensor");
+			m_ind_psy_health->SetTextureColor( color_rgba(r,g,0,a) );
+			if( psy<0.1f ){
+				m_ind_psy_health->SetColorAnimation("ui_fast_blinking_alpha", flags);
+			}
+			Fvector2 pos;
+			pos.set( uiXml.ReadAttribFlt("indicator_psy_health", 0, "x"),uiXml.ReadAttribFlt("indicator_psy_health", 0, "y") );
+			if (coeff > 0){
+				float h = 50 * coeff;
+				pos.y -= h;
+			}
+			m_ind_psy_health->SetWndPos( pos );
+			coeff += 1;
+		}
+		else {
+			m_ind_psy_health->Show(false);
+		}
+	}
+// Stamina icon
+	float stamina = pActor->conditions().GetPower();
+	if(fis_zero(stamina, EPS))
+	{
+		m_ind_stamina->Show(false);
+	}
+	else
+	{
+		if( stamina<0.5f )
+		{
+			u32 r,g,b,a;
+			float fr,fg,fb,fa;
+			fr = (225-(200*stamina));
+			fg = (225-(200*stamina));
+			fb = (250*stamina);
+			fa = (250-(400*stamina));
+			r = (int)fr;
+			g = (int)fg;
+			b = (int)fb;
+			a = (int)fa;
+			m_ind_stamina->Show(true);
+			m_ind_stamina->InitTexture("ui_inGame2_stamina_sensor");
+			m_ind_stamina->SetTextureColor( color_rgba(r,g,b,a) );
+			Fvector2 pos;
+			pos.set( uiXml.ReadAttribFlt("indicator_stamina", 0, "x"),uiXml.ReadAttribFlt("indicator_stamina", 0, "y") );
+			if (coeff > 0){
+				float h = 50 * coeff;
+				pos.y -= h;
+			}
+			m_ind_stamina->SetWndPos( pos );
+			coeff += 1;
+		}
+		else {
+			m_ind_stamina->Show(false);
+		}
+	}
 // Satiety icon
 	float satiety = pActor->conditions().GetSatiety();
-	float satiety_critical = pActor->conditions().SatietyCritical();
-	float satiety_koef = (satiety-satiety_critical)/(satiety>=satiety_critical?1-satiety_critical:satiety_critical);
-	if(satiety_koef>0.5)
-		m_ind_starvation->Show(false);
+	if(fis_zero(satiety, EPS))
+	{
+		m_ind_hungry->Show(false);
+		m_ind_hungry->ResetColorAnimation();
+	}
 	else
 	{
-		m_ind_starvation->Show(true);
-		if(satiety_koef>0.0f)
-			m_ind_starvation->InitTexture("ui_inGame2_circle_hunger_green");
-		else if(satiety_koef>-0.5f)
-			m_ind_starvation->InitTexture("ui_inGame2_circle_hunger_yellow");
-		else
-			m_ind_starvation->InitTexture("ui_inGame2_circle_hunger_red");
-	}
-// Armor broken icon
-	CCustomOutfit* outfit = smart_cast<CCustomOutfit*>(pActor->inventory().ItemFromSlot(OUTFIT_SLOT));
-	m_ind_outfit_broken->Show(false);
-	if(outfit)
-	{
-		float condition = outfit->GetCondition();
-		if(condition<0.75f)
+		if( satiety<0.85f )
 		{
-			m_ind_outfit_broken->Show(true);
-			if(condition>0.5f)
-				m_ind_outfit_broken->InitTexture("ui_inGame2_circle_Armorbroken_green");
-			else if(condition>0.25f)
-				m_ind_outfit_broken->InitTexture("ui_inGame2_circle_Armorbroken_yellow");
-			else
-				m_ind_outfit_broken->InitTexture("ui_inGame2_circle_Armorbroken_red");
-		}
-	}
-// Helmet broken icon
-	CHelmet* helmet = smart_cast<CHelmet*>(pActor->inventory().ItemFromSlot(HELMET_SLOT));
-	m_ind_helmet_broken->Show(false);
-	if(helmet)
-	{
-		float condition = helmet->GetCondition();
-		if(condition<0.75f)
-		{
-			m_ind_helmet_broken->Show(true);
-			if(condition>0.5f)
-				m_ind_helmet_broken->InitTexture("ui_inGame2_circle_Helmetbroken_green");
-			else if(condition>0.25f)
-				m_ind_helmet_broken->InitTexture("ui_inGame2_circle_Helmetbroken_yellow");
-			else
-				m_ind_helmet_broken->InitTexture("ui_inGame2_circle_Helmetbroken_red");
-		}
-	}
-// Weapon broken icon
-	u16 slot = pActor->inventory().GetActiveSlot();
-	m_ind_weapon_broken->Show(false);
-	if(slot==INV_SLOT_2 || slot==INV_SLOT_3)
-	{
-		CWeapon* weapon = smart_cast<CWeapon*>(pActor->inventory().ItemFromSlot(slot));
-		if(weapon)
-		{
-			float condition = weapon->GetCondition();
-			float start_misf_cond = weapon->GetMisfireStartCondition();
-			float end_misf_cond = weapon->GetMisfireEndCondition();
-			if(condition<start_misf_cond)
-			{
-				m_ind_weapon_broken->Show(true);
-				if(condition>(start_misf_cond+end_misf_cond)/2)
-					m_ind_weapon_broken->InitTexture("ui_inGame2_circle_Gunbroken_green");
-				else if(condition>end_misf_cond)
-					m_ind_weapon_broken->InitTexture("ui_inGame2_circle_Gunbroken_yellow");
-				else
-					m_ind_weapon_broken->InitTexture("ui_inGame2_circle_Gunbroken_red");
+			u32 r,g,a;
+			float fr,fg,fa;
+			fr = (200-(200*satiety));
+			fg = (180*satiety);
+			fa = (250-(225*satiety));
+			r = (int)fr;
+			g = (int)fg;
+			a = (int)fa;
+			m_ind_hungry->Show(true);
+			m_ind_hungry->InitTexture("ui_inGame2_hunger_sensor");
+			m_ind_hungry->SetTextureColor( color_rgba(r,g,0,a) );
+			if( satiety<0.1f ){
+				m_ind_hungry->SetColorAnimation("ui_fast_blinking_alpha", flags);
 			}
+			Fvector2 pos;
+			pos.set( uiXml.ReadAttribFlt("indicator_hungry", 0, "x"),uiXml.ReadAttribFlt("indicator_hungry", 0, "y") );
+			if (coeff > 0){
+				float h = 50 * coeff;
+				pos.y -= h;
+			}
+			m_ind_hungry->SetWndPos( pos );
 		}
-	}
-// Overweight icon
-	float cur_weight = pActor->inventory().TotalWeight();
-	float max_weight = pActor->MaxWalkWeight();
-	m_ind_overweight->Show(false);
-	if(cur_weight>=max_weight-10.0f && IsGameTypeSingle())
-	{
-		m_ind_overweight->Show(true);
-		if(cur_weight>max_weight)
-			m_ind_overweight->InitTexture("ui_inGame2_circle_Overweight_red");
-		//else if(cur_weight>max_weight-10.0f)
-		//	m_ind_overweight->InitTexture("ui_inGame2_circle_Overweight_yellow");
-		else
-			m_ind_overweight->InitTexture("ui_inGame2_circle_Overweight_yellow");
+		else {
+			m_ind_hungry->Show(false);
+		}
 	}
 }
 
@@ -886,7 +841,6 @@ void CUIMainIngameWnd::UpdateQuickSlots()
 			{
 				wnd->Show(false);
 				m_quick_slots_icons[i]->SetTextureColor(color_rgba(255,255,255,0));
-//				m_quick_slots_icons[i]->Show(false);
 			}
 		}
 	}

@@ -59,13 +59,10 @@ void ui_actor_state_wnd::init_from_xml( CUIXml& xml, LPCSTR path )
 		AttachChild( m_state[i] );
 		m_state[i]->set_hint_wnd( m_hint_wnd );
 	}
-//	m_state[stt_stamina]->init_from_xml( xml, "stamina_state" );
 	m_state[stt_health]->init_from_xml( xml, "health_state");
 	m_state[stt_bleeding]->init_from_xml( xml, "bleeding_state");
-	m_state[stt_radiation]->init_from_xml( xml, "radiation_state");
-//	m_state[stt_armor]->init_from_xml( xml, "armor_state");
+	m_state[stt_satiety]->init_from_xml( xml, "satiety_state");
 
-//	m_state[stt_main]->init_from_xml( xml, "main_sensor");
 	m_state[stt_fire]->init_from_xml( xml, "fire_sensor");
 	m_state[stt_radia]->init_from_xml( xml, "radia_sensor");
 	m_state[stt_acid ]->init_from_xml( xml, "acid_sensor");
@@ -74,6 +71,8 @@ void ui_actor_state_wnd::init_from_xml( CUIXml& xml, LPCSTR path )
 	m_state[stt_fire_wound]->init_from_xml( xml, "fire_wound_sensor");
 	m_state[stt_shock]->init_from_xml( xml, "shock_sensor");
 	m_state[stt_power]->init_from_xml( xml, "power_sensor");
+	m_state[stt_strike]->init_from_xml( xml, "strike_sensor");
+	m_state[stt_explo]->init_from_xml( xml, "explosion_sensor");
 
 	xml.SetLocalRoot( stored_root );
 }
@@ -85,13 +84,12 @@ void ui_actor_state_wnd::UpdateActorInfo( CInventoryOwner* owner )
 	{
 		return;
 	}
-
 	float value = 0.0f;
-	
+
 	value = actor->conditions().GetHealth();
-	value = floor(value * 55) / 55; // number of sticks in progress bar
-// show bleeding icon
+	value = floor(value * 168) / 168; // number of sticks in progress bar
 	m_state[stt_health]->set_progress(value);
+// show bleeding icon
 	value = actor->conditions().BleedingSpeed();					
 	m_state[stt_bleeding]->show_static(false, 1);
 	m_state[stt_bleeding]->show_static(false, 2);
@@ -105,20 +103,9 @@ void ui_actor_state_wnd::UpdateActorInfo( CInventoryOwner* owner )
 		else 
 			m_state[stt_bleeding]->show_static(true, 3);
 	}
-// show radiation icon
-	value = actor->conditions().GetRadiation();
-	m_state[stt_radiation]->show_static(false, 1);
-	m_state[stt_radiation]->show_static(false, 2);
-	m_state[stt_radiation]->show_static(false, 3);
-	if(!fis_zero(value, EPS))
-	{
-		if(value<0.35f)
-			m_state[stt_radiation]->show_static(true, 1);
-		else if(value<0.7f)
-			m_state[stt_radiation]->show_static(true, 2);
-		else 
-			m_state[stt_radiation]->show_static(true, 3);
-	}
+	value = actor->conditions().GetSatiety();
+	value = floor(value * 168) / 168; // number of sticks in progress bar					
+	m_state[stt_satiety]->set_progress(value);
 
 	CCustomOutfit* outfit = actor->GetOutfit();
 	PIItem itm = actor->inventory().ItemFromSlot(HELMET_SLOT);
@@ -130,6 +117,8 @@ void ui_actor_state_wnd::UpdateActorInfo( CInventoryOwner* owner )
 	m_state[stt_psi]->set_progress(0.0f);
 	m_state[stt_wound]->set_progress(0.0f);
 	m_state[stt_fire_wound]->set_progress(0.0f);
+	m_state[stt_strike]->set_progress(0.0f);
+	m_state[stt_explo]->set_progress(0.0f);
 	m_state[stt_shock]->set_progress(0.0f);
 	m_state[stt_power]->set_progress(0.0f);
 
@@ -140,6 +129,8 @@ void ui_actor_state_wnd::UpdateActorInfo( CInventoryOwner* owner )
 	float woun_value = 0.0f;
 	float shoc_value = 0.0f;
 	float fwou_value = 0.0f;
+	float strk_value = 0.0f;
+	float expl_value = 0.0f;
 
 	CEntityCondition::BOOSTER_MAP cur_booster_influences = actor->conditions().GetCurBoosterInfluences();
 	CEntityCondition::BOOSTER_MAP::const_iterator it;
@@ -163,6 +154,8 @@ void ui_actor_state_wnd::UpdateActorInfo( CInventoryOwner* owner )
 		tele_value += outfit->GetDefHitTypeProtection(ALife::eHitTypeTelepatic);
 		woun_value += outfit->GetDefHitTypeProtection(ALife::eHitTypeWound);
 		shoc_value += outfit->GetDefHitTypeProtection(ALife::eHitTypeShock);
+		strk_value += outfit->GetDefHitTypeProtection(ALife::eHitTypeStrike);
+		expl_value += outfit->GetDefHitTypeProtection(ALife::eHitTypeExplosion);
 
 		IKinematics* ikv = smart_cast<IKinematics*>(actor->Visual());
 		VERIFY(ikv);
@@ -182,66 +175,64 @@ void ui_actor_state_wnd::UpdateActorInfo( CInventoryOwner* owner )
 		tele_value += helmet->GetDefHitTypeProtection(ALife::eHitTypeTelepatic);
 		woun_value += helmet->GetDefHitTypeProtection(ALife::eHitTypeWound);
 		shoc_value += helmet->GetDefHitTypeProtection(ALife::eHitTypeShock);
+		strk_value += helmet->GetDefHitTypeProtection(ALife::eHitTypeStrike);
+		expl_value += helmet->GetDefHitTypeProtection(ALife::eHitTypeExplosion);
 
 		IKinematics* ikv = smart_cast<IKinematics*>(actor->Visual());
 		VERIFY(ikv);
 		u16 spine_bone = ikv->LL_BoneID("bip01_head");
 		fwou_value += helmet->GetBoneArmor(spine_bone)*helmet->GetCondition();
 	}
-	
+	float max_power;
 //fire burn protection progress bar
-	{
-		burn_value += actor->GetProtection_ArtefactsOnBelt(ALife::eHitTypeBurn);
-		float max_power = actor->conditions().GetZoneMaxPower(ALife::eHitTypeBurn);
-		burn_value = floor(burn_value / max_power * 31) / 31; // number of sticks in progress bar
-		m_state[stt_fire]->set_progress(burn_value);//0..1
-	}
+	burn_value += actor->GetProtection_ArtefactsOnBelt(ALife::eHitTypeBurn);
+	max_power = actor->conditions().GetZoneMaxPower(ALife::eHitTypeBurn);
+	burn_value = floor(burn_value / max_power * 31) / 31; // number of sticks in progress bar
+	m_state[stt_fire]->set_progress(burn_value);//0..1
 //radiation protection progress bar
-	{
-		radi_value += actor->GetProtection_ArtefactsOnBelt(ALife::eHitTypeRadiation);
-		float max_power = actor->conditions().GetZoneMaxPower(ALife::eHitTypeRadiation);
-		radi_value = floor(radi_value / max_power * 31) / 31; // number of sticks in progress bar
-		m_state[stt_radia]->set_progress(radi_value);//0..1
-	}
+	radi_value += actor->GetProtection_ArtefactsOnBelt(ALife::eHitTypeRadiation);
+	max_power = actor->conditions().GetZoneMaxPower(ALife::eHitTypeRadiation);
+	radi_value = floor(radi_value / max_power * 31) / 31; // number of sticks in progress bar
+	m_state[stt_radia]->set_progress(radi_value);//0..1
 //chemical burn protection progress bar
-	{
-		cmbn_value += actor->GetProtection_ArtefactsOnBelt(ALife::eHitTypeChemicalBurn);
-		float max_power = actor->conditions().GetZoneMaxPower(ALife::eHitTypeChemicalBurn);
-		cmbn_value = floor(cmbn_value / max_power * 31) / 31; // number of sticks in progress bar
-		m_state[stt_acid]->set_progress(cmbn_value);//0..1
-	}
+	cmbn_value += actor->GetProtection_ArtefactsOnBelt(ALife::eHitTypeChemicalBurn);
+	max_power = actor->conditions().GetZoneMaxPower(ALife::eHitTypeChemicalBurn);
+	cmbn_value = floor(cmbn_value / max_power * 31) / 31; // number of sticks in progress bar
+	m_state[stt_acid]->set_progress(cmbn_value);//0..1
 //telepatic protection progress bar
-	{
-		tele_value += actor->GetProtection_ArtefactsOnBelt(ALife::eHitTypeTelepatic);
-		float max_power = actor->conditions().GetZoneMaxPower(ALife::eHitTypeTelepatic);
-		tele_value = floor(tele_value / max_power * 31) / 31; // number of sticks in progress bar  
-		m_state[stt_psi]->set_progress(tele_value);//0..1
-	}
+	tele_value += actor->GetProtection_ArtefactsOnBelt(ALife::eHitTypeTelepatic);
+	max_power = actor->conditions().GetZoneMaxPower(ALife::eHitTypeTelepatic);
+	tele_value = floor(tele_value / max_power * 31) / 31; // number of sticks in progress bar  
+	m_state[stt_psi]->set_progress(tele_value);//0..1
 //wound protection progress bar
-	{
-		float max_power = actor->conditions().GetMaxWoundProtection();
-		woun_value = floor(woun_value / max_power * 31) / 31; // number of sticks in progress bar
-		m_state[stt_wound]->set_progress(woun_value);//0..1
-	}
+	woun_value += actor->GetProtection_ArtefactsOnBelt(ALife::eHitTypeWound);
+	max_power = actor->conditions().GetMaxWoundProtection();
+	woun_value = floor(woun_value / max_power * 31) / 31; // number of sticks in progress bar
+	m_state[stt_wound]->set_progress(woun_value);//0..1
 //shock protection progress bar
-	{
-		shoc_value += actor->GetProtection_ArtefactsOnBelt(ALife::eHitTypeShock);
-		float max_power = actor->conditions().GetZoneMaxPower(ALife::eHitTypeShock);
-		shoc_value = floor(shoc_value / max_power * 31) / 31; // number of sticks in progress bar  
-		m_state[stt_shock]->set_progress(shoc_value);//0..1
-	}
+	shoc_value += actor->GetProtection_ArtefactsOnBelt(ALife::eHitTypeShock);
+	max_power = actor->conditions().GetZoneMaxPower(ALife::eHitTypeShock);
+	shoc_value = floor(shoc_value / max_power * 31) / 31; // number of sticks in progress bar  
+	m_state[stt_shock]->set_progress(shoc_value);//0..1
 //fire wound protection progress bar
-	{
-		float max_power = actor->conditions().GetMaxFireWoundProtection();
-		fwou_value = floor(fwou_value / max_power * 31) / 31; // number of sticks in progress bar
-		m_state[stt_fire_wound]->set_progress(fwou_value);
-	}
+	fwou_value += actor->GetProtection_ArtefactsOnBelt(ALife::eHitTypeFireWound);
+	max_power = actor->conditions().GetMaxFireWoundProtection();
+	fwou_value = floor(fwou_value / max_power * 31) / 31; // number of sticks in progress bar
+	m_state[stt_fire_wound]->set_progress(fwou_value);
 //power restore speed progress bar
-	{
-		value = actor->GetRestoreSpeed(ALife::ePowerRestoreSpeed) / actor->conditions().GetMaxPowerRestoreSpeed();;
-		value = floor(value * 31) / 31; // number of sticks in progress bar  
-		m_state[stt_power]->set_progress(value);//0..1
-	}
+	value = actor->GetRestoreSpeed(ALife::ePowerRestoreSpeed) / actor->conditions().GetMaxPowerRestoreSpeed();;
+	value = floor(value * 31) / 31; // number of sticks in progress bar  
+	m_state[stt_power]->set_progress(value);//0..1
+//strike protection progress bar
+	strk_value += actor->GetProtection_ArtefactsOnBelt(ALife::eHitTypeStrike);
+	max_power = actor->conditions().GetMaxStrikeProtection();
+	strk_value = floor(strk_value / max_power * 31) / 31; // number of sticks in progress bar
+	m_state[stt_strike]->set_progress(strk_value);
+//explosion protection progress bar
+	expl_value += actor->GetProtection_ArtefactsOnBelt(ALife::eHitTypeExplosion);
+	max_power = actor->conditions().GetMaxExplosionProtection();
+	expl_value = floor(expl_value / max_power * 31) / 31; // number of sticks in progress bar
+	m_state[stt_explo]->set_progress(expl_value);
 // -----------------------------------------------------------------------------------
 
 	UpdateHitZone();

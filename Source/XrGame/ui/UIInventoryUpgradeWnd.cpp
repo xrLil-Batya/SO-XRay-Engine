@@ -222,7 +222,13 @@ bool CUIInventoryUpgradeWnd::install_item( CInventoryItem& inv_item, bool can_up
 {
 	m_scheme_wnd->DetachAll();
 	m_back->DetachAll();
-	m_btn_repair->Enable( (inv_item.GetCondition() < 0.99f) );
+	bool can_repair = false;
+	CInventoryItem* iitm = smart_cast<CInventoryItem*>(&inv_item);
+	CGameObject* GO = smart_cast<CGameObject*>(iitm);
+	luabind::functor<bool> funct;
+	if (ai().script_engine().functor("inventory_upgrades.get_can_repair", funct)) 
+		can_repair = funct(GO->lua_game_object());
+	m_btn_repair->Enable( can_repair );
 
 	if ( !can_upgrade )
 	{
