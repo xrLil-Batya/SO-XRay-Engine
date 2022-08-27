@@ -187,200 +187,219 @@ IC BOOL	is_empty_line_now(IReader* F)
 	return (*a0==13) && ( *a1==10) && (*a2==13) && ( *a3==10); 
 };
 
-void	CInifile::Load(IReader* F, LPCSTR path
-                                #ifndef _EDITOR
-								   ,allow_include_func_t allow_include_func
-                                #endif
-                                    )
+void CInifile::Load(IReader* F, LPCSTR path
+#ifndef _EDITOR
+                    , allow_include_func_t allow_include_func
+#endif
+)
 {
 	R_ASSERT(F);
-	Sect		*Current = 0;
-	string4096	str;
-	string4096	str2;
-	
+	Sect* Current = 0;
+	string4096 str;
+	string4096 str2;
+
 	BOOL bInsideSTR = FALSE;
 
 	while (!F->eof())
 	{
-		F->r_string		(str,sizeof(str));
-		_Trim			(str);
-		LPSTR comm		= strchr(str,';');
-		LPSTR comm_1	= strchr(str,'/');
-		
-		if(comm_1 && (*(comm_1+1)=='/') && ((!comm) || (comm && (comm_1<comm) )) )
+		F->r_string(str, sizeof(str));
+		_Trim(str);
+		LPSTR comm = strchr(str, ';');
+		LPSTR comm_1 = strchr(str, '/');
+
+		if (comm_1 && (*(comm_1 + 1) == '/') && ((!comm) || (comm && (comm_1 < comm))))
 		{
 			comm = comm_1;
 		}
 
 #ifdef DEBUG
-		LPSTR comment	= 0;
+        LPSTR comment = 0;
 #endif
-		if (comm) 
+		if (comm)
 		{
 			//."bla-bla-bla;nah-nah-nah"
 			char quot = '"';
 			bool in_quot = false;
-			
-			LPCSTR q1		= strchr(str,quot);
-			if(q1 && q1<comm)
+
+			LPCSTR q1 = strchr(str, quot);
+			if (q1 && q1 < comm)
 			{
-				LPCSTR q2 = strchr(++q1,quot);
-				if(q2 && q2>comm)
+				LPCSTR q2 = strchr(++q1, quot);
+				if (q2 && q2 > comm)
 					in_quot = true;
 			}
 
-			if(!in_quot)
+			if (!in_quot)
 			{
-				*comm		= 0;
+				*comm = 0;
 #ifdef DEBUG
-			comment		= comm+1;
+                comment = comm + 1;
 #endif
 			}
 		}
 
-		
-        if (str[0] && (str[0]=='#') && strstr(str,"#include")) //handle includes
+
+		if (str[0] && (str[0] == '#') && strstr(str, "#include")) //handle includes
 		{
-        	string_path		inc_name;	
-			R_ASSERT		(path&&path[0]);
-        	if (_GetItem	(str,1,inc_name,'"'))
+			string_path inc_name;
+			R_ASSERT(path&&path[0]);
+			if (_GetItem(str, 1, inc_name, '"'))
 			{
-            	string_path	fn,inc_path,folder;
-                strconcat	(sizeof(fn),fn,path,inc_name);
-				_splitpath	(fn,inc_path,folder, 0, 0 );
-				xr_strcat		(inc_path,sizeof(inc_path),folder);
-#ifndef _EDITOR
-				if (!allow_include_func || allow_include_func(fn))
-#endif                
+				string_path fn, inc_path, folder;
+				strconcat(sizeof(fn), fn, path, inc_name);
+				_splitpath(fn, inc_path, folder, 0, 0);
+				xr_strcat(inc_path, sizeof(inc_path), folder);
+
+				const auto loadFile = [&](const string_path _fn, const string_path name)
 				{
-					IReader* I 	= FS.r_open(fn); R_ASSERT3(I,"Can't find include file:", inc_name);
-            		Load		(I,inc_path
-                    #ifndef _EDITOR
-                    , allow_include_func
-                    #endif
-                    );
-					FS.r_close	(I);
+					if (!allow_include_func || allow_include_func(_fn))
+					{
+						IReader* I = FS.r_open(_fn);
+						R_ASSERT3(I, "Can't find include file:", name);
+						Load(I, inc_path, allow_include_func);
+						FS.r_close(I);
+					}
+				};
+
+				if (strstr(inc_name, "*.ltx"))
+				{
+					FS_FileSet fset;
+					FS.file_list(fset, inc_path, FS_ListFiles, inc_name);
+
+					for (FS_FileSet::iterator it = fset.begin(); it != fset.end(); it++)
+					{
+						LPCSTR _name = it->name.c_str();
+						string_path _fn;
+						strconcat(sizeof(_fn), _fn, inc_path, _name);
+						loadFile(_fn, _name);
+					}
 				}
-            }
-        } 
-		else if (str[0] && (str[0]=='[')) //new section ?
+				else
+					loadFile(fn, inc_name);
+			}
+		}
+		else if (str[0] && (str[0] == '[')) //new section ?
 		{
 			// insert previous filled section
 			if (Current)
 			{
 				//store previous section
-				RootIt I		= std::lower_bound(DATA.begin(),DATA.end(),*Current->Name,sect_pred);
-				if ((I!=DATA.end())&&((*I)->Name==Current->Name))
-					Debug.fatal(DEBUG_INFO,"Duplicate section '%s' found.",*Current->Name);
-				DATA.insert		(I,Current);
+				RootIt I = std::lower_bound(DATA.begin(), DATA.end(), *Current->Name, sect_pred);
+				if ((I != DATA.end()) && ((*I)->Name == Current->Name))
+					Debug.fatal(DEBUG_INFO, "Duplicate section '%s' found.", *Current->Name);
+				DATA.insert(I, Current);
 			}
-			Current				= xr_new<Sect>();
-			Current->Name		= 0;
+			Current = xr_new<Sect>();
+			Current->Name = 0;
 			// start new section
-			R_ASSERT3(strchr(str,']'),"Bad ini section found: ",str);
-			LPCSTR inherited_names = strstr(str,"]:");
-			if (0!=inherited_names)
+			R_ASSERT3(strchr(str, ']'), "Bad ini section found: ", str);
+			LPCSTR inherited_names = strstr(str, "]:");
+			if (0 != inherited_names)
 			{
-				VERIFY2				(m_flags.test(eReadOnly),"Allow for readonly mode only.");
-				inherited_names		+= 2;
-				u32 cnt				= _GetItemCount(inherited_names);
-				u32 total_count		= 0;
-                u32 k               = 0;
-				for (k=0; k<cnt; ++k) {
-					string512	tmp;
-					_GetItem	(inherited_names,k,tmp);
+				VERIFY2(m_flags.test(eReadOnly), "Allow for readonly mode only.");
+				inherited_names += 2;
+				u32 cnt = _GetItemCount(inherited_names);
+				u32 total_count = 0;
+				u32 k = 0;
+				for (k = 0; k < cnt; ++k)
+				{
+					string512 tmp;
+					_GetItem(inherited_names, k, tmp);
 					Sect& inherited_section = r_section(tmp);
-					total_count		+= inherited_section.Data.size();
+					total_count += inherited_section.Data.size();
 				}
 
-				Current->Data.reserve( Current->Data.size() + total_count );
+				Current->Data.reserve(Current->Data.size() + total_count);
 
-				for (k=0; k<cnt; ++k)
+				for (k = 0; k < cnt; ++k)
 				{
-					string512	tmp;
-					_GetItem	(inherited_names,k,tmp);
+					string512 tmp;
+					_GetItem(inherited_names, k, tmp);
 					Sect& inherited_section = r_section(tmp);
-					for (SectIt_ it =inherited_section.Data.begin(); it!=inherited_section.Data.end(); it++)
-						insert_item	(Current,*it);
+					for (SectIt_ it = inherited_section.Data.begin(); it != inherited_section.Data.end(); it++)
+						insert_item(Current, *it);
 				}
 			}
-			*strchr(str,']') 	= 0;
-			Current->Name 		= strlwr(str+1);
-		} 
+			*strchr(str, ']') = 0;
+			Current->Name = strlwr(str + 1);
+		}
 		else // name = value
 		{
 			if (Current)
 			{
-				string4096			value_raw;
-				char*		name	= str;
-				char*		t		= strchr(name,'=');
-				if (t)		
+				string4096 value_raw;
+				char* name = str;
+				char* t = strchr(name, '=');
+				if (t)
 				{
-					*t				= 0;
-					_Trim			(name);
+					*t = 0;
+					_Trim(name);
 					++t;
-					xr_strcpy		(value_raw, sizeof(value_raw), t);
-					bInsideSTR		= _parse(str2, value_raw);
-					if(bInsideSTR)//multiline str value
+					xr_strcpy(value_raw, sizeof(value_raw), t);
+					bInsideSTR = _parse(str2, value_raw);
+					if (bInsideSTR) //multiline str value
 					{
-						while(bInsideSTR)
+						while (bInsideSTR)
 						{
-							xr_strcat		(value_raw, sizeof(value_raw),"\r\n");
-							string4096		str_add_raw;
-							F->r_string		(str_add_raw, sizeof(str_add_raw));
-							R_ASSERT2		(
+							xr_strcat(value_raw, sizeof(value_raw), "\r\n");
+							string4096 str_add_raw;
+							F->r_string(str_add_raw, sizeof(str_add_raw));
+							R_ASSERT2(
 								xr_strlen(value_raw) + xr_strlen(str_add_raw) < sizeof(value_raw),
 								make_string(
-									"Incorrect inifile format: section[%s], variable[%s]. Odd number of quotes (\") found, but should be even.",
+									"Incorrect inifile format: section[%s], variable[%s]. Odd number of quotes (\") found, but should be even."
+									,
 									Current->Name.c_str(),
 									name
 								)
 							);
-							xr_strcat		(value_raw, sizeof(value_raw),str_add_raw);
-							bInsideSTR		= _parse(str2, value_raw);
-                            if(bInsideSTR)
-                            {
-                            	if( is_empty_line_now(F) )
-									xr_strcat		(value_raw, sizeof(value_raw),"\r\n");
-                            }
+							xr_strcat(value_raw, sizeof(value_raw), str_add_raw);
+							bInsideSTR = _parse(str2, value_raw);
+							if (bInsideSTR)
+							{
+								if (is_empty_line_now(F))
+									xr_strcat(value_raw, sizeof(value_raw), "\r\n");
+							}
 						}
 					}
-				} else 
+				}
+				else
 				{
-					_Trim	(name);
-					str2[0]	= 0;
+					_Trim(name);
+					str2[0] = 0;
 				}
 
-				Item		I;
-				I.first		= (name[0]?name:NULL);
-				I.second	= (str2[0]?str2:NULL);
-//#ifdef DEBUG
-//				I.comment	= m_flags.test(eReadOnly)?0:comment;
-//#endif
+				Item I;
+				I.first = (name[0] ? name : NULL);
+				I.second = (str2[0] ? str2 : NULL);
+				//#ifdef DEBUG
+				// I.comment = m_flags.test(eReadOnly)?0:comment;
+				//#endif
 
-				if (m_flags.test(eReadOnly)) 
+				if (m_flags.test(eReadOnly))
 				{
-					if (*I.first)							insert_item	(Current,I);
-				} else 
+					if (*I.first) insert_item(Current, I);
+				}
+				else
 				{
-					if	(
-							*I.first
-							|| *I.second 
-//#ifdef DEBUG
-//							|| *I.comment
-//#endif
-						)
-						insert_item	(Current,I);
+					if (
+						*I.first
+						|| *I.second
+							//#ifdef DEBUG
+							// || *I.comment
+							//#endif
+					)
+						insert_item(Current, I);
 				}
 			}
 		}
 	}
 	if (Current)
 	{
-		RootIt I		= std::lower_bound(DATA.begin(),DATA.end(),*Current->Name,sect_pred);
-		if ((I!=DATA.end())&&((*I)->Name==Current->Name))
-			Debug.fatal(DEBUG_INFO,"Duplicate section '%s' found.",*Current->Name);
-		DATA.insert		(I,Current);
+		RootIt I = std::lower_bound(DATA.begin(), DATA.end(), *Current->Name, sect_pred);
+		if ((I != DATA.end()) && ((*I)->Name == Current->Name))
+			Debug.fatal(DEBUG_INFO, "Duplicate section '%s' found.", *Current->Name);
+		DATA.insert(I, Current);
 	}
 }
 
