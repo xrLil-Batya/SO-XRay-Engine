@@ -15,11 +15,6 @@
 #include "../Private/dxWallMarkArray.h"
 #include "../Private/dxUIShader.h"
 //#include "../../xrServerEntities/smart_cast.h"
-
-#ifndef _EDITOR
-#include "../../xrCPU_Pipe/ttapi.h"
-#endif
-
  
 using	namespace		R_dsgraph;
 
@@ -342,10 +337,6 @@ ICF bool			pred_sp_sort		(ISpatial* _1, ISpatial* _2)
 
 void CRender::Calculate				()
 {
-	#ifdef _GPA_ENABLED	
-		TAL_SCOPED_TASK_NAMED( "CRender::Calculate()" );
-	#endif // _GPA_ENABLED
-
 	Device.Statistic->RenderCALC.Begin();
 
 	// Transfer to global space to avoid deep pointer access
@@ -562,10 +553,6 @@ void	CRender::rmNormal	()
 extern u32 g_r;
 void	CRender::Render		()
 {
-	#ifdef _GPA_ENABLED	
-		TAL_SCOPED_TASK_NAMED( "CRender::Render()" );
-	#endif // _GPA_ENABLED
-
 	if( m_bFirstFrameAfterReset )
 	{
 		m_bFirstFrameAfterReset = false;
@@ -608,7 +595,7 @@ void	CRender::Render		()
 	g_pGamePersistent->Environment().RenderFlares	();				// lens-flares
 	g_pGamePersistent->Environment().RenderLast	();				// rain/thunder-bolts
 
-#if DEBUG
+#ifdef DEBUG
 	for (int _priority=0; _priority<2; ++_priority)
 	{
 		for ( u32 iPass = 0; iPass<SHADER_PASSES_MAX; ++iPass)
@@ -658,7 +645,6 @@ void	CRender::Statistics	(CGameFont* _F)
 #endif
 }
 
-#pragma comment(lib,"d3dx9.lib")
 
 #include <boost/crc.hpp>
 

@@ -9,7 +9,7 @@
 #include "FactoryPtr.h"
 class IUIShader;
 typedef FactoryPtr<IUIShader> wm_shader;
-//#include "../Include/xrRender/WallMarkArray.h"
+//#include "WallMarkArray.h"
 
 #ifdef _EDITOR
 //.    #error you cant include this file in borland

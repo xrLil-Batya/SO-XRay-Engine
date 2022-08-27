@@ -29,7 +29,6 @@ class CUIMMShniaga;
 class CUIScrollView;
 class CUIListBox;
 class CUIProgressBar;
-class CUIDragDropListEx;
 
 class CScriptXmlInit 
 {
@@ -62,7 +61,6 @@ public:
 	CUIScrollView*		InitScrollView(LPCSTR path, CUIWindow* parent);
 	CUIListBox*			InitListBox(LPCSTR path, CUIWindow* parent);
 	CUIProgressBar*		InitProgressBar(LPCSTR path, CUIWindow* parent);
-	CUIDragDropListEx*	InitDragDropListEx(LPCSTR path, CUIWindow* parent);
 protected:
 	CUIXml	m_xml;
 public:

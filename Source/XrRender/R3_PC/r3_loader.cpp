@@ -361,7 +361,10 @@ void CRender::LoadSectors(IReader* fs)
 				(CSector*)getSector(P.sector_front),
 				(CSector*)getSector(P.sector_back));
 			for (u32 j=2; j<P.vertices.size(); j++)
-				CL.add_face_packed_D(P.vertices[0],P.vertices[j-1],P.vertices[j],u32(i));
+				CL.add_face_packed_D(
+				P.vertices[0],P.vertices[j-1],P.vertices[j],
+				u32(i)
+				);
 		}
 		if (CL.getTS()<2)
 		{

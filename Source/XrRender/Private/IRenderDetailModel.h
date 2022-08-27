@@ -2,7 +2,7 @@
 #define IRenderDetailModelH
 #pragma once
 
-#include "RenderDetailModel.h"
+#include "../Public/RenderDetailModel.h"
 
 //////////////////////////////////////////////////////////////////////////
 // definition (Detail Model)

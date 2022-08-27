@@ -24,12 +24,6 @@ class CUIWindow;
 class CBinocularsVision;
 class CNightVisionEffector;
 
-struct SafemodeAnm
-{
-	LPCSTR name;
-	float power, speed;
-};
-
 class CWeapon : public CHudItemObject,
 				public CShootingObject
 {
@@ -56,13 +50,6 @@ public:
 	virtual void			save				(NET_Packet &output_packet);
 	virtual void			load				(IReader &input_packet);
 	virtual BOOL			net_SaveRelevant	()								{return inherited::net_SaveRelevant();}
-
-	float CWeapon::GetSecondVPFov() const;
-	IC float GetZRotatingFactor()    const { return m_zoom_params.m_fZoomRotationFactor; }
-	IC float GetSecondVPZoomFactor() const { return m_zoom_params.m_fSecondVPFovFactor; }
-	IC float IsSecondVPZoomPresent() const { return GetSecondVPZoomFactor() > 0.005f; }
-
-	void UpdateSecondVP();
 
 	virtual void			UpdateCL			();
 	virtual void			shedule_Update		(u32 dt);
@@ -94,7 +81,6 @@ public:
 	virtual void			OnHiddenItem		();
 	virtual void			SendHiddenItem		();	//same as OnHiddenItem but for client... (sends message to a server)...
 
-	virtual bool NeedBlendAnm();
 public:
 	virtual bool			can_kill			() const;
 	virtual CInventoryItem	*can_kill			(CInventory *inventory) const;
@@ -111,7 +97,6 @@ protected:
 public:
 	void					signal_HideComplete	();
 	virtual bool			Action(u16 cmd, u32 flags);
-	u8 last_idx;
 
 	enum EWeaponStates {
 		eFire		= eLastBaseState+1,
@@ -120,7 +105,6 @@ public:
 		eMisfire,
 		eMagEmpty,
 		eSwitch,
-		eSwitchMode,
 	};
 	enum EWeaponSubStates{
 		eSubstateReloadBegin		=0,
@@ -145,8 +129,7 @@ protected:
 	bool					m_bTriStateReload;
 	u8						m_sub_state;
 	// a misfire happens, you'll need to rearm weapon
-	bool					bMisfire;
-	bool bClearJamOnly; //used for "reload" misfire animation		
+	bool					bMisfire;				
 
 	BOOL					m_bAutoSpawnAmmo;
 	virtual bool			AllowBore		();
@@ -178,11 +161,10 @@ public:
 	int	GetSilencerY() {return m_iSilencerY;}
 	int	GetGrenadeLauncherX() {return m_iGrenadeLauncherX;}
 	int	GetGrenadeLauncherY() {return m_iGrenadeLauncherY;}
-	
 
-	const shared_str& GetGrenadeLauncherName() const {return m_sGrenadeLauncherName;}
-	const shared_str& GetSilencerName() const {return m_sSilencerName;}
-	const shared_str GetScopeName() const {return pSettings->r_string(m_scopes[m_cur_scope], "scope_name");}
+	const shared_str& GetGrenadeLauncherName	() const{return m_sGrenadeLauncherName;}
+	const shared_str GetScopeName				() const{return pSettings->r_string(m_scopes[m_cur_scope], "scope_name");}
+	const shared_str& GetSilencerName			() const{return m_sSilencerName;}
 
 	IC void	ForceUpdateAmmo						()		{ m_BriefInfo_CalcFrame = 0; }
 
@@ -211,20 +193,21 @@ protected:
 
 	struct SZoomParams
 	{
-		bool m_bZoomEnabled; //разрешение режима приближения
-		bool m_bHideCrosshairInZoom;
-		bool m_bZoomDofEnabled;
-		bool m_bIsZoomModeNow; //когда режим приближения включен
-		float m_fCurrentZoomFactor; //текущий фактор приближения
-		float m_fZoomRotateTime; //время приближения
-		float m_fBaseZoomFactor; //коэффициент увеличения прицеливания
-		float m_fScopeZoomFactor; //коэффициент увеличения прицела
-		float m_fZoomRotationFactor;
-		float m_fSecondVPFovFactor;
+		bool			m_bZoomEnabled;			//разрешение режима приближения
+		bool			m_bHideCrosshairInZoom;
+//		bool			m_bZoomDofEnabled;
 
-		Fvector m_ZoomDof;
-		Fvector4 m_ReloadDof;
-		Fvector4 m_ReloadEmptyDof; //Swartz: reload when empty mag. DOF
+		bool			m_bIsZoomModeNow;		//когда режим приближения включен
+		float			m_fCurrentZoomFactor;	//текущий фактор приближения
+		float			m_fZoomRotateTime;		//время приближения
+	
+		float			m_fIronSightZoomFactor;	//коэффициент увеличения прицеливания
+		float			m_fScopeZoomFactor;		//коэффициент увеличения прицела
+
+		float			m_fZoomRotationFactor;
+		
+//		Fvector			m_ZoomDof;
+//		Fvector4		m_ReloadDof;
 		BOOL			m_bUseDynamicZoom;
 		shared_str		m_sUseZoomPostprocess;
 		shared_str		m_sUseBinocularVision;
@@ -275,11 +258,8 @@ protected:
 	Fmatrix					m_StrapOffset;
 	bool					m_strapped_mode;
 	bool					m_can_be_strapped;
-	float m_fSafeModeRotateTime;
-	SafemodeAnm m_safemode_anm[2];
 
 	Fmatrix					m_Offset;
-	Fvector m_hud_offset[2];
 	// 0-используется без участия рук, 1-одна рука, 2-две руки
 	EHandDependence			eHandDependence;
 	bool					m_bIsSingleHanded;
@@ -288,22 +268,15 @@ public:
 	//загружаемые параметры
 	Fvector					vLoadedFirePoint;
 	Fvector					vLoadedFirePoint2;
-	bool m_bCanBeLowered;
 
 private:
 	firedeps				m_current_firedeps;
 
-public:
-	Fmatrix m_shoot_shake_mat;
-
 protected:
 	virtual void			UpdateFireDependencies_internal	();
-	void UpdateUIScope();
-	void SwitchZoomType();
-	float GetHudFov();
 	virtual void			UpdatePosition			(const Fmatrix& transform);	//.
 	virtual void			UpdateXForm				();
-	virtual void UpdateHudAdditional(Fmatrix& trans);
+	virtual void			UpdateHudAdditonal		(Fmatrix&);
 	IC		void			UpdateFireDependencies	()			{ if (dwFP_Frame==Device.dwFrame) return; UpdateFireDependencies_internal(); };
 
 	virtual void			LoadFireParams		(LPCSTR section);
@@ -323,7 +296,7 @@ protected:
 	virtual void			SetDefaults				();
 	
 	virtual bool			MovingAnimAllowedNow	();
-	virtual void			OnStateSwitch			(u32 S, u32 oldState);
+	virtual void			OnStateSwitch			(u32 S);
 	virtual void			OnAnimationEnd			(u32 state);
 
 	//трассирование полета пули
@@ -375,7 +348,6 @@ protected:
 	float misfireEndProbability;			//шанс осечки при изношености больше чем misfireEndCondition
 	float conditionDecreasePerQueueShot;	//увеличение изношености при выстреле очередью
 	float conditionDecreasePerShot;			//увеличение изношености при одиночном выстреле
-	float conditionDecreasePerShotOnHit;
 
 public:
 	float GetMisfireStartCondition	() const {return misfireStartCondition;};
@@ -402,7 +374,6 @@ protected:
 	//оружия
 	float					m_fMinRadius;
 	float					m_fMaxRadius;
-	float m_fZoomRotateModifier;
 
 protected:	
 	//для второго ствола
@@ -416,7 +387,6 @@ protected:
 
 protected:
 	int						GetAmmoCount_forType(shared_str const& ammo_type) const;
-	int						GetAmmoCount_Zayaz(shared_str const& ammo_type) const;
 	int						GetAmmoCount		(u8 ammo_type) const;
 
 public:
@@ -452,13 +422,22 @@ protected:
 
 public:
 	xr_vector<shared_str>	m_ammoTypes;
+/*
+	struct SScopes
+	{
+		shared_str			m_sScopeName;
+		int					m_iScopeX;
+		int					m_iScopeY;
+	};
+	DEFINE_VECTOR(SScopes*, SCOPES_VECTOR, SCOPES_VECTOR_IT);
+	SCOPES_VECTOR			m_scopes;
+
+	u8						cur_scope;
+*/
 
 	DEFINE_VECTOR(shared_str, SCOPES_VECTOR, SCOPES_VECTOR_IT);
 	SCOPES_VECTOR			m_scopes;
 	u8						m_cur_scope;
-	
-	bool m_altAimPos;
-	u8 m_zoomtype;
 
 	CWeaponAmmo*			m_pCurrentAmmo;
 	u8						m_ammoType;
@@ -481,8 +460,6 @@ protected:
 public:
 	virtual u32				ef_main_weapon_type	() const;
 	virtual u32				ef_weapon_type		() const;
-
-	u8						GetAmmoType() { return m_ammoType; };
 
 protected:
 	// This is because when scope is attached we can't ask scope for these params
@@ -519,15 +496,10 @@ private:
 
 	bool					m_bRememberActorNVisnStatus;
 public:
-	float m_fLR_ShootingFactor; // Фактор горизонтального сдвига худа при стрельбе [-1; +1]
-	float m_fUD_ShootingFactor; // Фактор вертикального сдвига худа при стрельбе [-1; +1]
-	float m_fBACKW_ShootingFactor; // Фактор сдвига худа в сторону лица при стрельбе [0; +1]
-public:
 	virtual void			SetActivationSpeedOverride	(Fvector const& speed);
-	void AddHUDShootingEffect();
 			bool			GetRememberActorNVisnStatus	() {return m_bRememberActorNVisnStatus;};
 	virtual void			EnableActorNVisnAfterZoom	();
-	virtual void 			OnBulletHit();
+	
 	virtual void				DumpActiveParams			(shared_str const & section_name, CInifile & dst_ini) const;
 	virtual shared_str const	GetAnticheatSectionName		() const { return cNameSect(); };
 };

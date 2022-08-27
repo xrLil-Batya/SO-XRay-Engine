@@ -4,7 +4,7 @@
 #ifndef PSLibraryH
 #define PSLibraryH
 
-#include "particles_systems_library_interface.hpp"
+#include "../Public/particles_systems_library_interface.hpp"
 
 namespace PS {
 	class CPEDef;

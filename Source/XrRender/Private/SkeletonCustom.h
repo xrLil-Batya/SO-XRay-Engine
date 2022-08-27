@@ -4,7 +4,7 @@
 
 #include		"fhierrarhyvisual.h"
 #include		"../../xrEngine/bone.h"
-#include		"Kinematics.h"
+#include		"../Public/Kinematics.h"
 
 // consts
 extern	xrCriticalSection	UCalc_Mutex			;

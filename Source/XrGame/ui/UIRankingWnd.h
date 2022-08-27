@@ -37,6 +37,14 @@ private:
 
 	CUIScrollView*		m_achievements;
 	CUIFrameWindow*		m_achievements_background;
+	CUIFrameWindow*		m_monster_background;
+	CUIFrameWindow*		m_monster_over;
+	CUIFrameWindow*		m_favorite_weapon_ramka;
+	CUIFrameWindow*		m_favorite_weapon_over;
+	CUIStatic*			m_monster_icon_back;
+	CUIStatic*			m_monster_icon;
+	CUIStatic*			m_favorite_weapon_bckgrnd;
+	CUIStatic*			m_favorite_weapon_icon;
 
 	DEFINE_VECTOR		(CUIAchievements*, ACHIEVES_VEC, ACHIEVES_VEC_IT);
 	ACHIEVES_VEC		m_achieves_vec;
@@ -48,6 +56,9 @@ private:
 	u32					m_delay;
 	u32					m_previous_time;
 	u32					m_stat_count;
+	LPCSTR				m_last_monster_icon_back;
+	LPCSTR				m_last_monster_icon;
+	LPCSTR				m_last_weapon_icon;
 
 public:
 						CUIRankingWnd			();
@@ -64,5 +75,7 @@ public:
 protected:
 			void		add_achievement			(CUIXml& xml, shared_str const& faction_id);
 			void		get_statistic			();
+			void		get_best_monster		();
+			void		get_favorite_weapon		();
 
 }; // class CUIRankingWnd

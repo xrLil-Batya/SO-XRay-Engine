@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "UIActorMenu.h"
-#include "UIActorStateInfo.h"
 #include "UIDragDropListEx.h"
 #include "UICharacterInfo.h"
 #include "UIInventoryUtilities.h"
@@ -52,26 +51,24 @@ bool move_item_check( PIItem itm, CInventoryOwner* from, CInventoryOwner* to, bo
 
 void CUIActorMenu::InitDeadBodySearchMode()
 {
-    m_pDeadBodyBagList->Show(true);
-    m_LeftBackground->Show(true);
-    m_PartnerBottomInfo->Show(true);
-    m_PartnerWeight->Show(true);
-    m_takeall_button->Show(true);
-	
-    m_RightBackground->Show(false);
+	m_pDeadBodyBagList->Show		(true);
+	m_LeftBackground->Show			(true);
+	m_PartnerBottomInfo->Show		(true);
+	m_PartnerWeight->Show			(true);
+	m_takeall_button->Show			(true);
 
-    if (m_pPartnerInvOwner)
-    {
-        m_PartnerCharacterInfo->Show(true);
-    }
-    else
-    {
-        m_PartnerCharacterInfo->Show(false);
-    }
+	if ( m_pPartnerInvOwner )
+	{
+		m_PartnerCharacterInfo->Show(true);
+	}
+	else
+	{
+		m_PartnerCharacterInfo->Show(false);
+	}
 
-    InitInventoryContents(m_pInventoryBagList);
+	InitInventoryContents			(m_pInventoryBagList);
 
-	TIItemContainer items_list;
+	TIItemContainer					items_list;
 	if ( m_pPartnerInvOwner )
 	{
 		m_pPartnerInvOwner->inventory().AddAvailableItems( items_list, false ); //true
@@ -82,9 +79,6 @@ void CUIActorMenu::InitDeadBodySearchMode()
 		VERIFY( m_pInvBox );
 		m_pInvBox->set_in_use( true );
 		m_pInvBox->AddAvailableItems( items_list );
-		luabind::functor<bool> funct;
-		if (ai().script_engine().functor("treasure_manager.use_box", funct))
-			funct(m_pInvBox->cast_game_object()->lua_game_object());
 	}
 
 	std::sort( items_list.begin(), items_list.end(),InventoryUtilities::GreaterRoomInRuck );
@@ -123,17 +117,17 @@ void CUIActorMenu::InitDeadBodySearchMode()
 
 void CUIActorMenu::DeInitDeadBodySearchMode()
 {
-    m_pDeadBodyBagList->Show(false);
-    m_PartnerCharacterInfo->Show(false);
-    m_LeftBackground->Show(false);
-    m_PartnerBottomInfo->Show(false);
-    m_PartnerWeight->Show(false);
-    m_takeall_button->Show(false);
+	m_pDeadBodyBagList->Show		(false);
+	m_PartnerCharacterInfo->Show	(false);
+	m_LeftBackground->Show			(false);
+	m_PartnerBottomInfo->Show		(false);
+	m_PartnerWeight->Show			(false);
+	m_takeall_button->Show			(false);
 
-    if (m_pInvBox)
-    {
-        m_pInvBox->set_in_use(false);
-    }
+	if ( m_pInvBox )
+	{
+		m_pInvBox->set_in_use( false );
+	}
 }
 
 bool CUIActorMenu::ToDeadBodyBag(CUICellItem* itm, bool b_use_cursor_pos)

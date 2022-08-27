@@ -31,11 +31,10 @@ struct STorsoWpn{
 	MotionID	all_attack_0;
 	MotionID	all_attack_1;
 	MotionID	all_attack_2;
-	MotionID safemode;
 	void		Create								(IKinematicsAnimated* K, LPCSTR base0, LPCSTR base1);
 };
 
-#define _total_anim_slots_ 14
+#define _total_anim_slots_ 13
 
 struct SActorState
 {

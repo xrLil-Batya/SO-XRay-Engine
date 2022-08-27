@@ -100,7 +100,7 @@ void	SimulatorStates::clear	()
 
 #if defined(USE_DX10) || defined(USE_DX11)
 
-#include "../DX10/dx10StateUtils.h"
+#include "..\DX10\dx10StateUtils.h"
 
 void SimulatorStates::UpdateState( dx10State &state) const
 {

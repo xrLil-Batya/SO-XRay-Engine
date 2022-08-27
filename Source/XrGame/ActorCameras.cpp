@@ -25,11 +25,6 @@
 #include "../xrphysics/actorcameracollision.h"
 #include "IKLimbsController.h"
 #include "GamePersistent.h"
-#include "player_hud.h"
-#include "Missile.h"
-
-ENGINE_API extern float psHUD_FOV;
-ENGINE_API extern float psHUD_FOV_def;
 
 void CActor::cam_Set	(EActorCameras style)
 {
@@ -39,9 +34,6 @@ void CActor::cam_Set	(EActorCameras style)
 	cam_Active()->OnActivate(old_cam);
 }
 float CActor::f_Ladder_cam_limit=1.f;
-float f_Freelook_cam_limit = PI_DIV_2; // 1.45f;
-float f_Freelook_cam_limit_p = .75f;
-
 void CActor::cam_SetLadder()
 {
 	CCameraBase* C			= cameras[eacFirstEye];
@@ -100,156 +92,6 @@ void CActor::cam_UnsetLadder()
 	C->lim_yaw[1]			= 0;
 	C->bClampYaw			= false;
 }
-
-void CActor::cam_SetFreelook()
-{
-	cam_freelook = eflEnabling;
-}
-
-void CActor::camUpdateFreelook(float dt)
-{
-	CCameraBase* C = cameras[eacFirstEye];
-
-	switch (cam_freelook)
-	{
-	case eflEnabled:
-	case eflDisabled:
-	{
-		return;
-	}
-	break;
-	case eflEnabling:
-	{
-		if (!C->bClampYaw)
-		{
-			float& cam_yaw = C->yaw;
-			old_torso_yaw = -r_torso.yaw;
-			float lo = (cam_yaw - f_Freelook_cam_limit);
-			float hi = (cam_yaw + f_Freelook_cam_limit);
-			C->lim_yaw.set(lo, hi);
-			C->bClampYaw = true;
-		}
-		Fvector2 v = { -1.5, 1.5 };
-		if (C->lim_pitch.similar(v))
-		{
-			float& cam_pitch = C->pitch;
-
-			// Fix camera jump if freelook key is pressed right after loading a save.
-			if (abs(cam_pitch) > 1.5f)
-			{
-				while (cam_pitch < C->lim_pitch[0])
-					cam_pitch += PI_MUL_2;
-				while (cam_pitch > C->lim_pitch[1])
-					cam_pitch -= PI_MUL_2;
-			}
-
-			if (cam_pitch < -f_Freelook_cam_limit_p)
-			{
-				float diff_p = angle_difference(cam_pitch, -f_Freelook_cam_limit_p + .05f);
-				if (diff_p < .025)
-					cam_pitch = -f_Freelook_cam_limit_p + .005f;
-				else
-					cam_pitch += diff_p * _min(dt * 10.f, .5f);
-				clamp(cam_pitch, C->lim_pitch.x, -f_Freelook_cam_limit_p);
-			}
-			else if (cam_pitch > f_Freelook_cam_limit_p)
-			{
-				float diff_p = angle_difference(cam_pitch, f_Freelook_cam_limit_p - .05f);
-				if (diff_p < .025)
-					cam_pitch = f_Freelook_cam_limit_p - .005f;
-				else
-					cam_pitch -= diff_p * _min(dt * 10.f, .5f);
-				clamp(cam_pitch, f_Freelook_cam_limit_p, C->lim_pitch.y);
-			}
-			else
-			{
-				C->lim_pitch.set(-f_Freelook_cam_limit_p, f_Freelook_cam_limit_p);
-				cam_freelook = eflEnabled;
-			}
-		}
-	}
-	break;
-	case eflDisabling:
-	{
-
-		if (C->bClampYaw)
-		{
-			float& cam_yaw = C->yaw;
-			float delta = angle_difference_signed(old_torso_yaw, cam_yaw);
-
-			if (abs(delta) < 0.05f)
-			{
-				C->lim_yaw.set(0, 0);
-				C->bClampYaw = false;
-			}
-			else
-			{
-				cam_yaw += delta * _min(dt * 10.f, 1.f);
-			}
-		}
-		Fvector2 v = { -1.5, 1.5 };
-		if (!C->lim_pitch.similar(v))
-		{
-			float& cam_pitch = C->pitch;
-			float delta = angle_difference_signed(0.f, cam_pitch);
-
-			if (abs(delta) < 0.05f)
-			{	
-				v.set(-1.5, 1.5);
-				C->lim_pitch = v;
-			}
-			else
-			{
-				cam_pitch += delta * _min(dt * 10.f, 1.f);
-			}
-		}
-		v.set(-1.5, 1.5);
-		if (!C->bClampYaw && C->lim_pitch.similar(v))
-		{
-			cam_freelook = eflDisabled;
-		}
-	}
-	break;
-	}
-}
-
-void CActor::cam_UnsetFreelook()
-{
-	cam_freelook = eflDisabling;
-}
-
-bool CActor::CanUseFreelook()
-{
-	if (cam_active != eacFirstEye)
-		return false;
-
-	if (g_player_hud->script_anim_part == 2)
-		return false;
-
-	Estate state = character_physics_support()->movement()->ElevatorState()->State();
-	if ((state != clbNoLadder && state != clbNone && state != clbNoState) || m_holder)
-		return false;
-
-	if (inventory().ActiveItem())
-	{
-		CWeapon* wep = inventory().ActiveItem()->cast_weapon();
-		CMissile* msl = inventory().ActiveItem()->cast_missile();
-		if (msl && msl->GetState() > CHudItem::eLastBaseState)
-			return false;
-		else if (wep)
-		{
-			if (wep->IsZoomed())
-				return false;
-
-			u32 state = wep->GetState();
-			if (state == CWeapon::eFire || state == CWeapon::eFire2 || state == CWeapon::eReload || state == CWeapon::eSwitch || state == CWeapon::eSwitchMode)
-				return false;
-		}
-	}
-
-	return true;
-}
-
 float cammera_into_collision_shift = 0.05f;
 float CActor::CameraHeight()
 {
@@ -413,7 +255,7 @@ void	CActor::cam_Lookout	( const Fmatrix &xform, float camera_height )
 					if (!fis_zero(r_torso.roll))
 						da		*= r_torso.roll/_abs(r_torso.roll);
 					float angle = 0.f;
-					for (; _abs(angle) < _abs(alpha); angle += da)
+					for (; _abs(angle)<_abs(alpha); angle+=da)
 					{
 						Fvector				pt;
 						calc_gl_point( pt, xform, radius, angle );
@@ -446,37 +288,8 @@ void CActor::cam_Update(float dt, float fFOV)
 {
 	if(m_holder)		return;
 
-	// HUD FOV Update
-	if (this == Level().CurrentControlEntity())
-	{
-		if (eacFirstEye == cam_active)
-		{
-			CHudItem* pItem = smart_cast<CHudItem*>(inventory().ActiveItem());
-			CHudItem* pDevice = smart_cast<CHudItem*>(inventory().ItemFromSlot(DETECTOR_SLOT));
-
-			if (pItem && pItem->HudItemData() && pDevice && pDevice->HudItemData())
-				psHUD_FOV = (pItem->GetHudFov() < pDevice->GetHudFov()) ? pItem->GetHudFov() : pDevice->GetHudFov();
-			else if (pItem && pItem->HudItemData())
-				psHUD_FOV = pItem->GetHudFov();
-			else if (pDevice && pDevice->HudItemData())
-				psHUD_FOV = pDevice->GetHudFov();
-			else
-				psHUD_FOV = psHUD_FOV_def;
-		}
-		else
-			psHUD_FOV = psHUD_FOV_def;
-	}
-
-	if (cam_freelook != eflDisabled && cam_active != eacFreeLook)
-		camUpdateFreelook(dt);
-
-	if ((mstate_real & mcClimb) && (cam_active != eacFreeLook))
-	{
-		if (cam_freelook != eflDisabled)
-			cam_UnsetFreelook();
+	if( (mstate_real & mcClimb) && (cam_active!=eacFreeLook) )
 		camUpdateLadder(dt);
-	}
-
 	on_weapon_shot_update();
 	float y_shift =0;
 	
@@ -559,22 +372,7 @@ void CActor::cam_Update(float dt, float fFOV)
 
 	fCurAVelocity			= vPrevCamDir.sub(cameras[eacFirstEye]->vDirection).magnitude()/Device.fTimeDelta;
 	vPrevCamDir				= cameras[eacFirstEye]->vDirection;
-	
-	// Высчитываем разницу между предыдущим и текущим Yaw \ Pitch от 1-го лица //--#SM+ Begin#--
-	float& cam_yaw_cur = cameras[eacFirstEye]->yaw;
-	float& cam_pitch_cur = cameras[eacFirstEye]->pitch;
 
-	static bool freelook_last_frame;
-	static float cam_yaw_prev = cam_yaw_cur;
-	static float cam_pitch_prev = cam_pitch_cur;
-
-	fFPCamYawMagnitude = freelook_last_frame ? 0.f : (1.f - freelook_cam_control) * (angle_difference_signed(cam_yaw_prev, cam_yaw_cur) / Device.fTimeDelta); // L+ / R-
-	fFPCamPitchMagnitude = freelook_last_frame ? 0.f : (1.f - freelook_cam_control) * (angle_difference_signed(cam_pitch_prev, cam_pitch_cur) / Device.fTimeDelta); //U+ / D-
-
-	freelook_last_frame = cam_freelook == eflDisabling;
-	cam_yaw_prev = cam_yaw_cur;
-	cam_pitch_prev = cam_pitch_cur;
-	//--#SM+ End#--
 #ifdef DEBUG
 	if( dbg_draw_camera_collision )
 	{

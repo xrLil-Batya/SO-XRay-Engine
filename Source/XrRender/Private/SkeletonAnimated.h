@@ -6,7 +6,7 @@
 #include		"animation.h"
 #include		"../../xrEngine/SkeletonMotions.h"
 
-#include		"KinematicsAnimated.h"
+#include		"../Public/KinematicsAnimated.h"
 
 //*** Bone Instance *******************************************************************************
 #pragma pack(push,8)

@@ -26,7 +26,6 @@
 #include "alife_object_registry.h"
 #include "CustomOutfit.h"
 #include "Bolt.h"
-#include "ActorBackpack.h"
 
 CInventoryOwner::CInventoryOwner			()
 {
@@ -236,16 +235,7 @@ void CInventoryOwner::UpdateInventoryOwner(u32 deltaT)
 //достать PDA из специального слота инвентаря
 CPda* CInventoryOwner::GetPDA() const
 {
-	CPda* Pda = (CPda*)(m_inventory->ItemFromSlot(PDA_SLOT));
-	if (!Pda) {
-		for(TIItemContainer::const_iterator it = inventory().m_ruck.begin(); inventory().m_ruck.end() != it; ++it) 
-		{
-			CPda* p = smart_cast<CPda*>(*it);
-			if(p)
-				Pda = p;
-		}
-	}
-	return Pda;
+	return (CPda*)(m_inventory->ItemFromSlot(PDA_SLOT));
 }
 
 CTrade* CInventoryOwner::GetTrade() 
@@ -267,6 +257,9 @@ bool CInventoryOwner::OfferTalk(CInventoryOwner* talk_partner)
 	//проверить отношение к собеседнику
 	CEntityAlive* pPartnerEntityAlive = smart_cast<CEntityAlive*>(talk_partner);
 	R_ASSERT(pPartnerEntityAlive);
+	
+//	ALife::ERelationType relation = RELATION_REGISTRY().GetRelationType(this, talk_partner);
+//	if(relation == ALife::eRelationTypeEnemy) return false;
 
 	if(!is_alive() || !pPartnerEntityAlive->g_Alive()) return false;
 
@@ -356,29 +349,15 @@ float CInventoryOwner::GetWeaponAccuracy	() const
 	return 0.f;
 }
 
-#include "artefact.h"
 //максимальный переносимы вес
 float  CInventoryOwner::MaxCarryWeight () const
 {
 	float ret =  inventory().GetMaxWeight();
 
 	const CCustomOutfit* outfit	= GetOutfit();
-	if(outfit){
-		ret += (outfit->m_additional_weight2 * outfit->GetCondition());
-	}
+	if(outfit)
+		ret += outfit->m_additional_weight2;
 
-	CBackpack* pBackpack = smart_cast<CBackpack*>(inventory().ItemFromSlot(BACKPACK_SLOT));
-	if ( pBackpack ){
-		ret				+= (pBackpack->m_additional_weight2 * pBackpack->GetCondition());
-	}
-
-	for(TIItemContainer::const_iterator it = inventory().m_belt.begin(); 
-		inventory().m_belt.end() != it; ++it) 
-	{
-		CArtefact*	artefact = smart_cast<CArtefact*>(*it);
-		if(artefact)
-			ret			+= (artefact->AdditionalInventoryWeight() * artefact->GetCondition());
-	}
 	return ret;
 }
 
@@ -408,6 +387,7 @@ void CInventoryOwner::spawn_supplies		()
 //игровое имя 
 LPCSTR	CInventoryOwner::Name () const
 {
+//	return CharacterInfo().Name();
 	return m_game_name.c_str();
 }
 
@@ -502,26 +482,20 @@ void CInventoryOwner::OnItemDrop(CInventoryItem *inventory_item, bool just_befor
 void CInventoryOwner::OnItemDropUpdate ()
 {
 }
+
 void CInventoryOwner::OnItemBelt	(CInventoryItem *inventory_item, const SInvItemPlace& previous_place)
 {
-	CGameObject	*object = smart_cast<CGameObject*>(this);
-	VERIFY(object);
-	object->callback(GameObject::eOnItemToBelt)(inventory_item->object().lua_game_object());
 }
+
 void CInventoryOwner::OnItemRuck	(CInventoryItem *inventory_item, const SInvItemPlace& previous_place)
 {
-	CGameObject	*object = smart_cast<CGameObject*>(this);
-	VERIFY(object);
-	object->callback(GameObject::eOnItemToRuck)(inventory_item->object().lua_game_object());
 	detach		(inventory_item);
 }
 void CInventoryOwner::OnItemSlot	(CInventoryItem *inventory_item, const SInvItemPlace& previous_place)
 {
-	CGameObject	*object = smart_cast<CGameObject*>(this);
-	VERIFY(object);
-	object->callback(GameObject::eOnItemToSlot)(inventory_item->object().lua_game_object());
 	attach		(inventory_item);
 }
+
 CCustomOutfit* CInventoryOwner::GetOutfit() const
 {
     return smart_cast<CCustomOutfit*>(inventory().ItemFromSlot(OUTFIT_SLOT));

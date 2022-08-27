@@ -20,9 +20,7 @@ namespace detail
 } // namespace detail
 
 monster_aura::monster_aura (CBaseMonster* const object, pcstr const name) 
-						: m_object(object), m_linear_factor(0), m_quadratic_factor(0),
-      m_max_power(0), m_max_distance(0), m_pp_highest_at(0),
-      m_pp_effector_name(NULL), m_pp_index(0)
+						: m_object(object), m_pp_effector_name(NULL), m_pp_index(0)
 {
 	xr_strcpy							(m_name, sizeof(m_name), name); 
 	m_detect_snd_time	=	0.0f;
@@ -30,7 +28,11 @@ monster_aura::monster_aura (CBaseMonster* const object, pcstr const name)
 	m_enable_for_dead	=	false;
 }
 
-monster_aura::~monster_aura() { remove_pp_effector(); }
+monster_aura::~monster_aura ()
+{
+	remove_pp_effector();
+}
+
 float   monster_aura::override_if_debug (pcstr var_name, float const value) const
 {
 #ifdef DEBUG
@@ -46,29 +48,31 @@ float   monster_aura::override_if_debug (pcstr var_name, float const value) cons
 
 float   monster_aura::calculate () const
 {
-	float const distance = m_object->Position().distance_to(Actor()->Position());
+	float const distance			=	m_object->Position().distance_to(Actor()->Position());
 
-    float const epsilon = 0.00001f;
+	float const epsilon				=	0.0001f;
 
-    using namespace detail;
-    float linear_factor = override_if_debug(s_linear_factor_string, m_linear_factor);
-    float quadratic_factor = override_if_debug(s_quadratic_factor_string, m_quadratic_factor);
-    float max_power = override_if_debug(s_max_power_string, m_max_power);
-    float max_distance = override_if_debug(s_max_distance_string, m_max_distance);
+	using namespace						detail;
+	float linear_factor				=	override_if_debug(s_linear_factor_string, m_linear_factor);
+	float quadratic_factor			=	override_if_debug(s_quadratic_factor_string, m_quadratic_factor);
+	float max_power					=	override_if_debug(s_max_power_string, m_max_power);
+	float max_distance				=	override_if_debug(s_max_distance_string, m_max_distance);
 
-    if (distance > max_distance)
-    {
-        return 0;
-    }
+	if ( distance > max_distance )
+	{
+		return							0;
+	}
 
-    if (distance < epsilon)
-    {
-        return (linear_factor > epsilon) || (quadratic_factor > epsilon) ? max_power : 0;
-    }
+	if ( distance < epsilon )
+	{
+		return							(linear_factor > epsilon) || (quadratic_factor > epsilon) 
+											? 
+										 max_power : 0;
+	}
 
-    float const power = linear_factor / distance + quadratic_factor / distance * distance;
-
-    return (power < max_power) ? power : max_power;
+	float const power				=	linear_factor/distance + quadratic_factor/distance*distance;
+	
+	return								(power < max_power) ? power : max_power;
 }
 
 void   monster_aura::load_from_ini (CInifile const* ini, pcstr const section, bool enable_for_dead_default)
@@ -107,7 +111,7 @@ void   monster_aura::load_from_ini (CInifile const* ini, pcstr const section, bo
 	m_quadratic_factor				=	READ_IF_EXISTS(ini, r_float, section, quadratic_factor_string, 0.f);
 	m_max_power						=	READ_IF_EXISTS(ini, r_float, section, max_power_string, 0.f);
 	m_max_distance					=	READ_IF_EXISTS(ini, r_float, section, max_distance_string, 0.f);
-	m_enable_for_dead				=	READ_IF_EXISTS(ini, r_bool, section, enable_for_dead_string, enable_for_dead_default);
+	m_enable_for_dead				=	!!READ_IF_EXISTS(ini, r_bool, section, enable_for_dead_string, enable_for_dead_default);
 	pcstr const sound_name			=	READ_IF_EXISTS(ini, r_string, section, sound_string, NULL);
 	pcstr const detect_sound_name	=	READ_IF_EXISTS(ini, r_string, section, detect_sound_string, NULL);
 
@@ -123,10 +127,12 @@ void   monster_aura::load_from_ini (CInifile const* ini, pcstr const section, bo
 
 bool   monster_aura::check_work_condition () const
 {
-	if (!m_enable_for_dead && !m_object->g_Alive())
-        return false;
-
-    return m_enabled && Actor() && Actor()->g_Alive();
+	if ( !m_enable_for_dead && !m_object->g_Alive() )
+		return							false;
+	
+	return								m_enabled			&&
+										Actor()				&&
+										Actor()->g_Alive();
 }
 
 void   monster_aura::remove_pp_effector ()
@@ -143,13 +149,13 @@ void   monster_aura::remove_pp_effector ()
 
 float   monster_aura::get_post_process_factor () const
 {
-	 using namespace detail;
-    float pp_highest_at = override_if_debug(s_pp_highest_at_string, m_pp_highest_at);
-    VERIFY(pp_highest_at != 0.f);
+	using	namespace					detail;
+	float	pp_highest_at			=	override_if_debug(s_pp_highest_at_string, m_pp_highest_at);
+	VERIFY								(pp_highest_at != 0.f);
 
-    float factor = calculate() / m_pp_highest_at;
-    clamp(factor, 0.f, 1.f);
-    return factor;
+	float 	factor					=	calculate() / m_pp_highest_at;
+	clamp								(factor, 0.f, 1.f);
+	return								factor;
 }
 
 void   monster_aura::play_detector_sound()
@@ -184,46 +190,41 @@ void   monster_aura::on_monster_death ()
 
 void   monster_aura::update_schedule ()
 {
-	if (!check_work_condition())
-    {
-        remove_pp_effector();
-        return;
-    }
+	if ( !check_work_condition() )
+	{
+		remove_pp_effector();
+		return;
+	}
 
-    float const pp_factor = get_post_process_factor();
+	float const pp_factor			=	get_post_process_factor();
 
-    if (!m_sound._feedback())
-    {
-        m_sound.play_at_pos(Actor(), Fvector().set(0.f, 1.f, 0.f), sm_Looped | sm_2D);
-    }
+	if ( !m_sound._feedback() )
+	{
+		m_sound.play_at_pos				(Actor(), Fvector().set(0.f, 1.f, 0.f), sm_Looped | sm_2D);
+	} 
 
-    if (m_sound._feedback())
-    {
-        m_sound.set_volume(pp_factor);
-    }
+	if ( m_sound._feedback() )
+	{
+		m_sound.set_volume				(pp_factor);
+	}
 
-    if (!m_pp_effector_name)
-    {
-        return;
-    }
+	if ( !m_pp_effector_name )
+	{
+		return;
+	}
 
-    if (pp_factor > 0.01f)
-    {
-        if (!m_pp_index)
-        {
-            m_pp_index = Actor()->Cameras().RequestPPEffectorId();
-            AddEffector(
-                Actor(), m_pp_index, m_pp_effector_name, GET_KOEFF_FUNC(this, &monster_aura::get_post_process_factor));
-        }
-    }
-    else if (m_pp_index != 0)
-    {
-        RemoveEffector(Actor(), m_pp_index);
-        m_pp_index = 0;
-    }
-}
-
-bool   monster_aura::get_enabled_for_dead ()
-{
-	return m_enable_for_dead;
+	if ( pp_factor > 0.01f )
+	{
+		if ( !m_pp_index )
+		{
+			m_pp_index				=	Actor()->Cameras().RequestPPEffectorId();
+			AddEffector					(Actor(), m_pp_index, m_pp_effector_name, 
+										GET_KOEFF_FUNC(this, &monster_aura::get_post_process_factor));
+		}
+	}
+	else if ( m_pp_index != 0 )
+	{
+		RemoveEffector					(Actor(), m_pp_index);
+		m_pp_index					=	0;
+	}
 }

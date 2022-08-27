@@ -11,7 +11,6 @@
 #include "Kinematics.h"
 #include "object_broker.h"
 #include "ActorHelmet.h"
-#include "ActorBackpack.h"
 
 #define MAX_HEALTH 1.0f
 #define MIN_HEALTH -0.01f
@@ -253,7 +252,6 @@ void CEntityCondition::UpdateConditionTime()
 		m_fDeltaRadiation		= 0;
 		m_fDeltaCircumspection	= 0;
 		m_fDeltaEntityMorale	= 0;
-		m_fDeltaPsyHealth		= 0;
 	}
 
 	m_iLastTimeCalled			= _cur_time;
@@ -339,8 +337,7 @@ float CEntityCondition::HitOutfitEffect(float hit_power, ALife::EHitType hit_typ
 
 	CCustomOutfit* pOutfit = (CCustomOutfit*)pInvOwner->inventory().ItemFromSlot(OUTFIT_SLOT);
 	CHelmet* pHelmet = (CHelmet*)pInvOwner->inventory().ItemFromSlot(HELMET_SLOT);
-	CBackpack* pBackpack = (CBackpack*)pInvOwner->inventory().ItemFromSlot(BACKPACK_SLOT);
-	if(!pOutfit && !pHelmet && !pBackpack)
+	if(!pOutfit && !pHelmet)
 		return hit_power;
 
 	float new_hit_power = hit_power;
@@ -349,9 +346,6 @@ float CEntityCondition::HitOutfitEffect(float hit_power, ALife::EHitType hit_typ
 
 	if(pHelmet)
 		new_hit_power = pHelmet->HitThroughArmor(new_hit_power, element, ap, add_wound, hit_type);
-
-	if(pBackpack)
-		new_hit_power = pBackpack->HitThroughArmor(new_hit_power, element, ap, add_wound, hit_type);
 
 	if(bDebug)	
 		Msg("new_hit_power = %.3f  hit_type = %s  ap = %.3f", new_hit_power, ALife::g_cafHitType2String(hit_type), ap);
@@ -474,6 +468,7 @@ CWound* CEntityCondition::ConditionHit(SHit* pHDS)
 		m_fDeltaPower -= hit_power*m_fPowerHitPart;
 		break;
 	case ALife::eHitTypeStrike:
+//	case ALife::eHitTypePhysicStrike:
 		hit_power *= GetHitImmunity(pHDS->hit_type)-m_fBoostStrikeImmunity;
 		m_fHealthLost = hit_power*m_fHealthHitPart;
 		m_fDeltaHealth -= CanBeHarmed() ? m_fHealthLost : 0;
@@ -653,7 +648,6 @@ bool CEntityCondition::ApplyInfluence(const SMedicineInfluenceValues& V, const s
 	ChangeBleeding	(V.fWoundsHeal);
 	SetMaxPower		(GetMaxPower()+V.fMaxPowerUp);
 	ChangeAlcohol	(V.fAlcohol);
-	ChangePsyHealth	(V.fPsy);
 	return true;
 }
 
@@ -665,7 +659,6 @@ bool CEntityCondition::ApplyBooster(const SBooster& B, const shared_str& sect)
 void SMedicineInfluenceValues::Load(const shared_str& sect)
 {
 	fHealth			= pSettings->r_float(sect.c_str(), "eat_health");
-	fPsy			= pSettings->r_float(sect.c_str(), "eat_psy");
 	fPower			= pSettings->r_float(sect.c_str(), "eat_power");
 	fSatiety		= pSettings->r_float(sect.c_str(), "eat_satiety");
 	fRadiation		= pSettings->r_float(sect.c_str(), "eat_radiation");

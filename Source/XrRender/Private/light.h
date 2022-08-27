@@ -9,34 +9,31 @@
 #	include "light_GI.h"
 #endif //(RENDER==R_R2) || (RENDER==R_R3) || (RENDER==R_R4)
 
-class light : public IRender_Light, public ISpatial
+class	light		:	public IRender_Light, public ISpatial
 {
 public:
-	struct
-	{
-		u32 type : 4;
-		u32 bStatic : 1;
-		u32 bActive : 1;
-		u32 bShadow : 1;
-		u32 bVolumetric:1;
-		u32 bHudMode: 1;
-	} flags;
+	struct {
+		u32			type	:	4;
+		u32			bStatic	:	1;
+		u32			bActive	:	1;
+		u32			bShadow	:	1;
+		u32			bVolumetric:1;
+		u32			bHudMode:	1;
 
-	Fvector position;
-	Fvector direction;
-	Fvector right;
-	float range;
-	float cone;
-	Fcolor color;
+	}				flags;
+	Fvector			position	;
+	Fvector			direction	;
+	Fvector			right		;
+	float			range		;
+	float			cone		;
+	Fcolor			color		;
 
-	vis_data hom;
-	u32 frame_render;
+	vis_data		hom			;
+	u32				frame_render;
 
-	float m_volumetric_quality;
-	float m_volumetric_intensity;
-	float m_volumetric_distance;
-
-	float virtual_size;
+	float			m_volumetric_quality;
+	float			m_volumetric_intensity;
+	float			m_volumetric_distance;
 
 #if (RENDER==R_R2) || (RENDER==R_R3) || (RENDER==R_R4)
 	float			falloff;			// precalc to make light equal to zero at light range
@@ -98,56 +95,49 @@ public:
 #endif	//	(RENDER==R_R2) || (RENDER==R_R3) || (RENDER==R_R4)
 
 public:
-	virtual void set_type(LT type) { flags.type = type; }
-	virtual void set_active(bool b);
-	virtual bool get_active() { return flags.bActive; }
-
-	virtual void set_shadow(bool b)
-	{
-		flags.bShadow = b;
-	}
-
-	virtual void set_volumetric(bool b)
-	{
-		flags.bVolumetric = b;
-	}
-
-	virtual void set_volumetric_quality(float fValue) { m_volumetric_quality = fValue; }
-	virtual void set_volumetric_intensity(float fValue) { m_volumetric_intensity = fValue; }
-	virtual void set_volumetric_distance(float fValue) { m_volumetric_distance = fValue; }
-
-	virtual void set_position(const Fvector& P);
-	virtual void set_rotation(const Fvector& D, const Fvector& R);
-	virtual void set_cone(float angle);
-	virtual void set_range(float R);
-
-	virtual void set_virtual_size(float R)
+	virtual void	set_type				(LT type)						{ flags.type = type;		}
+	virtual void	set_active				(bool b);
+	virtual bool	get_active				()								{ return flags.bActive;		}
+	virtual void	set_shadow				(bool b)						
 	{ 
-		virtual_size = R; 
-	};
+		flags.bShadow=b;			
+	}
+	virtual void	set_volumetric			(bool b)						
+	{ 
+		flags.bVolumetric=b;			
+	}
 
-	virtual void set_color(const Fcolor& C) { color.set(C); }
-	virtual void set_color(float r, float g, float b) { color.set(r, g, b, 1); }
-	virtual void set_texture(LPCSTR name);
-	virtual void set_hud_mode(bool b) { flags.bHudMode = b; }
-	virtual bool get_hud_mode() { return flags.bHudMode; };
+	virtual void	set_volumetric_quality(float fValue) {m_volumetric_quality = fValue;}
+	virtual void	set_volumetric_intensity(float fValue) {m_volumetric_intensity = fValue;}
+	virtual void	set_volumetric_distance(float fValue) {m_volumetric_distance = fValue;}
+	
+	virtual void	set_position			(const Fvector& P);
+	virtual void	set_rotation			(const Fvector& D, const Fvector& R);
+	virtual void	set_cone				(float angle);
+	virtual void	set_range				(float R);
+	virtual void	set_virtual_size		(float R)						{};
+	virtual void	set_color				(const Fcolor& C)				{ color.set(C);				}
+	virtual void	set_color				(float r, float g, float b)		{ color.set(r,g,b,1);		}
+	virtual void	set_texture				(LPCSTR name);
+	virtual void	set_hud_mode			(bool b)						{flags.bHudMode=b;}
+	virtual bool	get_hud_mode			()								{return flags.bHudMode;};
 
-	virtual void spatial_move();
-	virtual Fvector spatial_sector_point();
+	virtual	void	spatial_move			();
+	virtual	Fvector	spatial_sector_point	();
 
-	virtual IRender_Light* dcast_Light() { return this; }
+	virtual IRender_Light*	dcast_Light		()	{ return this; }
 
-	vis_data& get_homdata();
+	vis_data&		get_homdata				();
 #if (RENDER==R_R2) || (RENDER==R_R3) || (RENDER==R_R4)
 	void			gi_generate				();
 	void			xform_calc				();
 	void			vis_prepare				();
 	void			vis_update				();
-	void			export_					(light_Package& dest);
+	void			export_ 					(light_Package& dest);
 	void			set_attenuation_params	(float a0, float a1, float a2, float fo);
 #endif // (RENDER==R_R2) || (RENDER==R_R3) || (RENDER==R_R4)
 
-	float get_LOD();
+	float			get_LOD					();
 
 	light();
 	virtual ~light();

@@ -20,8 +20,6 @@
 #include "ui\UIMMShniaga.h"
 #include "ui\UIScrollView.h"
 #include "ui\UIProgressBar.h"
-#include "ui\UIDragDropListEx.h"
-#include "ui\UIDragDropReferenceList.h"
 
 using namespace luabind;
 
@@ -251,14 +249,6 @@ CUIEditBox* CScriptXmlInit::InitMPPlayerName(LPCSTR path, CUIWindow* parent)
 	return							pWnd;	
 }
 
-CUIDragDropListEx* CScriptXmlInit::InitDragDropListEx(LPCSTR path, CUIWindow* parent)
-{
-	CUIDragDropListEx* pWnd			= xr_new<CUIDragDropListEx>();
-	CUIXmlInit::InitDragDropListEx	(m_xml, path, 0, pWnd);
-	_attach_child					(pWnd, parent);
-	return							pWnd;	
-}
-
 #pragma optimize("s",on)
 void CScriptXmlInit::script_register(lua_State *L){
 	module(L)
@@ -292,7 +282,6 @@ void CScriptXmlInit::script_register(lua_State *L){
 		.def("InitScrollView",			&CScriptXmlInit::InitScrollView)
 		.def("InitListBox",				&CScriptXmlInit::InitListBox)
 		.def("InitProgressBar",			&CScriptXmlInit::InitProgressBar)
-		.def("InitDragDropListEx",		&CScriptXmlInit::InitDragDropListEx)
 	];
 
 }

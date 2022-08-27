@@ -32,7 +32,6 @@ private:
 //		stt_stamina = 0,
 		stt_health = 0,
 		stt_bleeding,
-		stt_satiety,
 		stt_radiation,
 //		stt_armor,
 //		stt_main,
@@ -44,8 +43,6 @@ private:
 		stt_fire_wound,
 		stt_shock,
 		stt_power,
-		stt_strike,
-		stt_explo,
 		stt_count
 	};
 	ui_actor_state_item*	m_state[stt_count];

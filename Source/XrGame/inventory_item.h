@@ -94,52 +94,7 @@ public:
 	virtual bool				GetBriefInfo		(II_BriefInfo& info) { info.clear(); return false; }
 	
 	virtual void				OnEvent				(NET_Packet& P, u16 type);
-private:
-	u32							m_stack_items;
-	u32							m_quick_number;
-	u32							m_med1_count;
-	u32							m_med2_count;
-	u32							m_artefact_count;
-	bool						m_b_script_anim;
-
-	bool						m_b_move_to_cargo_belt;
-	bool						m_b_move_to_bouch;
-
-	bool						m_b_sort_weapon;
-	bool						m_b_sort_armor;
-	bool						m_b_sort_ammo;
-	bool						m_b_sort_artefact;
-	bool						m_b_sort_tools;
-	bool						m_b_sort_consumables;
-	bool						m_b_sort_misc;
 	
-	bool						m_show_condition;
-	bool						m_show_inventory_condition;
-	bool						m_condition_degradate;
-	float						m_condition_degradate_speed;
-public:
-	virtual u32					GetStackItems() const { return m_stack_items;  }
-	virtual u32					GetQuickNumber() const { return m_quick_number;  }
-	virtual u32					GetMed1Count() const { return m_med1_count;  }
-	virtual u32					GetMed2Count() const { return m_med2_count;  }
-	virtual u32					GetArtCount() const { return m_artefact_count;  }
-	virtual bool				GetScriptAnim() const { return m_b_script_anim;  }
-
-	virtual bool				GetMoveToBouch() const { return m_b_move_to_bouch;  }
-	virtual bool				GetMoveToCargoBelt() const { return m_b_move_to_cargo_belt;  }
-
-	virtual bool				GetSortWeapons() const { return m_b_sort_weapon;  }
-	virtual bool				GetSortArmor() const { return m_b_sort_armor;  }
-	virtual bool				GetSortAmmo() const { return m_b_sort_ammo;  }
-	virtual bool				GetSortArtefact() const { return m_b_sort_artefact;  }
-	virtual bool				GetSortTools() const { return m_b_sort_tools;  }
-	virtual bool				GetSortConsumables() const { return m_b_sort_consumables;  }
-	virtual bool				GetSortMisc() const { return m_b_sort_misc;  }
-
-	virtual bool				GetShowCondition() const { return m_show_condition;  }
-	virtual bool				GetShowInventoryCondition() const { return m_show_inventory_condition;  }
-	virtual bool				GetConditionDegradate() const { return m_condition_degradate;  }
-	virtual float				GetConditionDegradateSpeed() const { return m_condition_degradate_speed;  }
 	virtual bool				Useful				() const;									// !!! Переопределить. (см. в Inventory.cpp)
 	virtual bool				Attach				(PIItem pIItem, bool b_send_event) {return false;}
 	virtual bool				Detach				(PIItem pIItem) {return false;}
@@ -204,9 +159,6 @@ public:
 	virtual	float				GetConditionToShow	() const					{return GetCondition();}
 	IC		void				SetCondition		(float val)					{m_fCondition = val;}
 			void				ChangeCondition		(float fDeltaCondition);
-	IC		float				GetWeight			() const					{return m_weight;}
-	IC		void				SetWeight			(float val)					{m_weight = val;}
-			void				ChangeWeight		(float fDeltaWeight);
 
 			u16					BaseSlot			()  const					{return m_ItemCurrPlace.base_slot_id;}
 			u16					CurrSlot			()  const					{return m_ItemCurrPlace.slot_id;}

@@ -547,7 +547,6 @@ void	CRender::Statistics	(CGameFont* _F)
 }
 
 /////////
-#pragma comment(lib,"d3dx9.lib")
 /*
 extern "C"
 {
@@ -900,7 +899,7 @@ HRESULT	CRender::shader_compile			(
 	{
 		sh_name[len]='0'; ++len;
 	}
-/*
+
 	if (RImplementation.o.advancedpp && ps_r_sun_shafts)
 	{
 		xr_sprintf					(c_sun_shafts,"%d",ps_r_sun_shafts);
@@ -913,7 +912,7 @@ HRESULT	CRender::shader_compile			(
 	{
 		sh_name[len]='0'; ++len;
 	}
-*/
+
 	if (RImplementation.o.advancedpp && ps_r_ssao)
 	{
 		xr_sprintf					(c_ssao,"%d",ps_r_ssao);

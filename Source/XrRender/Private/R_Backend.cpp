@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #pragma hdrstop
-
+#if defined(USE_DX10)||defined(USE_DX11)
 #include "../DX10/dx10BufferUtils.h"
-
+#endif
 CBackend			RCache;
 
 // Create Quad-IB

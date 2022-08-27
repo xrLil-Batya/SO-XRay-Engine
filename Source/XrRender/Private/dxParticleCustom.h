@@ -2,7 +2,7 @@
 #ifndef ParticleCustomH
 #define ParticleCustomH
 
-#include "ParticleCustom.h"
+#include "../Public/ParticleCustom.h"
 #include "FBasicVisual.h"
 //---------------------------------------------------------------------------
 class 	dxParticleCustom		: public dxRender_Visual, public IParticleCustom

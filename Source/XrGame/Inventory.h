@@ -5,7 +5,6 @@ class CInventory;
 class CInventoryItem;
 class CHudItem;
 class CInventoryOwner;
-class CUIDragDropListEx;
 
 class CInventorySlot
 {									
@@ -14,16 +13,10 @@ public:
 	virtual					~CInventorySlot		();
 
 	bool					CanBeActivated		() const;
-	
-	TIItemContainer			m_ammunitions;
 
 	PIItem					m_pIItem;
 	bool					m_bPersistent;
 	bool					m_bAct;
-	void 					addItem(PIItem item);
-	void 					eraseAll();
-	void 					eraseItem(PIItem item);
-	bool 					checkItem(const CInventoryItem* pIItem) const;
 };
 
 class priority_group
@@ -69,8 +62,6 @@ public:
 	bool 					CanPutInBelt		(PIItem pIItem);
 	bool 					CanPutInRuck		(PIItem pIItem) const;
 
-	void					UpdateZayaz			();
-
 	bool					CanTakeItem			(CInventoryItem *inventory_item) const;
 
 
@@ -88,15 +79,15 @@ public:
 	bool					Action				(u16 cmd, u32 flags);
 	void					ActiveWeapon		(u16 slot);
 	void					Update				();
-	// їщет на по§се аналогичный IItem
+	// »щет на по€се аналогичный IItem
 	PIItem					Same				(const PIItem pIItem, bool bSearchRuck) const;
-	// їщет на по§се IItem дл§ указанного слота
+	// »щет на по€се IItem дл€ указанного слота
 	PIItem					SameSlot			(const u16 slot, PIItem pIItem, bool bSearchRuck) const;
-	// їщет на по§се или в рюкзаке IItem с указанным именем (cName())
+	// »щет на по€се или в рюкзаке IItem с указанным именем (cName())
 	PIItem					Get					(LPCSTR name, bool bSearchRuck) const;
-	// їщет на по§се или в рюкзаке IItem с указанным именем (id)
+	// »щет на по€се или в рюкзаке IItem с указанным именем (id)
 	PIItem					Get					(const u16  id,	 bool bSearchRuck) const;
-	// їщет на по§се или в рюкзаке IItem с указанным CLS_ID
+	// »щет на по€се или в рюкзаке IItem с указанным CLS_ID
 	PIItem					Get					(CLASS_ID cls_id,  bool bSearchRuck) const;
 	PIItem					GetAny				(LPCSTR name) const;//search both (ruck and belt)
 	PIItem					item				(CLASS_ID cls_id) const;
@@ -104,7 +95,6 @@ public:
 	// get all the items with the same section name
 	virtual u32				dwfGetSameItemCount	(LPCSTR caSection, bool SearchAll = false);	
 	virtual u32				dwfGetGrenadeCount	(LPCSTR caSection, bool SearchAll);	
-	virtual u32				dwfGetZayazCount	(u32 Type);	
 	// get all the items with the same object id
 	virtual bool			bfCheckForObject	(ALife::_OBJECT_ID tObjectID);	
 	PIItem					get_object_by_id	(ALife::_OBJECT_ID tObjectID);
@@ -138,9 +128,8 @@ public:
 	TIItemContainer			m_all;
 	TIItemContainer			m_ruck, m_belt;
 	TIItemContainer			m_activ_last_items;
-	TIItemContainer			m_zayaz;
 
-public:
+protected:
 	TISlotArr				m_slots;
 public:
 	//возвращает все кроме PDA в слоте и болта
@@ -150,8 +139,6 @@ public:
 	void				SetMaxWeight				(float weight)			{m_fMaxWeight = weight;}
 
 	u32					BeltWidth					() const;
-	u32					SlotWidth		 (u16 slot_id) const;
-	u32					SlotHeight		 (u16 slot_id) const;
 
 	inline	CInventoryOwner*GetOwner				() const				{ return m_pOwner; }
 	
@@ -167,20 +154,20 @@ protected:
 	void					UpdateDropTasks		();
 	void					UpdateDropItem		(PIItem pIItem);
 
-	// Љктивный слот и слот который станет активным после смены
-    //значени§ совпадают в обычном состо§нии (нет смены слотов)
+	// јктивный слот и слот который станет активным после смены
+    //значени€ совпадают в обычном состо€нии (нет смены слотов)
 	u16 				m_iActiveSlot;
 	u16 				m_iNextActiveSlot;
 	u16 				m_iPrevActiveSlot;
 
 	CInventoryOwner*	m_pOwner;
 
-	//флаг, показывающий наличие по§са в инвенторе
+	//флаг, показывающий наличие по€са в инвенторе
 	bool				m_bBeltUseful;
 	//флаг, допускающий использование слотов
 	bool				m_bSlotsUseful;
 
-	// максимальный вес инвентар§
+	// максимальный вес инвентар€
 	float				m_fMaxWeight;
 	// текущий вес в инвентаре
 	float				m_fTotalWeight;

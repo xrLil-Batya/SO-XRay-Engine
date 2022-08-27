@@ -22,7 +22,6 @@ namespace GameObject {
 		eMapLocationAdded,
 
 		eUseObject,
-		eUseInvObject,
 
 		eHit,
 
@@ -43,9 +42,6 @@ namespace GameObject {
 
 		eOnItemTake,
 		eOnItemDrop,
-		eOnItemToBelt,
-		eOnItemToRuck,
-		eOnItemToSlot,
 
 		eScriptAnimation,
 		
@@ -55,17 +51,6 @@ namespace GameObject {
 
 		eInvBoxItemTake,
 		eWeaponNoAmmoAvailable,
-		//AVO: custom callbacks
-		// input
-		eKeyPress,
-		eKeyRelease,
-		eKeyHold,
-		// weapon
-		eOnWeaponZoomIn,
-		eOnWeaponZoomOut,
-		eOnWeaponJammed,
-		eOnWeaponFired,
-		eOnWeaponMagazineEmpty,
 
 		eDummy = u32(-1),
 	};

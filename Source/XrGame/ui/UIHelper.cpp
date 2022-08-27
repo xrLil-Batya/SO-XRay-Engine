@@ -17,7 +17,6 @@
 #include "UIHint.h"
 #include "UIDragDropReferenceList.h"
 #include "UIEditBox.h"
-#include "UIListBox.h"
 
 CUIStatic* UIHelper::CreateStatic( CUIXml& xml, LPCSTR ui_path, CUIWindow* parent )
 {
@@ -52,18 +51,6 @@ CUIEditBox* UIHelper::CreateEditBox( CUIXml& xml, LPCSTR ui_path, CUIWindow* par
 		ui->SetAutoDelete	( true );
 	}
 	CUIXmlInit::InitEditBox	( xml, ui_path, 0, ui );
-	return ui;
-}
-
-CUIListBox* UIHelper::CreateListBox( CUIXml& xml, LPCSTR ui_path, CUIWindow* parent )
-{
-	CUIListBox* ui			= xr_new<CUIListBox>();
-	if(parent)
-	{
-		parent->AttachChild	( ui );
-		ui->SetAutoDelete	( true );
-	}
-	CUIXmlInit::InitListBox	( xml, ui_path, 0, ui );
 	return ui;
 }
 

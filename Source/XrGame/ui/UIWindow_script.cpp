@@ -174,11 +174,6 @@ void CUIWindow::script_register(lua_State *L)
 	// CUIListWnd
 				value("LIST_ITEM_CLICKED",				int(LIST_ITEM_CLICKED)),
 				value("LIST_ITEM_SELECT",				int(LIST_ITEM_SELECT)),
-
-	// CUIDragDropListEx
-				value("DRAG_DROP_ITEM_DB_CLICK",		int(DRAG_DROP_ITEM_DB_CLICK)),
-				value("DRAG_DROP_ITEM_LBUTTON_CLICK",	int(DRAG_DROP_ITEM_LBUTTON_CLICK)),
-				value("DRAG_DROP_ITEM_SELECTED",		int(DRAG_DROP_ITEM_SELECTED)),
 	
 	// UIPropertiesBox
 				value("PROPERTY_CLICKED",				int(PROPERTY_CLICKED)),

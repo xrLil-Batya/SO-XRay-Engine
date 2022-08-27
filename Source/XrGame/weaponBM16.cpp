@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "weaponBM16.h"
-#include "Actor.h"
 
 CWeaponBM16::~CWeaponBM16()
 {
@@ -65,34 +64,20 @@ void CWeaponBM16::PlayAnimHide()
 	}
 }
 
-bool CWeaponBM16::TryPlayAnimBore()
+void CWeaponBM16::PlayAnimBore()
 {
-	switch (m_magazine.size())
+	switch( m_magazine.size() )
 	{
 	case 0:
-		if (HudAnimationExist("anm_bore_0"))
-		{
-			PlayHUDMotion("anm_bore_0", TRUE, this, GetState());
-			return true;
-		}
+		PlayHUDMotion("anm_bore_0",TRUE,this,GetState());
 		break;
 	case 1:
-		if (HudAnimationExist("anm_bore_1"))
-		{
-			PlayHUDMotion("anm_bore_1", TRUE, this, GetState());
-			return true;
-		}
+		PlayHUDMotion("anm_bore_1",TRUE,this,GetState());
 		break;
 	case 2:
-		if (HudAnimationExist("anm_bore_2"))
-		{
-			PlayHUDMotion("anm_bore_2", TRUE, this, GetState());
-			return true;
-		}
+		PlayHUDMotion("anm_bore_2",TRUE,this,GetState());
 		break;
 	}
-
-	return false;
 }
 
 void CWeaponBM16::PlayAnimReload()
@@ -144,79 +129,34 @@ void  CWeaponBM16::PlayAnimIdleSprint()
 
 void CWeaponBM16::PlayAnimIdle()
 {
-	CActor* pActor = smart_cast<CActor*>(H_Parent());
-	if (!pActor)
-		return;
+	if(TryPlayAnimIdle())	return;
 
-	if (IsZoomed())
+	if(IsZoomed())
 	{
 		switch (m_magazine.size())
 		{
-		case 0:
-			{
-				PlayHUDMotion("anm_idle_aim_0", TRUE, NULL, GetState());
-			}
-			break;
-		case 1:
-			{
-				PlayHUDMotion("anm_idle_aim_1", TRUE, NULL, GetState());
-			}
-			break;
-		case 2:
-			{
-				PlayHUDMotion("anm_idle_aim_2", TRUE, NULL, GetState());
-			}
-			break;
+		case 0:{
+			PlayHUDMotion("anm_idle_aim_0", TRUE, NULL, GetState());
+		}break;
+		case 1:{
+			PlayHUDMotion("anm_idle_aim_1", TRUE, NULL, GetState());
+		}break;
+		case 2:{
+			PlayHUDMotion("anm_idle_aim_2", TRUE, NULL, GetState());
+		}break;
 		};
-
-		return;
-	}
-
-	CEntity::SEntityState st;
-	pActor->g_State(st);
-	if (pActor->AnyMove())
-	{
-		if (pActor->is_safemode())
+	}else{
+		switch (m_magazine.size())
 		{
-			switch (m_magazine.size())
-			{
-			case 0:
-			{
-				PlayHUDMotion("anm_idle_0", TRUE, NULL, GetState());
-			}
-			break;
-			case 1:
-			{
-				PlayHUDMotion("anm_idle_1", TRUE, NULL, GetState());
-			}
-			break;
-			case 2:
-			{
-				PlayHUDMotion("anm_idle_2", TRUE, NULL, GetState());
-			}
-			break;
-			};
-
-			return;
-		}
+		case 0:{
+			PlayHUDMotion("anm_idle_0", TRUE, NULL, GetState());
+		}break;
+		case 1:{
+			PlayHUDMotion("anm_idle_1", TRUE, NULL, GetState());
+		}break;
+		case 2:{
+			PlayHUDMotion("anm_idle_2", TRUE, NULL, GetState());
+		}break;
+		};
 	}
-	
-	switch (m_magazine.size())
-	{
-	case 0:
-	{
-		PlayHUDMotion("anm_idle_0", TRUE, NULL, GetState());
-	}
-	break;
-	case 1:
-	{
-		PlayHUDMotion("anm_idle_1", TRUE, NULL, GetState());
-	}
-	break;
-	case 2:
-	{
-		PlayHUDMotion("anm_idle_2", TRUE, NULL, GetState());
-	}
-	break;
-	};
 }

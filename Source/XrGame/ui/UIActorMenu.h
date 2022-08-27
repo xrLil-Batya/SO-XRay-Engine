@@ -1,11 +1,9 @@
 #pragma once
 
-#include "script_export_space.h"
 #include "UIDialogWnd.h"
 #include "UIWndCallback.h"
 #include "../../xrServerEntities/inventory_space.h"
 #include "UIHint.h"
-#include "script_game_object.h"
 
 class CUICharacterInfo;
 class CUIDragDropListEx;
@@ -89,8 +87,14 @@ protected:
 	CUICharacterInfo*			m_ActorCharacterInfo;
 	CUICharacterInfo*			m_PartnerCharacterInfo;
 
-	CUIDragDropListEx*			m_pInventoryBagList;
 	CUIDragDropListEx*			m_pInventoryBeltList;
+	CUIDragDropListEx*			m_pInventoryPistolList;
+	CUIDragDropListEx*			m_pInventoryAutomaticList;
+	CUIDragDropListEx*			m_pInventoryOutfitList;
+	CUIDragDropListEx*			m_pInventoryHelmetList;
+	CUIDragDropListEx*			m_pInventoryDetectorList;
+	CUIDragDropListEx*			m_pInventoryBagList;
+
 	CUIDragDropListEx*			m_pTradeActorBagList;
 	CUIDragDropListEx*			m_pTradeActorList;
 	CUIDragDropListEx*			m_pTradePartnerBagList;
@@ -98,36 +102,21 @@ protected:
 	CUIDragDropListEx*			m_pDeadBodyBagList;
 	CUIDragDropListEx*			m_pTrashList;
 
-//Edited by ARTLantist
-	u8 m_slot_count;
-    CUIStatic*					m_pInvSlotHighlight[LAST_SLOT + 1];
-    CUIProgressBar*				m_pInvSlotProgress[LAST_SLOT + 1];
-    CUIDragDropListEx*			m_pInvList[LAST_SLOT + 1];
-		
-	CUIStatic*					m_BouchUpElement[2];
-	CUIStatic*					m_BouchDownElement[2];
-	CUIStatic*					m_zDosimeterElement;
-	CUIStatic*					m_zAmmoElement[4];
-	CUIStatic*					m_zMed1Element[3];
-	CUIStatic*					m_zMed2Element[4];
-	CUIStatic*					m_zGrenadeWElement[2];
-	CUIStatic*					m_zGrenadeElement[2];
-//-ARTLantist
-
 	enum						{e_af_count = 5};
 	CUIStatic*					m_belt_list_over[e_af_count];
 	CUIStatic*					m_HelmetOver;
-	CUIStatic*					m_BackpackOver;
 
+	CUIStatic*					m_InvSlot2Highlight;
+	CUIStatic*					m_InvSlot3Highlight;
+	CUIStatic*					m_HelmetSlotHighlight;
+	CUIStatic*					m_OutfitSlotHighlight;
+	CUIStatic*					m_DetectorSlotHighlight;
 	CUIStatic*					m_QuickSlotsHighlight[4];
 	CUIStatic*					m_ArtefactSlotsHighlight[e_af_count];
 
 	CUIInventoryUpgradeWnd*		m_pUpgradeWnd;
 	
-//Edited by ARTLantist
 	CUIStatic*					m_LeftBackground;
-	CUIStatic*					m_RightBackground;
-//-ARTLantist
 
 	UIInvUpgradeInfo*			m_upgrade_info;
 	CUIMessageBoxEx*			m_message_box_yes_no;
@@ -144,6 +133,10 @@ protected:
 	CUITextWnd*					m_QuickSlot3;
 	CUITextWnd*					m_QuickSlot4;
 	
+	CUIProgressBar*				m_WeaponSlot1_progress;
+	CUIProgressBar*				m_WeaponSlot2_progress;
+	CUIProgressBar*				m_Helmet_progress;
+	CUIProgressBar*				m_Outfit_progress;
 	// bottom ---------------------------------
 	CUIStatic*					m_ActorBottomInfo;
 	CUITextWnd*					m_ActorWeight;
@@ -152,13 +145,16 @@ protected:
 	CUIStatic*					m_PartnerBottomInfo;
 	CUITextWnd*					m_PartnerWeight;
 	float						m_PartnerWeight_end_x;
+//*	CUIStatic*					m_PartnerWeightMax;
 
 	// delimiter ------------------------------
 	CUIStatic*					m_LeftDelimiter;
+//	CUITextWnd*					m_PartnerTradeCaption;
 	CUITextWnd*					m_PartnerTradePrice;
 	CUITextWnd*					m_PartnerTradeWeightMax;
 
 	CUIStatic*					m_RightDelimiter;
+//	CUITextWnd*					m_ActorTradeCaption;
 	CUITextWnd*					m_ActorTradePrice;
 	CUITextWnd*					m_ActorTradeWeightMax;
 
@@ -167,19 +163,9 @@ protected:
 
 	CUI3tButton*				m_trade_buy_button;
 	CUI3tButton*				m_trade_sell_button;
-	CUI3tButton*				m_trade_barter_button;
 	CUI3tButton*				m_takeall_button;
 	CUI3tButton*				m_exit_button;
-//Added by ARTLantist
-	CUI3tButton*				m_btn_sort_all;
-	CUI3tButton*				m_btn_sort_weapons;
-	CUI3tButton*				m_btn_sort_armor;
-	CUI3tButton*				m_btn_sort_ammo;
-	CUI3tButton*				m_btn_sort_artefact;
-	CUI3tButton*				m_btn_sort_tools;
-	CUI3tButton*				m_btn_sort_consumables;
-	CUI3tButton*				m_btn_sort_misc;
-//-ARTLantist
+//	CUIStatic*					m_clock_value;
 
 	u32							m_last_time;
 	bool						m_repair_mode;
@@ -205,10 +191,7 @@ private:
 	void						PropertiesBoxForPlaying		(PIItem item, bool& b_show);
 	void						PropertiesBoxForDrop		(CUICellItem* cell_item, PIItem item, bool& b_show);
 	void						PropertiesBoxForRepair		(PIItem item, bool& b_show);
-//Added by ARTLantist
-	void						PropertiesBoxForCargoBelt	(PIItem item, bool& b_show);
-	void						PropertiesBoxForBouch		(PIItem item, bool& b_show);
-//-ARTLantist
+
 private:
 	void						clear_highlight_lists		();
 	void						set_highlight_item			(CUICellItem* cell_item);
@@ -288,9 +271,6 @@ protected:
 	void						UpdateActorMP				();
 	void						UpdateOutfit				();
 	void						MoveArtefactsToBag			();
-	void						MoveZayazToBag				();
-	void						MoveBouchLeftToBag			();
-	void						MoveBouchRightToBag			();
 	bool						TryActiveSlot				(CUICellItem* itm);
 	void		xr_stdcall		TryRepairItem				(CUIWindow* w, void* d);
 	bool						CanUpgradeItem				(PIItem item);
@@ -319,7 +299,7 @@ protected:
 	u32							CalcItemsPrice				(CUIDragDropListEx* pList, CTrade* pTrade, bool bBuying);
 	void						UpdatePrices				();
 	bool						CanMoveToPartner			(PIItem pItem);
-	void						TransferItems				(CUIDragDropListEx* pSellList, CUIDragDropListEx* pBuyList, CTrade* pTrade, bool bBuying, bool bBarter);
+	void						TransferItems				(CUIDragDropListEx* pSellList, CUIDragDropListEx* pBuyList, CTrade* pTrade, bool bBuying);
 
 public:
 								CUIActorMenu				();
@@ -352,30 +332,11 @@ public:
 
 	void		xr_stdcall		OnBtnPerformTradeBuy		(CUIWindow* w, void* d);
 	void		xr_stdcall		OnBtnPerformTradeSell		(CUIWindow* w, void* d);
-	void		xr_stdcall		OnBtnPerformTradeBarter		(CUIWindow* w, void* d);
 	void		xr_stdcall		OnBtnExitClicked			(CUIWindow* w, void* d);
 	void		xr_stdcall		TakeAllFromPartner			(CUIWindow* w, void* d);
 	void						TakeAllFromInventoryBox		();
 	void						UpdateConditionProgressBars	();
-//Added by ARTLantist
-	void						InitInventoryCargoBelt		();
-	void						InitInventoryPouch1			();
-	void						InitInventoryPouch2			();
-	void						DeinitInventoryCargoBelt	(bool all);
-	void						DeinitInventoryPouch1		(bool all);
-	void						DeinitInventoryPouch2		(bool all);
 
-	void						InitInventorySortContents		(u8 type);
-
-	void		xr_stdcall		OnBtnSortAll				(CUIWindow* w, void* d);
-	void		xr_stdcall		OnBtnSortWeapons			(CUIWindow* w, void* d);
-	void		xr_stdcall		OnBtnSortArmor				(CUIWindow* w, void* d);
-	void		xr_stdcall		OnBtnSortAmmo				(CUIWindow* w, void* d);
-	void		xr_stdcall		OnBtnSortArtefact			(CUIWindow* w, void* d);
-	void		xr_stdcall		OnBtnSortTools				(CUIWindow* w, void* d);
-	void		xr_stdcall		OnBtnSortConsumables		(CUIWindow* w, void* d);
-	void		xr_stdcall		OnBtnSortMisc				(CUIWindow* w, void* d);
-//-ARTLantist
 	IC	UIHint*					get_hint_wnd				() { return m_hint_wnd; }
 
 }; // class CUIActorMenu

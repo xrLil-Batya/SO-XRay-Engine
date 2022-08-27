@@ -111,7 +111,6 @@ public:
 			bool		ShowActorMenu			();
 			void		HideActorMenu			();
 			bool		ShowPdaMenu				();
-			bool		PdaMenuStatus			();
 			void		HidePdaMenu				();
 			void		ShowMessagesWindow		();
 			void		HideMessagesWindow		();

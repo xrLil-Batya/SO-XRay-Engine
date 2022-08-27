@@ -369,7 +369,6 @@
     <ClInclude Include="ActivatingCharCollisionDelay.h" />
     <ClInclude Include="Actor.h" />
     <ClInclude Include="ActorAnimation.h" />
-    <ClInclude Include="ActorBackpack.h" />
     <ClInclude Include="ActorCondition.h" />
     <ClInclude Include="ActorEffector.h" />
     <ClInclude Include="ActorHelmet.h" />
@@ -894,7 +893,6 @@
     <ClInclude Include="cta_game_artefact.h" />
     <ClInclude Include="cta_game_artefact_activation.h" />
     <ClInclude Include="CustomDetector.h" />
-    <ClInclude Include="CustomDevice.h" />
     <ClInclude Include="CustomMonster.h" />
     <ClInclude Include="CustomMonster_inline.h" />
     <ClInclude Include="CustomOutfit.h" />
@@ -994,7 +992,6 @@
     <ClInclude Include="fire_disp_controller.h" />
     <ClInclude Include="first_bullet_controller.h" />
     <ClInclude Include="flare.h" />
-    <ClInclude Include="Flashlight.h" />
     <ClInclude Include="FoodItem.h" />
     <ClInclude Include="FryupZone.h" />
     <ClInclude Include="fs_registrator.h" />
@@ -2360,7 +2357,6 @@
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Mixed|Win32'">$(IntDir)$(ProjectName)_script.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <ClCompile Include="ActorAnimation.cpp" />
-    <ClCompile Include="ActorBackpack.cpp" />
     <ClCompile Include="ActorCameras.cpp" />
     <ClCompile Include="ActorCondition.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">pch_script.h</PrecompiledHeaderFile>
@@ -3259,7 +3255,6 @@
     <ClCompile Include="cta_game_artefact.cpp" />
     <ClCompile Include="cta_game_artefact_activation.cpp" />
     <ClCompile Include="CustomDetector.cpp" />
-    <ClCompile Include="CustomDevice.cpp" />
     <ClCompile Include="CustomMonster.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">pch_script.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)$(ProjectName)_script.pch</PrecompiledHeaderOutputFile>
@@ -3419,7 +3414,6 @@
     <ClCompile Include="fire_disp_controller.cpp" />
     <ClCompile Include="first_bullet_controller.cpp" />
     <ClCompile Include="flare.cpp" />
-    <ClCompile Include="Flashlight.cpp" />
     <ClCompile Include="FoodItem.cpp" />
     <ClCompile Include="FryupZone.cpp" />
     <ClCompile Include="fs_registrator_script.cpp">

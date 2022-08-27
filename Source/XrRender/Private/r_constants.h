@@ -6,7 +6,7 @@
 
 
 #if defined(USE_DX10) || defined(USE_DX11)
-#include "../DX10/dx10ConstantBuffer.h"
+#include "..\DX10\dx10ConstantBuffer.h"
 #endif	//	USE_DX10
 
 
@@ -187,7 +187,7 @@ private:
 typedef	resptr_core<R_constant_table,resptr_base<R_constant_table> >				ref_ctable;
 
 #if defined(USE_DX10) || defined(USE_DX11)
-#include "../DX10/dx10ConstantBuffer_impl.h"
+#include "..\DX10\dx10ConstantBuffer_impl.h"
 #endif	//	USE_DX10
 
 #endif

@@ -169,7 +169,6 @@
 #define CLSID_DEVICE_TORCH			MK_CLSID('D','_','T','O','R','C','H',' ')
 #define CLSID_DEVICE_AF_MERGER		MK_CLSID('D','_','A','F','M','E','R','G')
 #define CLSID_DEVICE_FLARE			MK_CLSID('D','_','F','L','A','R','E',' ')
-#define CLSID_DEVICE_FLASHLIGHT		MK_CLSID('D','_','F','L','A','L','I','T')
 
 // Inventory items
 #define CLSID_IITEM_BOLT			MK_CLSID('I','I','_','B','O','L','T',' ')
@@ -204,7 +203,6 @@
 #define CLSID_EQUIPMENT_MILITARY	MK_CLSID('E','Q','U','_','M','L','T','R')
 #define CLSID_EQUIPMENT_EXO			MK_CLSID('E','Q','U','_','E','X','O',' ')
 #define CLSID_EQUIPMENT_HELMET		MK_CLSID('E','Q','_','H','L','M','E','T')
-#define CLSID_EQUIPMENT_BACKPACK	MK_CLSID('E','Q','_','B','A','K','P','K')
 
 // Game types
 #define CLSID_SV_GAME_SINGLE			MK_CLSID('S','V','_','S','I','N','G','L')

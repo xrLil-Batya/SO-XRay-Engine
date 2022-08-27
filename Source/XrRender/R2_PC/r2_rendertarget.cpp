@@ -11,7 +11,6 @@
 #include "blender_bloom_build.h"
 #include "blender_luminance.h"
 #include "blender_ssao.h"
-#include "blender_rain_drops.h"
 
 #include "../Private/dxRenderDeviceRender.h"
 
@@ -211,7 +210,6 @@ CRenderTarget::CRenderTarget		()
 	b_ssao							= xr_new<CBlender_SSAO>					();
 	b_luminance						= xr_new<CBlender_luminance>			();
 	b_combine						= xr_new<CBlender_combine>				();
-	b_rain_drops					= xr_new<CBlender_rain_drops>			();
 
 	//	NORMAL
 	{
@@ -254,8 +252,6 @@ CRenderTarget::CRenderTarget		()
 
 	// OCCLUSION
 	s_occq.create					(b_occq,		"r2\\occq");
-
-	s_rain_drops.create				(b_rain_drops,	"r2\\sgm_rain_drops");
 
 	// DIRECT (spot)
 	D3DFORMAT						depth_format	= (D3DFORMAT)RImplementation.o.HW_smap_FORMAT;
@@ -635,7 +631,6 @@ CRenderTarget::~CRenderTarget	()
 	xr_delete					(b_accum_direct_cascade	);
 	xr_delete					(b_accum_mask			);
 	xr_delete					(b_occq					);
-	xr_delete					(b_rain_drops			);
 }
 
 void CRenderTarget::reset_light_marker( bool bResetStencil)

@@ -51,7 +51,7 @@ public:
 	static bool 	InitText				(CUIXml& xml_doc, LPCSTR path, int index, CUIStatic* pWnd);
 	static bool 	InitText				(CUIXml& xml_doc, LPCSTR path, int index, CUILines* pLines);
 	static bool 	Init3tButton			(CUIXml& xml_doc, LPCSTR path, int index, CUI3tButton* pWnd);
-	static bool 	InitDragDropListEx		(CUIXml& xml_doc, LPCSTR path, int index, CUIDragDropListEx* pWnd, bool use_real_pix = false);
+	static bool 	InitDragDropListEx		(CUIXml& xml_doc, LPCSTR path, int index, CUIDragDropListEx* pWnd);
 	static bool 	InitProgressBar			(CUIXml& xml_doc, LPCSTR path, int index, CUIProgressBar* pWnd);
 	static bool 	InitProgressShape		(CUIXml& xml_doc, LPCSTR path, int index, CUIProgressShape* pWnd);
 	static bool 	InitFont				(CUIXml& xml_doc, LPCSTR path, int index, u32 &color, CGameFont *&pFnt);

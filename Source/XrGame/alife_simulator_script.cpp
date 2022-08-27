@@ -252,22 +252,24 @@ ALife::_SPAWN_ID CALifeSimulator__spawn_id		(CALifeSimulator *self, ALife::_SPAW
 
 void CALifeSimulator__release					(CALifeSimulator *self, CSE_Abstract *object, bool)
 {
-	VERIFY(self);
-	THROW(object);
-	CSE_ALifeObject *alife_object = smart_cast<CSE_ALifeObject*>(object);
-	THROW(alife_object);
-	if (!alife_object) return;
+	VERIFY								(self);
+//	self->release						(object,true);
+
+	THROW								(object);
+	CSE_ALifeObject						*alife_object = smart_cast<CSE_ALifeObject*>(object);
+	THROW								(alife_object);
 	if (!alife_object->m_bOnline) {
-		self->release(object,true);
+		self->release					(object,true);
 		return;
 	}
+
 	// awful hack, for stohe only
-	NET_Packet packet;
-	packet.w_begin(M_EVENT);
-	packet.w_u32(Level().timeServer());
-	packet.w_u16(GE_DESTROY);
-	packet.w_u16(object->ID);
-	Level().Send(packet,net_flags(TRUE,TRUE));
+	NET_Packet							packet;
+	packet.w_begin						(M_EVENT);
+	packet.w_u32						(Level().timeServer());
+	packet.w_u16						(GE_DESTROY);
+	packet.w_u16						(object->ID);
+	Level().Send						(packet,net_flags(TRUE,TRUE));
 }
 
 LPCSTR get_level_name							(const CALifeSimulator *self, int level_id)
@@ -317,68 +319,6 @@ bool dont_has_info								(const CALifeSimulator *self, const ALife::_OBJECT_ID 
 //	THROW								(self);
 //}
 
-//Alundaio: teleport object
-
-CSE_Abstract* reprocess_spawn(CALifeSimulator* self, CSE_Abstract* object)
-{
-    NET_Packet packet;
-    packet.w_begin(M_SPAWN);
-    packet.w_stringZ(object->s_name);
-
-    object->Spawn_Write(packet, FALSE);
-    self->server().FreeID(object->ID, 0);
-    F_entity_Destroy(object);
-
-    ClientID clientID;
-    clientID.set(0xffff);
-
-    u16 dummy;
-    packet.r_begin(dummy);
-
-    return self->server().Process_spawn(packet, clientID);
-}
-
-CSE_Abstract* try_to_clone_object(CALifeSimulator* self, CSE_Abstract* object, pcstr section, const Fvector& position,
-                                  u32 level_vertex_id, GameGraph::_GRAPH_ID game_vertex_id, ALife::_OBJECT_ID id_parent,
-                                  bool bRegister = true)
-{
-    CSE_ALifeItemWeaponMagazined* wpnmag = smart_cast<CSE_ALifeItemWeaponMagazined*>(object);
-    if (wpnmag)
-    {
-        CSE_Abstract* absClone = self->spawn_item(section, position, level_vertex_id, game_vertex_id, id_parent, false);
-        if (!absClone)
-            return NULL;
-
-        CSE_ALifeItemWeaponMagazined * clone = smart_cast<CSE_ALifeItemWeaponMagazined*>(absClone);
-        if (!clone)
-            return NULL;
-
-        clone->wpn_flags = wpnmag->wpn_flags;
-        clone->m_addon_flags = wpnmag->m_addon_flags;
-        clone->m_fCondition = wpnmag->m_fCondition;
-        clone->ammo_type = wpnmag->ammo_type;
-        clone->m_upgrades = wpnmag->m_upgrades;
-        clone->a_elapsed = wpnmag->a_elapsed;
-
-        return bRegister ? reprocess_spawn(self, absClone) : absClone;
-        // (self->server().Process_spawn(packet, clientID));
-    }
-
-    return NULL;
-}
-CSE_Abstract* try_to_clone_object(CALifeSimulator* self, CSE_Abstract* object, pcstr section, const Fvector& position,
-    u32 level_vertex_id, GameGraph::_GRAPH_ID game_vertex_id, ALife::_OBJECT_ID id_parent)
-{
-    return try_to_clone_object(self, object, section, position, level_vertex_id, game_vertex_id, id_parent, true);
-}
-
-const CALifeObjectRegistry::OBJECT_REGISTRY& alife_objects(const CALifeSimulator *self)
-{
-    VERIFY(self);
-    return self->objects().objects();
-}
-//-Alundaio
-
 #pragma optimize("s",on)
 void CALifeSimulator::script_register			(lua_State *L)
 {
@@ -413,14 +353,6 @@ void CALifeSimulator::script_register			(lua_State *L)
 			.def("dont_has_info",			&dont_has_info)
 			.def("switch_distance",			&CALifeSimulator::switch_distance)
 			.def("switch_distance",			&CALifeSimulator::set_switch_distance)
-            
-            //Alundaio: extend alife simulator exports
-            .def("clone_weapon", (CSE_Abstract* (*)(CALifeSimulator*, CSE_Abstract*, pcstr, const Fvector&, u32,
-                GameGraph::_GRAPH_ID, ALife::_OBJECT_ID))&try_to_clone_object)
-            .def("clone_weapon", (CSE_Abstract* (*)(CALifeSimulator*, CSE_Abstract*, pcstr, const Fvector&, u32,
-                GameGraph::_GRAPH_ID, ALife::_OBJECT_ID, bool))&try_to_clone_object)
-            .def("register", &reprocess_spawn)
-            //Alundaio: END
 
 		,def("alife",						&alife)
 	];

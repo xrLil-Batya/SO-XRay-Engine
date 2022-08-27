@@ -41,9 +41,9 @@
 
 #define DISABLE_COVER_BEFORE_DETOUR
 
-#if 0
+#if 0//def DEBUG
 #	define TEST_MENTAL_STATE
-#endif
+#endif // DEBUG
 
 const float TEMP_DANGER_DISTANCE	= 5.f;
 const u32	TEMP_DANGER_INTERVAL	= 120000;
@@ -234,7 +234,10 @@ void CStalkerActionRetreatFromEnemy::execute		()
 	else {
 		if (object().memory().visual().visible_now(object().memory().enemy().selected())) {
 			object().movement().set_mental_state			(eMentalStateDanger);
-
+//			u32												min_queue_size, max_queue_size, min_queue_interval, max_queue_interval;
+//			float											distance = object().memory().enemy().selected()->Position().distance_to(object().Position());
+//			select_queue_params								(distance,min_queue_size, max_queue_size, min_queue_interval, max_queue_interval);
+//			object().CObjectHandler::set_goal				(eObjectActionFire1,object().best_weapon(),min_queue_size, max_queue_size, min_queue_interval, max_queue_interval);
 			fire								();
 			object().sight().setup				(CSightAction(object().memory().enemy().selected(),true,true));
 		}
@@ -269,6 +272,8 @@ void CStalkerActionGetReadyToKill::initialize	()
 	inherited::initialize								();
 
 	m_body_state										= object().movement().body_state();
+//	m_movement_type										= Random.randI(2) ? eMovementTypeRun : eMovementTypeWalk;
+//	m_movement_type										= eMovementTypeRun;
 
 	object().movement().set_desired_direction			(0);
 	object().movement().set_path_type					(MovementManager::ePathTypeLevelPath);
@@ -276,6 +281,8 @@ void CStalkerActionGetReadyToKill::initialize	()
 	object().movement().set_nearest_accessible_position	();
 	object().movement().set_mental_state				(eMentalStateDanger);
 	object().movement().set_body_state					(m_body_state);
+//	object().movement().set_movement_type				(eMovementTypeRun);
+//	object().sight().setup								(CSightAction(SightManager::eSightTypePathDirection));
 	if (m_affect_properties) {
 		m_storage->set_property							(eWorldPropertyInCover,false);
 		m_storage->set_property							(eWorldPropertyLookedOut,false);
@@ -320,26 +327,40 @@ void CStalkerActionGetReadyToKill::execute		()
 
 	if (object().movement().detail().distance_to_target() > CLOSE_MOVE_DISTANCE)
 		object().movement().set_body_state		(eBodyStateStand);
-
+//	else {
+//		object().movement().set_movement_type	(m_movement_type);
+//	}
 	CMemoryInfo	const mem_object					= object().memory().memory(object().memory().enemy().selected());
 	if ( mem_object.m_object ) {
 		Fvector	const position						= mem_object.m_object_params.m_position;
 		CCoverPoint const* const point				= object().best_cover(position);
 		if (point) {
 			setup_cover								(*point);
+	//		object().movement().set_movement_type	(eMovementTypeRun);
 			if (object().movement().path_completed() || object().Position().distance_to(point->position()) < 1.f) {
+	//			object().movement().set_body_state	(eBodyStateCrouch);
 				object().brain().affect_cover		(true);
 			}
 			else {
+	//			object().movement().set_body_state	(eBodyStateStand);
 				object().brain().affect_cover		(false);
 			}
 		}
 		else {
 			object().brain().affect_cover			(true);
 			object().movement().set_movement_type	(eMovementTypeStand);
+	//		object().movement().set_body_state		(eBodyStateCrouch);
 			object().movement().set_nearest_accessible_position	();
 		}
 	}
+
+//	if (object().memory().visual().visible_now(object().memory().enemy().selected()))
+//		object().sight().setup	(CSightAction(object().memory().enemy().selected(),true));
+//	else
+//		object().sight().setup	(CSightAction(SightManager::eSightTypePosition,mem_object.m_object_params.m_position,true));
+
+//	if ((point && !point->position().similar(object().Position(),.5f)) || !object().movement().path_completed())
+//		object().sight().setup			(CSightAction(SightManager::eSightTypePathDirection));
 
 	if (m_affect_properties)
 		aim_ready						();
@@ -367,6 +388,7 @@ void CStalkerActionKillEnemy::initialize		()
 	object().movement().set_detail_path_type	(DetailPathManager::eDetailPathTypeSmooth);
 	object().movement().set_nearest_accessible_position		();
 	object().movement().set_mental_state		(eMentalStateDanger);
+//	object().movement().set_body_state			(m_storage->property(eWorldPropertyUseCrouchToLookOut) ? eBodyStateCrouch : eBodyStateStand);
 	object().movement().set_movement_type		(eMovementTypeStand);
 	m_storage->set_property						(eWorldPropertyLookedOut,false);
 	m_storage->set_property						(eWorldPropertyPositionHolded,false);
@@ -392,6 +414,10 @@ void CStalkerActionKillEnemy::execute			()
 	
 	object().sight().setup		(CSightAction(object().memory().enemy().selected(),true,true));
 
+//	u32									min_queue_size, max_queue_size, min_queue_interval, max_queue_interval;
+//	float								distance = object().memory().enemy().selected()->Position().distance_to(object().Position());
+//	select_queue_params					(distance,min_queue_size, max_queue_size, min_queue_interval, max_queue_interval);
+//	object().CObjectHandler::set_goal	(eObjectActionFire1,object().best_weapon(),min_queue_size, max_queue_size, min_queue_interval, max_queue_interval);
 	fire								();
 
 	if (object().memory().enemy().selected()) {
@@ -417,6 +443,7 @@ void CStalkerActionTakeCover::initialize		()
 	inherited::initialize						();
 
 	m_body_state								= object().movement().body_state();
+//	m_movement_type								= Random.randI(2) ? eMovementTypeRun : eMovementTypeWalk;
 	m_movement_type								= eMovementTypeWalk;
 
 	object().movement().set_desired_direction	(0);
@@ -478,6 +505,8 @@ void CStalkerActionTakeCover::execute		()
 	}
 
 //.	Add fire here
+//	if (object().memory().visual().visible_now(object().memory().enemy().selected()) && object().can_kill_enemy())
+//	if (object().memory().visual().visible_now(object().memory().enemy().selected()))
 	if (fire_make_sense()) {
 		fire								();
 	}
@@ -485,7 +514,7 @@ void CStalkerActionTakeCover::execute		()
 		aim_ready							();
 	}
 
-	if (object().movement().path_completed()) {
+	if (object().movement().path_completed()) {// && (object().memory().enemy().selected()->Position().distance_to_sqr(object().Position()) >= 10.f))
 		object().best_cover_can_try_advance	();
 		m_storage->set_property			(eWorldPropertyInCover,true);
 	}
@@ -585,10 +614,10 @@ void CStalkerActionLookOut::execute		()
 
 	Fvector								position = mem_object.m_object_params.m_position;
 	object().m_ce_close->setup			(position,0.f,170.f,10.f);
-	const CCoverPoint					*point = ai().cover_manager().best_cover(object().Position(),10.f,*object().m_ce_close);
+	const CCoverPoint					*point = ai().cover_manager().best_cover(object().Position(),10.f,*object().m_ce_close);//,CStalkerMovementRestrictor(m_object,true,false));
 	if (!point || (point->position().similar(object().Position()) && object().movement().path_completed())) {
 		object().m_ce_close->setup		(position,0.f,170.f,10.f);
-		point							= ai().cover_manager().best_cover(object().Position(),30.f,*object().m_ce_close);
+		point							= ai().cover_manager().best_cover(object().Position(),30.f,*object().m_ce_close);//,CStalkerMovementRestrictor(m_object,true,false));
 	}
 
 	if (point) {
@@ -598,6 +627,10 @@ void CStalkerActionLookOut::execute		()
 	else
 		object().movement().set_nearest_accessible_position	();
 
+//	if (point && point->position().similar(object().Position(),.5f) && object().movement().path_completed()) {
+//		m_storage->set_property			(eWorldPropertyLookedOut,true);
+//		object().movement().set_nearest_accessible_position	();
+//	}
 
 	if (object().memory().enemy().selected()) {
 		CMemoryInfo					mem_object = object().memory().memory(object().memory().enemy().selected());
@@ -669,6 +702,7 @@ void CStalkerActionHoldPosition::execute		()
 	}
 
 	if (object().agent_manager().member().cover_detouring() && fire_make_sense()) {
+//		object().sound().play		(eStalkerSoundDetour,3000,3000,10000,10000);
 		object().sound().play		(eStalkerSoundNeedBackup,3000,3000,10000,10000);
 		fire						();
 	}
@@ -722,8 +756,11 @@ void CStalkerActionDetourEnemy::initialize		()
 
 	object().agent_manager().member().member(m_object).cover(0);
 
+//#ifndef SILENT_COMBAT
 	if (object().memory().enemy().selected()->human_being() && object().agent_manager().member().group_behaviour())
+//		object().sound().play			(eStalkerSoundNeedBackup);
 		object().sound().play			(eStalkerSoundDetour);
+//#endif
 }
 
 void CStalkerActionDetourEnemy::finalize		()
@@ -1222,6 +1259,8 @@ void CStalkerCombatActionSmartCover::execute					()
 {
 	inherited::execute		();
 
+	// just for debug purposes
+	// this can be only in case when solution cannot be built
 	if ( !object().memory().enemy().selected() )
 		return;
 

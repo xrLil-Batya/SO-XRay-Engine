@@ -13,8 +13,9 @@
 #include "../../xrCPU_Pipe/xrCPU_Pipe.h"
 #include "FSkinned.h"
 #include "SkeletonX.h"
-
+#if defined(USE_DX10)||defined(USE_DX11)
 #include "../DX10/dx10BufferUtils.h"
+#endif
 
 #include "../../xrEngine/EnnumerateVertices.h"
 //////////////////////////////////////////////////////////////////////

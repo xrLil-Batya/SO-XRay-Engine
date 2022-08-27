@@ -4,16 +4,7 @@
 #include "object_broker.h"
 #include "UICellItem.h"
 #include "UICursor.h"
-#include "pch_script.h"
-#include "../Inventory.h"
-#include <dinput.h>
-#include "UIActorMenu.h"
-#include "UICellItem.h"
-#include "script_engine.h"
-#include "game_cl_base.h"
-#include "pch_script.h"
-#include "UICellItemFactory.h"
-#include "UICellCustomItems.h"
+
 
 CUIDragItem* CUIDragDropListEx::m_drag_item = NULL;
 
@@ -188,7 +179,7 @@ void CUIDragDropListEx::OnItemDrop(CUIWindow* w, void* pData)
 	}
 
 	CUIDragDropListEx*	old_owner		= itm->OwnerList();
-	CUIDragDropListEx*	new_owner		= CUIDragDropListEx::m_drag_item->BackList();
+	CUIDragDropListEx*	new_owner		= m_drag_item->BackList();
 
 	bool b				= (old_owner==new_owner)&&!GetCustomPlacement();
 
@@ -309,14 +300,7 @@ void CUIDragDropListEx::Compact()
 	}
 }
 
-CUICellItem* CUIDragDropListEx::CurrentItem()
-{
-	return m_pCurrentCellItem;
-}
-PIItem CUIDragDropListEx::CurrentIItem()
-{
-	return	(m_pCurrentCellItem)? (PIItem)m_pCurrentCellItem->m_pData : NULL;
-}
+
 void CUIDragDropListEx::Draw()
 {
 	inherited::Draw				();
@@ -540,8 +524,6 @@ CUICell& CUIDragDropListEx::GetCellAt(const Ivector2& pos)
 {
 	return m_container->GetCellAt(pos);
 };
-
-
 // =================================================================================================
 
 CUICellContainer::CUICellContainer(CUIDragDropListEx* parent)

@@ -257,18 +257,6 @@ void CScriptGameObject::IterateInventoryBox	(luabind::functor<void> functor, lua
 	}
 }
 
-void CScriptGameObject::IterateBelt( const luabind::functor<void>& functor, const luabind::object& object ) {
-  CInventoryOwner			*inventory_owner = smart_cast<CInventoryOwner*>(&this->object());
-	if (!inventory_owner) {
-		ai().script_engine().script_log		(ScriptStorage::eLuaMessageTypeError,"CScriptGameObject::IterateInventory non-CInventoryOwner object !!!");
-		return;
-	}
-  
-	TIItemContainer::iterator	I = inventory_owner->inventory().m_belt.begin();
-	TIItemContainer::iterator	E = inventory_owner->inventory().m_belt.end();
-	for ( ; I != E; ++I)
-		functor				(object,(*I)->object().lua_game_object());
-}
 void CScriptGameObject::MarkItemDropped		(CScriptGameObject *item)
 {
 	CInventoryOwner			*inventory_owner = smart_cast<CInventoryOwner*>(&object());
@@ -943,291 +931,25 @@ bool CScriptGameObject::night_vision_enabled	() const
 	return									(torch->GetNightVisionStatus());
 }
 
-void CScriptGameObject::enable_torch(bool value)
+void CScriptGameObject::enable_torch	(bool value)
 {
-	CTorch *torch = smart_cast<CTorch*>(&object());
+	CTorch									*torch = smart_cast<CTorch*>(&object());
 	if (!torch) {
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member enable_torch!");
+		ai().script_engine().script_log		(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member enable_torch!");
 		return;
 	}
-	torch->Switch(value);
+	torch->Switch							(value);
 }
 
-bool CScriptGameObject::torch_enabled() const
+bool CScriptGameObject::torch_enabled			() const
 {
-	CTorch *torch = smart_cast<CTorch*>(&object());
+	CTorch									*torch = smart_cast<CTorch*>(&object());
 	if (!torch) {
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member torch_enabled!");
-		return(false);
+		ai().script_engine().script_log		(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member torch_enabled!");
+		return								(false);
 	}
-	return (torch->torch_active());
+	return									(torch->torch_active());
 }
-
-//ARTLantist
-void CScriptGameObject::torch_set_mod()
-{
-	CTorch *torch = smart_cast<CTorch*>(&object());
-	if (!torch) {
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member enable_torch!");
-		return;
-	}
-	torch->SetTorchMod();
-}
-void CScriptGameObject::torch_switch_spot(bool value)
-{
-	CTorch *torch = smart_cast<CTorch*>(&object());
-	if (!torch) {
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member enable_torch!");
-		return;
-	}
-	torch->Torch_switch_spot(value);
-}
-void CScriptGameObject::torch_set_color_r(float value)
-{
-	CTorch *torch = smart_cast<CTorch*>(&object());
-	if (!torch) {
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member enable_torch!");
-		return;
-	}
-	torch->Torch_set_color_r(value);
-}
-void CScriptGameObject::torch_set_color_g(float value)
-{
-	CTorch *torch = smart_cast<CTorch*>(&object());
-	if (!torch) {
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member enable_torch!");
-		return;
-	}
-	torch->Torch_set_color_g(value);
-}
-void CScriptGameObject::torch_set_color_b(float value)
-{
-	CTorch *torch = smart_cast<CTorch*>(&object());
-	if (!torch) {
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member enable_torch!");
-		return;
-	}
-	torch->Torch_set_color_b(value);
-}
-void CScriptGameObject::torch_set_color_a(float value)
-{
-	CTorch *torch = smart_cast<CTorch*>(&object());
-	if (!torch) {
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member enable_torch!");
-		return;
-	}
-	torch->Torch_set_color_a(value);
-}
-void CScriptGameObject::torch_set_offset_x(float value)
-{
-	CTorch *torch = smart_cast<CTorch*>(&object());
-	if (!torch) {
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member enable_torch!");
-		return;
-	}
-	torch->Torch_set_offset_x(value);
-}
-void CScriptGameObject::torch_set_offset_y(float value)
-{
-	CTorch *torch = smart_cast<CTorch*>(&object());
-	if (!torch) {
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member enable_torch!");
-		return;
-	}
-	torch->Torch_set_offset_y(value);
-}
-void CScriptGameObject::torch_set_offset_z(float value)
-{
-	CTorch *torch = smart_cast<CTorch*>(&object());
-	if (!torch) {
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member enable_torch!");
-		return;
-	}
-	torch->Torch_set_offset_z(value);
-}
-void CScriptGameObject::torch_set_range(float value)
-{
-	CTorch *torch = smart_cast<CTorch*>(&object());
-	if (!torch) {
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member enable_torch!");
-		return;
-	}
-	torch->Torch_set_range(value);
-}
-void CScriptGameObject::torch_set_radius(float value)
-{
-	CTorch *torch = smart_cast<CTorch*>(&object());
-	if (!torch) {
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member enable_torch!");
-		return;
-	}
-	torch->Torch_set_radius(value/100);
-}
-void CScriptGameObject::torch_set_texture(LPCSTR value)
-{
-	CTorch *torch = smart_cast<CTorch*>(&object());
-	if (!torch) {
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member enable_torch!");
-		return;
-	}
-	torch->Torch_set_texture(value);
-}
-void CScriptGameObject::torch_set_animation(LPCSTR value)
-{
-	CTorch *torch = smart_cast<CTorch*>(&object());
-	if (!torch) {
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member enable_torch!");
-		return;
-	}
-	torch->Torch_set_animation(value);
-}
-void CScriptGameObject::torch_set_inertion(float value)
-{
-	CTorch *torch = smart_cast<CTorch*>(&object());
-	if (!torch) {
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member enable_torch!");
-		return;
-	}
-	torch->Torch_set_inertion(value/2);
-}
-//ARTLantist: torch2 for flashlight
-void CScriptGameObject::enable_torch2(bool value)
-{
-	CTorch *torch = smart_cast<CTorch*>(&object());
-	if (!torch) {
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member enable_torch!");
-		return;
-	}
-	torch->Switch2(value);
-}
-bool CScriptGameObject::torch2_enabled() const
-{
-	CTorch *torch = smart_cast<CTorch*>(&object());
-	if (!torch) {
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member torch_enabled!");
-		return(false);
-	}
-	return (torch->torch2_active());
-}
-
-void CScriptGameObject::torch2_switch_spot(bool value)
-{
-	CTorch *torch = smart_cast<CTorch*>(&object());
-	if (!torch) {
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member enable_torch!");
-		return;
-	}
-	torch->Torch2_switch_spot(value);
-}
-void CScriptGameObject::torch2_set_color_r(float value)
-{
-	CTorch *torch = smart_cast<CTorch*>(&object());
-	if (!torch) {
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member enable_torch!");
-		return;
-	}
-	torch->Torch2_set_color_r(value);
-}
-void CScriptGameObject::torch2_set_color_g(float value)
-{
-	CTorch *torch = smart_cast<CTorch*>(&object());
-	if (!torch) {
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member enable_torch!");
-		return;
-	}
-	torch->Torch2_set_color_g(value);
-}
-void CScriptGameObject::torch2_set_color_b(float value)
-{
-	CTorch *torch = smart_cast<CTorch*>(&object());
-	if (!torch) {
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member enable_torch!");
-		return;
-	}
-	torch->Torch2_set_color_b(value);
-}
-void CScriptGameObject::torch2_set_color_a(float value)
-{
-	CTorch *torch = smart_cast<CTorch*>(&object());
-	if (!torch) {
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member enable_torch!");
-		return;
-	}
-	torch->Torch2_set_color_a(value);
-}
-void CScriptGameObject::torch2_set_offset_x(float value)
-{
-	CTorch *torch = smart_cast<CTorch*>(&object());
-	if (!torch) {
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member enable_torch!");
-		return;
-	}
-	torch->Torch2_set_offset_x(value);
-}
-void CScriptGameObject::torch2_set_offset_y(float value)
-{
-	CTorch *torch = smart_cast<CTorch*>(&object());
-	if (!torch) {
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member enable_torch!");
-		return;
-	}
-	torch->Torch2_set_offset_y(value);
-}
-void CScriptGameObject::torch2_set_offset_z(float value)
-{
-	CTorch *torch = smart_cast<CTorch*>(&object());
-	if (!torch) {
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member enable_torch!");
-		return;
-	}
-	torch->Torch2_set_offset_z(value);
-}
-void CScriptGameObject::torch2_set_range(float value)
-{
-	CTorch *torch = smart_cast<CTorch*>(&object());
-	if (!torch) {
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member enable_torch!");
-		return;
-	}
-	torch->Torch2_set_range(value);
-}
-void CScriptGameObject::torch2_set_radius(float value)
-{
-	CTorch *torch = smart_cast<CTorch*>(&object());
-	if (!torch) {
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member enable_torch!");
-		return;
-	}
-	torch->Torch2_set_radius(value/100);
-}
-void CScriptGameObject::torch2_set_texture(LPCSTR value)
-{
-	CTorch *torch = smart_cast<CTorch*>(&object());
-	if (!torch) {
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member enable_torch!");
-		return;
-	}
-	torch->Torch2_set_texture(value);
-}
-void CScriptGameObject::torch2_set_animation(LPCSTR value)
-{
-	CTorch *torch = smart_cast<CTorch*>(&object());
-	if (!torch) {
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member enable_torch!");
-		return;
-	}
-	torch->Torch2_set_animation(value);
-}
-void CScriptGameObject::torch2_set_inertion(float value)
-{
-	CTorch *torch = smart_cast<CTorch*>(&object());
-	if (!torch) {
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,"CTorch : cannot access class member enable_torch!");
-		return;
-	}
-	torch->Torch2_set_inertion(value/2);
-}
-//ARTLantist End
 
 void CScriptGameObject::attachable_item_load_attach(LPCSTR section)
 {
@@ -1345,83 +1067,24 @@ int	CScriptGameObject::animation_slot			() const
 	return			(hud_item->animation_slot());
 }
 
-CScriptGameObject* CScriptGameObject::active_device() const
+CScriptGameObject *CScriptGameObject::active_detector	() const
 {
-	CInventoryOwner* inventory_owner = smart_cast<CInventoryOwner*>(&object());
-	if (!inventory_owner)
-	{
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,
-		                                "CInventoryOwner : cannot access class member active_detector!");
-		return (0);
+	CInventoryOwner	*inventory_owner = smart_cast<CInventoryOwner*>(&object());
+	if (!inventory_owner) {
+		ai().script_engine().script_log			(ScriptStorage::eLuaMessageTypeError,"CInventoryOwner : cannot access class member active_detector!");
+		return		(0);
 	}
 
-	CInventoryItem* result = inventory_owner->inventory().ItemFromSlot(DETECTOR_SLOT);
-	if (result)
-	{
-		CCustomDevice* device = smart_cast<CCustomDevice*>(result);
-
-		if (device && device->GetState() != CHUDState::eHidden)
-			return result->object().lua_game_object();
+	CInventoryItem	*result = inventory_owner->inventory().ItemFromSlot(DETECTOR_SLOT);
+	if (result) {
+		CCustomDetector *detector = smart_cast<CCustomDetector*>(result);
+		VERIFY(detector);
+		return			(detector->IsWorking() ? result->object().lua_game_object() : 0);
 	}
 	return (0);
 }
 
-void CScriptGameObject::show_device(bool bFast)
-{
-	CInventoryOwner* inventory_owner = smart_cast<CInventoryOwner*>(&object());
-	if (!inventory_owner)
-	{
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,
-		                                "CInventoryOwner : cannot access class member show_device!");
-		return;
-	}
 
-	CInventoryItem* result = inventory_owner->inventory().ItemFromSlot(DETECTOR_SLOT);
-	if (result)
-	{
-		CCustomDevice* device = smart_cast<CCustomDevice*>(result);
-		if (device && device->GetState() == CHUDState::eHidden)
-			device->ShowDevice(bFast);
-	}
-}
-
-void CScriptGameObject::hide_device(bool bFast)
-{
-	CInventoryOwner* inventory_owner = smart_cast<CInventoryOwner*>(&object());
-	if (!inventory_owner)
-	{
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,
-		                                "CInventoryOwner : cannot access class member hide_device!");
-		return;
-	}
-
-	CInventoryItem* result = inventory_owner->inventory().ItemFromSlot(DETECTOR_SLOT);
-	if (result)
-	{
-		CCustomDevice* device = smart_cast<CCustomDevice*>(result);
-		if (device && device->GetState() != CHUDState::eHidden)
-			device->HideDevice(bFast);
-	}
-}
-
-void CScriptGameObject::force_hide_device()
-{
-	CInventoryOwner* inventory_owner = smart_cast<CInventoryOwner*>(&object());
-	if (!inventory_owner)
-	{
-		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,
-			"CInventoryOwner : cannot access class member force_hide_device!");
-		return;
-	}
-
-	CInventoryItem* result = inventory_owner->inventory().ItemFromSlot(DETECTOR_SLOT);
-	if (result)
-	{
-		CCustomDevice* device = smart_cast<CCustomDevice*>(result);
-		if (device)
-			device->ForceHide();
-	}
-}
 
 CScriptGameObject *CScriptGameObject::item_in_slot	(u32 slot_id) const
 {

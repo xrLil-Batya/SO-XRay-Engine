@@ -2488,9 +2488,6 @@
     <Filter Include="Physics\scripts">
       <UniqueIdentifier>{4ad95f08-3d1b-4aa8-b9d9-63e4a9c21f68}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\Client\Objects\items &amp; weapons\Devices\Flashlight">
-      <UniqueIdentifier>{8d4ec4bf-187f-422c-afdc-adc4c421c52b}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -7380,15 +7377,6 @@
     <ClInclude Include="physics_world_scripted.h">
       <Filter>Physics\scripts</Filter>
     </ClInclude>
-    <ClInclude Include="ActorBackpack.h">
-      <Filter>Core\Client\Objects\actor\base</Filter>
-    </ClInclude>
-    <ClInclude Include="CustomDevice.h">
-      <Filter>Core\Client\Objects\items &amp; weapons\Devices</Filter>
-    </ClInclude>
-    <ClInclude Include="Flashlight.h">
-      <Filter>Core\Client\Objects\items &amp; weapons\Devices\Flashlight</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -11038,15 +11026,6 @@
     </ClCompile>
     <ClCompile Include="..\External\Public\luabind\LuaMemoryController.cpp">
       <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="ActorBackpack.cpp">
-      <Filter>Core\Client\Objects\actor\base</Filter>
-    </ClCompile>
-    <ClCompile Include="CustomDevice.cpp">
-      <Filter>Core\Client\Objects\items &amp; weapons\Devices</Filter>
-    </ClCompile>
-    <ClCompile Include="Flashlight.cpp">
-      <Filter>Core\Client\Objects\items &amp; weapons\Devices\Flashlight</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "grenade.h"
 #include "../xrphysics/PhysicsShell.h"
+//.#include "WeaponHUD.h"
 #include "entity.h"
 #include "ParticlesObject.h"
 #include "actor.h"
@@ -116,7 +117,7 @@ void CGrenade::State(u32 state)
 				{
 #ifndef MASTER_GOLD
 					Msg( "Destroying local grenade[%d][%d]", ID(), Device.dwFrame );
-#endif
+#endif // #ifndef MASTER_GOLD
 					DestroyObject();
 				}
 				
@@ -143,20 +144,15 @@ bool CGrenade::DropGrenade()
 
 void CGrenade::DiscardState()
 {
-	if (IsGameTypeSingle())
-	{
-		u32 state = GetState();
-		if (state == eReady || state == eThrow)
-		{
-			OnStateSwitch(eIdle, state);
-		}
-	}
+	if(IsGameTypeSingle() && (GetState()==eReady || GetState()==eThrow) )
+		OnStateSwitch(eIdle);
 }
 
 void CGrenade::SendHiddenItem						()
 {
 	if (GetState()==eThrow)
 	{
+//		Msg("MotionMarks !!![%d][%d]", ID(), Device.dwFrame);
 		Throw				();
 	}
 	CActor* pActor = smart_cast<CActor*>( m_pInventory->GetOwner());
@@ -243,18 +239,18 @@ void CGrenade::PutNextToSlot()
 
 	if (smart_cast<CInventoryOwner*>(H_Parent()) && m_pInventory)
 	{
-		CGrenade *pNext						= smart_cast<CGrenade*>(	m_pInventory->Same(this,false)		);
-		if(!pNext) pNext					= smart_cast<CGrenade*>(	m_pInventory->SameSlot(ZAYAZ_GREN, this, false)	);
+		CGrenade *pNext						= smart_cast<CGrenade*>(	m_pInventory->Same(this,true)		);
+		if(!pNext) pNext					= smart_cast<CGrenade*>(	m_pInventory->SameSlot(GRENADE_SLOT, this, true)	);
 
 		VERIFY								(pNext != this);
 
-		if(pNext && m_pInventory->Slot(GRENADE_SLOT,pNext) )
+		if(pNext && m_pInventory->Slot(pNext->BaseSlot(),pNext) )
 		{
 			pNext->u_EventGen				(P, GEG_PLAYER_ITEM2SLOT, pNext->H_Parent()->ID());
 			P.w_u16							(pNext->ID());
-			P.w_u16							(GRENADE_SLOT);
+			P.w_u16							(pNext->BaseSlot());
 			pNext->u_EventSend				(P);
-			m_pInventory->SetActiveSlot		(GRENADE_SLOT);
+			m_pInventory->SetActiveSlot		(pNext->BaseSlot());
 		}else
 		{
 			CActor* pActor = smart_cast<CActor*>( m_pInventory->GetOwner());
@@ -299,8 +295,8 @@ bool CGrenade::Action(u16 cmd, u32 flags)
 			{
 				if(m_pInventory)
 				{
-					TIItemContainer::iterator it = m_pInventory->m_zayaz.begin();
-					TIItemContainer::iterator it_e = m_pInventory->m_zayaz.end();
+					TIItemContainer::iterator it = m_pInventory->m_ruck.begin();
+					TIItemContainer::iterator it_e = m_pInventory->m_ruck.end();
 					for(;it!=it_e;++it) 
 					{
 						CGrenade *pGrenade = smart_cast<CGrenade*>(*it);
@@ -308,7 +304,7 @@ bool CGrenade::Action(u16 cmd, u32 flags)
 						{
 							m_pInventory->Ruck			(this);
 							m_pInventory->SetActiveSlot	(NO_ACTIVE_SLOT);
-							m_pInventory->Slot			(GRENADE_SLOT,pGrenade);
+							m_pInventory->Slot			(pGrenade->BaseSlot(),pGrenade);
 							return						true;
 						}
 					}

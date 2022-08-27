@@ -565,13 +565,10 @@ public:
 // CBaseMonster's  Auras
 //-------------------------------------------------------------------
 public:
-	float							get_psy_influence();
-	float							get_radiation_influence();
-	float							get_fire_influence();
-	float							get_psy_enabled_for_dead();
-	float							get_radiation_enabled_for_dead();
-	float							get_fire_enabled_for_dead();
-	void							play_detector_sound();
+	float							get_psy_influence			();
+	float							get_radiation_influence		();
+	float							get_fire_influence			();
+	void							play_detector_sound			();
 
 private:
 	monster_aura					m_psy_aura;

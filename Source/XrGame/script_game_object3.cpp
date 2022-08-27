@@ -19,7 +19,6 @@
 #include "stalker_planner.h"
 #include "weapon.h"
 #include "inventory.h"
-#include "artefact.h"
 #include "customzone.h"
 #include "patrol_path_manager.h"
 #include "object_handler_planner.h"
@@ -29,7 +28,6 @@
 #include "sound_memory_manager.h"
 #include "hit_memory_manager.h"
 #include "sight_manager.h"
-#include "weaponammo.h"
 #include "stalker_movement_manager_smart_cover.h"
 #include "movement_manager_space.h"
 #include "detail_path_manager_space.h"
@@ -941,7 +939,6 @@ void CScriptGameObject::sell_condition			(CScriptIniFile *ini_file, LPCSTR secti
 	inventory_owner->trade_parameters().process	(CTradeParameters::action_sell(0),*ini_file,section);
 }
 
-//My getters for arts and items
 void CScriptGameObject::sell_condition			(float friend_factor, float enemy_factor)
 {
 	CInventoryOwner								*inventory_owner = smart_cast<CInventoryOwner*>(&object());
@@ -1100,86 +1097,4 @@ bool CScriptGameObject::is_weapon_going_to_be_strapped	( CScriptGameObject const
 	}
 
 	return									stalker->is_weapon_going_to_be_strapped	( &object->object() );
-}
-u16 CScriptGameObject::AmmoGetCount()
-{
-	CWeaponAmmo* ammo = smart_cast<CWeaponAmmo*>(&object());
-	if (!ammo)
-		return 0;
-
-	return ammo->m_boxCurr;
-}
-
-void CScriptGameObject::AmmoSetCount(u16 count)
-{
-	CWeaponAmmo* ammo = smart_cast<CWeaponAmmo*>(&object());
-	if (!ammo)
-		return;
-
-	ammo->m_boxCurr = count;
-}
-
-u16 CScriptGameObject::AmmoBoxSize()
-{
-	CWeaponAmmo* ammo = smart_cast<CWeaponAmmo*>(&object());
-	if (!ammo)
-		return 0;
-
-	return ammo->m_boxSize;
-}
-
-u32 CScriptGameObject::PlayHudMotion(LPCSTR M, bool bMixIn, u32 state, float speed, float end)
-{
-	CWeapon* Weapon = object().cast_weapon();
-	if (Weapon)
-	{
-		if (!Weapon->HudAnimationExist(M))
-			return 0;
-
-		return Weapon->PlayHUDMotion(M, bMixIn, Weapon, state, speed, end);
-	}
-
-	CHudItem* itm = object().cast_inventory_item()->cast_hud_item();
-	if (!itm)
-		return 0;
-
-	if (!itm->HudAnimationExist(M))
-		return 0;
-
-	return itm->PlayHUDMotion(M, bMixIn, itm, state, speed, end);
-}
-
-void CScriptGameObject::SwitchState(u32 state)
-{
-	CWeapon* Weapon = object().cast_weapon();
-	if (Weapon)
-	{
-		Weapon->SwitchState(state);
-		return;
-	}
-
-	CInventoryItem* IItem = object().cast_inventory_item();
-	if (IItem)
-	{
-		CHudItem* itm = IItem->cast_hud_item();
-		if (itm)
-			itm->SwitchState(state);
-	}
-}
-
-u32 CScriptGameObject::GetState()
-{
-    CWeapon* Weapon = object().cast_weapon();
-    if (Weapon)
-        return Weapon->GetState();
-
-    CInventoryItem* IItem = object().cast_inventory_item();
-    if (IItem)
-    {
-        CHudItem* itm = IItem->cast_hud_item();
-        if (itm)
-            return itm->GetState();
-    }
-
-    return 65535;
 }

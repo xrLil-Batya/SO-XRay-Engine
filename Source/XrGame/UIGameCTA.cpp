@@ -585,8 +585,7 @@ void CUIGameCTA::SetPlayerItemsToBuyMenu()
 			BuyMenuItemInserter(item);
 		for (auto& ammo_item : add_ammo)
 			AdditionalAmmoInserter(ammo_item);
-	}
-	else
+	} else
 	{
 		SetPlayerDefItemsToBuyMenu();
 	}

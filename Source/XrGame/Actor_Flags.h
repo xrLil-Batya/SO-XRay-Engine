@@ -11,12 +11,6 @@ enum{
 		AF_GODMODE_RT		=(1<<8),
 		AF_IMPORTANT_SAVE	=(1<<9),
 		AF_CROUCH_TOGGLE	=(1<<10),
-		AF_ONLY_CAMPFIRES	=(1<<10),
-		AF_FIREPOS =(1 << 11),
-		AF_WALK_TOGGLE = (1 << 12),
-		AF_SPRINT_TOGGLE = (1 << 13),
-		AF_LOOKOUT_TOGGLE = (1 << 14),
-		AF_FREELOOK_TOGGLE = (1 << 15),
 };
 
 extern Flags32	psActorFlags;

@@ -74,19 +74,11 @@ void  CActor::ShoulderCallback(CBoneInstance* B)
 	B->mTransform.mulA_43(spin);
 	B->mTransform.c		= c;
 }
-
-#include "../xrEngine/CameraBase.h"
-
 void  CActor::HeadCallback(CBoneInstance* B)
 {
 	CActor*	A			= static_cast<CActor*>(B->callback_param());	VERIFY	(A);
 	Fmatrix				spin;
-	float bone_yaw;
-
-	if (A->cam_freelook != eflDisabled)
-		bone_yaw = angle_normalize_signed(-A->cam_FirstEye()->yaw - A->r_model_yaw - A->r_model_yaw_delta) * .35f;
-	else
-		bone_yaw = angle_normalize_signed(A->r_torso.yaw - A->r_model_yaw - A->r_model_yaw_delta) * y_head_factor;
+	float				bone_yaw	= angle_normalize_signed(A->r_torso.yaw - A->r_model_yaw - A->r_model_yaw_delta)*y_head_factor;
 	float				bone_pitch	= angle_normalize_signed(A->r_torso.pitch)*p_head_factor;
 	float				bone_roll	= angle_normalize_signed(A->r_torso.roll)*r_head_factor;
 	Fvector c			= B->mTransform.c;
@@ -111,10 +103,7 @@ void  CActor::VehicleHeadCallback(CBoneInstance* B)
 void STorsoWpn::Create(IKinematicsAnimated* K, LPCSTR base0, LPCSTR base1)
 {
 	char			buf[128];
-	if (!xr_strcmp(base0, "norm") && !xr_strcmp(base1, "_0"))
-		moving[eIdle] = K->ID_Cycle_Safe(strconcat(sizeof(buf),buf,base0,"_torso_5_aim_1"));
-	else
-		moving[eIdle] = K->ID_Cycle_Safe(strconcat(sizeof(buf),buf,base0,"_torso",base1,"_aim_1"));
+	moving[eIdle]	= K->ID_Cycle_Safe(strconcat(sizeof(buf),buf,base0,"_torso",base1,"_aim_1"));
 	moving[eWalk]	= K->ID_Cycle_Safe(strconcat(sizeof(buf),buf,base0,"_torso",base1,"_aim_2"));
 	moving[eRun]	= K->ID_Cycle_Safe(strconcat(sizeof(buf),buf,base0,"_torso",base1,"_aim_3"));
 	moving[eSprint]	= K->ID_Cycle_Safe(strconcat(sizeof(buf),buf,base0,"_torso",base1,"_escape_0"));
@@ -132,7 +121,6 @@ void STorsoWpn::Create(IKinematicsAnimated* K, LPCSTR base0, LPCSTR base1)
 	all_attack_0	= K->ID_Cycle_Safe(strconcat(sizeof(buf),buf,base0,"_all",base1,"_attack_0"));
 	all_attack_1	= K->ID_Cycle_Safe(strconcat(sizeof(buf),buf,base0,"_all",base1,"_attack_1"));
 	all_attack_2	= K->ID_Cycle_Safe(strconcat(sizeof(buf),buf,base0,"_all",base1,"_attack_2"));
-	safemode = K->ID_Cycle_Safe(strconcat(sizeof(buf), buf, base0, "_torso", base1, "_idle_1"));
 }
 void SAnimState::Create(IKinematicsAnimated* K, LPCSTR base0, LPCSTR base1)
 {
@@ -173,7 +161,7 @@ void SActorState::CreateClimb(IKinematicsAnimated* K)
 	m_torso[10].Create(K,base,"_11");
 	m_torso[11].Create(K,base,"_12");
 	m_torso[12].Create(K,base,"_13");
-	m_torso[13].Create(K,base,"_0");
+
 
 	m_head_idle.invalidate();///K->ID_Cycle("head_idle_0");
 	jump_begin		= K->ID_Cycle(strconcat(sizeof(buf),buf,base,"_jump_begin"));
@@ -209,7 +197,6 @@ void SActorState::Create(IKinematicsAnimated* K, LPCSTR base)
 	m_torso[10].Create(K,base,"_11");
 	m_torso[11].Create(K,base,"_12");
 	m_torso[12].Create(K,base,"_13");
-	m_torso[13].Create(K,base,"_0");
 	
 	m_torso_idle	= K->ID_Cycle(strconcat(sizeof(buf),buf,base,"_torso_0_aim_0"));
 	m_head_idle		= K->ID_Cycle("head_idle_0");
@@ -426,137 +413,130 @@ void CActor::g_SetAnimation( u32 mstate_rl )
 		CMissile		*M = smart_cast<CMissile*>(_i);
 		CArtefact		*A = smart_cast<CArtefact*>(_i);
 					
-		if (_i)
-		{
-			if (H) 
+		if (H) {
+			VERIFY(H->animation_slot() <= _total_anim_slots_);
+			STorsoWpn* TW			= &ST->m_torso[H->animation_slot() - 1];
+			if (!b_DropActivated&&!fis_zero(f_DropPower))
 			{
-				VERIFY(H->animation_slot() <= _total_anim_slots_);
-				STorsoWpn* TW			= &ST->m_torso[H->animation_slot() - 1];
-				if (!b_DropActivated&&!fis_zero(f_DropPower))
+				M_torso					= TW->drop;
+				if (!M_torso)	
 				{
-					M_torso					= TW->drop;
-					if (!M_torso)	
-					{
-						Msg("! drop animation for %s", *(H->object().cName()));
-						M_torso = ST->m_torso_idle;
-					};
-					m_bAnimTorsoPlayed		= TRUE;
-				}
-				else
+					Msg("! drop animation for %s", *(H->object().cName()));
+					M_torso = ST->m_torso_idle;
+				};
+				m_bAnimTorsoPlayed		= TRUE;
+			}
+			else
+			{
+				if (!m_bAnimTorsoPlayed) 
 				{
-					if (!m_bAnimTorsoPlayed)
+					if (W) 
 					{
-						if (W)
-						{
-							bool K	=inventory().GetActiveSlot() == KNIFE_SLOT;
-							bool R3 = W->IsTriStateReload();
+						bool K	=inventory().GetActiveSlot() == KNIFE_SLOT;
+						bool R3 = W->IsTriStateReload();
 						
-							if(K)
+						if(K)
+						{
+							switch (W->GetState())
 							{
-								switch (W->GetState())
-								{
-								case CWeapon::eIdle:		M_torso	= TW->moving[moving_idx];		break;
+							case CWeapon::eIdle:		M_torso	= TW->moving[moving_idx];		break;
 							
-								case CWeapon::eFire:	
-									if(is_standing)
-															M_torso = M_legs = M_head = TW->all_attack_0;
-									else
-															M_torso	= TW->attack_zoom;
-									break;
+							case CWeapon::eFire:	
+								if(is_standing)
+														M_torso = M_legs = M_head = TW->all_attack_0;
+								else
+														M_torso	= TW->attack_zoom;
+								break;
 
-								case CWeapon::eFire2:
-									if(is_standing)
-															M_torso = M_legs = M_head = TW->all_attack_1;
-									else
-															M_torso	= TW->fire_idle;
-									break;
+							case CWeapon::eFire2:
+								if(is_standing)
+														M_torso = M_legs = M_head = TW->all_attack_1;
+								else
+														M_torso	= TW->fire_idle;
+								break;
 
-								case CWeapon::eReload:		M_torso	= TW->reload;					break;
-								case CWeapon::eShowing:		M_torso	= TW->draw;						break;
-								case CWeapon::eHiding:		M_torso	= TW->holster;					break;
-								default				 :  	M_torso	= TW->moving[moving_idx];		break;
-								}
-							}
-							else
-							{
-								switch (W->GetState())
-								{
-								case CWeapon::eIdle:		M_torso	= W->IsZoomed()?TW->zoom:TW->moving[moving_idx];	break;
-								case CWeapon::eFire:		M_torso	= W->IsZoomed()?TW->attack_zoom:TW->attack;				break;
-								case CWeapon::eFire2:		M_torso	= W->IsZoomed()?TW->attack_zoom:TW->attack;				break;
-								case CWeapon::eReload:	
-									if(!R3)
-										M_torso	= TW->reload;
-									else{
-										CWeapon::EWeaponSubStates sub_st = W->GetReloadState();
-										switch (sub_st){
-											case CWeapon::eSubstateReloadBegin:			M_torso	= TW->reload;	break;
-											case CWeapon::eSubstateReloadInProcess:		M_torso	= TW->reload_1; break;
-											case CWeapon::eSubstateReloadEnd:			M_torso	= TW->reload_2; break;
-											default:									M_torso	= TW->reload;	break;
-										}
-									}break;
-
-								case CWeapon::eShowing:	M_torso	= TW->draw;					break;
-								case CWeapon::eHiding:	M_torso	= TW->holster;				break;
-								default				 :  M_torso	= TW->moving[moving_idx];	break;
-								}
+							case CWeapon::eReload:		M_torso	= TW->reload;					break;
+							case CWeapon::eShowing:		M_torso	= TW->draw;						break;
+							case CWeapon::eHiding:		M_torso	= TW->holster;					break;
+							default				 :  	M_torso	= TW->moving[moving_idx];		break;
 							}
 						}
-						else if (M) 
+						else
 						{
-							if (is_standing)
+							switch (W->GetState())
 							{
-								switch (M->GetState()) 
+							case CWeapon::eIdle:		M_torso	= W->IsZoomed()?TW->zoom:TW->moving[moving_idx];	break;
+							case CWeapon::eFire:		M_torso	= W->IsZoomed()?TW->attack_zoom:TW->attack;				break;
+							case CWeapon::eFire2:		M_torso	= W->IsZoomed()?TW->attack_zoom:TW->attack;				break;
+							case CWeapon::eReload:	
+								if(!R3)
+									M_torso	= TW->reload;
+								else
 								{
-								case CMissile::eShowing:	M_torso = TW->draw;								break;
-								case CMissile::eHiding:		M_torso = TW->holster;							break;
-								case CMissile::eIdle:		M_torso = TW->moving[moving_idx];				break;
-								case CMissile::eThrowStart:	M_torso = M_legs = M_head = TW->all_attack_0;	break;
-								case CMissile::eReady:		M_torso = M_legs = M_head = TW->all_attack_1;	break;
-								case CMissile::eThrow:		M_torso = M_legs = M_head = TW->all_attack_2;	break;
-								case CMissile::eThrowEnd:	M_torso = M_legs = M_head = TW->all_attack_2;	break;
-								default:					M_torso = TW->draw;								break;
-								}
-							}
-							else
-							{
-								switch (M->GetState())
-								{
-								case CMissile::eShowing:	M_torso = TW->draw;								break;
-								case CMissile::eHiding:		M_torso = TW->holster;							break;
-								case CMissile::eIdle:		M_torso = TW->moving[moving_idx];				break;
-								case CMissile::eThrowStart:	M_torso = TW->attack_zoom;						break;
-								case CMissile::eReady:		M_torso = TW->fire_idle;						break;
-								case CMissile::eThrow:		M_torso = TW->fire_end;							break;
-								case CMissile::eThrowEnd:	M_torso = TW->fire_end;							break;
-								default:					M_torso = TW->draw;								break;
-								}
+									CWeapon::EWeaponSubStates sub_st = W->GetReloadState();
+									switch (sub_st)
+									{
+										case CWeapon::eSubstateReloadBegin:			M_torso	= TW->reload;	break;
+										case CWeapon::eSubstateReloadInProcess:		M_torso	= TW->reload_1; break;
+										case CWeapon::eSubstateReloadEnd:			M_torso	= TW->reload_2; break;
+										default:									M_torso	= TW->reload;	break;
+									}
+								}break;
+
+							case CWeapon::eShowing:	M_torso	= TW->draw;					break;
+							case CWeapon::eHiding:	M_torso	= TW->holster;				break;
+							default				 :  M_torso	= TW->moving[moving_idx];	break;
 							}
 						}
-						else if (A)
+					}
+					else if (M) 
+					{
+						if(is_standing)
 						{
-								switch(A->GetState())
-								{
-									case CArtefact::eIdle		: M_torso	= TW->moving[moving_idx];	break; 
-									case CArtefact::eShowing	: M_torso	= TW->draw;					break; 
-									case CArtefact::eHiding		: M_torso	= TW->holster;				break; 
-									case CArtefact::eActivating : M_torso	= TW->zoom;					break; 
-								default							: M_torso	= TW->moving[moving_idx];
-								}
+							switch (M->GetState())
+							{
+							case CMissile::eShowing		:		M_torso	= TW->draw;			break;
+							case CMissile::eHiding		:		M_torso	= TW->holster;		break;
+							case CMissile::eIdle		:		M_torso	= TW->moving[moving_idx];		break;
+							case CMissile::eThrowStart	:		M_torso = M_legs = M_head = TW->all_attack_0;	break;
+							case CMissile::eReady		:		M_torso = M_legs = M_head = TW->all_attack_1;	break;
+							case CMissile::eThrow		:		M_torso = M_legs = M_head = TW->all_attack_2;	break;
+							case CMissile::eThrowEnd	:		M_torso = M_legs = M_head = TW->all_attack_2;	break;
+							default						:		M_torso	= TW->draw;			break; 
+							}
+						}
+						else
+						{
+							switch (M->GetState())
+							{
+							case CMissile::eShowing		:		M_torso	= TW->draw;						break;
+							case CMissile::eHiding		:		M_torso	= TW->holster;					break;
+							case CMissile::eIdle		:		M_torso	= TW->moving[moving_idx];		break;
+							case CMissile::eThrowStart	:		M_torso	= TW->attack_zoom;				break;
+							case CMissile::eReady		:		M_torso	= TW->fire_idle;				break;
+							case CMissile::eThrow		:		M_torso	= TW->fire_end;					break;
+							case CMissile::eThrowEnd	:		M_torso	= TW->fire_end;					break;
+							default						:		M_torso	= TW->draw;						break; 
+							}
+						}
+					}
+					else if (A)
+					{
+							switch(A->GetState())
+							{
+								case CArtefact::eIdle		: M_torso	= TW->moving[moving_idx];	break; 
+								case CArtefact::eShowing	: M_torso	= TW->draw;					break; 
+								case CArtefact::eHiding		: M_torso	= TW->holster;				break; 
+								case CArtefact::eActivating : M_torso	= TW->zoom;					break; 
+								default						: M_torso	= TW->moving[moving_idx];
+							}
 					
-						}
 					}
 				}
 			}
 		}
-		else
-		{
-			STorsoWpn* TW = &ST->m_torso[13];
-			if (!m_bAnimTorsoPlayed)
-				M_torso = TW->moving[moving_idx];
-		}
 	}
+	MotionID		mid = smart_cast<IKinematicsAnimated*>(Visual())->ID_Cycle("norm_idle_0");
 
 	if (!M_legs)
 	{

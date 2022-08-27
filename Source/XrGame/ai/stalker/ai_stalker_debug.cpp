@@ -134,7 +134,7 @@ void restore_actor()
 	CHudItem* pHudItem = smart_cast<CHudItem*>(g_debug_actor->inventory().ActiveItem());
 	if (pHudItem) 
 	{
-		pHudItem->OnStateSwitch(pHudItem->GetState(), pHudItem->GetState());
+		pHudItem->OnStateSwitch(pHudItem->GetState());
 	}
 }
 
@@ -1743,8 +1743,8 @@ void CAI_Stalker::OnRender				()
 			// high
 			Fvector						direction;
 			float						best_value = -1.f;
-
-			for (u32 i=0, j = 0; i<36; ++i) {
+			u32 i = 0, j = 0;
+			for (; i < 36; ++i) {
 				float				value = ai().level_graph().high_cover_in_direction(float(10*i)/180.f*PI,v);
 				direction.setHP		(float(10*i)/180.f*PI,0);
 				direction.normalize	();

@@ -22,7 +22,6 @@
 #include "../Weapon.h"
 #include "../CustomOutfit.h"
 #include "../ActorHelmet.h"
-#include "../ActorBackpack.h"
 #include "../eatable_item.h"
 #include "UICellItem.h"
 
@@ -300,8 +299,8 @@ void CUIItemInfo::InitItem(CUICellItem* pCellItem, CInventoryItem* pCompareItem,
 			UIDesc->AddWindow					(pItem, true);
 		}
 		TryAddConditionInfo					(*pInvItem, pCompareItem);
-		TryAddArtefactInfo					(*pInvItem, pInvItem->object().cNameSect());
 		TryAddWpnInfo						(*pInvItem, pCompareItem);
+		TryAddArtefactInfo					(pInvItem->object().cNameSect());
 		TryAddOutfitInfo					(*pInvItem, pCompareItem);
 		TryAddUpgradeInfo					(*pInvItem);
 		TryAddBoosterInfo					(*pInvItem);
@@ -348,6 +347,13 @@ void CUIItemInfo::InitItem(CUICellItem* pCellItem, CInventoryItem* pCompareItem,
 
 void CUIItemInfo::TryAddConditionInfo( CInventoryItem& pInvItem, CInventoryItem* pCompareItem )
 {
+	CWeapon*		weapon = smart_cast<CWeapon*>( &pInvItem );
+	CCustomOutfit*	outfit = smart_cast<CCustomOutfit*>( &pInvItem );
+	if ( weapon || outfit )
+	{
+//		UIConditionWnd->SetInfo( pCompareItem, pInvItem );
+//		UIDesc->AddWindow( UIConditionWnd, false );
+	}
 }
 
 void CUIItemInfo::TryAddWpnInfo( CInventoryItem& pInvItem, CInventoryItem* pCompareItem )
@@ -359,39 +365,12 @@ void CUIItemInfo::TryAddWpnInfo( CInventoryItem& pInvItem, CInventoryItem* pComp
 	}
 }
 
-void CUIItemInfo::TryAddArtefactInfo	(CInventoryItem& pInvItem, const shared_str& af_section)
+void CUIItemInfo::TryAddArtefactInfo	(const shared_str& af_section)
 {
-	CCustomOutfit* outfit = smart_cast<CCustomOutfit*>(&pInvItem);
-	CHelmet* helmet = smart_cast<CHelmet*>(&pInvItem);
-	CBackpack* backpack = smart_cast<CBackpack*>(&pInvItem);
-	CArtefact* artefact = smart_cast<CArtefact*>(&pInvItem);
-	CWeapon* weapon = smart_cast<CWeapon*>(&pInvItem);
-	CInventoryItem *inventory_item = smart_cast<CInventoryItem*>(&pInvItem);
-	if (outfit){
-		UIArtefactParams->SetInfo(outfit);
-		UIDesc->AddWindow(UIArtefactParams, false);
-	}
-	else if (artefact){
-		UIArtefactParams->SetInfo( artefact, af_section );
+	if ( UIArtefactParams->Check( af_section ) )
+	{
+		UIArtefactParams->SetInfo( af_section );
 		UIDesc->AddWindow( UIArtefactParams, false );
-	}
-	else if (helmet){
-		UIArtefactParams->SetInfo(helmet);
-		UIDesc->AddWindow(UIArtefactParams, false);
-	}
-	else if (backpack){
-		UIArtefactParams->SetInfo(backpack);
-		UIDesc->AddWindow(UIArtefactParams, false);
-	}
-	else if (weapon){
-		UIArtefactParams->SetInfo(weapon);
-		UIDesc->AddWindow(UIArtefactParams, false);
-	}
-	else if (inventory_item){
-		if (inventory_item->GetShowCondition()){
-			UIArtefactParams->SetInfo(inventory_item);
-			UIDesc->AddWindow(UIArtefactParams, false);
-		}
 	}
 }
 

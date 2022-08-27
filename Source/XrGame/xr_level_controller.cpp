@@ -34,7 +34,7 @@ _action  actions[]		= {
 	{ "cam_zoom_out",		kCAM_ZOOM_OUT			,_both},	
 															
 	{ "torch",				kTORCH					,_both},	
-	{ "night_vision",		kNIGHT_VISION			,_both},
+	{ "night_vision",		kNIGHT_VISION			,_both},	
 	{ "show_detector",		kDETECTOR				,_sp},		
 
 	{ "wpn_1",				kWPN_1					,_both},	
@@ -87,22 +87,8 @@ _action  actions[]		= {
 	{ "quick_use_4",		kQUICK_USE_4			,_both},
 
 	{ "quick_save",			kQUICK_SAVE				,_sp},		
-	{ "quick_load",			kQUICK_LOAD				,_sp},	
-	{ "dosimeter",			kDOSIMETER				,_sp},	
-	{ "show_hud",			kSHOWHUD				,_sp},	
-	{ "torch_mod",			kTORCH_MOD				,_sp},	
-	{ "custom_1",			kCUSTOM1				,_sp},	
-	{ "custom_2",			kCUSTOM2				,_sp},	
-	{ "custom_3",			kCUSTOM3				,_sp},	
-	{ "custom_4",			kCUSTOM4				,_sp},	
-	{ "custom_5",			kCUSTOM5				,_sp},	
-	{ "custom_6",			kCUSTOM6				,_sp},	
-	{ "custom_7",			kCUSTOM7				,_sp},	
-	{ "custom_8",			kCUSTOM8				,_sp},	
-	{ "custom_9",			kCUSTOM9				,_sp},	
-	{ "custom_10",			kCUSTOM10				,_sp},	
-	{"safemode",			kSAFEMODE				,_both},
-	{"freelook",			kFREELOOK				,_both},
+	{ "quick_load",			kQUICK_LOAD				,_sp},		
+//	{ "alife_command",		kALIFE_CMD				,_sp},		
 	
 																
 	{ NULL, 				kLASTACTION				,_both}		

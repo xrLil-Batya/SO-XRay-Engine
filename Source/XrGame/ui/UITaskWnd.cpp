@@ -226,6 +226,7 @@ void CUITaskWnd::Show(bool status)
 	}
 	else
 	{
+//		m_task_wnd_show = false;
 		m_task_wnd->Show(false);
 	}
 }

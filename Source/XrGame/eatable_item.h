@@ -11,7 +11,6 @@ private:
 
 protected:
 	CPhysicItem		*m_physic_item;
-	
 
 public:
 							CEatableItem				();

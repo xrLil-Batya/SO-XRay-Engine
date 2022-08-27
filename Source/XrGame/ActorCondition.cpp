@@ -69,8 +69,6 @@ CActorCondition::CActorCondition(CActor *object) :
 
 	m_max_power_restore_speed	= 0.0f;
 	m_max_wound_protection		= 0.0f;
-	m_max_strike_protection		= 0.0f;
-	m_max_explosion_protection	= 0.0f;
 	m_max_fire_wound_protection = 0.0f;
 }
 
@@ -129,16 +127,10 @@ void CActorCondition::LoadCondition(LPCSTR entity_section)
 	m_zone_max_power[ALife::infl_acid]	= pSettings->r_float(section, "acid_zone_max_power" );
 	m_zone_max_power[ALife::infl_psi]	= pSettings->r_float(section, "psi_zone_max_power" );
 	m_zone_max_power[ALife::infl_electra]= pSettings->r_float(section, "electra_zone_max_power" );
-	m_zone_max_power[ALife::infl_strike]= pSettings->r_float(section, "max_strike_protection" );
-	m_zone_max_power[ALife::infl_wound]= pSettings->r_float(section, "max_wound_protection" );
-	m_zone_max_power[ALife::infl_firewound]= pSettings->r_float(section, "max_fire_wound_protection" );
-	m_zone_max_power[ALife::infl_explosion]= pSettings->r_float(section, "max_explosion_protection" );
 
 	m_max_power_restore_speed = pSettings->r_float(section, "max_power_restore_speed" );
 	m_max_wound_protection = READ_IF_EXISTS(pSettings,r_float,section,"max_wound_protection",1.0f);
-	m_max_strike_protection = READ_IF_EXISTS(pSettings,r_float,section,"max_strike_protection",1.0f);
-	m_max_explosion_protection = READ_IF_EXISTS(pSettings,r_float,section,"max_explosion_protection",1.0f);
-	m_max_fire_wound_protection = READ_IF_EXISTS(pSettings,r_float,section,"max_fire_wound_protection",2.0f);
+	m_max_fire_wound_protection = READ_IF_EXISTS(pSettings,r_float,section,"max_fire_wound_protection",1.0f);
 
 	VERIFY( !fis_zero(m_zone_max_power[ALife::infl_rad]) );
 	VERIFY( !fis_zero(m_zone_max_power[ALife::infl_fire]) );
@@ -150,7 +142,7 @@ void CActorCondition::LoadCondition(LPCSTR entity_section)
 
 float CActorCondition::GetZoneMaxPower( ALife::EInfluenceType type) const
 {
-	if ( type < ALife::infl_rad || ALife::infl_explosion < type )
+	if ( type < ALife::infl_rad || ALife::infl_electra < type )
 	{
 		return 1.0f;
 	}
@@ -169,13 +161,13 @@ float CActorCondition::GetZoneMaxPower( ALife::EHitType hit_type ) const
 	case ALife::eHitTypeTelepatic:		iz_type = ALife::infl_psi;		break;
 	case ALife::eHitTypeShock:			iz_type = ALife::infl_electra;	break;
 
-	case ALife::eHitTypeStrike:			iz_type = ALife::infl_strike;		break;
-	case ALife::eHitTypeFireWound:		iz_type = ALife::infl_firewound;	break;
-	case ALife::eHitTypeExplosion:		iz_type = ALife::infl_explosion;	break;
+	case ALife::eHitTypeStrike:
+	case ALife::eHitTypeExplosion:
+	case ALife::eHitTypeFireWound:
 	case ALife::eHitTypeWound_2:
 //	case ALife::eHitTypePhysicStrike:
 		return 1.0f;
-	case ALife::eHitTypeWound:			iz_type = ALife::infl_wound;		break;
+	case ALife::eHitTypeWound:
 		return m_max_wound_protection;
 	default:
 		NODEFAULT;
@@ -218,7 +210,7 @@ void CActorCondition::UpdateCondition()
 	{
 		ConditionStand( cur_weight / base_weight );
 	}
-
+	
 	if ( IsGameTypeSingle() )
 	{
 		float k_max_power = 1.0f;
@@ -325,75 +317,79 @@ void CActorCondition::UpdateBoosters()
 void CActorCondition::AffectDamage_InjuriousMaterialAndMonstersInfluence()
 {
 	float one = 0.1f;
-    float tg = Device.fTimeGlobal;
-    if (m_f_time_affected + one > tg)
-    {
-        return;
-    }
+	float tg  = Device.fTimeGlobal;
+	if ( m_f_time_affected + one > tg )
+	{
+		return;
+	}
 
-    clamp(m_f_time_affected, tg - (one * 3), tg);
+	clamp( m_f_time_affected, tg - (one * 3), tg );
 
-    float psy_influence = 0;
-    float fire_influence = 0;
-    float radiation_influence = GetInjuriousMaterialDamage(); // Get Radiation from Material
+	float psy_influence					=	0;
+	float fire_influence				=	0;
+	float radiation_influence			=	GetInjuriousMaterialDamage(); // Get Radiation from Material
 
-    // Add Radiation and Psy Level from Monsters
-    CPda* const pda = m_object->GetPDA();
+	// Add Radiation and Psy Level from Monsters
+	CPda* const pda						=	m_object->GetPDA();
 
-    if (pda)
-    {
-        typedef xr_vector<CObject*> monsters;
+	if ( pda )
+	{
+		typedef xr_vector<CObject*>				monsters;
 
-        for (monsters::const_iterator it = pda->feel_touch.begin(); it != pda->feel_touch.end(); ++it)
-        {
-            CBaseMonster* const monster = smart_cast<CBaseMonster*>(*it);
-            if (!monster)
-                continue;
-			if (monster->g_Alive()||monster->get_psy_enabled_for_dead())
-				psy_influence += monster->get_psy_influence();
-			if (monster->g_Alive()||monster->get_radiation_enabled_for_dead()){
-				luabind::functor<void> funct;
-				if (ai().script_engine().functor("bind_monster.radiation_aura", funct)) 
-					funct(monster->get_radiation_influence());
+		for ( monsters::const_iterator	it	=	pda->feel_touch.begin();
+										it	!=	pda->feel_touch.end();
+										++it )
+		{
+			CBaseMonster* const	monster		=	smart_cast<CBaseMonster*>(*it);
+			if ( !monster || !monster->g_Alive() ) continue;
+
+			psy_influence					+=	monster->get_psy_influence();
+			radiation_influence				+=	monster->get_radiation_influence();
+			fire_influence					+=	monster->get_fire_influence();
+		}
+	}
+
+	struct 
+	{
+		ALife::EHitType	type;
+		float			value;
+
+	} hits[]		=	{	{ ALife::eHitTypeRadiation, radiation_influence	*	one },
+							{ ALife::eHitTypeTelepatic, psy_influence		*	one }, 
+							{ ALife::eHitTypeBurn,		fire_influence		*	one }	};
+
+ 	NET_Packet	np;
+
+	while ( m_f_time_affected + one < tg )
+	{
+		m_f_time_affected			+=	one;
+
+		for ( int i=0; i<sizeof(hits)/sizeof(hits[0]); ++i )
+		{
+			float			damage	=	hits[i].value;
+			ALife::EHitType	type	=	hits[i].type;
+
+			if ( damage > EPS )
+			{
+				SHit HDS = SHit(damage, 
+//.								0.0f, 
+								Fvector().set(0,1,0), 
+								NULL, 
+								BI_NONE, 
+								Fvector().set(0,0,0), 
+								0.0f, 
+								type, 
+								0.0f, 
+								false);
+
+				HDS.GenHeader(GE_HIT, m_object->ID());
+				HDS.Write_Packet( np );
+				CGameObject::u_EventSend( np );
 			}
-			if (monster->g_Alive()||monster->get_fire_enabled_for_dead())
-				fire_influence += monster->get_fire_influence();
-        }
-    }
 
-    struct
-    {
-        ALife::EHitType type;
-        float value;
+		} // for
 
-    } hits[] = {{ALife::eHitTypeRadiation, radiation_influence * one}, {ALife::eHitTypeTelepatic, psy_influence * one},
-        {ALife::eHitTypeBurn, fire_influence * one}};
-
-    NET_Packet np;
-
-    while (m_f_time_affected + one < tg)
-    {
-        m_f_time_affected += one;
-
-        for (int i = 0; i < sizeof(hits) / sizeof(hits[0]); ++i)
-        {
-            float damage = hits[i].value;
-            ALife::EHitType type = hits[i].type;
-
-            if (damage)
-            {
-                SHit HDS = SHit(damage,
-                    //.								0.0f,
-                    Fvector().set(0, 1, 0), NULL, BI_NONE, Fvector().set(0, 0, 0), 0.0f, type, 0.0f, false);
-
-                HDS.GenHeader(GE_HIT, m_object->ID());
-                HDS.Write_Packet(np);
-                CGameObject::u_EventSend(np);
-            }
-
-        } // for
-
-    } // while
+	}//while
 }
 
 #include "characterphysicssupport.h"
@@ -472,11 +468,6 @@ void CActorCondition::ConditionJump(float weight)
 	float power			=	m_fJumpPower;
 	power				+=	m_fJumpWeightPower*weight*(weight>1.f?m_fOverweightJumpK:1.f);
 	m_fPower			-=	HitPowerEffect(power);
-	if(m_fSatiety>0)
-	{
-		m_fSatiety -= (power/140);
-		clamp(m_fSatiety, 0.0f, 1.0f);
-	}
 }
 
 void CActorCondition::ConditionWalk(float weight, bool accel, bool sprint)
@@ -485,11 +476,6 @@ void CActorCondition::ConditionWalk(float weight, bool accel, bool sprint)
 	power				+=	m_fWalkWeightPower*weight*(weight>1.f?m_fOverweightWalkK:1.f);
 	power				*=	m_fDeltaTime*(accel?(sprint?m_fSprintK:m_fAccelK):1.f);
 	m_fPower			-=	HitPowerEffect(power);
-	if(m_fSatiety>0)
-	{
-		m_fSatiety -= (power/280);
-		clamp(m_fSatiety, 0.0f, 1.0f);
-	}
 }
 
 void CActorCondition::ConditionStand(float weight)

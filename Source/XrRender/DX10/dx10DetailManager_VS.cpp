@@ -66,7 +66,7 @@ void CDetailManager::hw_Render()
 
 	Fvector4	dir1,dir2;
 	dir1.set				(_sin(tm_rot1),0,_cos(tm_rot1),0).normalize().mul(swing_current.amp1);
-	dir2.set				(_sin(tm_rot2),0,_cos(tm_rot2),0).normalize().mul(swing_current.amp1);
+	dir2.set				(_sin(tm_rot2),0,_cos(tm_rot2),0).normalize().mul(swing_current.amp2);
 
 	// Setup geometry and DMA
 	RCache.set_Geometry		(hw_Geom);

@@ -26,7 +26,7 @@
 #include "GameTaskdefs.h"
 #include "infoportion.h"
 #include "inventory.h"
-#include "CustomDevice.h"
+#include "CustomDetector.h"
 #include "ai/monsters/basemonster/base_monster.h"
 #include "ai/trader/ai_trader.h"
 
@@ -139,8 +139,8 @@ void CActor::StartTalk (CInventoryOwner* talk_partner)
 	PIItem det_active					= inventory().ItemFromSlot(DETECTOR_SLOT);
 	if(det_active)
 	{
-		CCustomDevice* det			= smart_cast<CCustomDevice*>(det_active);
-		det->HideDevice				(true);
+		CCustomDetector* det			= smart_cast<CCustomDetector*>(det_active);
+		det->HideDetector				(true);
 	}
 
 

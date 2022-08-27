@@ -122,7 +122,6 @@ void CUICellItem::Update()
 		m_upgrade->SetWndPos( pos );
 	}
 	m_upgrade->Show( m_has_upgrade );
-	UpdateConditionProgressBar();
 }
 
 bool CUICellItem::OnMouseAction(float x, float y, EUIMessages mouse_action)
@@ -202,13 +201,14 @@ void CUICellItem::SetOwnerList(CUIDragDropListEx* p)
 
 void CUICellItem::UpdateConditionProgressBar()
 {
+
 	if(m_pParentList && m_pParentList->GetConditionProgBarVisibility())
 	{
 		PIItem itm = (PIItem)m_pData;
 		CWeapon* pWeapon = smart_cast<CWeapon*>(itm);
 		CCustomOutfit* pOutfit = smart_cast<CCustomOutfit*>(itm);
 		CHelmet* pHelmet = smart_cast<CHelmet*>(itm);
-		if(pWeapon || pOutfit || pHelmet || itm->GetShowInventoryCondition())
+		if(pWeapon || pOutfit || pHelmet)
 		{
 			Ivector2 itm_grid_size = GetGridSize();
 			if(m_pParentList->GetVerticalPlacement())
@@ -230,8 +230,6 @@ void CUICellItem::UpdateConditionProgressBar()
 
 bool CUICellItem::EqualTo(CUICellItem* itm)
 {
-	if ((itm->GetStack() + GetStack()) > GetMaxStack()) return false;
-
 	return (m_grid_size.x==itm->GetGridSize().x) && (m_grid_size.y==itm->GetGridSize().y);
 }
 

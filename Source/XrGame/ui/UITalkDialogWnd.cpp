@@ -36,18 +36,18 @@ void CUITalkDialogWnd::InitTalkDialogWnd()
 
 	CUIXmlInit::InitWindow		(*m_uiXml, "main", 0, this);
 
-	CUIXmlInit::InitStatic		(*m_uiXml, "right_character_icon", 0, &UIOurIcon);
+//	CUIXmlInit::InitStatic		(*m_uiXml, "right_character_icon", 0, &UIOurIcon);
 
-	CUIXmlInit::InitStatic		(*m_uiXml, "left_character_icon", 0, &UIOthersIcon);
+//	CUIXmlInit::InitStatic		(*m_uiXml, "left_character_icon", 0, &UIOthersIcon);
 
-	UIOurIcon.AttachChild		(&UICharacterInfoLeft);
-	UICharacterInfoLeft.InitCharacterInfo(Fvector2().set(0,0), UIOurIcon.GetWndSize(), "talk_character.xml");
+//	UIOurIcon.AttachChild		(&UICharacterInfoLeft);
+//	UICharacterInfoLeft.InitCharacterInfo(Fvector2().set(0,0), UIOurIcon.GetWndSize(), "talk_character.xml");
 
-	UIOthersIcon.AttachChild	(&UICharacterInfoRight);
-	UICharacterInfoRight.InitCharacterInfo(Fvector2().set(0,0), UIOthersIcon.GetWndSize(), "talk_character.xml");
+//	UIOthersIcon.AttachChild	(&UICharacterInfoRight);
+//	UICharacterInfoRight.InitCharacterInfo(Fvector2().set(0,0), UIOthersIcon.GetWndSize(), "talk_character.xml");
 
-	AttachChild					(&UIOurIcon);
-	AttachChild					(&UIOthersIcon);
+//	AttachChild					(&UIOurIcon);
+//	AttachChild					(&UIOthersIcon);
 
 	// Фрейм с нащими фразами
 //	AttachChild					(&UIDialogFrameBottom);

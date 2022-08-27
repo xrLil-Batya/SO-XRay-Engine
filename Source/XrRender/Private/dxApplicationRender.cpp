@@ -69,8 +69,8 @@ void dxApplicationRender::load_draw_internal(CApplication &owner)
 
 	float	_w					= (float)Device.dwWidth;
 	float	_h					= (float)Device.dwHeight;
-	bool	b_ws				= false;
-	bool	b_16x9				= false;
+	bool	b_ws				= (_w/_h) > 1.34f;
+	bool	b_16x9				= b_ws && ((_w/_h)>1.77f);
 	float	ws_k				= (b_16x9) ? 0.75f : 0.8333f;	//16:9 or 16:10
 	float	ws_w				= b_ws ? (b_16x9?171.0f:102.6f) : 0.0f;
 
@@ -199,39 +199,13 @@ void dxApplicationRender::load_draw_internal(CApplication &owner)
 		draw_face					(hLevelLogo_Add, back_coords, back_tex_coords, tsz);
 	}
 
-	//draw level-specific screenshot
-	if(hLevelLogo)
-	{
-		Frect						r;
-		r.lt.set					(0,0);
 
-		if(b_ws)
-			r.lt.x					*= ws_k;
-		r.lt.add					(back_offset);
-
-		r.lt.x						+= offs;
-		r.lt.y						+= offs;
-		back_size.set				(1024,768);
-
-		if(b_ws)
-			back_size.x				*= ws_k; //ws 0.625
-
-		r.rb.add					(r.lt,back_size);
-		r.lt.mul					(k);						
-		r.rb.mul					(k);						
-		Frect						logo_tex_coords;
-		logo_tex_coords.lt.set		(0,0);
-		logo_tex_coords.rb.set		(1.0f,0.75f);
-
-		draw_face					(hLevelLogo, r, logo_tex_coords, Fvector2().set(1,1));
-	}
-	
 	// Draw title
 	VERIFY							(owner.pFontSystem);
 	owner.pFontSystem->Clear		();
-	owner.pFontSystem->SetColor		(color_rgba(180,180,180,255));
+	owner.pFontSystem->SetColor		(color_rgba(103,103,103,255));
 	owner.pFontSystem->SetAligment	(CGameFont::alCenter);
-	back_size.set					(_w/2,642.0f*k.y);
+	back_size.set					(_w/2,622.0f*k.y);
 	owner.pFontSystem->OutSet		(back_size.x, back_size.y);
 	owner.pFontSystem->OutNext		(owner.ls_header);
 	owner.pFontSystem->OutNext		("");
@@ -241,6 +215,33 @@ void dxApplicationRender::load_draw_internal(CApplication &owner)
 	draw_multiline_text				(owner.pFontSystem, fTargetWidth, owner.ls_tip);
 
 	owner.pFontSystem->OnRender		();
+
+	//draw level-specific screenshot
+	if(hLevelLogo)
+	{
+		Frect						r;
+		r.lt.set					(0,173);
+
+		if(b_ws)
+			r.lt.x					*= ws_k;
+		r.lt.add					(back_offset);
+
+		r.lt.x						+= offs;
+		r.lt.y						+= offs;
+		back_size.set				(1024,399);
+
+		if(b_ws)
+			back_size.x				*= ws_k; //ws 0.625
+
+		r.rb.add					(r.lt,back_size);
+		r.lt.mul					(k);						
+		r.rb.mul					(k);						
+		Frect						logo_tex_coords;
+		logo_tex_coords.lt.set		(0,0);
+		logo_tex_coords.rb.set		(1.0f,0.77926f);
+
+		draw_face					(hLevelLogo, r, logo_tex_coords, Fvector2().set(1,1));
+	}
 }
 
 void dxApplicationRender::draw_face(ref_shader& sh, Frect& coords, Frect& tex_coords, const Fvector2& tsz)

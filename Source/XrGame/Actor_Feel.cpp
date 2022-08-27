@@ -68,16 +68,18 @@ BOOL CActor::feel_touch_on_contact	(CObject *O)
 
 ICF static BOOL info_trace_callback(collide::rq_result& result, LPVOID params)
 {
-	BOOL& bOverlaped = *(BOOL*)params;
+	BOOL& bOverlaped	= *(BOOL*)params;
 	if(result.O)
 	{
-		if ( Level().CurrentEntity() == result.O ) {
-            return TRUE;
-		}
-		else {
+		if (Level().CurrentEntity()==result.O)
+		{ //ignore self-actor
+			return			TRUE;
+		}else
+		{ //check obstacle flag
 			if(result.O->spatial.type&STYPE_OBSTACLE)
-				bOverlaped = TRUE;
-			return TRUE;
+				bOverlaped			= TRUE;
+
+			return			TRUE;
 		}
 	}else
 	{
@@ -85,29 +87,29 @@ ICF static BOOL info_trace_callback(collide::rq_result& result, LPVOID params)
 		CDB::TRI* T		= Level().ObjectSpace.GetStaticTris()+result.element;
 		if (GMLib.GetMaterialByIdx(T->material)->Flags.is(SGameMtl::flPassable)) 
 			return TRUE;
-		// возможно это сетка-рабица и через нее можно брать предметы
-		else if ( fsimilar( GMLib.GetMaterialByIdx(T->material)->fVisTransparencyFactor, 1.0f, EPS )
-			&& fsimilar( GMLib.GetMaterialByIdx(T->material)->fShootFactor, 1.0f, EPS )
-			&& GMLib.GetMaterialByIdx(T->material)->Flags.is(SGameMtl::flSuppressWallmarks))
-		  return TRUE;
 	}	
-	bOverlaped = TRUE;
-	return FALSE;
+	bOverlaped			= TRUE;
+	return				FALSE;
 }
 
 BOOL CActor::CanPickItem(const CFrustum& frustum, const Fvector& from, CObject* item)
 {
-	BOOL bOverlaped = FALSE;
+	if(!item->getVisible())
+		return FALSE;
+
+	BOOL	bOverlaped		= FALSE;
 	Fvector dir,to; 
-	item->Center(to);
-	float range = dir.sub(to,from).magnitude();
-	if (range>0.25f){
-		if (frustum.testSphere_dirty(to,item->Radius())){
-			dir.div(range);
-			collide::ray_defs RD(from, dir, range, CDB::OPT_CULL, collide::rqtBoth);
-			VERIFY(!fis_zero(RD.dir.square_magnitude()));
-			RQR.r_clear();
-			Level().ObjectSpace.RayQuery(RQR,RD, info_trace_callback, &bOverlaped, NULL, item);
+	item->Center			(to);
+	float range				= dir.sub(to,from).magnitude();
+	if (range>0.25f)
+	{
+		if (frustum.testSphere_dirty(to,item->Radius()))
+		{
+			dir.div						(range);
+			collide::ray_defs			RD(from, dir, range, CDB::OPT_CULL, collide::rqtBoth);
+			VERIFY						(!fis_zero(RD.dir.square_magnitude()));
+			RQR.r_clear					();
+			Level().ObjectSpace.RayQuery(RQR, RD, info_trace_callback, &bOverlaped, NULL, item);
 		}
 	}
 	return !bOverlaped;
@@ -115,126 +117,115 @@ BOOL CActor::CanPickItem(const CFrustum& frustum, const Fvector& from, CObject* 
 
 void CActor::PickupModeUpdate()
 {
-    if (!m_bPickupMode)
-        return; // kUSE key pressed
-    if (!IsGameTypeSingle())
-        return;
+	if(!m_bPickupMode)				return; // kUSE key pressed
+	if(!IsGameTypeSingle())			return;
 
-    //подбирание объекта
-    if (m_pObjectWeLookingAt && m_pObjectWeLookingAt->cast_inventory_item() &&
-        m_pObjectWeLookingAt->cast_inventory_item()->Useful() && m_pUsableObject &&
-        m_pUsableObject->nonscript_usable() && !Level().m_feel_deny.is_object_denied(m_pObjectWeLookingAt))
-    {
-        m_pUsableObject->use(this);
-        Game().SendPickUpEvent(ID(), m_pObjectWeLookingAt->ID());
-		m_bPickupMode = false;
-    }
+	//подбирание объекта
+	if(	m_pObjectWeLookingAt									&& 
+		m_pObjectWeLookingAt->cast_inventory_item()				&& 
+		m_pObjectWeLookingAt->cast_inventory_item()->Useful()	&&
+		m_pUsableObject											&& 
+		!m_pUsableObject->nonscript_usable()					&&
+		!Level().m_feel_deny.is_object_denied(m_pObjectWeLookingAt) )
+	{
+		m_pUsableObject->use(this);
+		Game().SendPickUpEvent(ID(), m_pObjectWeLookingAt->ID());
+	}
 
-    feel_touch_update(Position(), m_fPickupInfoRadius);
+	feel_touch_update	(Position(), m_fPickupInfoRadius);
+	
+	CFrustum frustum;
+	frustum.CreateFromMatrix(Device.mFullTransform, FRUSTUM_P_LRTB|FRUSTUM_P_FAR);
 
-    CFrustum frustum;
-    frustum.CreateFromMatrix(Device.mFullTransform, FRUSTUM_P_LRTB | FRUSTUM_P_FAR);
-
-    for (xr_vector<CObject*>::iterator it = feel_touch.begin(); it != feel_touch.end(); ++it)
-    {
-        if (CanPickItem(frustum, Device.vCameraPosition, *it))
-            PickupInfoDraw(*it);
-    }
+	for(xr_vector<CObject*>::iterator it = feel_touch.begin(); it != feel_touch.end(); it++)
+	{
+		if (CanPickItem(frustum, Device.vCameraPosition, *it)) 
+			PickupInfoDraw(*it);
+	}
 }
 
 #include "../xrEngine/CameraBase.h"
-BOOL g_b_COD_PickUpMode = FALSE;
-void CActor::PickupModeUpdate_COD()
+BOOL	g_b_COD_PickUpMode = TRUE;
+void	CActor::PickupModeUpdate_COD	()
 {
-    if (Level().CurrentViewEntity() != this)
-        return;
+	if (Level().CurrentViewEntity() != this || !g_b_COD_PickUpMode) return;
+		
+	if (!g_Alive() || eacFirstEye != cam_active) 
+	{
+		CurrentGameUI()->UIMainIngameWnd->SetPickUpItem(NULL);
+		return;
+	};
+	
+	CFrustum						frustum;
+	frustum.CreateFromMatrix		(Device.mFullTransform, FRUSTUM_P_LRTB|FRUSTUM_P_FAR);
 
-    if (!g_Alive() || eacFirstEye != cam_active || !g_b_COD_PickUpMode)
-    {
-        CurrentGameUI()->UIMainIngameWnd->SetPickUpItem(NULL);
-        return;
-    };
+	ISpatialResult.clear_not_free	();
+	g_SpatialSpace->q_frustum		(ISpatialResult, 0, STYPE_COLLIDEABLE, frustum);
 
-    CFrustum frustum;
-    frustum.CreateFromMatrix(Device.mFullTransform, FRUSTUM_P_LRTB | FRUSTUM_P_FAR);
+	float maxlen					= 1000.0f;
+	CInventoryItem* pNearestItem	= NULL;
 
-    ISpatialResult.clear();
-    g_SpatialSpace->q_frustum(ISpatialResult, 0, STYPE_COLLIDEABLE, frustum);
+	for (u32 o_it=0; o_it<ISpatialResult.size(); o_it++)
+	{
+		ISpatial*		spatial	= ISpatialResult[o_it];
+		CInventoryItem*	pIItem	= smart_cast<CInventoryItem*> (spatial->dcast_CObject        ());
 
-    float maxlen = 1000.0f;
-    CInventoryItem* pNearestItem = NULL;
+		if (0 == pIItem)											continue;
+		if (pIItem->object().H_Parent() != NULL)					continue;
+		if (!pIItem->CanTake())										continue;
+		if ( smart_cast<CExplosiveRocket*>( &pIItem->object() ) )	continue;
 
-    for (u32 o_it = 0; o_it < ISpatialResult.size(); o_it++)
-    {
-        ISpatial* spatial = ISpatialResult[o_it];
-        CInventoryItem* pIItem = smart_cast<CInventoryItem*>(spatial->dcast_CObject());
+		CGrenade*	pGrenade	= smart_cast<CGrenade*> (spatial->dcast_CObject        ());
+		if (pGrenade && !pGrenade->Useful())						continue;
 
-        if (0 == pIItem)
-            continue;
-        if (pIItem->object().H_Parent() != NULL)
-            continue;
-        if (!pIItem->CanTake())
-            continue;
-        if (smart_cast<CExplosiveRocket*>(&pIItem->object()))
-            continue;
+		CMissile*	pMissile	= smart_cast<CMissile*> (spatial->dcast_CObject        ());
+		if (pMissile && !pMissile->Useful())						continue;
+		
+		Fvector A, B, tmp; 
+		pIItem->object().Center			(A);
+		if (A.distance_to_sqr(Position())>4)						continue;
 
-        CGrenade* pGrenade = smart_cast<CGrenade*>(spatial->dcast_CObject());
-        if (pGrenade && !pGrenade->Useful())
-            continue;
+		tmp.sub(A, cam_Active()->vPosition);
+		B.mad(cam_Active()->vPosition, cam_Active()->vDirection, tmp.dotproduct(cam_Active()->vDirection));
+		float len = B.distance_to_sqr(A);
+		if (len > 1)												continue;
 
-        CMissile* pMissile = smart_cast<CMissile*>(spatial->dcast_CObject());
-        if (pMissile && !pMissile->Useful())
-            continue;
+		if (maxlen>len && !pIItem->object().getDestroy())
+		{
+			maxlen = len;
+			pNearestItem = pIItem;
+		};
+	}
 
-        Fvector A, B, tmp;
-        pIItem->object().Center(A);
-        if (A.distance_to_sqr(Position()) > 4)
-            continue;
+	if(pNearestItem)
+	{
+		CFrustum					frustum;
+		frustum.CreateFromMatrix	(Device.mFullTransform,FRUSTUM_P_LRTB|FRUSTUM_P_FAR);
+		if (!CanPickItem(frustum, Device.vCameraPosition, &pNearestItem->object()))
+			pNearestItem = NULL;
+	}
+	if (pNearestItem && pNearestItem->cast_game_object())
+	{
+		if (Level().m_feel_deny.is_object_denied(pNearestItem->cast_game_object()))
+				pNearestItem = NULL;
+	}
+	if (pNearestItem && pNearestItem->cast_game_object())
+	{
+		if(!pNearestItem->cast_game_object()->getVisible())
+				pNearestItem = NULL;
+	}
 
-        tmp.sub(A, cam_Active()->vPosition);
-        B.mad(cam_Active()->vPosition, cam_Active()->vDirection, tmp.dotproduct(cam_Active()->vDirection));
-        float len = B.distance_to_sqr(A);
-        if (len > 1)
-            continue;
+	CurrentGameUI()->UIMainIngameWnd->SetPickUpItem(pNearestItem);
 
-        if (maxlen > len && !pIItem->object().getDestroy())
-        {
-            maxlen = len;
-            pNearestItem = pIItem;
-        };
-    }
+	if (pNearestItem && m_bPickupMode)
+	{
+		CUsableScriptObject*	pUsableObject = smart_cast<CUsableScriptObject*>(pNearestItem);
+		if(pUsableObject && (!m_pUsableObject))
+			pUsableObject->use(this);
 
-    if (pNearestItem)
-    {
-        CFrustum frustum;
-        frustum.CreateFromMatrix(Device.mFullTransform, FRUSTUM_P_LRTB | FRUSTUM_P_FAR);
-        if (!CanPickItem(frustum, Device.vCameraPosition, &pNearestItem->object()))
-            pNearestItem = NULL;
-    }
-    if (pNearestItem && pNearestItem->cast_game_object())
-    {
-        if (Level().m_feel_deny.is_object_denied(pNearestItem->cast_game_object()))
-            pNearestItem = NULL;
-    }
-    if (pNearestItem && pNearestItem->cast_game_object())
-    {
-        if (!pNearestItem->cast_game_object()->getVisible())
-            pNearestItem = NULL;
-    }
-
-    CurrentGameUI()->UIMainIngameWnd->SetPickUpItem(pNearestItem);
-
-    if (pNearestItem && m_bPickupMode)
-    {
-        CGameObject* pUsableObject = smart_cast<CGameObject*>(pNearestItem);
-        if (pUsableObject && (!m_pUsableObject))
-            pUsableObject->use(this);
-
-        //подбирание объекта
-        Game().SendPickUpEvent(ID(), pNearestItem->object().ID());
-		m_bPickupMode = false;
-
-    }
+		//подбирание объекта
+		Game().SendPickUpEvent(ID(), pNearestItem->object().ID());
+	}
 };
 
 void	CActor::Check_for_AutoPickUp()

@@ -4,7 +4,7 @@
 
 #ifdef DEBUG
 
-#include "DebugRender.h"
+#include "../Public/DebugRender.h"
 
 class dxDebugRender : public IDebugRender
 {

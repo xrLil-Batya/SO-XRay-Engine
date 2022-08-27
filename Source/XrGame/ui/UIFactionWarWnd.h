@@ -1,82 +1,115 @@
+////////////////////////////////////////////////////////////////////////////
+//	Module 		: UIFactionWarWnd.h
+//	Created 	: 26.12.2007
+//	Author		: Evgeniy Sokolov
+//	Description : UI Faction War window class
+////////////////////////////////////////////////////////////////////////////
+
 #pragma once
+/*
 #include "UIWindow.h"
 #include "UIWndCallback.h"
-#include "../../xrServerEntities/associative_vector.h"
-#include "../GameTaskDefs.h"
-#include "UICheckButton.h"
+#include "FactionState.h"
+#include "UIWarState.h"
 
-class CUIMapWnd;
 class CUIStatic;
 class CGameTask;
 class CUIXml;
-class CUIEncyclopediaItem;
-class CUI3tButton;
-class CUIListBox;
+class CUIProgressBar;
 class CUIFrameLineWnd;
-class CUIFrameWindow;
-class CUICheckButton;
-class UITaskListWnd;
-class UIMapLegend;
-class UIHint;
-class CUIScrollView;
 
-class CUIEncyclopediaWnd			:	public CUIWindow, 
-									public CUIWndCallback
+class CUIFactionWarWnd : public CUIWindow, public CUIWndCallback
 {
 private:
-	typedef CUIWindow		inherited;
-
-	CUIFrameWindow*			m_background;
-	CUIFrameWindow*			m_buttons_background;
-	CUIFrameWindow*			m_categories_background;
-	CUIFrameWindow*			m_descriptions_background;
-	CUIFrameWindow*			m_buttons_over;
-	CUIFrameWindow*			m_categories_over;
-	CUIFrameWindow*			m_descriptions_over;
+	typedef CUIWindow	inherited;
 	
-	CUITextWnd*				m_center_caption;
+	CUIFrameLineWnd*	m_background;
+	CUIStatic*			m_center_background;
 
-	CUI3tButton*			m_btn_notes;
-	CUI3tButton*			m_btn_barter;
-	CUI3tButton*			m_btn_gived_info;
-	CUI3tButton*			m_btn_passwords;
-	CUI3tButton*			m_btn_recipes;
-	CUI3tButton*			m_btn_anomalis;
-	CUI3tButton*			m_btn_arts;
-	CUI3tButton*			m_btn_monsters;
-	CUI3tButton*			m_btn_locs;
-	CUI3tButton*			m_btn_recipes_m;
+	CUIStatic*			m_target_static;
+	CUIStatic*			m_target_caption;       // our
+	Fvector2			m_tc_pos;
+	CUIStatic*			m_target_desc;
+	Fvector2			m_td_pos;
+	CUIStatic*			m_state_static;
 
-	CUITextWnd*				m_category_caption;
-	CUITextWnd*				m_description_caption;
-	CUIListBox*				m_lb_category;
-	CUITextWnd*				m_t_description;
-	CUIStatic*				m_t_picture;
-	CUIScrollView*			m_scroll_descriptions;
+	CUIFrameLineWnd*	m_static_line1;
+	CUIFrameLineWnd*	m_static_line2;
+	CUIFrameLineWnd*	m_static_line3;
+	CUIFrameLineWnd*	m_static_line4;
+	CUIFrameLineWnd*	m_static_line_left;
+	CUIFrameLineWnd*	m_static_line_right;
+
+	CUIStatic*			m_our_icon;
+	CUIStatic*			m_our_icon_over;
+	CUIStatic*			m_our_name;
+	CUIStatic*			m_st_our_frac_info;
+	CUIStatic*			m_st_our_mem_count;
+	CUIStatic*			m_st_our_resource;
+	
+	CUIProgressBar*		m_pb_our_state;
+	CUIProgressBar*		m_pb_our_mem_count;
+	CUIProgressBar*		m_pb_our_resource;
+
+	CUIStatic*			m_enemy_icon;
+	CUIStatic*			m_enemy_icon_over;
+	CUIStatic*			m_enemy_name;
+	CUIStatic*			m_st_enemy_frac_info;
+	CUIStatic*			m_st_enemy_mem_count;
+	CUIStatic*			m_st_enemy_resource;
+
+	CUIProgressBar*		m_pb_enemy_state;
+	CUIProgressBar*		m_pb_enemy_mem_count;
+	CUIProgressBar*		m_pb_enemy_resource;
+
+	CUIWindow*			m_war_states_parent;
+	float				m_war_states_dx;
+	float				m_war_states_xcenter;
+	enum				{ max_war_state = FactionState::war_state_count };
+	UIWarState*			m_war_state[max_war_state];
+
+	enum				{ max_bonuce = 6 };
+	CUIStatic*			m_our_bonuces[max_bonuce];
+	CUIStatic*			m_enemy_bonuces[max_bonuce];
+
+	// ----------------------------------------
+	//shared_str			m_our_faction_id;
+	//shared_str			m_enemy_faction_id;
+	u32					m_update_delay;
+	u32					m_previous_time;
+
+	FactionState		m_our_faction;
+	FactionState		m_enemy_faction;
+
+	int					m_max_member_count;
+	float				m_max_resource;
+	float				m_max_power;
 
 public:
-	UIHint*					hint_wnd;
+						CUIFactionWarWnd		();
+	virtual				~CUIFactionWarWnd		();
 
-public:
-								CUIEncyclopediaWnd				();
-	virtual						~CUIEncyclopediaWnd				();
-	virtual void				SendMessage				(CUIWindow* pWnd, s16 msg, void* pData);
-			void				Init					();
-	virtual void				Show					(bool status);
-	virtual void				Reset					(bool all);
+	virtual void		SendMessage				( CUIWindow* pWnd, s16 msg, void* pData );
+	virtual void 		Show					( bool status );
+	virtual void		Update					();
 
-private:
+			void		ShowInfo				( bool status );
 
+			void		Reset					();
+			void		Init					();
+			
+			bool		InitFactions			();
+			void		UpdateInfo				();
+			void		UpdateWarStates			( FactionState const& faction );
+//			void		set_amount_state_vs		( int value );
+			void		set_amount_our_bonus	( int value );
+			void		set_amount_enemy_bonus	( int value );
 
-	void	xr_stdcall	OnBtnNotes				(CUIWindow* w, void* d);
-	void	xr_stdcall	OnBtnBarter				(CUIWindow* w, void* d);
-	void	xr_stdcall	OnBtnGivedInfo			(CUIWindow* w, void* d);
-	void	xr_stdcall	OnBtnPasswords			(CUIWindow* w, void* d);
-	void	xr_stdcall	OnBtnRecipes			(CUIWindow* w, void* d);
-	void	xr_stdcall	OnBtnAnomalis			(CUIWindow* w, void* d);
-	void	xr_stdcall	OnBtnArts				(CUIWindow* w, void* d);
-	void	xr_stdcall	OnBtnMonsters			(CUIWindow* w, void* d);
-	void	xr_stdcall	OnBtnLocs				(CUIWindow* w, void* d);
-	void	xr_stdcall	OnBtnRecipesM			(CUIWindow* w, void* d);
-	void	xr_stdcall	OnListCategoryClick		(CUIWindow* w, void* d);
-};
+			UIHint*		hint_wnd;
+protected:
+			int			get_max_member_count	();
+			float		get_max_resource		();
+			float		get_max_power			();
+
+}; // class CUIFactionWarWnd
+*/

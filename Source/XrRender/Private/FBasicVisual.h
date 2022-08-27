@@ -4,7 +4,7 @@
 
 #include "../../xrEngine/vis_common.h"
 
-#include "RenderVisual.h"
+#include "../Public/RenderVisual.h"
 
 #define VLOAD_NOVERTICES		(1<<0)
 

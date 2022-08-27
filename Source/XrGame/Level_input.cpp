@@ -86,7 +86,6 @@ void CLevel::IR_OnMouseMove( int dx, int dy )
 
 // Обработка нажатия клавиш
 extern bool g_block_pause;
-extern bool g_block_all_except_movement;
 
 // Lain: added TEMP!!!
 extern float g_separate_factor;
@@ -109,12 +108,6 @@ void CLevel::IR_OnKeyboardPress	(int key)
 	bool b_ui_exist = (!!CurrentGameUI());
 
 	EGameActions _curr = get_binded_action(key);
-
-	if (g_block_all_except_movement)
-	{
-		if (!(_curr < kCAM_1 || _curr == kPAUSE || _curr == kSCREENSHOT || _curr == kQUIT || _curr == kCONSOLE))
-			return;
-	}
 
 	if(_curr==kPAUSE)
 	{
@@ -150,10 +143,9 @@ void CLevel::IR_OnKeyboardPress	(int key)
 
 	case kQUIT: 
 		{
-			if(b_ui_exist && CurrentGameUI()->TopInputReceiver() && (!Device.Paused()))
+			if(b_ui_exist && CurrentGameUI()->TopInputReceiver() )
 			{
-					if(CurrentGameUI()->IR_UIOnKeyboardPress(key))
-						return;//special case for mp and main_menu
+					if(CurrentGameUI()->IR_UIOnKeyboardPress(key))	return;//special case for mp and main_menu
 					CurrentGameUI()->TopInputReceiver()->HideDialog();
 			}else
 			{
@@ -366,7 +358,7 @@ void CLevel::IR_OnKeyboardPress	(int key)
 					CHudItem* pHudItem = smart_cast<CHudItem*>(pActor->inventory().ActiveItem());
 					if (pHudItem) 
 					{
-						pHudItem->OnStateSwitch(pHudItem->GetState(), pHudItem->GetState());
+						pHudItem->OnStateSwitch(pHudItem->GetState());
 					}
 				}
 			}
@@ -480,46 +472,43 @@ void CLevel::IR_OnKeyboardHold(int key)
 
 #ifdef DEBUG
 	// Lain: added
-	if (key == DIK_UP)
-    {
-        static u32 time = Device.dwTimeGlobal;
-        if (Device.dwTimeGlobal - time > 20)
-        {
-            if (CBaseMonster* pBM = smart_cast<CBaseMonster*>(CurrentEntity()))
-            {
-                DBG().debug_info_up();
-                time = Device.dwTimeGlobal;
-            }
-        }
-    }
-    else if (key == DIK_DOWN)
-    {
-        static u32 time = Device.dwTimeGlobal;
-        if (Device.dwTimeGlobal - time > 20)
-        {
-            if (CBaseMonster* pBM = smart_cast<CBaseMonster*>(CurrentEntity()))
-            {
-                DBG().debug_info_down();
-                time = Device.dwTimeGlobal;
-            }
-        }
-    }
+	if ( key == DIK_UP )
+	{
+		static u32 time = Device.dwTimeGlobal;
+		if ( Device.dwTimeGlobal - time > 20 )
+		{
+			if ( CBaseMonster* pBM = smart_cast<CBaseMonster*>(CurrentEntity()) )
+			{
+				DBG().debug_info_up();
+				time = Device.dwTimeGlobal;
+			}
+		}
+	}
+	else if ( key == DIK_DOWN )
+	{
+		static u32 time = Device.dwTimeGlobal;
+		if ( Device.dwTimeGlobal - time > 20 )
+		{
+			if ( CBaseMonster* pBM = smart_cast<CBaseMonster*>(CurrentEntity()) )
+			{
+				DBG().debug_info_down();
+				time = Device.dwTimeGlobal;
+			}
+		}
+	}
 
 #endif // DEBUG
 
-	if (CurrentGameUI() && CurrentGameUI()->IR_UIOnKeyboardHold(key))
-        return;
+	if (CurrentGameUI() && CurrentGameUI()->IR_UIOnKeyboardHold(key)) return;
 	if (Device.Paused() && !Level().IsDemoPlay() 
 #ifdef DEBUG
 		&& !psActorFlags.test(AF_NO_CLIP)
 #endif //DEBUG
 		) return;
-	if (CURRENT_ENTITY())
-    {
-        IInputReceiver* IR = smart_cast<IInputReceiver*>(smart_cast<CGameObject*>(CURRENT_ENTITY()));
-        if (IR)
-            IR->IR_OnKeyboardHold(get_binded_action(key));
-    }
+	if (CURRENT_ENTITY())		{
+		IInputReceiver*		IR	= smart_cast<IInputReceiver*>	(smart_cast<CGameObject*>(CURRENT_ENTITY()));
+		if (IR)				IR->IR_OnKeyboardHold				(get_binded_action(key));
+	}
 }
 
 void CLevel::IR_OnMouseStop( int /**axis/**/, int /**value/**/)

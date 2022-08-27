@@ -460,29 +460,31 @@ bool CUIXmlInit::InitSound(CUIXml& xml_doc, LPCSTR path, int index, CUI3tButton*
 	return true;
 }
 
-bool CUIXmlInit::InitDragDropListEx(CUIXml& xml_doc, LPCSTR path, int index, CUIDragDropListEx* pWnd, bool use_real_pix)
+bool CUIXmlInit::InitDragDropListEx(CUIXml& xml_doc, LPCSTR path, int index, CUIDragDropListEx* pWnd)
 {
 	R_ASSERT4(xml_doc.NavigateToNode(path,index), "XML node not found", path, xml_doc.m_xml_file_name);
 
 	Fvector2 pos, size;
-	pos.x = xml_doc.ReadAttribFlt(path, index, "x");
-	pos.y = xml_doc.ReadAttribFlt(path, index, "y");
-	size.x = xml_doc.ReadAttribFlt(path, index, "width");
-	size.y = xml_doc.ReadAttribFlt(path, index, "height");
+	pos.x			= xml_doc.ReadAttribFlt(path, index, "x");
+	pos.y			= xml_doc.ReadAttribFlt(path, index, "y");
+	size.x			= xml_doc.ReadAttribFlt(path, index, "width");
+	size.y			= xml_doc.ReadAttribFlt(path, index, "height");
 
-	InitAlignment(xml_doc, path, index, pos.x, pos.y, pWnd);
+	InitAlignment	(xml_doc, path, index, pos.x, pos.y, pWnd);
 
-	pWnd->InitDragDropList(pos, size);
+
+
+	pWnd->InitDragDropList		(pos, size);
 
 	Ivector2 w_cell_sz, w_cells, w_cell_sp;
 
-	w_cell_sz.x = xml_doc.ReadAttribInt(path, index, "cell_width");
-	w_cell_sz.y = xml_doc.ReadAttribInt(path, index, "cell_height");
-	w_cells.y = xml_doc.ReadAttribInt(path, index, "rows_num");
-	w_cells.x = xml_doc.ReadAttribInt(path, index, "cols_num");
+	w_cell_sz.x				= xml_doc.ReadAttribInt(path, index, "cell_width");
+	w_cell_sz.y				= xml_doc.ReadAttribInt(path, index, "cell_height");
+	w_cells.y				= xml_doc.ReadAttribInt(path, index, "rows_num");
+	w_cells.x				= xml_doc.ReadAttribInt(path, index, "cols_num");
 
-	w_cell_sp.x = xml_doc.ReadAttribInt(path, index, "cell_sp_x");
-	w_cell_sp.y = xml_doc.ReadAttribInt(path, index, "cell_sp_y");
+	w_cell_sp.x				= xml_doc.ReadAttribInt(path, index, "cell_sp_x");
+	w_cell_sp.y				= xml_doc.ReadAttribInt(path, index, "cell_sp_y");
 
 	pWnd->SetCellSize		(w_cell_sz);
 	pWnd->SetCellsSpacing	(w_cell_sp);	

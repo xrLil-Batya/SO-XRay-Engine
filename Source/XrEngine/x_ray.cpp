@@ -61,8 +61,7 @@ static int start_year	= 1999;	// 1999
 
 // binary hash, mainly for copy-protection
 
-#ifndef DEDICATED_SERVER
-
+#if 0
 #include "../xrGameSpy/gamespy/md5c.c"
 #include <ctype.h>
 
@@ -209,7 +208,7 @@ struct path_excluder_predicate
 PROTECT_API void InitSettings	()
 {
 	#ifndef DEDICATED_SERVER
-		Msg( "EH: %s\n" , ComputeModuleHash( szEngineHash ) );
+	//	Msg( "EH: %s\n" , ComputeModuleHash( szEngineHash ) );
 	#endif // DEDICATED_SERVER
 
 	string_path					fname; 
@@ -916,9 +915,9 @@ int stack_overflow_exception_filter	(int exception_code)
 #include <boost/crc.hpp>
 
 int APIENTRY WinMain(HINSTANCE hInstance,
-                     HINSTANCE hPrevInstance,
-                     char *    lpCmdLine,
-                     int       nCmdShow)
+	HINSTANCE hPrevInstance,
+	char* lpCmdLine,
+	int       nCmdShow)
 {
 	//FILE* file				= 0;
 	//fopen_s					( &file, "z:\\development\\call_of_prypiat\\resources\\gamedata\\shaders\\r3\\objects\\r4\\accum_sun_near_msaa_minmax.ps\\2048__1___________4_11141_", "rb" );
@@ -936,15 +935,9 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 
 	//free					(buffer);
 
-	__try 
-	{
-		WinMain_impl		(hInstance,hPrevInstance,lpCmdLine,nCmdShow);
-	}
-	__except(stack_overflow_exception_filter(GetExceptionCode()))
-	{
-		_resetstkoflw		();
-		FATAL				("stack overflow");
-	}
+	WinMain_impl(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
+
+
 
 	return					(0);
 }
@@ -995,6 +988,7 @@ void _InitializeFont(CGameFont*& F, LPCSTR section, u32 flags)
 	}
 	if (pSettings->line_exist(section,"interval"))
 		F->SetInterval(pSettings->r_fvector2(section,"interval"));
+
 }
 
 CApplication::CApplication()
@@ -1177,7 +1171,7 @@ void CApplication::LoadBegin	()
 		g_appLoaded			= FALSE;
 
 #ifndef DEDICATED_SERVER
-		_InitializeFont		(pFontSystem,"ui_font_graffiti19_russian",0);
+		_InitializeFont		(pFontSystem,"ui_font_letterica18_russian",0);
 
 		m_pRender->LoadBegin();
 #endif
@@ -1229,8 +1223,8 @@ PROTECT_API void CApplication::LoadDraw		()
 
 void CApplication::LoadTitleInt(LPCSTR str1, LPCSTR str2, LPCSTR str3)
 {
-	//xr_strcpy					(ls_header, str1);
-	//xr_strcpy					(ls_tip_number, str2);
+	xr_strcpy					(ls_header, str1);
+	xr_strcpy					(ls_tip_number, str2);
 	xr_strcpy					(ls_tip, str3);
 //	LoadDraw					();
 }
@@ -1247,7 +1241,6 @@ void CApplication::LoadStage()
 		max_load_stage			= 14;
 	LoadDraw					();
 }
-
 void CApplication::LoadSwitch	()
 {
 }
@@ -1258,8 +1251,7 @@ void CApplication::OnFrame	( )
 	Engine.Event.OnFrame			();
 	g_SpatialSpace->update			();
 	g_SpatialSpacePhysic->update	();
-	if (g_pGameLevel)				
-		g_pGameLevel->SoundEvent_Dispatch	( );
+	if (g_pGameLevel)				g_pGameLevel->SoundEvent_Dispatch	( );
 }
 
 void CApplication::Level_Append		(LPCSTR folder)

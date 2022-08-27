@@ -222,7 +222,7 @@ public:
 
 		u32 CLObjNum	= Level().Objects.o_count();
 		xr_vector<u16>	CObjID;
-		for (i=0; i<CLObjNum; i++)
+		for (u32 i=0; i<CLObjNum; i++)
 		{
 			CObjID.push_back(Level().Objects.o_get_by_iterator(i)->ID());
 		};
@@ -2049,7 +2049,7 @@ void register_mp_console_commands()
 
 	CMD1(CCC_SetWeather,	"sv_setweather"			);
 
-	//CMD4(CCC_Integer,		"cl_cod_pickup_mode",	&g_b_COD_PickUpMode,	0, 1)	;
+	CMD4(CCC_Integer,		"cl_cod_pickup_mode",	&g_b_COD_PickUpMode,	0, 1)	;
 
 	CMD4(CCC_Integer,		"sv_remove_weapon",		&g_iWeaponRemove, -1, 1);
 	CMD4(CCC_Integer,		"sv_remove_corpse",		&g_iCorpseRemove, -1, 1);

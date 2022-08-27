@@ -321,27 +321,25 @@ bool CDialogHolder::IR_UIOnKeyboardRelease(int dik)
 
 bool CDialogHolder::IR_UIOnKeyboardHold(int dik)
 {
-	CUIDialogWnd* TIR = TopInputReceiver();
-    if (!TIR)
-        return false;
-    if (!TIR->IR_process())
-        return false;
+	CUIDialogWnd* TIR		= TopInputReceiver();
+	if(!TIR)				return false;
+	if(!TIR->IR_process())	return false;
 
-    if (TIR->OnKeyboardHold(dik))
-        return true;
+	if(TIR->OnKeyboardHold(dik)) 
+		return true;
 
-    if (!TIR->StopAnyMove() && g_pGameLevel)
-    {
-        CObject* O = Level().CurrentEntity();
-        if (O)
-        {
-            IInputReceiver* IR = smart_cast<IInputReceiver*>(smart_cast<CGameObject*>(O));
-            if (IR)
-                IR->IR_OnKeyboardHold(get_binded_action(dik));
-            return false;
-        }
-    }
-    return true;
+	if(!TIR->StopAnyMove() && g_pGameLevel )
+	{
+		CObject* O = Level().CurrentEntity();
+		if(O)
+		{
+			IInputReceiver*	IR	= smart_cast<IInputReceiver*>( smart_cast<CGameObject*>(O) );
+			if(IR)
+				IR->IR_OnKeyboardHold(get_binded_action(dik));
+			return		false;
+		}
+	}
+	return true;
 }
 
 bool CDialogHolder::IR_UIOnMouseWheel (int direction)

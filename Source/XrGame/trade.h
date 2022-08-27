@@ -51,7 +51,7 @@ public:
 
 	void					OnPerformTrade			(u32 money_get, u32 money_put);
 
-	void					TransferItem			(CInventoryItem* pItem, bool bBuying, bool bBarter);
+	void					TransferItem			(CInventoryItem* pItem, bool bBuying);
 
 	CInventoryOwner*		GetPartner				();	
 	CTrade*					GetPartnerTrade			();
