@@ -56,6 +56,10 @@ public:
 				CUICellItem* Child					(u32 idx)				{return m_childs[idx];};
 				bool		HasChild				(CUICellItem* item);
 	virtual		bool		EqualTo					(CUICellItem* itm);
+	u32							max_stack;
+	virtual void				SetMaxStack(u32 x) { max_stack = x; };
+	virtual u32					GetMaxStack() const { return max_stack; }
+	virtual u32					GetStack() const { return 1 + m_childs.size(); }
 	IC const	Ivector2&	GetGridSize				()						{return m_grid_size;}; //size in grid
 	IC			void		SetAccelerator			(int dik)				{m_accelerator=dik;};
 	IC			int			GetAccelerator			()		const			{return m_accelerator;};

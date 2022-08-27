@@ -2,6 +2,13 @@
 #include "UICellItem.h"
 #include "../Weapon.h"
 
+struct SIconLayer
+{
+    pcstr m_name;
+    CUIStatic* m_icon;
+    Fvector2 offset;
+    float m_scale;
+};
 
 class CUIInventoryCellItem :public CUICellItem
 {
@@ -16,6 +23,16 @@ public:
 				bool			IsHelperOrHasHelperChild	();
 				void			Update						();
 				CInventoryItem* object						() {return (CInventoryItem*)m_pData;}
+
+    //Alundaio
+    void OnAfterChild(CUIDragDropListEx* parent_list);
+    void SetTextureColor(u32 color);
+
+    xr_vector<SIconLayer*> m_layers;
+    void RemoveLayer(SIconLayer* layer);
+    void CreateLayer(pcstr name, Fvector2 offset, float scale);
+    CUIStatic* InitLayer(CUIStatic* s, pcstr section, Fvector2 addon_offset, bool b_rotate, float scale);
+    //-Alundaio   
 };
 
 class CUIAmmoCellItem :public CUIInventoryCellItem
@@ -36,7 +53,14 @@ class CUIWeaponCellItem :public CUIInventoryCellItem
 {
 	typedef  CUIInventoryCellItem	inherited;
 public:
-	enum eAddonType{	eSilencer=0, eScope, eLauncher, eMaxAddon};
+    enum eAddonType
+    {
+        eSilencer = 0,
+        eScope,
+        eLauncher,
+        eMaxAddon
+    };
+ 
 protected:
 	CUIStatic*					m_addons					[eMaxAddon];
 	Fvector2					m_addon_offset				[eMaxAddon];
