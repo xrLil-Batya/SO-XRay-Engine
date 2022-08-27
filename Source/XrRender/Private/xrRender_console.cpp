@@ -223,6 +223,10 @@ float		ps_r2_dof_kernel_size		= 5.0f;						//	7.0f
 float		ps_r3_dyn_wet_surf_near		= 10.f;				// 10.0f
 float		ps_r3_dyn_wet_surf_far		= 30.f;				// 30.0f
 int			ps_r3_dyn_wet_surf_sm_res	= 256;				// 256
+float		ps_r2_sunshafts_radius		= 1.7f;				// 1.f
+float		ps_r2_sunshafts_length		= .03f;				// .05f
+float		ps_r2_sunshafts_debug_intensity= 1.f;			// 1.f
+float		ps_r2_rain_rops_debug_control = 1.f;			// 1.f
 
 
 //- Mad Max
@@ -785,7 +789,7 @@ void		xrRender_initconsole	()
 	CMD4(CCC_Float,		"r2_sun_lumscale_hemi",	&ps_r2_sun_lumscale_hemi,	0.0,	+3.0	);
 	CMD4(CCC_Float,		"r2_sun_lumscale_amb",	&ps_r2_sun_lumscale_amb,	0.0,	+3.0	);
 
-	CMD3(CCC_Mask,		"r2_aa",				&ps_r2_ls_flags,			R2FLAG_AA);
+	//CMD3(CCC_Mask,		"r2_aa",				&ps_r2_ls_flags,			R2FLAG_AA);
 	CMD4(CCC_Float,		"r2_aa_kernel",			&ps_r2_aa_kernel,			0.3f,	0.7f	);
 	CMD4(CCC_Float,		"r2_mblur",				&ps_r2_mblur,				0.0f,	1.0f	);
 
@@ -854,6 +858,13 @@ void		xrRender_initconsole	()
 	CMD3(CCC_Mask,		"r2_detail_bump",				&ps_r2_ls_flags,			R2FLAG_DETAIL_BUMP);
 
 	CMD3(CCC_Token,		"r2_sun_quality",				&ps_r_sun_quality,			qsun_quality_token);
+
+	CMD4(CCC_Float,		"r2_sunshafts_radius",			&ps_r2_sunshafts_radius,	.1f,	2.f);
+	CMD4(CCC_Float,		"r2_sunshafts_length",			&ps_r2_sunshafts_length,	.01f,	0.1f);
+	CMD4(CCC_Float,		"r2_sunshafts_debug_intensity",	&ps_r2_sunshafts_debug_intensity,.0f,3.f);
+	CMD3(CCC_Mask,		"r2_sunshafts",					&ps_r2_ls_flags,			R2FLAG_SUNSHAFTS);
+	CMD4(CCC_Float,		"r2_rain_drops_debug_intensity",&ps_r2_rain_rops_debug_control,	0.f,	3.f);
+	CMD3(CCC_Mask,		"r2_rain_drops",				&ps_r2_ls_flags,			R2FLAG_RAIN_DROPS);
 
 	//	Igor: need restart
 	CMD3(CCC_Mask,		"r2_soft_water",				&ps_r2_ls_flags,			R2FLAG_SOFT_WATER);

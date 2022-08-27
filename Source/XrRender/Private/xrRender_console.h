@@ -134,6 +134,11 @@ extern ECORE_API float			ps_r3_dyn_wet_surf_near;	// 10.0f
 extern ECORE_API float			ps_r3_dyn_wet_surf_far;		// 30.0f
 extern ECORE_API int			ps_r3_dyn_wet_surf_sm_res;	// 256
 
+extern ECORE_API float			ps_r2_sunshafts_radius;		// 
+extern ECORE_API float			ps_r2_sunshafts_length;		// 
+extern ECORE_API float			ps_r2_sunshafts_debug_intensity;// 
+extern ECORE_API float			ps_r2_rain_rops_debug_control;//
+
 enum
 {
 	R2FLAG_SUN					= (1<<0),
@@ -141,13 +146,14 @@ enum
 	R2FLAG_SUN_TSM				= (1<<2),
 	R2FLAG_SUN_DETAILS			= (1<<3),
 	R2FLAG_TONEMAP				= (1<<4),
-	R2FLAG_AA					= (1<<5),
+	R2FLAG_RAIN_DROPS			= (1<<5),
 	R2FLAG_GI					= (1<<6),
 	R2FLAG_FASTBLOOM			= (1<<7),
 	R2FLAG_GLOBALMATERIAL		= (1<<8),
 	R2FLAG_ZFILL				= (1<<9),
 	R2FLAG_R1LIGHTS				= (1<<10),
 	R2FLAG_SUN_IGNORE_PORTALS	= (1<<11),
+	R2FLAG_SUNSHAFTS			= (1<<12),
 
 //	R2FLAG_SUN_STATIC			= (1<<12),
 	
