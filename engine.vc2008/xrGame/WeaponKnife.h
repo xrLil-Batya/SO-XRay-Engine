@@ -9,7 +9,7 @@ private:
 	typedef CWeapon inherited;
 
 protected:
-
+	virtual void UpdateCL();
 	virtual void		switch2_Idle				();
 	virtual void		switch2_Hiding				();
 	virtual void		switch2_Hidden				();
@@ -43,6 +43,8 @@ protected:
 	float				fCurrentHit;
 
 	float				fHitImpulse_cur;
+
+	u32 dwUpdateSounds_Frame;
 
 protected:
 	virtual void		LoadFireParams					(LPCSTR section);

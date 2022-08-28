@@ -249,45 +249,50 @@ void CWeaponMagazined::Reload()
 
 bool CWeaponMagazined::TryReload() 
 {
-	if(m_pInventory) 
+	if (m_pInventory)
 	{
-		if(IsGameTypeSingle() && ParentIsActor())
+		if (IsGameTypeSingle() && ParentIsActor())
 		{
-			int	AC					= GetSuitableAmmoTotal();
+			int AC = GetSuitableAmmoTotal();
 			Actor()->callback(GameObject::eWeaponNoAmmoAvailable)(lua_game_object(), AC);
 		}
 
-		m_pCurrentAmmo = smart_cast<CWeaponAmmo*>(m_pInventory->Get( m_ammoTypes[m_ammoType].c_str(), false ));
-		
-		if(IsMisfire() && iAmmoElapsed)
+		if (m_set_next_ammoType_on_reload != undefined_ammo_type)
 		{
-			SetPending			(TRUE);
-			SwitchState			(eReload); 
-			return				true;
+			m_ammoType = m_set_next_ammoType_on_reload;
+			m_set_next_ammoType_on_reload = undefined_ammo_type;
 		}
 
-		if(m_pCurrentAmmo || unlimited_ammo())  
+		m_pCurrentAmmo = smart_cast<CWeaponAmmo*>(m_pInventory->GetAny(m_ammoTypes[m_ammoType].c_str()));
+
+		if (IsMisfire() && iAmmoElapsed)
 		{
-			SetPending			(TRUE);
-			SwitchState			(eReload); 
-			return				true;
-		} 
+			SetPending(TRUE);
+			SwitchState(eReload);
+			return true;
+		}
+
+		if (m_pCurrentAmmo || unlimited_ammo())
+		{
+			SetPending(TRUE);
+			SwitchState(eReload);
+			return true;
+		}
 		if (iAmmoElapsed == 0)
 			for (u8 i = 0; i < u8(m_ammoTypes.size()); ++i)
 			{
-				m_pCurrentAmmo = smart_cast<CWeaponAmmo*>(m_pInventory->Get( m_ammoTypes[i].c_str(),false ));
-				if(m_pCurrentAmmo) 
-				{ 
-					m_ammoType			= i; 
-					SetPending			(TRUE);
-					SwitchState			(eReload);
-					return				true;
+				m_pCurrentAmmo = smart_cast<CWeaponAmmo*>(m_pInventory->GetAny(m_ammoTypes[i].c_str()));
+				if (m_pCurrentAmmo)
+				{
+					m_set_next_ammoType_on_reload = i;
+					SetPending(TRUE);
+					SwitchState(eReload);
+					return true;
 				}
 			}
-
 	}
-	
-	if(GetState()!=eIdle)
+
+	if (GetState() != eIdle)
 		SwitchState(eIdle);
 
 	return false;

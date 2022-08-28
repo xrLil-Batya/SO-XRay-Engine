@@ -37,6 +37,8 @@ CWeaponKnife::CWeaponKnife()
 
 	m_Hit1SpashDir.set	(0.f,0.f,1.f);
 	m_Hit2SpashDir.set	(0.f,0.f,1.f);
+
+	dwUpdateSounds_Frame = 0;
 }
 
 CWeaponKnife::~CWeaponKnife()
@@ -50,6 +52,8 @@ void CWeaponKnife::Load	(LPCSTR section)
 
 	fWallmarkSize = pSettings->r_float(section,"wm_size");
 	m_sounds.LoadSound(section,"snd_shoot"		, "sndShot"		, false, SOUND_TYPE_WEAPON_SHOOTING		);
+	m_sounds.LoadSound(section, "snd_draw", "sndShow", false, SOUND_TYPE_ITEM_TAKING);
+	m_sounds.LoadSound(section, "snd_holster", "sndHide", false, SOUND_TYPE_ITEM_HIDING);
 	
 	m_Hit1SpashDir		=	pSettings->r_fvector3(section, "splash1_direction");
 	m_Hit2SpashDir		=	pSettings->r_fvector3(section, "splash2_direction");
@@ -77,65 +81,70 @@ void CWeaponKnife::OnStateSwitch	(u32 S, u32 oldState)
 	switch (S)
 	{
 	case eIdle:
-		switch2_Idle	();
+		switch2_Idle();
 		break;
 	case eShowing:
-		switch2_Showing	();
+		switch2_Showing();
 		break;
 	case eHiding:
-		switch2_Hiding	();
+		if (oldState != eHiding)
+		{
+			switch2_Hiding();
+		}
 		break;
 	case eHidden:
-		switch2_Hidden	();
+		switch2_Hidden();
 		break;
 	case eFire:
 		{
 			//-------------------------------------------
-			m_eHitType		= m_eHitType_1;
+			m_eHitType = m_eHitType_1;
 			//fHitPower		= fHitPower_1;
 			if (ParentIsActor())
 			{
 				if (GameID() == eGameIDSingle)
 				{
-					fCurrentHit			= fvHitPower_1[g_SingleGameDifficulty];
+					fCurrentHit = fvHitPower_1[g_SingleGameDifficulty];
 				}
 				else
 				{
-					fCurrentHit			= fvHitPower_1[egdMaster];
+					fCurrentHit = fvHitPower_1[egdMaster];
 				}
 			}
 			else
 			{
-				fCurrentHit			= fvHitPower_1[egdMaster];
+				fCurrentHit = fvHitPower_1[egdMaster];
 			}
-			fHitImpulse_cur	= fHitImpulse_1;
+			fHitImpulse_cur = fHitImpulse_1;
 			//-------------------------------------------
-			switch2_Attacking	(S);
-		}break;
+			switch2_Attacking(S);
+		}
+		break;
 	case eFire2:
 		{
 			//-------------------------------------------
-			m_eHitType		= m_eHitType_2;
+			m_eHitType = m_eHitType_2;
 			//fHitPower		= fHitPower_2;
 			if (ParentIsActor())
 			{
 				if (GameID() == eGameIDSingle)
 				{
-					fCurrentHit			= fvHitPower_2[g_SingleGameDifficulty];
+					fCurrentHit = fvHitPower_2[g_SingleGameDifficulty];
 				}
 				else
 				{
-					fCurrentHit			= fvHitPower_2[egdMaster];
+					fCurrentHit = fvHitPower_2[egdMaster];
 				}
 			}
 			else
 			{
-				fCurrentHit			= fvHitPower_2[egdMaster];
+				fCurrentHit = fvHitPower_2[egdMaster];
 			}
-			fHitImpulse_cur	= fHitImpulse_2;
+			fHitImpulse_cur = fHitImpulse_2;
 			//-------------------------------------------
-			switch2_Attacking	(S);
-		}break;
+			switch2_Attacking(S);
+		}
+		break;
 	}
 }
 
@@ -255,15 +264,18 @@ void CWeaponKnife::OnAnimationEnd(u32 state)
 {
 	switch (state)
 	{
-	case eHiding:	SwitchState(eHidden);	break;
-	
-	case eFire: 
-	case eFire2: 	SwitchState(eIdle);		break;
+	case eHiding: SwitchState(eHidden);
+		break;
+
+	case eFire:
+	case eFire2: SwitchState(eIdle);
+		break;
 
 	case eShowing:
-	case eIdle:		SwitchState(eIdle);		break;	
+	case eIdle: SwitchState(eIdle);
+		break;
 
-	default:		inherited::OnAnimationEnd(state);
+	default: inherited::OnAnimationEnd(state);
 	}
 }
 
@@ -271,43 +283,61 @@ void CWeaponKnife::state_Attacking	(float)
 {
 }
 
+void CWeaponKnife::UpdateCL()
+{
+	inherited::UpdateCL();
+
+	if (Device.dwFrame == dwUpdateSounds_Frame)
+		return;
+
+	dwUpdateSounds_Frame = Device.dwFrame;
+
+	Fvector P = get_LastFP();
+
+	m_sounds.SetPosition("sndShow", P);
+	m_sounds.SetPosition("sndHide", P);
+}
+
 void CWeaponKnife::switch2_Attacking	(u32 state)
 {
-	if(IsPending())	return;
+	if (IsPending()) return;
 
-	if(state==eFire)
-		PlayHUDMotion("anm_attack",		FALSE, this, state);
+	if (state == eFire)
+		PlayHUDMotion("anm_attack", TRUE, this, state);
 	else //eFire2
-		PlayHUDMotion("anm_attack2",	FALSE, this, state);
+		PlayHUDMotion("anm_attack2", TRUE, this, state);
 
-	SetPending			(TRUE);
+	SetPending(TRUE);
 }
 
 void CWeaponKnife::switch2_Idle	()
 {
 	VERIFY(GetState()==eIdle);
 
-	PlayAnimIdle		();
-	SetPending			(FALSE);
+	PlayAnimIdle();
+	SetPending(FALSE);
 }
 
 void CWeaponKnife::switch2_Hiding	()
 {
-	FireEnd					();
+	FireEnd();
 	VERIFY(GetState()==eHiding);
 	PlayHUDMotion("anm_hide", TRUE, this, GetState());
+	PlaySound("sndHide", get_LastFP());
 }
 
 void CWeaponKnife::switch2_Hidden()
 {
-	signal_HideComplete		();
-	SetPending				(FALSE);
+	signal_HideComplete();
+	SetPending(FALSE);
 }
 
 void CWeaponKnife::switch2_Showing	()
 {
 	VERIFY(GetState()==eShowing);
-	PlayHUDMotion("anm_show", FALSE, this, GetState());
+	if (ParentIsActor()) g_player_hud->attach_item(this);
+	PlayHUDMotion("anm_show", FALSE, this, GetState(), 1.f, 0.f, false);
+	PlaySound("sndShow", get_LastFP());
 }
 
 
@@ -325,16 +355,22 @@ void CWeaponKnife::Fire2Start ()
 
 bool CWeaponKnife::Action(u16 cmd, u32 flags) 
 {
-	if(inherited::Action(cmd, flags)) return true;
-	switch(cmd) 
+	switch (cmd)
 	{
+	case kWPN_FIRE:
+		if (flags & CMD_START && !IsPending())
+			FireStart();
 
-		case kWPN_ZOOM : 
-			if(flags&CMD_START) 
-				Fire2Start			();
+		return true;
+	case kWPN_ZOOM:
+		if (flags & CMD_START && !IsPending())
+			Fire2Start();
 
-			return true;
+		return true;
 	}
+
+	if (inherited::Action(cmd, flags)) return true;
+
 	return false;
 }
 
