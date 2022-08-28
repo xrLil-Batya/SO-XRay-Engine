@@ -69,6 +69,7 @@ struct SBullet
 	ref_sound		m_whine_snd			;
 	ref_sound		m_mtl_snd			;
 	//---------------------------------
+	bool 			m_on_bullet_hit;
 	u16				targetID			;
 	//---------------------------------
 	bool			density_mode		;
@@ -94,6 +95,8 @@ public:
 										const	CCartridge& cartridge,
 										float const air_resistance_factor,
 										bool	SendHit);
+	bool isOnBulletHit() { return m_on_bullet_hit; }
+	void setOnBulletHit(bool flag) { m_on_bullet_hit = flag; }
 };
 
 class CLevel;
@@ -227,13 +230,9 @@ public:
 
 	void 					Load				();
 	void 					Clear				();
-	void 					AddBullet			(const Fvector& position, const Fvector& direction, float starting_speed,
-												float power, /*float power_critical,*/ float impulse, 
-												u16	sender_id, u16 sendersweapon_id,
-												ALife::EHitType e_hit_type, float maximum_distance, 
-												const CCartridge& cartridge,
-												float const air_resistance_factor,
-												bool SendHit,bool AimBullet=false);
+	SBullet& AddBullet(const Fvector& position, const Fvector& direction, float starting_speed, float power, float impulse,
+						u16 sender_id, u16 sendersweapon_id, ALife::EHitType e_hit_type, float maximum_distance, 
+						const CCartridge& cartridge, float const air_resistance_factor, bool SendHit,bool AimBullet=false);
 
 	void					CommitEvents		();	// @ the start of frame
 	void					CommitRenderSet		();	// @ the end of frame

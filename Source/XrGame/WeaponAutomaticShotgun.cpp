@@ -91,14 +91,14 @@ void CWeaponAutomaticShotgun::TriStateReload()
 	SwitchState			(eReload);
 }
 
-void CWeaponAutomaticShotgun::OnStateSwitch	(u32 S)
+void CWeaponAutomaticShotgun::OnStateSwitch	(u32 S, u32 oldState)
 {
 	if(!m_bTriStateReload || S != eReload){
-		inherited::OnStateSwitch(S);
+		inherited::OnStateSwitch(S, oldState);
 		return;
 	}
 
-	CWeapon::OnStateSwitch(S);
+	CWeapon::OnStateSwitch(S, oldState);
 
 	if( m_magazine.size() == (u32)iMagazineSize || !HaveCartridgeInInventory(1) ){
 			switch2_EndReload		();
@@ -164,7 +164,10 @@ bool CWeaponAutomaticShotgun::HaveCartridgeInInventory(u8 cnt)
 {
 	if (unlimited_ammo())	return true;
 	if(!m_pInventory)		return false;
-
+	m_pCurrentAmmo = smart_cast<CWeaponAmmo*>(m_pInventory->Get( m_ammoTypes[m_ammoType].c_str(),false ));
+	if (!m_pCurrentAmmo){
+		return false;
+	}
 	u32 ac = GetAmmoCount(m_ammoType);
 	if(ac<cnt)
 	{
@@ -196,7 +199,7 @@ u8 CWeaponAutomaticShotgun::AddCartridge		(u8 cnt)
 	if( !HaveCartridgeInInventory(1) )
 		return 0;
 
-	m_pCurrentAmmo = smart_cast<CWeaponAmmo*>(m_pInventory->GetAny( m_ammoTypes[m_ammoType].c_str() ));
+	m_pCurrentAmmo = smart_cast<CWeaponAmmo*>(m_pInventory->Get( m_ammoTypes[m_ammoType].c_str(),false ));
 	VERIFY((u32)iAmmoElapsed == m_magazine.size());
 
 

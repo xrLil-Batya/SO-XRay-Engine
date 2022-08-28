@@ -71,9 +71,9 @@ void CWeaponKnife::Load	(LPCSTR section)
 	knife_material_idx =  GMLib.GetMaterialIdx(KNIFE_MATERIAL_NAME);
 }
 
-void CWeaponKnife::OnStateSwitch	(u32 S)
+void CWeaponKnife::OnStateSwitch(u32 S, u32 oldState)
 {
-	inherited::OnStateSwitch(S);
+	inherited::OnStateSwitch(S, oldState);
 	switch (S)
 	{
 	case eIdle:
@@ -198,7 +198,9 @@ void CWeaponKnife::MakeShot(Fvector const & pos, Fvector const & dir, float cons
 
 	PlaySound						("sndShot",pos);
 
-	Level().BulletManager().AddBullet(	pos, 
+	if ( ParentIsActor() && !fis_zero( conditionDecreasePerShotOnHit ) && GetCondition() < 0.95f )
+				fCurrentHit = fCurrentHit * ( GetCondition() / 0.95f );
+	SBullet& bullet = Level().BulletManager().AddBullet(pos,
 										dir, 
 										m_fStartBulletSpeed, 
 										fCurrentHit, 
@@ -210,6 +212,8 @@ void CWeaponKnife::MakeShot(Fvector const & pos, Fvector const & dir, float cons
 										cartridge, 
 										1.f, 
 										SendHit);
+	if ( ParentIsActor() )
+		  bullet.setOnBulletHit( true );
 }
 
 void CWeaponKnife::OnMotionMark(u32 state, const motion_marks& M)

@@ -10,6 +10,7 @@
 #include "gamepersistent.h"
 #include "mt_config.h"
 #include "game_cl_base_weapon_usage_statistic.h"
+#include "Weapon.h"
 #include "game_cl_mp.h"
 #include "reward_event_generator.h"
 
@@ -33,9 +34,10 @@ float const CBulletManager::parent_ignore_distance	= 3.f;
 #endif // #ifdef DEBUG
 float g_bullet_time_factor							= 1.f;
 
-SBullet::SBullet()
+SBullet::SBullet()	:	m_on_bullet_hit( false )
 {
 }
+
 
 SBullet::~SBullet()
 {
@@ -193,7 +195,7 @@ void CBulletManager::Clear		()
 	m_Events.clear			();
 }
 
-void CBulletManager::AddBullet(const Fvector& position,
+SBullet& CBulletManager::AddBullet(const Fvector& position,
 							   const Fvector& direction,
 							   float starting_speed,
 							   float power,
@@ -226,7 +228,7 @@ void CBulletManager::AddBullet(const Fvector& position,
 		if (tmp_cl_game->get_reward_generator())
 			tmp_cl_game->get_reward_generator()->OnBullet_Fire(sender_id, sendersweapon_id, position, direction); 
 	}
-	
+	return bullet;
 }
 
 void CBulletManager::UpdateWorkload()
@@ -1044,6 +1046,13 @@ void CBulletManager::CommitEvents			()	// @ the start of frame
 			{
 				if (E.dynamic)	DynamicObjectHit	(E);
 				else			StaticObjectHit		(E);
+				if ( E.bullet.isOnBulletHit() ) {
+					CObject* O = Level().Objects.net_Find( E.bullet.weapon_id );
+					if ( O ) {
+						CWeapon* W = smart_cast<CWeapon*>( O );
+						if ( W ) W->OnBulletHit();
+					}
+				}
 			}break;
 		case EVENT_REMOVE:
 			{

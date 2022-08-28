@@ -15,7 +15,7 @@ public:
 	virtual			~CWeaponMagazinedWGrenade	();
 
 	virtual void	Load				(LPCSTR section);
-	
+	void LoadLauncherKoeffs();
 	virtual BOOL	net_Spawn			(CSE_Abstract* DC);
 	virtual void	net_Destroy			();
 	virtual void	net_Export			(NET_Packet& P);
@@ -38,7 +38,7 @@ public:
 	virtual void	FireEnd					();
 			void	LaunchGrenade			();
 	
-	virtual void	OnStateSwitch	(u32 S);
+	virtual void	OnStateSwitch	(u32 S, u32 oldState);
 	
 	virtual void	switch2_Reload	();
 	virtual void	state_Fire		(float dt);
@@ -66,7 +66,7 @@ public:
 	virtual void	PlayAnimIdle		();
 	virtual void	PlayAnimShoot		();
 	virtual void	PlayAnimModeSwitch	();
-	virtual void	PlayAnimBore		();
+	virtual bool TryPlayAnimBore();
 	
 private:
 	virtual	void	net_Spawn_install_upgrades	( Upgrades_type saved_upgrades );
@@ -91,4 +91,8 @@ public:
 	u8						iAmmoElapsed2;
 
 	virtual void UpdateGrenadeVisibility(bool visibility);
+
+protected:
+	void ApplyLauncherKoeffs();
+	void ResetLauncherKoeffs();
 };

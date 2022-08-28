@@ -28,7 +28,12 @@ protected:
 	ESoundTypes		m_eSoundShot;
 	ESoundTypes		m_eSoundEmptyClick;
 	ESoundTypes		m_eSoundReload;
+	ESoundTypes m_eSoundReloadEmpty;
+	ESoundTypes m_eSoundReloadMisfire;
+
 	bool			m_sounds_enabled;
+	bool m_nextFireMode;
+	bool m_needReload;
 	// General
 	//кадр момента пересчета UpdateSounds
 	u32				dwUpdateSounds_Frame;
@@ -37,30 +42,36 @@ protected:
 
 	virtual void	switch2_Idle	();
 	virtual void	switch2_Fire	();
-	virtual void	switch2_Empty	();
 	virtual void	switch2_Reload	();
 	virtual void	switch2_Hiding	();
 	virtual void	switch2_Hidden	();
 	virtual void	switch2_Showing	();
 	
 	virtual void	OnShot			();	
+	virtual void PlaySoundShot();
 	
 	virtual void	OnEmptyClick	();
 
 	virtual void	OnAnimationEnd	(u32 state);
-	virtual void	OnStateSwitch	(u32 S);
+	virtual void	OnStateSwitch	(u32 S, u32 oldState);
 
 	virtual void	UpdateSounds	();
 
 	bool			TryReload		();
 
+private:
+	LPCSTR empty_click_layer;
+	float empty_click_speed;
+	float empty_click_power;
+
 protected:
 	virtual void	ReloadMagazine();
 			void	ApplySilencerKoeffs();
+	void ApplyScopeKoeffs();
 			void	ResetSilencerKoeffs();
+	void ResetScopeKoeffs();
 
 	virtual void	state_Fire		(float dt);
-	virtual void	state_MagEmpty	(float dt);
 	virtual void	state_Misfire	(float dt);
 public:
 					CWeaponMagazined	(ESoundTypes eSoundType=SOUND_TYPE_WEAPON_SUBMACHINEGUN);
@@ -68,6 +79,7 @@ public:
 
 	virtual void	Load			(LPCSTR section);
 			void	LoadSilencerKoeffs();
+	void LoadScopeKoeffs();
 	virtual CWeaponMagazined*cast_weapon_magazined	()		 {return this;}
 
 	virtual void	SetDefaults		();
@@ -80,6 +92,8 @@ public:
 	virtual void	net_Destroy		();
 	virtual void	net_Export		(NET_Packet& P);
 	virtual void	net_Import		(NET_Packet& P);
+
+	virtual void OnMotionMark(u32 state, const motion_marks& M);
 
 	virtual void	OnH_A_Chield		();
 
@@ -137,8 +151,6 @@ protected:
 public:
 	virtual void	OnZoomIn			();
 	virtual void	OnZoomOut			();
-			void	OnNextFireMode		();
-			void	OnPrevFireMode		();
 			bool	HasFireModes		() { return m_bHasDifferentFireModes; };
 	virtual	int		GetCurrentFireMode	() { return m_aFireModes[m_iCurFireMode]; };	
 
@@ -152,13 +164,20 @@ protected:
 	virtual bool	AllowFireWhileWorking() {return false;}
 
 	//виртуальные функции для проигрывания анимации HUD
-	virtual void	PlayAnimShow		();
-	virtual void	PlayAnimHide		();
-	virtual void	PlayAnimReload		();
-	virtual void	PlayAnimIdle		();
-	virtual void	PlayAnimShoot		();
-	virtual void	PlayReloadSound		();
-	virtual void	PlayAnimAim			();
+	virtual void PlayAnimShow();
+	virtual void PlayAnimHide();
+	virtual void PlayAnimReload();
+	virtual void PlayAnimIdle();
+	virtual void PlayAnimIdleMoving();
+	virtual bool PlayAnimCrouchIdleMoving();
+	virtual void PlayAnimIdleSprint();
+	virtual void PlayAnimShoot();
+	virtual void PlayReloadSound();
+	virtual void PlayAnimAim();
+	virtual void PlayAnimFireModeSwitch();
+	virtual bool TryPlayAnimBore();
+
+	virtual void UpdateFireMode();
 
 	virtual	int		ShotsFired			() { return m_iShotNum; }
 	virtual float	GetWeaponDeterioration	();
@@ -171,5 +190,6 @@ protected:
 										 u16 parent_id,
 										 u16 weapon_id,
 										 bool send_hit);
-
+	//AVO: for custom added sounds check if sound exists
+	bool WeaponSoundExist(LPCSTR section, LPCSTR sound_name);
 };
