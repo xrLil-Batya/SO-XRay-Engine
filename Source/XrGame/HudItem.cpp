@@ -11,6 +11,18 @@
 #include "player_hud.h"
 #include "../xrEngine/SkeletonMotions.h"
 
+#include "ui_base.h"
+#include "ui\UIScriptWnd.h"
+
+#include "script_callback_ex.h"
+#include "script_game_object.h"
+#include "clsid_game.h"
+#include "weaponpistol.h"
+#include "HUDManager.h"
+#include "CustomDevice.h"
+
+ENGINE_API extern float psHUD_FOV_def;
+
 CHudItem::CHudItem()
 {
 	RenderHud					(TRUE);
@@ -19,6 +31,13 @@ CHudItem::CHudItem()
 	m_bStopAtEndAnimIsRunning	= false;
 	m_current_motion_def		= NULL;
 	m_started_rnd_anim_idx		= u8(-1);
+
+	m_fLR_CameraFactor = 0.f;
+	m_fLR_MovingFactor = 0.f;
+	m_fLR_InertiaFactor = 0.f;
+	m_fUD_InertiaFactor = 0.f;
+	
+	m_nearwall_last_hud_fov = psHUD_FOV_def;
 }
 
 DLL_Pure *CHudItem::_construct	()
@@ -42,6 +61,13 @@ void CHudItem::Load(LPCSTR section)
 	m_animation_slot		= pSettings->r_u32			(section,"animation_slot");
 
 	m_sounds.LoadSound(section, "snd_bore", "sndBore", true);
+	
+	m_hud_fov_add_mod = READ_IF_EXISTS(pSettings, r_float, section, "hud_fov_addition_modifier", 0.f);
+	m_nearwall_dist_min = READ_IF_EXISTS(pSettings, r_float, section, "nearwall_dist_min", .2f);
+	m_nearwall_dist_max = READ_IF_EXISTS(pSettings, r_float, section, "nearwall_dist_max", 1.f);
+	m_nearwall_target_hud_fov = READ_IF_EXISTS(pSettings, r_float, section, "nearwall_target_hud_fov", 0.27f);
+	m_nearwall_speed_mod = READ_IF_EXISTS(pSettings, r_float, section, "nearwall_speed_mod", 10.f);
+	m_base_fov = READ_IF_EXISTS(pSettings, r_float, section, "hud_fov", 0.f);
 }
 
 
@@ -101,13 +127,13 @@ void CHudItem::OnEvent(NET_Packet& P, u16 type)
 		{
 			u8				S;
 			P.r_u8			(S);
-			OnStateSwitch	(u32(S));
+			OnStateSwitch	(u32(S), GetState());
 		}
 		break;
 	}
 }
 
-void CHudItem::OnStateSwitch(u32 S)
+void CHudItem::OnStateSwitch(u32 S, u32 oldState)
 {
 	SetState			(S);
 	
@@ -118,13 +144,17 @@ void CHudItem::OnStateSwitch(u32 S)
 	{
 	case eBore:
 		SetPending		(FALSE);
-
-		PlayAnimBore	();
-		if(HudItemData())
+		
+		if (TryPlayAnimBore())
 		{
-			Fvector P		= HudItemData()->m_item_transform.c;
-			m_sounds.PlaySound("sndBore", P, object().H_Root(), !!GetHUDmode(), false, m_started_rnd_anim_idx);
+			if (HudItemData())
+			{
+				Fvector P = HudItemData()->m_item_transform.c;
+				m_sounds.PlaySound("sndBore", P, object().H_Root(), !!GetHUDmode(), false, m_started_rnd_anim_idx);
+			}
 		}
+		else
+			SwitchState(eIdle);
 
 		break;
 	}
@@ -141,9 +171,15 @@ void CHudItem::OnAnimationEnd(u32 state)
 	}
 }
 
-void CHudItem::PlayAnimBore()
+bool CHudItem::TryPlayAnimBore()
 {
-	PlayHUDMotion	("anm_bore", TRUE, this, GetState());
+	if (HudAnimationExist("anm_bore"))
+	{
+		PlayHUDMotion("anm_bore", TRUE, this, GetState());
+		return true;
+	}
+
+	return false;
 }
 
 bool CHudItem::ActivateItem() 
@@ -177,8 +213,222 @@ void CHudItem::SendHiddenItem()
 }
 
 
-void CHudItem::UpdateHudAdditonal		(Fmatrix& hud_trans)
+void CHudItem::UpdateHudAdditional(Fmatrix& trans)
 {
+	CActor* pActor = smart_cast<CActor*>(object().H_Parent());
+	if (!pActor)
+		return;
+
+	attachable_hud_item* hi = HudItemData();
+	R_ASSERT(hi);
+
+	if (!g_player_hud->inertion_allowed())
+		return;
+
+	static float fAvgTimeDelta = Device.fTimeDelta;
+	fAvgTimeDelta = _inertion(fAvgTimeDelta, Device.fTimeDelta, 0.8f);
+
+	float fYMag = pActor->fFPCamYawMagnitude;
+	float fPMag = pActor->fFPCamPitchMagnitude;
+
+	float fStrafeMaxTime = hi->m_measures.m_strafe_offset[2][0].y;
+	// Макс. время в секундах, за которое мы наклонимся из центрального положения
+	if (fStrafeMaxTime <= EPS)
+		fStrafeMaxTime = 0.01f;
+
+	float fStepPerUpd = fAvgTimeDelta / fStrafeMaxTime; // Величина изменение фактора поворота
+
+														// Добавляем боковой наклон от движения камеры
+	float fCamReturnSpeedMod = 1.5f;
+	// Восколько ускоряем нормализацию наклона, полученного от движения камеры (только от бедра)
+
+	// Высчитываем минимальную скорость поворота камеры для начала инерции
+	float fStrafeMinAngle = hi->m_measures.m_strafe_offset[3][0].y;
+
+	// Высчитываем мксимальный наклон от поворота камеры
+	float fCamLimitBlend = hi->m_measures.m_strafe_offset[3][0].x;
+
+	// Считаем стрейф от поворота камеры
+	if (abs(fYMag) > (m_fLR_CameraFactor == 0.0f ? fStrafeMinAngle : 0.0f))
+	{
+		//--> Камера крутится по оси Y
+		m_fLR_CameraFactor -= (fYMag * fAvgTimeDelta * 0.75f);
+		clamp(m_fLR_CameraFactor, -fCamLimitBlend, fCamLimitBlend);
+	}
+	else
+	{
+		//--> Камера не поворачивается - убираем наклон
+		if (m_fLR_CameraFactor < 0.0f)
+		{
+			m_fLR_CameraFactor += fStepPerUpd * fCamReturnSpeedMod;
+			clamp(m_fLR_CameraFactor, -fCamLimitBlend, 0.0f);
+		}
+		else
+		{
+			m_fLR_CameraFactor -= fStepPerUpd * fCamReturnSpeedMod;
+			clamp(m_fLR_CameraFactor, 0.0f, fCamLimitBlend);
+		}
+	}
+
+	// Добавляем боковой наклон от ходьбы вбок
+	float fChangeDirSpeedMod = 3;
+	// Восколько быстро меняем направление направление наклона, если оно в другую сторону от текущего
+	u32 iMovingState = pActor->MovingState();
+	if ((iMovingState & mcLStrafe) != 0)
+	{
+		// Движемся влево
+		float fVal = (m_fLR_MovingFactor > 0.f ? fStepPerUpd * fChangeDirSpeedMod : fStepPerUpd);
+		m_fLR_MovingFactor -= fVal;
+	}
+	else if ((iMovingState & mcRStrafe) != 0)
+	{
+		// Движемся вправо
+		float fVal = (m_fLR_MovingFactor < 0.f ? fStepPerUpd * fChangeDirSpeedMod : fStepPerUpd);
+		m_fLR_MovingFactor += fVal;
+	}
+	else
+	{
+		// Двигаемся в любом другом направлении - плавно убираем наклон
+		if (m_fLR_MovingFactor < 0.0f)
+		{
+			m_fLR_MovingFactor += fStepPerUpd;
+			clamp(m_fLR_MovingFactor, -1.0f, 0.0f);
+		}
+		else
+		{
+			m_fLR_MovingFactor -= fStepPerUpd;
+			clamp(m_fLR_MovingFactor, 0.0f, 1.0f);
+		}
+	}
+	clamp(m_fLR_MovingFactor, -1.0f, 1.0f); // Фактор боковой ходьбы не должен превышать эти лимиты
+
+											// Вычисляем и нормализируем итоговый фактор наклона
+	float fLR_Factor = m_fLR_MovingFactor;
+
+	// No cam strafe inertia while in freelook mode
+	if (pActor->cam_freelook == eflDisabled)
+		fLR_Factor += m_fLR_CameraFactor;
+
+	clamp(fLR_Factor, -1.0f, 1.0f); // Фактор боковой ходьбы не должен превышать эти лимиты
+
+	Fvector curr_offs, curr_rot;
+	Fmatrix hud_rotation;
+	Fmatrix hud_rotation_y;
+
+	if ((hi->m_measures.m_strafe_offset[2][0].x != 0.0f))
+	{
+		// Смещение позиции худа в стрейфе
+		curr_offs = hi->m_measures.m_strafe_offset[0][0]; // pos
+		curr_offs.mul(fLR_Factor); // Умножаем на фактор стрейфа
+
+								   // Поворот худа в стрейфе
+		curr_rot = hi->m_measures.m_strafe_offset[1][0]; // rot
+		curr_rot.mul(-PI / 180.f); // Преобразуем углы в радианы
+		curr_rot.mul(fLR_Factor); // Умножаем на фактор стрейфа
+
+		hud_rotation.identity();
+		hud_rotation.rotateX(curr_rot.x);
+
+		hud_rotation_y.identity();
+		hud_rotation_y.rotateY(curr_rot.y);
+		hud_rotation.mulA_43(hud_rotation_y);
+
+		hud_rotation_y.identity();
+		hud_rotation_y.rotateZ(curr_rot.z);
+		hud_rotation.mulA_43(hud_rotation_y);
+
+		hud_rotation.translate_over(curr_offs);
+		trans.mulB_43(hud_rotation);
+	}
+
+	//============= Инерция оружия =============//
+	// Параметры инерции
+	float fInertiaSpeedMod = hi->m_measures.m_inertion_params.m_tendto_speed;
+
+	float fInertiaReturnSpeedMod = hi->m_measures.m_inertion_params.m_tendto_ret_speed;
+
+	float fInertiaMinAngle = hi->m_measures.m_inertion_params.m_min_angle;
+
+	Fvector4 vIOffsets; // x = L, y = R, z = U, w = D
+	vIOffsets.x = hi->m_measures.m_inertion_params.m_offset_LRUD.x;
+	vIOffsets.y = hi->m_measures.m_inertion_params.m_offset_LRUD.y;
+	vIOffsets.z = hi->m_measures.m_inertion_params.m_offset_LRUD.z;
+	vIOffsets.w = hi->m_measures.m_inertion_params.m_offset_LRUD.w;
+
+	// Высчитываем инерцию из поворотов камеры
+	bool bIsInertionPresent = m_fLR_InertiaFactor != 0.0f || m_fUD_InertiaFactor != 0.0f;
+	if (abs(fYMag) > fInertiaMinAngle || bIsInertionPresent)
+	{
+		float fSpeed = fInertiaSpeedMod;
+		if (fYMag > 0.0f && m_fLR_InertiaFactor > 0.0f ||
+			fYMag < 0.0f && m_fLR_InertiaFactor < 0.0f)
+		{
+			fSpeed *= 2.f; //--> Ускоряем инерцию при движении в противоположную сторону
+		}
+
+		m_fLR_InertiaFactor -= (fYMag * fAvgTimeDelta * fSpeed); // Горизонталь (м.б. > |1.0|)
+	}
+
+	if (abs(fPMag) > fInertiaMinAngle || bIsInertionPresent)
+	{
+		float fSpeed = fInertiaSpeedMod;
+		if (fPMag > 0.0f && m_fUD_InertiaFactor > 0.0f ||
+			fPMag < 0.0f && m_fUD_InertiaFactor < 0.0f)
+		{
+			fSpeed *= 2.f; //--> Ускоряем инерцию при движении в противоположную сторону
+		}
+
+		m_fUD_InertiaFactor -= (fPMag * fAvgTimeDelta * fSpeed); // Вертикаль (м.б. > |1.0|)
+	}
+
+	clamp(m_fLR_InertiaFactor, -1.0f, 1.0f);
+	clamp(m_fUD_InertiaFactor, -1.0f, 1.0f);
+
+	// Плавное затухание инерции (основное, но без линейной никогда не опустит инерцию до полного 0.0f)
+	m_fLR_InertiaFactor *= clampr(1.f - fAvgTimeDelta * fInertiaReturnSpeedMod, 0.0f, 1.0f);
+	m_fUD_InertiaFactor *= clampr(1.f - fAvgTimeDelta * fInertiaReturnSpeedMod, 0.0f, 1.0f);
+
+	// Минимальное линейное затухание инерции при покое (горизонталь)
+	if (fYMag == 0.0f)
+	{
+		float fRetSpeedMod = (fYMag == 0.0f ? 1.0f : 0.75f) * (fInertiaReturnSpeedMod * 0.075f);
+		if (m_fLR_InertiaFactor < 0.0f)
+		{
+			m_fLR_InertiaFactor += fAvgTimeDelta * fRetSpeedMod;
+			clamp(m_fLR_InertiaFactor, -1.0f, 0.0f);
+		}
+		else
+		{
+			m_fLR_InertiaFactor -= fAvgTimeDelta * fRetSpeedMod;
+			clamp(m_fLR_InertiaFactor, 0.0f, 1.0f);
+		}
+	}
+
+	// Минимальное линейное затухание инерции при покое (вертикаль)
+	if (fPMag == 0.0f)
+	{
+		float fRetSpeedMod = (fPMag == 0.0f ? 1.0f : 0.75f) * (fInertiaReturnSpeedMod * 0.075f);
+		if (m_fUD_InertiaFactor < 0.0f)
+		{
+			m_fUD_InertiaFactor += fAvgTimeDelta * fRetSpeedMod;
+			clamp(m_fUD_InertiaFactor, -1.0f, 0.0f);
+		}
+		else
+		{
+			m_fUD_InertiaFactor -= fAvgTimeDelta * fRetSpeedMod;
+			clamp(m_fUD_InertiaFactor, 0.0f, 1.0f);
+		}
+	}
+
+	// Применяем инерцию к худу
+	float fLR_lim = (m_fLR_InertiaFactor < 0.0f ? vIOffsets.x : vIOffsets.y);
+	float fUD_lim = (m_fUD_InertiaFactor < 0.0f ? vIOffsets.z : vIOffsets.w);
+	Fvector fv = { fLR_lim * -1.f * m_fLR_InertiaFactor, fUD_lim * m_fUD_InertiaFactor, 0.0f };
+	curr_offs = fv;
+
+	hud_rotation.identity();
+	hud_rotation.translate_over(curr_offs);
+	trans.mulB_43(hud_rotation);
 }
 
 void CHudItem::UpdateCL()
@@ -237,6 +487,7 @@ void CHudItem::OnH_B_Independent	(bool just_before_destroy)
 {
 	m_sounds.StopAllSounds	();
 	UpdateXForm				();
+	m_nearwall_last_hud_fov = psHUD_FOV_def;
 	
 	// next code was commented 
 	/*
@@ -281,43 +532,58 @@ void CHudItem::on_a_hud_attach()
 	}
 }
 
-u32 CHudItem::PlayHUDMotion(const shared_str& M, BOOL bMixIn, CHudItem*  W, u32 state)
+u32 CHudItem::PlayHUDMotion(const shared_str& M, BOOL bMixIn, CHudItem* W, u32 state, float speed, float end, bool bMixIn2)
 {
-	u32 anim_time					= PlayHUDMotion_noCB(M, bMixIn);
-	if (anim_time>0)
+	u32 anim_time = PlayHUDMotion_noCB(M, bMixIn, speed, bMixIn2);
+	if (anim_time > 0)
 	{
-		m_bStopAtEndAnimIsRunning	= true;
-		m_dwMotionStartTm			= Device.dwTimeGlobal;
-		m_dwMotionCurrTm			= m_dwMotionStartTm;
-		m_dwMotionEndTm				= m_dwMotionStartTm + anim_time;
-		m_startedMotionState		= state;
-	}else
-		m_bStopAtEndAnimIsRunning	= false;
+		m_bStopAtEndAnimIsRunning = true;
+		m_dwMotionStartTm = Device.dwTimeGlobal;
+		m_dwMotionCurrTm = m_dwMotionStartTm;
+		m_dwMotionEndTm = m_dwMotionStartTm + anim_time;
+		m_startedMotionState = state;
+
+		float end_modifier = 0.f;
+
+		if (HudItemData())
+		{
+			player_hud_motion* anm = HudItemData()->find_motion(M);
+			end_modifier = anm->m_anim_end;
+		}
+
+		if (end_modifier == 0.f)
+			end_modifier = end;
+
+		m_dwMotionEndTm -= end_modifier * 1000;
+	}
+	else
+		m_bStopAtEndAnimIsRunning = false;
 
 	return anim_time;
 }
 
 
-u32 CHudItem::PlayHUDMotion_noCB(const shared_str& motion_name, BOOL bMixIn)
+u32 CHudItem::PlayHUDMotion_noCB(const shared_str& motion_name, BOOL bMixIn, float speed, bool bMixIn2)
 {
-	m_current_motion					= motion_name;
+	m_current_motion = motion_name;
 
-	if(bDebug && item().m_pInventory)
+	if (bDebug && item().m_pInventory)
 	{
 		Msg("-[%s] as[%d] [%d]anim_play [%s][%d]",
-			HudItemData()?"HUD":"Simulating", 
-			item().m_pInventory->GetActiveSlot(), 
-			item().object_id(),
-			motion_name.c_str(), 
-			Device.dwFrame);
+		    HudItemData() ? "HUD" : "Simulating",
+		    item().m_pInventory->GetActiveSlot(),
+		    item().object_id(),
+		    motion_name.c_str(),
+		    Device.dwFrame);
 	}
-	if( HudItemData() )
+	if (HudItemData())
 	{
-		return HudItemData()->anim_play		(motion_name, bMixIn, m_current_motion_def, m_started_rnd_anim_idx);
-	}else
+		return HudItemData()->anim_play(motion_name, bMixIn, m_current_motion_def, m_started_rnd_anim_idx, speed, bMixIn2);
+	}
+	else
 	{
-		m_started_rnd_anim_idx				= 0;
-		return g_player_hud->motion_length	(motion_name, HudSection(), m_current_motion_def );
+		m_started_rnd_anim_idx = 0;
+		return g_player_hud->motion_length(motion_name, HudSection(), m_current_motion_def);
 	}
 }
 
@@ -340,6 +606,14 @@ BOOL CHudItem::GetHUDmode()
 		return FALSE;
 }
 
+void CHudItem::PlayBlendAnm(LPCSTR name, float speed, float power, bool stop_old)
+{
+	u8 part = (object().cast_weapon()->IsZoomed() ? 2 : (g_player_hud->attached_item(1) ? 0 : 2));
+
+	if (stop_old) g_player_hud->StopBlendAnm(name, true);
+	g_player_hud->PlayBlendAnm(name, part, speed, power, false);
+}
+
 void CHudItem::PlayAnimIdle()
 {
 	if (TryPlayAnimIdle()) return;
@@ -349,26 +623,85 @@ void CHudItem::PlayAnimIdle()
 
 bool CHudItem::TryPlayAnimIdle()
 {
-	if(MovingAnimAllowedNow())
+	if (MovingAnimAllowedNow())
 	{
 		CActor* pActor = smart_cast<CActor*>(object().H_Parent());
-		if(pActor)
+		if (pActor && pActor->AnyMove())
 		{
+			if (pActor->is_safemode() && !smart_cast<CCustomDevice*>(this)) return false;
+
 			CEntity::SEntityState st;
 			pActor->g_State(st);
-			if(st.bSprint)
+			if (st.bSprint)
 			{
 				PlayAnimIdleSprint();
 				return true;
-			}else
-			if(!st.bCrouch && pActor->AnyMove())
+			}
+			else if (!st.bCrouch)
 			{
 				PlayAnimIdleMoving();
 				return true;
 			}
+			//AVO: new crouch idle animation
+			else if (st.bCrouch)
+			{
+				if (!PlayAnimCrouchIdleMoving())
+					PlayHUDMotion("anm_idle_moving", TRUE, NULL, GetState(), .7f);
+				return true;
+			}
 		}
 	}
+
 	return false;
+}
+
+//AVO: check if animation exists
+bool CHudItem::HudAnimationExist(LPCSTR anim_name)
+{
+	if (HudItemData()) // First person
+	{
+		string256 anim_name_r;
+		bool is_16x9 = (float)Device.dwWidth/(float)Device.dwHeight > 1.34;
+		u16 attach_place_idx = pSettings->r_u16(HudItemData()->m_sect_name, "attach_place_idx");
+		xr_sprintf(anim_name_r, "%s%s", anim_name, ((attach_place_idx == 1) && is_16x9) ? "_16x9" : "");
+		player_hud_motion* anm = HudItemData()->m_hand_motions.find_motion(anim_name_r);
+		if (anm)
+			return true;
+
+		anm = HudItemData()->m_hand_motions.find_motion(anim_name);
+		if (anm)
+			return true;
+	}
+	else // Third person
+	{
+		if (g_player_hud->motion_length(anim_name, HudSection(), m_current_motion_def) > 100)
+			return true;
+	}
+#ifdef DEBUG
+    Msg("~ [WARNING] ------ Animation [%s] does not exist in [%s]", anim_name, HudSection().c_str());
+#endif
+	return false;
+}
+
+//-AVO
+
+//AVO: new crouch idle animation
+bool CHudItem::PlayAnimCrouchIdleMoving()
+{
+	if (HudAnimationExist("anm_idle_moving_crouch"))
+	{
+		PlayHUDMotion("anm_idle_moving_crouch", TRUE, NULL, GetState());
+		return true;
+	}
+	return false;
+}
+
+//-AVO
+
+bool CHudItem::NeedBlendAnm() 
+{
+	u32 state = GetState();
+	return (state != eIdle && state != eHidden);
 }
 
 void CHudItem::PlayAnimIdleMoving()
@@ -408,4 +741,43 @@ attachable_hud_item* CHudItem::HudItemData()
 		return hi;
 
 	return NULL;
+}
+
+bool CHudItem::HParentIsActor()
+{
+	CObject* O = object().H_Parent();
+	if (!O)
+		return false;
+
+	CEntityAlive* EA = smart_cast<CEntityAlive*>(O);
+	if (!EA)
+		return false;
+
+	return !!EA->cast_actor();
+}
+
+collide::rq_result& CHudItem::GetRQ()
+{ 
+	return HUD().GetCurrentRayQuery(); 
+}
+
+float CHudItem::GetHudFov()
+{
+	if (HParentIsActor() && Level().CurrentViewEntity() == object().H_Parent())
+	{
+		float dist = GetRQ().range;
+
+		clamp(dist, m_nearwall_dist_min, m_nearwall_dist_max);
+		float fDistanceMod = ((dist - m_nearwall_dist_min) / (m_nearwall_dist_max - m_nearwall_dist_min));
+		// 0.f ... 1.f
+		float fBaseFov = (m_base_fov ? m_base_fov : psHUD_FOV_def) + m_hud_fov_add_mod;
+		clamp(fBaseFov, 0.0f, 1.f);
+		float src = m_nearwall_speed_mod * Device.fTimeDelta;
+		clamp(src, 0.f, 1.f);
+
+		float fTrgFov = m_nearwall_target_hud_fov + fDistanceMod * (fBaseFov - m_nearwall_target_hud_fov);
+		m_nearwall_last_hud_fov = m_nearwall_last_hud_fov * (1 - src) + fTrgFov * src;
+	}
+
+	return m_nearwall_last_hud_fov;
 }

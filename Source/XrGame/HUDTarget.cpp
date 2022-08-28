@@ -13,6 +13,7 @@
 #include "InventoryOwner.h"
 #include "relation_registry.h"
 #include "character_info.h"
+#include "game_cl_single.h"
 
 #include "string_table.h"
 #include "entity_alive.h"
@@ -135,6 +136,12 @@ void CHUDTarget::CursorOnFrame ()
 extern ENGINE_API BOOL g_bRendering; 
 void CHUDTarget::Render()
 {
+	if (g_SingleGameDifficulty==egdMaster) {
+		psHUD_Flags.set(HUD_CROSSHAIR, false);
+		psHUD_Flags.set(HUD_CROSSHAIR_RT, false);
+		psHUD_Flags.set(HUD_CROSSHAIR_RT2, false);
+		psHUD_Flags.set(HUD_CROSSHAIR_DIST, false);
+	}
 
 	BOOL  b_do_rendering = ( psHUD_Flags.is(HUD_CROSSHAIR|HUD_CROSSHAIR_RT|HUD_CROSSHAIR_RT2) );
 	
