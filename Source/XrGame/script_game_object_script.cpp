@@ -73,6 +73,7 @@ void CScriptGameObject::script_register(lua_State *L)
 				value("inventory_info",				int(GameObject::eInventoryInfo)),
 				value("article_info",				int(GameObject::eArticleInfo)),
 				value("use_object",					int(GameObject::eUseObject)),
+				value("use_inventory_object", int(GameObject::eUseInvObject)),
 				value("hit",						int(GameObject::eHit)),
 				value("sound",						int(GameObject::eSound)),
 				value("action_removed",				int(GameObject::eActionTypeRemoved)),
@@ -87,10 +88,24 @@ void CScriptGameObject::script_register(lua_State *L)
 				value("helicopter_on_hit",			int(GameObject::eHelicopterOnHit)),
 				value("on_item_take",				int(GameObject::eOnItemTake)),
 				value("on_item_drop",				int(GameObject::eOnItemDrop)),
+				value("on_belt", int(GameObject::eOnItemToBelt)),
+				value("on_ruck", int(GameObject::eOnItemToRuck)),
+				value("on_slot", int(GameObject::eOnItemToSlot)),
 				value("script_animation",			int(GameObject::eScriptAnimation)),
 				value("task_state",					int(GameObject::eTaskStateChange)),
 				value("take_item_from_box",			int(GameObject::eInvBoxItemTake)),
 				value("weapon_no_ammo",				int(GameObject::eWeaponNoAmmoAvailable)),
+				//AVO: custom callbacks
+				// input
+				value("key_press", int(GameObject::eKeyPress)),
+				value("key_release", int(GameObject::eKeyRelease)),
+				value("key_hold", int(GameObject::eKeyHold)),
+				//weapon
+				value("weapon_fired", int(GameObject::eOnWeaponFired)),
+				value("weapon_jammed", int(GameObject::eOnWeaponJammed)),
+				value("weapon_zoom_in", int(GameObject::eOnWeaponZoomIn)),
+				value("weapon_zoom_out", int(GameObject::eOnWeaponZoomOut)),
+				value("weapon_magazine_empty", int(GameObject::eOnWeaponMagazineEmpty)),
 				
 				value("map_location_added",			int(GameObject::eMapLocationAdded))
 			],

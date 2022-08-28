@@ -22,6 +22,9 @@
 #include "ZoneCampfire.h"
 #include "physicobject.h"
 #include "artefact.h"
+#include "weapon.h"
+#include "WeaponAmmo.h"
+#include "WeaponStatMgun.h"
 #include "stalker_sound_data.h"
 
 class CWeapon;
@@ -353,4 +356,24 @@ void CScriptGameObject::stop_particles(LPCSTR pname, LPCSTR bone)
 		PP->StopParticles				(9999, play_bone, true);
 	else
 		ai().script_engine().script_log	(ScriptStorage::eLuaMessageTypeError,"Cant stop particles, bone [%s] is not visible now", bone);
+}
+
+u32 CScriptGameObject::GetAmmoType()
+{
+	CWeapon *k = smart_cast<CWeapon*>(&object());
+	if (!k) {
+		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError, "CWeapon : cannot access class member GetAmmoType!");
+		return 0;
+	}
+	return k->m_ammoType;
+}
+
+u32 CScriptGameObject::SetAmmoType(float type)
+{
+	CWeapon *k = smart_cast<CWeapon*>(&object());
+	if (!k) {
+		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError, "CWeapon : cannot access class member SetAmmoType!");
+		return 0;
+	}
+	k->m_ammoType = type;
 }

@@ -113,6 +113,38 @@ class_<CScriptGameObject> &script_register_game_object2(class_<CScriptGameObject
 		.def("night_vision_enabled",		&CScriptGameObject::night_vision_enabled)
 		.def("enable_torch",				&CScriptGameObject::enable_torch)
 		.def("torch_enabled",				&CScriptGameObject::torch_enabled)
+		//ARTLantist
+		.def("torch_set_mod", &CScriptGameObject::torch_set_mod)
+		.def("torch_switch_spot", &CScriptGameObject::torch_switch_spot)
+		.def("torch_set_color_r", &CScriptGameObject::torch_set_color_r)
+		.def("torch_set_color_g", &CScriptGameObject::torch_set_color_g)
+		.def("torch_set_color_b", &CScriptGameObject::torch_set_color_b)
+		.def("torch_set_color_a", &CScriptGameObject::torch_set_color_a)
+		.def("torch_set_offset_x", &CScriptGameObject::torch_set_offset_x)
+		.def("torch_set_offset_y", &CScriptGameObject::torch_set_offset_y)
+		.def("torch_set_offset_z", &CScriptGameObject::torch_set_offset_z)
+		.def("torch_set_range", &CScriptGameObject::torch_set_range)
+		.def("torch_set_radius", &CScriptGameObject::torch_set_radius)
+		.def("torch_set_texture", &CScriptGameObject::torch_set_texture)
+		.def("torch_set_animation", &CScriptGameObject::torch_set_animation)
+		.def("torch_set_inertion", &CScriptGameObject::torch_set_inertion)
+		//ARTLantist: torch2 for flashlight
+		.def("enable_torch2", &CScriptGameObject::enable_torch2)
+		.def("torch2_enabled", &CScriptGameObject::torch2_enabled)
+		.def("torch2_switch_spot", &CScriptGameObject::torch2_switch_spot)
+		.def("torch2_set_color_r", &CScriptGameObject::torch2_set_color_r)
+		.def("torch2_set_color_g", &CScriptGameObject::torch2_set_color_g)
+		.def("torch2_set_color_b", &CScriptGameObject::torch2_set_color_b)
+		.def("torch2_set_color_a", &CScriptGameObject::torch2_set_color_a)
+		.def("torch2_set_offset_x", &CScriptGameObject::torch2_set_offset_x)
+		.def("torch2_set_offset_y", &CScriptGameObject::torch2_set_offset_y)
+		.def("torch2_set_offset_z", &CScriptGameObject::torch2_set_offset_z)
+		.def("torch2_set_range", &CScriptGameObject::torch2_set_range)
+		.def("torch2_set_radius", &CScriptGameObject::torch2_set_radius)
+		.def("torch2_set_texture", &CScriptGameObject::torch2_set_texture)
+		.def("torch2_set_animation", &CScriptGameObject::torch2_set_animation)
+		.def("torch2_set_inertion", &CScriptGameObject::torch2_set_inertion)
+		//ARTLantist End
 		.def("attachable_item_load_attach", &CScriptGameObject::attachable_item_load_attach)
 		.def("weapon_strapped",				&CScriptGameObject::weapon_strapped)
 		.def("weapon_unstrapped",			&CScriptGameObject::weapon_unstrapped)
@@ -292,6 +324,7 @@ class_<CScriptGameObject> &script_register_game_object2(class_<CScriptGameObject
 		.def("wounded",						(void (CScriptGameObject::*)(bool))(&CScriptGameObject::wounded))
 
 		.def("iterate_inventory",			&CScriptGameObject::IterateInventory)
+		.def("iterate_belt", &CScriptGameObject::IterateBelt)
 		.def("iterate_inventory_box",		&CScriptGameObject::IterateInventoryBox)
 		.def("mark_item_dropped",			&CScriptGameObject::MarkItemDropped)
 		.def("marked_dropped",				&CScriptGameObject::MarkedDropped)
@@ -328,7 +361,19 @@ class_<CScriptGameObject> &script_register_game_object2(class_<CScriptGameObject
 		.def("set_level_changer_invitation",&CScriptGameObject::set_level_changer_invitation)
 		.def("start_particles",				&CScriptGameObject::start_particles)
 		.def("stop_particles",				&CScriptGameObject::stop_particles)
+		
+		//For Ammo
+		.def("ammo_get_count", &CScriptGameObject::AmmoGetCount)
+		.def("ammo_set_count", &CScriptGameObject::AmmoSetCount)
+		.def("ammo_box_size", &CScriptGameObject::AmmoBoxSize)
+		
+		.def("get_ammo_type", &CScriptGameObject::GetAmmoType)
+		.def("set_ammo_type", &CScriptGameObject::SetAmmoType)
 
+		// For CHudItem
+		.def("play_hud_motion", &CScriptGameObject::PlayHudMotion)
+		.def("switch_state", &CScriptGameObject::SwitchState)
+        .def("get_state", &CScriptGameObject::GetState)
 
 	;return	(instance);
 }

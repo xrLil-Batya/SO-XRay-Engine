@@ -166,6 +166,52 @@ public:
 			u32					Cost				() const;
 			float				GetCondition		() const;
 			void				SetCondition		(float val);
+		float GetWeight() const;
+		void SetWeight(float val);
+
+		u8 GetArtefactHitOnTake() const;
+		u8 GetArtefactRank() const;
+		float GetRadiationSpeed() const;
+		float GetHealthSpeed() const;
+		float GetSatietySpeed() const;
+		float GetPowerSpeed() const;
+		float GetBleedingSpeed() const;
+		float GetPsyhealthSpeed() const;
+		float GetAdditionalWeight() const;
+		float GetArtefactWalkAccel() const;
+		float GetArtefactJumpSpeed() const;
+		
+		float GetBurnImmunity() const;
+		float GetStrikeImmunity() const;
+		float GetShockImmunity() const;
+		float GetWoundImmunity() const;
+		float GetRadiationImmunity() const;
+		float GetTelepaticImmunity() const;
+		float GetChemicalBurnImmunity() const;
+		float GetExplosionImmunity() const;
+		float GetFireWoundImmunity() const;
+
+		void SetArtefactHitOnTake(u8 val);
+		void SetArtefactRank(u8 val);
+		void SetRadiationSpeed(float val);
+		void SetHealthSpeed(float val);
+		void SetSatietySpeed(float val);
+		void SetPowerSpeed(float val);
+		void SetBleedingSpeed(float val);
+		void SetPsyhealthSpeed(float val);
+		void SetAdditionalWeight(float val);
+		void SetArtefactWalkAccel(float val);
+		void SetArtefactJumpSpeed(float val);
+		
+		void SetBurnImmunity(float val);
+		void SetStrikeImmunity(float val);
+		void SetShockImmunity(float val);
+		void SetWoundImmunity(float val);
+		void SetRadiationImmunity(float val);
+		void SetTelepaticImmunity(float val);
+		void SetChemicalBurnImmunity(float val);
+		void SetExplosionImmunity(float val);
+		void SetFireWoundImmunity(float val);
 
 	// CEntity
 	_DECLARE_FUNCTION10	(DeathTime	,	u32		);
@@ -338,6 +384,7 @@ public:
 
 			void				ActorLookAtPoint	(Fvector point);
 			void				IterateInventory	(luabind::functor<void> functor, luabind::object object);
+			void IterateBelt(const luabind::functor<void>& functor, const luabind::object& object);
 			void				IterateInventoryBox	(luabind::functor<void> functor, luabind::object object);
 			void				MarkItemDropped		(CScriptGameObject *item);
 			bool				MarkedDropped		(CScriptGameObject *item);
@@ -436,6 +483,8 @@ public:
 //////////////////////////////////////////////////////////////////////////
 
 			LPCSTR				GetPatrolPathName	();
+			void StartTrade(CScriptGameObject* obj);
+			void StartUpgrade(CScriptGameObject* obj);
 			u32					GetAmmoElapsed		();
 			void				SetAmmoElapsed		(int ammo_elapsed);
 			u32					GetSuitableAmmoTotal		() const;
@@ -575,12 +624,44 @@ public:
 			void				set_sound_threshold		(float value);
 			void				restore_sound_threshold	();
 			//////////////////////////////////////////////////////////////////////////
-			void				enable_attachable_item	(bool value);			
-			bool				attachable_item_enabled	() const;
-			void				enable_night_vision		(bool value);			
-			bool				night_vision_enabled	() const;
-			void				enable_torch			(bool value);
-			bool				torch_enabled			() const;
+			void enable_attachable_item(bool value);			
+			bool attachable_item_enabled() const;
+			void enable_night_vision(bool value);			
+			bool night_vision_enabled() const;
+			void enable_torch(bool value);
+			bool torch_enabled() const;
+			//ARTLantist
+			void torch_set_mod();
+			void torch_switch_spot(bool value);
+			void torch_set_color_r(float value);
+			void torch_set_color_g(float value);
+			void torch_set_color_b(float value);
+			void torch_set_color_a(float value);
+			void torch_set_offset_x(float value);
+			void torch_set_offset_y(float value);
+			void torch_set_offset_z(float value);
+			void torch_set_range(float value);
+			void torch_set_radius(float value);
+			void torch_set_texture(LPCSTR value);
+			void torch_set_animation(LPCSTR value);
+			void torch_set_inertion(float value);
+			//ARTLantist: torch2 for flashlight
+			void enable_torch2(bool value);
+			bool torch2_enabled() const;
+			void torch2_switch_spot(bool value);
+			void torch2_set_color_r(float value);
+			void torch2_set_color_g(float value);
+			void torch2_set_color_b(float value);
+			void torch2_set_color_a(float value);
+			void torch2_set_offset_x(float value);
+			void torch2_set_offset_y(float value);
+			void torch2_set_offset_z(float value);
+			void torch2_set_range(float value);
+			void torch2_set_radius(float value);
+			void torch2_set_texture(LPCSTR value);
+			void torch2_set_animation(LPCSTR value);
+			void torch2_set_inertion(float value);
+			//ARTLantist End
 			
 			void				attachable_item_load_attach(LPCSTR section);
 			// CustomZone
@@ -631,7 +712,10 @@ public:
 			void				make_object_visible_somewhen		(CScriptGameObject *object);
 
 			CScriptGameObject	*item_in_slot						(u32 slot_id) const;
-			CScriptGameObject	*active_detector					() const;
+			CScriptGameObject* active_device() const;
+			void show_device(bool bFast);
+			void hide_device(bool bFast);
+			void force_hide_device();
 			u32					active_slot							();
 			void				activate_slot						(u32 slot_id);
 			void				enable_level_changer				(bool b);
@@ -765,6 +849,19 @@ public:
 			void				unlock_door_for_npc						();
 			bool				is_door_blocked_by_npc					() const;
 			bool				is_weapon_going_to_be_strapped			( CScriptGameObject const* object ) const;
+
+			//CWeaponAmmo
+			u16 AmmoGetCount();
+			void AmmoSetCount(u16 count);
+			u16 AmmoBoxSize();
+
+			u32 GetAmmoType();
+			u32 SetAmmoType(float type);
+
+			//Any class that is derived from CHudItem
+			u32 PlayHudMotion(LPCSTR M, bool bMixIn, u32 state, float speed = 0.f, float end = 0.f);
+			void SwitchState(u32 state);
+			u32 GetState();
 
 	doors::door*				m_door;
 

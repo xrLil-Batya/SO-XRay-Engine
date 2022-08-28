@@ -209,9 +209,28 @@ void CUIGameCustom::ShowMessagesWindow()
 
 bool CUIGameCustom::ShowPdaMenu()
 {
-	HideActorMenu();
-	m_PdaMenu->ShowDialog(true);
-	return true;
+	CEntity* pEntity = smart_cast<CEntity*>(Level().CurrentEntity());
+	CActor* pActor			=	smart_cast<CActor*>(pEntity);
+	if(pActor)
+	{
+		PIItem pda = pActor->inventory().ItemFromSlot(PDA_SLOT);
+		if (pda && pda->GetCondition() > 0.04) {
+			HideActorMenu();
+			m_PdaMenu->ShowDialog(true);
+			return true;
+		}
+		else if (pda && pda->GetCondition() <= 0.04) {
+			luabind::functor<void>	funct;
+			if( ai().script_engine().functor( "items_condition.show_message_battery_low", funct ) )
+				funct( "pda_low" );
+		}
+		else if (!pda) {
+			luabind::functor<void>	funct;
+			if( ai().script_engine().functor( "items_condition.show_message_battery_low", funct ) )
+				funct( "pda_not" );
+		}
+	}
+	return false;
 }
 
 void CUIGameCustom::HidePdaMenu()
@@ -220,6 +239,15 @@ void CUIGameCustom::HidePdaMenu()
 	{
 		m_PdaMenu->HideDialog();
 	}
+}
+
+bool CUIGameCustom::PdaMenuStatus()
+{
+	if ( m_PdaMenu->IsShown() )
+	{
+		return true;
+	}
+	return false;
 }
 
 void CUIGameCustom::SetClGame(game_cl_GameState* g)

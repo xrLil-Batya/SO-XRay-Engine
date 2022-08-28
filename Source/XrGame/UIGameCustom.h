@@ -112,6 +112,7 @@ public:
 			void		HideActorMenu			();
 			bool		ShowPdaMenu				();
 			void		HidePdaMenu				();
+			bool PdaMenuStatus();
 			void		ShowMessagesWindow		();
 			void		HideMessagesWindow		();
 
