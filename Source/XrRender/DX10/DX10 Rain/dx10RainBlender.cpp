@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "./dx10RainBlender.h"
 
-oid CBlender_rain::Compile(CBlender_Compile& C)
+void CBlender_rain::Compile(CBlender_Compile& C)
 {
 	IBlender::Compile(C);
 

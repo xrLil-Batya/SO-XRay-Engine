@@ -13,7 +13,7 @@
 #include "UIDragDropListEx.h"
 #include "UIDragDropReferenceList.h"
 #include "UICellItem.h"
-#include "../ai_space.h"
+#include "ai_space.h"
 #include "../../xrServerEntities/script_engine.h"
 
 using namespace luabind;

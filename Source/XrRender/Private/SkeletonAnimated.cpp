@@ -402,7 +402,7 @@ CBlend* CKinematicsAnimated::LL_PlayCycle(u16 part, MotionID motion_ID, BOOL bMi
 	for (u32 i = 0; i < P.bones.size(); i++)
 	{
 		if (!(*bones)[P.bones[i]])
-			Debug.fatal(DEBUG_INFO, "! MODEL: missing bone/wrong armature? : %s", *getDebugName());
+			Debug.fatal(DEBUG_INFO, "! MODEL: missing bone/wrong armature? : ");
 
 		Bone_Motion_Start_IM((*bones)[P.bones[i]], B);
 	}
@@ -749,7 +749,7 @@ void CKinematicsAnimated::IBlend_Startup()
 #endif
 	}
 	// cycles+fx clear
-	for (i = 0; i < MAX_PARTS; i++)
+	for (u32 i = 0; i < MAX_PARTS; i++)
 		blend_cycles[i].clear();
 	blend_fx.clear();
 	ChannelFactorsStartup();

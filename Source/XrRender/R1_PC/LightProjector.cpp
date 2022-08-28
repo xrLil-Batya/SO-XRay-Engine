@@ -126,7 +126,7 @@ void CLightProjector::OnAppActivate()
 }
 
 //
-#include "../xrRender/SkeletonCustom.h"
+#include "../Private/SkeletonCustom.h"
 
 void CLightProjector::calculate()
 {

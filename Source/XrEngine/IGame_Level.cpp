@@ -162,7 +162,7 @@ void	IGame_Level::OnRender		( )
 #endif
 }
 
-vvoid	IGame_Level::OnFrame		( ) 
+void	IGame_Level::OnFrame		( ) 
 {
 	// Update all objects
 	VERIFY(bReady);

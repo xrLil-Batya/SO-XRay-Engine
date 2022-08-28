@@ -21,7 +21,7 @@
 #include "../inventory_item_object.h"
 #include "../string_table.h"
 #include "../ai/monsters/BaseMonster/base_monster.h"
-#include "../ai_space.h"
+#include "ai_space.h"
 #include "../../xrServerEntities/script_engine.h"
 #include "../UIGameSP.h"
 #include "UITalkWnd.h"
