@@ -45,10 +45,12 @@ void CZoneCampfire::GoEnabledState()
 	m_disabled_sound.stop		();
 	m_disabled_sound.destroy	();
 
-	LPCSTR str						= pSettings->r_string(cNameSect(),"enabling_particles");
-	m_pEnablingParticles			= CParticlesObject::Create(str,FALSE);
-	m_pEnablingParticles->UpdateParent(XFORM(),zero_vel);
-	m_pEnablingParticles->Play		(false);
+	if (pSettings->line_exist(cNameSect(),"enabling_particles")){
+		LPCSTR str						= pSettings->r_string(cNameSect(),"enabling_particles");
+		m_pEnablingParticles			= CParticlesObject::Create(str,FALSE);
+		m_pEnablingParticles->UpdateParent(XFORM(),zero_vel);
+		m_pEnablingParticles->Play		(false);
+	}
 }
 
 void CZoneCampfire::GoDisabledState()
@@ -56,10 +58,13 @@ void CZoneCampfire::GoDisabledState()
 	inherited::GoDisabledState		();
 
 	R_ASSERT						(NULL==m_pDisabledParticles);
-	LPCSTR str						= pSettings->r_string(cNameSect(),"disabled_particles");
-	m_pDisabledParticles			= CParticlesObject::Create(str,FALSE);
-	m_pDisabledParticles->UpdateParent	(XFORM(),zero_vel);
-	m_pDisabledParticles->Play			(false);
+	LPCSTR str;
+	if (pSettings->line_exist(cNameSect(),"disabled_particles")){
+		str						= pSettings->r_string(cNameSect(),"disabled_particles");
+		m_pDisabledParticles			= CParticlesObject::Create(str,FALSE);
+		m_pDisabledParticles->UpdateParent	(XFORM(),zero_vel);
+		m_pDisabledParticles->Play			(false);
+	}	
 	
 	
 	str = pSettings->r_string		(cNameSect(),"disabled_sound");

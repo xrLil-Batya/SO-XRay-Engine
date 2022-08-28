@@ -36,8 +36,12 @@
 #include "ui/UIInventoryUtilities.h"
 #include "alife_object_registry.h"
 #include "xrServer_Objects_ALife_Monsters.h"
+#include "player_hud.h"
 
 using namespace luabind;
+
+bool g_block_all_except_movement;
+bool g_actor_allow_ladder;
 
 LPCSTR command_line	()
 {
@@ -661,6 +665,21 @@ int g_get_general_goodwill_between ( u16 from, u16 to)
 	return presonal_goodwill + community_to_obj_goodwill + community_to_community_goodwill;
 }
 
+void LevelPressAction(EGameActions cmd)
+{
+	Level().IR_OnKeyboardPress(cmd);
+}
+
+void LevelReleaseAction(EGameActions cmd)
+{
+	Level().IR_OnKeyboardRelease(cmd);
+}
+
+void LevelHoldAction(EGameActions cmd)
+{
+	Level().IR_OnKeyboardHold(cmd);
+}
+
 u32 vertex_id	(Fvector position)
 {
 	return	(ai().level_graph().vertex_id(position));
@@ -697,6 +716,82 @@ void stop_tutorial()
 LPCSTR translate_string(LPCSTR str)
 {
 	return *CStringTable().translate(str);
+}
+
+#include "Inventory.h"
+#include "Weapon.h"
+
+u32 PlayHudMotion(u8 hand, LPCSTR itm_name, LPCSTR anm_name, bool bMixIn = true, float speed = 1.f)
+{
+	return g_player_hud->script_anim_play(hand, itm_name, anm_name, bMixIn, speed);
+}
+
+void StopHudMotion()
+{
+	g_player_hud->StopScriptAnim();
+}
+
+float MotionLength(LPCSTR section, LPCSTR name, float speed)
+{
+	return g_player_hud->motion_length_script(section, name, speed);
+}
+
+bool AllowHudMotion()
+{
+	return g_player_hud->allow_script_anim();
+}
+
+void PlayBlendAnm(LPCSTR name, u8 part, float speed, float power, bool bLooped, bool no_restart)
+{
+	g_player_hud->PlayBlendAnm(name, part, speed, power, bLooped, no_restart);
+}
+
+void StopBlendAnm(LPCSTR name, bool bForce)
+{
+	g_player_hud->StopBlendAnm(name, bForce);
+}
+
+void StopAllBlendAnms(bool bForce)
+{
+	g_player_hud->StopAllBlendAnms(bForce);
+}
+
+float SetBlendAnmTime(LPCSTR name, float time)
+{
+	return g_player_hud->SetBlendAnmTime(name, time);
+}
+
+void block_all_except_movement(bool b)
+{
+	g_block_all_except_movement = b;
+}
+
+bool only_movement_allowed()
+{
+	return g_block_all_except_movement;
+}
+
+void set_actor_allow_ladder(bool b)
+{
+	g_actor_allow_ladder = b;
+}
+
+bool actor_safemode()
+{
+	return Actor()->is_safemode();
+}
+
+void actor_set_safemode(bool status)
+{
+	if (Actor()->is_safemode() != status)
+	{
+		CWeapon* wep = smart_cast<CWeapon*>(Actor()->inventory().ActiveItem());
+		if (wep && wep->m_bCanBeLowered)
+		{
+			wep->Action(kSAFEMODE, CMD_START);
+			Actor()->set_safemode(status);
+		}
+	}
 }
 
 bool has_active_tutotial()
@@ -804,6 +899,10 @@ void CLevel::script_register(lua_State *L)
 		
 		def("vertex_id",						&vertex_id),
 
+		def("press_action", &LevelPressAction),
+		def("release_action", &LevelReleaseAction),
+		def("hold_action", &LevelHoldAction),
+
 		def("game_id",							&GameID)
 	],
 	
@@ -875,10 +974,23 @@ void CLevel::script_register(lua_State *L)
 //		def("get_surge_time",	Game::get_surge_time),
 //		def("get_object_by_name",Game::get_object_by_name),
 	
-	def("start_tutorial",		&start_tutorial),
-	def("stop_tutorial",		&stop_tutorial),
-	def("has_active_tutorial",	&has_active_tutotial),
-	def("translate_string",		&translate_string)
+		def("start_tutorial",		&start_tutorial),
+		def("stop_tutorial",		&stop_tutorial),
+		def("play_hud_motion", PlayHudMotion),
+		def("stop_hud_motion", StopHudMotion),
+		def("get_motion_length", MotionLength),
+		def("hud_motion_allowed", AllowHudMotion),
+		def("play_hud_anm", PlayBlendAnm),
+		def("stop_hud_anm", StopBlendAnm),
+		def("stop_all_hud_anms", StopAllBlendAnms),
+		def("set_hud_anm_time", SetBlendAnmTime),
+		def("only_allow_movekeys", block_all_except_movement),
+		def("only_movekeys_allowed", only_movement_allowed),
+		def("set_actor_allow_ladder", set_actor_allow_ladder),
+		def("actor_weapon_lowered", actor_safemode),
+		def("actor_lower_weapon", actor_set_safemode),
+		def("has_active_tutorial",	&has_active_tutotial),
+		def("translate_string",		&translate_string)
 
 	];
 }

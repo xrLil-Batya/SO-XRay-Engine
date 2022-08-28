@@ -2,11 +2,17 @@
 #include <dinput.h>
 #include "key_binding_registrator.h"
 #include "xr_level_controller.h"
+#include "../xrEngine/xr_input.h"
 
 using namespace luabind;
 
 int dik_to_bind(int dik){
 	return get_binded_action(dik);
+}
+
+BOOL key_state(int key)
+{
+	return pInput->iGetAsyncKeyState(key);
 }
 
 #pragma optimize("s",on)
@@ -15,6 +21,8 @@ void key_binding_registrator::script_register(lua_State *L)
 	module(L)
 	[
 		def("dik_to_bind",		&dik_to_bind),
+		def("bind_to_dik", &get_action_dik),
+		def("key_state", &key_state),
 
 		class_<enum_exporter<EGameActions> >("key_bindings")
 			.enum_("commands")
@@ -39,6 +47,9 @@ void key_binding_registrator::script_register(lua_State *L)
 				value("kCAM_ZOOM_OUT",				int(kCAM_ZOOM_OUT)),
 				value("kTORCH",						int(kTORCH)),
 				value("kNIGHT_VISION",				int(kNIGHT_VISION)),
+				value("kDOSIMETER", int(kDOSIMETER)),
+				value("kSHOWHUD", int(kSHOWHUD)),
+				value("kTORCH_MOD", int(kTORCH_MOD)),
 				value("kWPN_1",						int(kWPN_1)),
 				value("kWPN_2",						int(kWPN_2)),
 				value("kWPN_3",						int(kWPN_3)),
@@ -57,10 +68,22 @@ void key_binding_registrator::script_register(lua_State *L)
 				value("kSCREENSHOT",				int(kSCREENSHOT)),
 				value("kQUIT",						int(kQUIT)),
 				value("kCONSOLE",					int(kCONSOLE)),
+				value("kCUSTOM1", int(kCUSTOM1)),
+				value("kCUSTOM2", int(kCUSTOM2)),
+				value("kCUSTOM3", int(kCUSTOM3)),
+				value("kCUSTOM4", int(kCUSTOM4)),
+				value("kCUSTOM5", int(kCUSTOM5)),
+				value("kCUSTOM6", int(kCUSTOM6)),
+				value("kCUSTOM7", int(kCUSTOM7)),
+				value("kCUSTOM8", int(kCUSTOM8)),
+				value("kCUSTOM9", int(kCUSTOM9)),
+				value("kCUSTOM10", int(kCUSTOM10)),
 				value("kINVENTORY",					int(kINVENTORY)),
 				value("kBUY",						int(kBUY)),
 				value("kSKIN",						int(kSKIN)),
-				value("kTEAM",						int(kTEAM))
+				value("kTEAM",						int(kTEAM)),
+				value("kSAFEMODE", int(kSAFEMODE)),
+				value("kFREELOOK", int(kFREELOOK))
 			],
 		class_<key_binding_registrator >("DIK_keys")
 			.enum_("dik_keys")
