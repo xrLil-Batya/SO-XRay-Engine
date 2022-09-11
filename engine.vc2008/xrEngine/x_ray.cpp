@@ -345,63 +345,64 @@ void CheckPrivilegySlowdown		( )
 
 void Startup()
 {
-    InitSound1();
-    execUserScript();
-    InitSound2();
+	InitSound1		();
+	execUserScript	();
+	InitSound2		();
 
-    // ...command line for auto start
-    {
-        LPCSTR pStartup = strstr(Core.Params, "-start ");
-        if (pStartup) Console->Execute(pStartup + 1);
-    }
-    {
-        LPCSTR pStartup = strstr(Core.Params, "-load ");
-        if (pStartup) Console->Execute(pStartup + 1);
-    }
+	// ...command line for auto start
+	{
+		LPCSTR	pStartup			= strstr				(Core.Params,"-start ");
+		if (pStartup)				Console->Execute		(pStartup+1);
+	}
+	{
+		LPCSTR	pStartup			= strstr				(Core.Params,"-load ");
+		if (pStartup)				Console->Execute		(pStartup+1);
+	}
 
-    // Initialize APP
-    //#ifndef DEDICATED_SERVER
-    ShowWindow(Device.m_hWnd, SW_SHOWNORMAL);
-    Device.Create();
-    //#endif
-    LALib.OnCreate();
-    pApp = xr_new<CApplication>();
-    g_pGamePersistent = (IGame_Persistent*)NEW_INSTANCE(CLSID_GAME_PERSISTANT);
-    g_SpatialSpace = xr_new<ISpatial_DB>();
-    g_SpatialSpacePhysic = xr_new<ISpatial_DB>();
+	// Initialize APP
+//#ifndef DEDICATED_SERVER
+	ShowWindow( Device.m_hWnd , SW_SHOWNORMAL );
+	Device.Create				( );
+//#endif
+	LALib.OnCreate				( );
+	pApp						= xr_new<CApplication>	();
+	g_pGamePersistent			= (IGame_Persistent*)	NEW_INSTANCE (CLSID_GAME_PERSISTANT);
+	g_SpatialSpace				= xr_new<ISpatial_DB>	();
+	g_SpatialSpacePhysic		= xr_new<ISpatial_DB>	();
+	
+	// Destroy LOGO
+	DestroyWindow				(logoWindow);
+	logoWindow					= NULL;
 
-    // Destroy LOGO
-    DestroyWindow(logoWindow);
-    logoWindow = NULL;
+	// Main cycle
+	CheckCopyProtection			( );
+Memory.mem_usage();
+	Device.Run					( );
 
-    // Main cycle
-    Memory.mem_usage();
-    Device.Run();
+	// Destroy APP
+	xr_delete					( g_SpatialSpacePhysic	);
+	xr_delete					( g_SpatialSpace		);
+	DEL_INSTANCE				( g_pGamePersistent		);
+	xr_delete					( pApp					);
+	Engine.Event.Dump			( );
 
-    // Destroy APP
-    xr_delete(g_SpatialSpacePhysic);
-    xr_delete(g_SpatialSpace);
-    DEL_INSTANCE(g_pGamePersistent);
-    xr_delete(pApp);
-    Engine.Event.Dump();
+	// Destroying
+//.	destroySound();
+	destroyInput();
 
-    // Destroying
-    //. destroySound();
-    destroyInput();
+	if( !g_bBenchmark && !g_SASH.IsRunning())
+		destroySettings();
 
-    if (!g_bBenchmark && !g_SASH.IsRunning())
-        destroySettings();
+	LALib.OnDestroy				( );
+	
+	if( !g_bBenchmark && !g_SASH.IsRunning())
+		destroyConsole();
+	else
+		Console->Destroy();
 
-    LALib.OnDestroy();
+	destroySound();
 
-    if (!g_bBenchmark && !g_SASH.IsRunning())
-        destroyConsole();
-    else
-        Console->Destroy();
-
-    destroySound();
-
-    destroyEngine();
+	destroyEngine();
 }
 
 static BOOL CALLBACK logDlgProc( HWND hw, UINT msg, WPARAM wp, LPARAM lp )
@@ -684,220 +685,218 @@ ENGINE_API	bool g_dedicated_server	= false;
 #endif // DEDICATED_SERVER
 
 int APIENTRY WinMain_impl(HINSTANCE hInstance,
-                          HINSTANCE hPrevInstance,
-                          char* lpCmdLine,
-                          int nCmdShow)
+                     HINSTANCE hPrevInstance,
+                     char *    lpCmdLine,
+                     int       nCmdShow)
 {
 #ifdef DEDICATED_SERVER
-    Debug._initialize(true);
+	Debug._initialize			(true);
 #else // DEDICATED_SERVER
-    Debug._initialize(false);
+	Debug._initialize			(false);
 #endif // DEDICATED_SERVER
 
-    if (!IsDebuggerPresent())
-    {
+	if (!IsDebuggerPresent()) {
 
-        HMODULE const kernel32 = LoadLibrary("kernel32.dll");
-        R_ASSERT(kernel32);
+		HMODULE const kernel32	= LoadLibrary("kernel32.dll");
+		R_ASSERT				(kernel32);
 
-        typedef BOOL(__stdcall*HeapSetInformation_type) (HANDLE, HEAP_INFORMATION_CLASS, PVOID, SIZE_T);
-        HeapSetInformation_type const heap_set_information =
-            (HeapSetInformation_type)GetProcAddress(kernel32, "HeapSetInformation");
-        if (heap_set_information)
-        {
-            ULONG HeapFragValue = 2;
+		typedef BOOL (__stdcall*HeapSetInformation_type) (HANDLE, HEAP_INFORMATION_CLASS, PVOID, SIZE_T);
+		HeapSetInformation_type const heap_set_information = 
+			(HeapSetInformation_type)GetProcAddress(kernel32, "HeapSetInformation");
+		if (heap_set_information) {
+			ULONG HeapFragValue	= 2;
 #ifdef DEBUG
-            BOOL const result =
+			BOOL const result	= 
 #endif // #ifdef DEBUG
-                heap_set_information(
-                    GetProcessHeap(),
-                    HeapCompatibilityInformation,
-                    &HeapFragValue,
-                    sizeof(HeapFragValue)
-                );
-#ifdef DEBUG
-            VERIFY2(result, "can't set process heap low fragmentation");
-#endif
-        }
-    }
+				heap_set_information(
+					GetProcessHeap(),
+					HeapCompatibilityInformation,
+					&HeapFragValue,
+					sizeof(HeapFragValue)
+				);
+			VERIFY2				(result, "can't set process heap low fragmentation");
+		}
+	}
 
-    // foo();
+//	foo();
 #ifndef DEDICATED_SERVER
 
-    // Check for virtual memory
-    if ((strstr(lpCmdLine, "--skipmemcheck") == NULL) && IsOutOfVirtualMemory())
-        return 0;
+	// Check for virtual memory
+	if ( ( strstr( lpCmdLine , "--skipmemcheck" ) == NULL ) && IsOutOfVirtualMemory() )
+		return 0;
 
-    // Check for another instance
+	// Parental Control for Vista and upper
+	if ( ! IsPCAccessAllowed() ) {
+		MessageBox( NULL , "Access restricted" , "Parental Control" , MB_OK | MB_ICONERROR );
+		return 1;
+	}
+
+	// Check for another instance
 #ifdef NO_MULTI_INSTANCES
-#define STALKER_PRESENCE_MUTEX "Local\\STALKER-COP"
-
-    HANDLE hCheckPresenceMutex = INVALID_HANDLE_VALUE;
-    hCheckPresenceMutex = OpenMutex(READ_CONTROL, FALSE, STALKER_PRESENCE_MUTEX);
-    if (hCheckPresenceMutex == NULL)
-    {
-        // New mutex
-        hCheckPresenceMutex = CreateMutex(NULL, FALSE, STALKER_PRESENCE_MUTEX);
-        if (hCheckPresenceMutex == NULL)
-            // Shit happens
-            return 2;
-    }
-    else
-    {
-        // Already running
-        CloseHandle(hCheckPresenceMutex);
-        return 1;
-    }
+	#define STALKER_PRESENCE_MUTEX "Local\\STALKER-COP"
+	
+	HANDLE hCheckPresenceMutex = INVALID_HANDLE_VALUE;
+	hCheckPresenceMutex = OpenMutex( READ_CONTROL , FALSE ,  STALKER_PRESENCE_MUTEX );
+	if ( hCheckPresenceMutex == NULL ) {
+		// New mutex
+		hCheckPresenceMutex = CreateMutex( NULL , FALSE , STALKER_PRESENCE_MUTEX );
+		if ( hCheckPresenceMutex == NULL )
+			// Shit happens
+			return 2;
+	} else {
+		// Already running
+		CloseHandle( hCheckPresenceMutex );
+		return 1;
+	}
 #endif
 #else // DEDICATED_SERVER
-    g_dedicated_server = true;
+	g_dedicated_server			= true;
 #endif // DEDICATED_SERVER
 
-    SetThreadAffinityMask(GetCurrentThread(), 1);
+	SetThreadAffinityMask		(GetCurrentThread(),1);
 
-    // Title window
-    logoWindow = CreateDialog(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_STARTUP), 0, logDlgProc);
+	// Title window
+	logoWindow					= CreateDialog(GetModuleHandle(NULL),	MAKEINTRESOURCE(IDD_STARTUP), 0, logDlgProc );
+	
+	HWND logoPicture			= GetDlgItem(logoWindow, IDC_STATIC_LOGO);
+	RECT logoRect;
+	GetWindowRect(logoPicture, &logoRect);
 
-    HWND logoPicture = GetDlgItem(logoWindow, IDC_STATIC_LOGO);
-    RECT logoRect;
-    GetWindowRect(logoPicture, &logoRect);
-
-    SetWindowPos(
-        logoWindow,
+	SetWindowPos				(
+		logoWindow,
 #ifndef DEBUG
-        HWND_TOPMOST,
+		HWND_TOPMOST,
 #else
-        HWND_NOTOPMOST,
+		HWND_NOTOPMOST,
 #endif // NDEBUG
-        0,
-        0,
-        logoRect.right - logoRect.left,
-        logoRect.bottom - logoRect.top,
-        SWP_NOMOVE | SWP_SHOWWINDOW// | SWP_NOSIZE
-    );
-    UpdateWindow(logoWindow);
+		0,
+		0,
+		logoRect.right - logoRect.left,
+		logoRect.bottom - logoRect.top,
+		SWP_NOMOVE | SWP_SHOWWINDOW// | SWP_NOSIZE
+	);
+	UpdateWindow(logoWindow);
 
-    // AVI
-    g_bIntroFinished = TRUE;
+	// AVI
+	g_bIntroFinished			= TRUE;
 
-    g_sLaunchOnExit_app[0] = NULL;
-    g_sLaunchOnExit_params[0] = NULL;
+	g_sLaunchOnExit_app[0]		= NULL;
+	g_sLaunchOnExit_params[0]	= NULL;
 
-    LPCSTR fsgame_ltx_name = "-fsltx ";
-    string_path fsgame = "";
-    //MessageBox(0, lpCmdLine, "my cmd string", MB_OK);
-    if (strstr(lpCmdLine, fsgame_ltx_name))
-    {
-        int sz = xr_strlen(fsgame_ltx_name);
-        sscanf(strstr(lpCmdLine, fsgame_ltx_name) + sz, "%[^ ] ", fsgame);
-        //MessageBox(0, fsgame, "using fsltx", MB_OK);
-    }
+	LPCSTR						fsgame_ltx_name = "-fsltx ";
+	string_path					fsgame = "";
+	//MessageBox(0, lpCmdLine, "my cmd string", MB_OK);
+	if (strstr(lpCmdLine, fsgame_ltx_name)) {
+		int						sz = xr_strlen(fsgame_ltx_name);
+		sscanf					(strstr(lpCmdLine,fsgame_ltx_name)+sz,"%[^ ] ",fsgame);
+		//MessageBox(0, fsgame, "using fsltx", MB_OK);
+	}
 
-    // g_temporary_stuff = &trivial_encryptor::decode;
+//	g_temporary_stuff			= &trivial_encryptor::decode;
+	
+	compute_build_id			();
+	Core._initialize			("xray",NULL, TRUE, fsgame[0] ? fsgame : NULL);
 
-    compute_build_id();
-    Core._initialize("xray", NULL, TRUE, fsgame[0] ? fsgame : NULL);
+	InitSettings				();
 
-    InitSettings();
-
-    // Adjust player & computer name for Asian
-    if (pSettings->line_exist("string_table", "no_native_input"))
-    {
-        xr_strcpy(Core.UserName, sizeof(Core.UserName), "Player");
-        xr_strcpy(Core.CompName, sizeof(Core.CompName), "Computer");
-    }
+	// Adjust player & computer name for Asian
+	if ( pSettings->line_exist( "string_table" , "no_native_input" ) ) {
+			xr_strcpy( Core.UserName , sizeof( Core.UserName ) , "Player" );
+			xr_strcpy( Core.CompName , sizeof( Core.CompName ) , "Computer" );
+	}
 
 #ifndef DEDICATED_SERVER
-    {
-        damn_keys_filter filter;
-        (void)filter;
+	{
+		damn_keys_filter		filter;
+		(void)filter;
 #endif // DEDICATED_SERVER
 
-        FPU::m24r();
-        InitEngine();
+		FPU::m24r				();
+		InitEngine				();
 
-        InitInput();
+		InitInput				();
 
-        InitConsole();
+		InitConsole				();
 
-        Engine.External.CreateRendererList();
+		Engine.External.CreateRendererList();
 
-        LPCSTR benchName = "-batch_benchmark ";
-        if (strstr(lpCmdLine, benchName))
-        {
-            int sz = xr_strlen(benchName);
-            string64 b_name;
-            sscanf(strstr(Core.Params, benchName) + sz, "%[^ ] ", b_name);
-            doBenchmark(b_name);
-            return 0;
-        }
+		LPCSTR benchName = "-batch_benchmark ";
+		if(strstr(lpCmdLine, benchName))
+		{
+			int sz = xr_strlen(benchName);
+			string64				b_name;
+			sscanf					(strstr(Core.Params,benchName)+sz,"%[^ ] ",b_name);
+			doBenchmark				(b_name);
+			return 0;
+		}
 
-        Msg("command line %s", lpCmdLine);
-        LPCSTR sashName = "-openautomate ";
-        if (strstr(lpCmdLine, sashName))
-        {
-            int sz = xr_strlen(sashName);
-            string512 sash_arg;
-            sscanf(strstr(Core.Params, sashName) + sz, "%[^ ] ", sash_arg);
-            //doBenchmark (sash_arg);
-            g_SASH.Init(sash_arg);
-            g_SASH.MainLoop();
-            return 0;
-        }
+		Msg("command line %s", lpCmdLine);
+		LPCSTR sashName = "-openautomate ";
+		if(strstr(lpCmdLine, sashName))
+		{
+			int sz = xr_strlen(sashName);
+			string512				sash_arg;
+			sscanf					(strstr(Core.Params,sashName)+sz,"%[^ ] ",sash_arg);
+			//doBenchmark				(sash_arg);
+			g_SASH.Init(sash_arg);
+			g_SASH.MainLoop();
+			return 0;
+		}
 
-        if (strstr(lpCmdLine, "-launcher"))
-        {
-            int l_res = doLauncher();
-            if (l_res != 0)
-                return 0;
-        };
+		if (strstr(lpCmdLine,"-launcher")) 
+		{
+			int l_res = doLauncher();
+			if (l_res != 0)
+				return 0;
+		};
 
 #ifndef DEDICATED_SERVER
-        if (strstr(Core.Params, "-r2a"))
-            Console->Execute("renderer renderer_r2a");
-        else if (strstr(Core.Params, "-r2"))
-            Console->Execute("renderer renderer_r2");
-        else
-        {
-            CCC_LoadCFG_custom* pTmp = xr_new<CCC_LoadCFG_custom>("renderer ");
-            pTmp->Execute(Console->ConfigFile);
-            xr_delete(pTmp);
-        }
+		if(strstr(Core.Params,"-r2a"))	
+			Console->Execute			("renderer renderer_r2a");
+		else
+		if(strstr(Core.Params,"-r2"))	
+			Console->Execute			("renderer renderer_r2");
+		else
+		{
+			CCC_LoadCFG_custom*	pTmp = xr_new<CCC_LoadCFG_custom>("renderer ");
+			pTmp->Execute				(Console->ConfigFile);
+			xr_delete					(pTmp);
+		}
 #else
-        Console->Execute("renderer renderer_r1");
+			Console->Execute			("renderer renderer_r1");
 #endif
-        //. InitInput ( );
-        Engine.External.Initialize();
-        Console->Execute("stat_memory");
+//.		InitInput					( );
+		Engine.External.Initialize	( );
+		Console->Execute			("stat_memory");
 
-        Startup();
-        Core._destroy();
+		Startup	 					( );
+		Core._destroy				( );
 
-        // check for need to execute something external
-        if (/*xr_strlen(g_sLaunchOnExit_params) && */xr_strlen(g_sLaunchOnExit_app))
-        {
-            //CreateProcess need to return results to next two structures
-            STARTUPINFO si;
-            PROCESS_INFORMATION pi;
-            ZeroMemory(&si, sizeof(si));
-            si.cb = sizeof(si);
-            ZeroMemory(&pi, sizeof(pi));
-            //We use CreateProcess to setup working folder
-            char const* temp_wf = (xr_strlen(g_sLaunchWorkingFolder) > 0) ? g_sLaunchWorkingFolder : NULL;
-            CreateProcess(g_sLaunchOnExit_app, g_sLaunchOnExit_params, NULL, NULL, FALSE, 0, NULL,
-                          temp_wf, &si, &pi);
+		// check for need to execute something external
+		if (/*xr_strlen(g_sLaunchOnExit_params) && */xr_strlen(g_sLaunchOnExit_app) ) 
+		{
+			//CreateProcess need to return results to next two structures
+			STARTUPINFO si;
+			PROCESS_INFORMATION pi;
+			ZeroMemory(&si, sizeof(si));
+			si.cb = sizeof(si);
+			ZeroMemory(&pi, sizeof(pi));
+			//We use CreateProcess to setup working folder
+			char const * temp_wf = (xr_strlen(g_sLaunchWorkingFolder) > 0) ? g_sLaunchWorkingFolder : NULL;
+			CreateProcess(g_sLaunchOnExit_app, g_sLaunchOnExit_params, NULL, NULL, FALSE, 0, NULL, 
+				temp_wf, &si, &pi);
 
-        }
+		}
 #ifndef DEDICATED_SERVER
-#ifdef NO_MULTI_INSTANCES
-        // Delete application presence mutex
-        CloseHandle(hCheckPresenceMutex);
+#ifdef NO_MULTI_INSTANCES		
+		// Delete application presence mutex
+		CloseHandle( hCheckPresenceMutex );
 #endif
-    }
-    // here damn_keys_filter class instanse will be destroyed
+	}
+	// here damn_keys_filter class instanse will be destroyed
 #endif // DEDICATED_SERVER
 
-    return 0;
+	return						0;
 }
 
 int stack_overflow_exception_filter	(int exception_code)
@@ -918,36 +917,36 @@ int stack_overflow_exception_filter	(int exception_code)
 
 int APIENTRY WinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
-                     char* lpCmdLine,
-                     int nCmdShow)
+                     char *    lpCmdLine,
+                     int       nCmdShow)
 {
-    //FILE* file = 0;
-    //fopen_s ( &file, "z:\\development\\call_of_prypiat\\resources\\gamedata\\shaders\\r3\\objects\\r4\\accum_sun_near_msaa_minmax.ps\\2048__1___________4_11141_", "rb" );
-    //u32 const file_size = 29544;
-    //char* buffer = (char*)malloc(file_size);
-    //fread ( buffer, file_size, 1, file );
-    //fclose ( file );
+	//FILE* file				= 0;
+	//fopen_s					( &file, "z:\\development\\call_of_prypiat\\resources\\gamedata\\shaders\\r3\\objects\\r4\\accum_sun_near_msaa_minmax.ps\\2048__1___________4_11141_", "rb" );
+	//u32 const file_size		= 29544;
+	//char* buffer			= (char*)malloc(file_size);
+	//fread					( buffer, file_size, 1, file );
+	//fclose					( file );
 
-    //u32 const& crc = *(u32*)buffer;
+	//u32 const& crc			= *(u32*)buffer;
 
-    //boost::crc_32_type processor;
-    //processor.process_block ( buffer + 4, buffer + file_size );
-    //u32 const new_crc = processor.checksum( );
-    //VERIFY ( new_crc == crc );
+	//boost::crc_32_type		processor;
+	//processor.process_block	( buffer + 4, buffer + file_size );
+	//u32 const new_crc		= processor.checksum( );
+	//VERIFY					( new_crc == crc );
 
-    //free (buffer);
+	//free					(buffer);
 
-    __try
-    {
-        WinMain_impl(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
-    }
-    __except (stack_overflow_exception_filter(GetExceptionCode()))
-    {
-        _resetstkoflw();
-        FATAL("stack overflow");
-    }
+	__try 
+	{
+		WinMain_impl		(hInstance,hPrevInstance,lpCmdLine,nCmdShow);
+	}
+	__except(stack_overflow_exception_filter(GetExceptionCode()))
+	{
+		_resetstkoflw		();
+		FATAL				("stack overflow");
+	}
 
-    return (0);
+	return					(0);
 }
 
 LPCSTR _GetFontTexName (LPCSTR section)

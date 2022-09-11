@@ -576,175 +576,197 @@ void CLevel::MakeReconnect()
 	}
 }
 
-void CLevel::OnFrame()
+void CLevel::OnFrame	()
 {
 #ifdef DEBUG_MEMORY_MANAGER
-    debug_memory_guard __guard__;
-#endif
+	debug_memory_guard					__guard__;
+#endif // DEBUG_MEMORY_MANAGER
+
 #ifdef DEBUG
-    DBG_RenderUpdate();
-#endif
-    Fvector	temp_vector;
-    m_feel_deny.feel_touch_update(temp_vector, 0.f);
-    psDeviceFlags.set(rsDisableObjectsAsCrows, false);
-    // commit events from bullet manager from prev-frame
-    Device.Statistic->TEST0.Begin();
-    BulletManager().CommitEvents();
-    Device.Statistic->TEST0.End();
-    // Client receive
-    if (net_isDisconnected())
-    {
-        Engine.Event.Defer("kernel:disconnect");
-        return;
-    }
-    else
-    {
-        Device.Statistic->netClient1.Begin();
-        ClientReceive();
-        Device.Statistic->netClient1.End();
-    }
-    ProcessGameEvents();
-    if (m_bNeed_CrPr)
-        make_NetCorrectionPrediction();
-    if (!g_dedicated_server)
-    {
-        if (g_mt_config.test(mtMap))
-            Device.seqParallel.push_back(fastdelegate::FastDelegate0<>(m_map_manager, &CMapManager::Update));
-        else
-            MapManager().Update();
-        if (Device.dwPrecacheFrame == 0)
-        {
-            // XXX nitrocaster: was enabled in x-ray 1.5; to be restored or removed
-            //if (g_mt_config.test(mtMap))
-            //{
-            //    Device.seqParallel.push_back(fastdelegate::FastDelegate0<>(
-            //    m_game_task_manager,&CGameTaskManager::UpdateTasks));
-            //}
-            //else
-            GameTaskManager().UpdateTasks();
-        }
-    }
-    // Inherited update
-    inherited::OnFrame();
-    // Draw client/server stats
-    if (!g_dedicated_server && psDeviceFlags.test(rsStatistic))
-    {
-        CGameFont* F = UI().Font().pFontDI;
-        if (!psNET_direct_connect)
-        {
-            if (IsServer())
-            {
-                const IServerStatistic* S = Server->GetStatistic();
-                F->SetHeightI(0.015f);
-                F->OutSetI(0.0f, 0.5f);
-                F->SetColor(D3DCOLOR_XRGB(0, 255, 0));
-                F->OutNext("IN:  %4d/%4d (%2.1f%%)", S->bytes_in_real, S->bytes_in,
-                    100.f*float(S->bytes_in_real) / float(S->bytes_in));
-                F->OutNext("OUT: %4d/%4d (%2.1f%%)", S->bytes_out_real, S->bytes_out,
-                    100.f*float(S->bytes_out_real) / float(S->bytes_out));
-                F->OutNext("client_2_sever ping: %d", net_Statistic.getPing());
-                F->OutNext("SPS/Sended : %4d/%4d", S->dwBytesPerSec, S->dwBytesSended);
-                F->OutNext("sv_urate/cl_urate : %4d/%4d", psNET_ServerUpdate, psNET_ClientUpdate);
-                F->SetColor(D3DCOLOR_XRGB(255, 255, 255));
-                struct net_stats_functor
-                {
-                    xrServer* m_server;
-                    CGameFont* F;
-                    void operator()(IClient* C)
-                    {
-                        m_server->UpdateClientStatistic(C);
-                        F->OutNext("0x%08x: P(%d), BPS(%2.1fK), MRR(%2d), MSR(%2d), Retried(%2d), Blocked(%2d)",
-                            //Server->game->get_option_s(*C->Name,"name",*C->Name),
-                            C->ID.value(),
-                            C->stats.getPing(),
-                            float(C->stats.getBPS()),// /1024,
-                            C->stats.getMPS_Receive(),
-                            C->stats.getMPS_Send(),
-                            C->stats.getRetriedCount(),
-                            C->stats.dwTimesBlocked);
-                    }
-                };
-                net_stats_functor tmp_functor;
-                tmp_functor.m_server = Server;
-                tmp_functor.F = F;
-                Server->ForEachClientDo(tmp_functor);
-            }
-            if (IsClient())
-            {
-                IPureClient::UpdateStatistic();
-                F->SetHeightI(0.015f);
-                F->OutSetI(0.0f, 0.5f);
-                F->SetColor(D3DCOLOR_XRGB(0, 255, 0));
-                F->OutNext("client_2_sever ping: %d", net_Statistic.getPing());
-                F->OutNext("sv_urate/cl_urate : %4d/%4d", psNET_ServerUpdate, psNET_ClientUpdate);
-                F->SetColor(D3DCOLOR_XRGB(255, 255, 255));
-                F->OutNext("BReceivedPs(%2d), BSendedPs(%2d), Retried(%2d), Blocked(%2d)",
-                    net_Statistic.getReceivedPerSec(),
-                    net_Statistic.getSendedPerSec(),
-                    net_Statistic.getRetriedCount(),
-                    net_Statistic.dwTimesBlocked);
+	 DBG_RenderUpdate( );
+#endif // #ifdef DEBUG
+
+	Fvector	temp_vector;
+	m_feel_deny.feel_touch_update		(temp_vector, 0.f);
+
+	if (GameID()!=eGameIDSingle)		psDeviceFlags.set(rsDisableObjectsAsCrows,true);
+	else								psDeviceFlags.set(rsDisableObjectsAsCrows,false);
+
+	// commit events from bullet manager from prev-frame
+	Device.Statistic->TEST0.Begin		();
+	BulletManager().CommitEvents		();
+	Device.Statistic->TEST0.End			();
+
+	// Client receive
+	if (net_isDisconnected())	
+	{
+		if (OnClient() && GameID() != eGameIDSingle)
+		{
 #ifdef DEBUG
-                if (!pStatGraphR)
-                {
-                    pStatGraphR = xr_new<CStatGraph>();
-                    pStatGraphR->SetRect(50, 700, 300, 68, 0xff000000, 0xff000000);
-                    //m_stat_graph->SetGrid(0, 0.0f, 10, 1.0f, 0xff808080, 0xffffffff);
-                    pStatGraphR->SetMinMax(0.0f, 65536.0f, 1000);
-                    pStatGraphR->SetStyle(CStatGraph::stBarLine);
-                    pStatGraphR->AppendSubGraph(CStatGraph::stBarLine);
-                }
-                pStatGraphR->AppendItem(float(net_Statistic.getBPS()), 0xff00ff00, 0);
-                F->OutSet(20.f, 700.f);
-                F->OutNext("64 KBS");
-#endif
-            }
-        }
-    }
-    else
-    {
+			Msg("--- I'm disconnected, so clear all objects...");
+#endif // #ifdef DEBUG
+			ClearAllObjects();
+		}
+
+		Engine.Event.Defer				("kernel:disconnect");
+		return;
+	} else {
+
+		Device.Statistic->netClient1.Begin();
+
+		ClientReceive					();
+
+		Device.Statistic->netClient1.End	();
+	}
+
+	ProcessGameEvents	();
+
+
+	if (m_bNeed_CrPr)					make_NetCorrectionPrediction();
+
+	if(!g_dedicated_server )
+	{
+		if (g_mt_config.test(mtMap)) 
+			Device.seqParallel.push_back	(fastdelegate::FastDelegate0<>(m_map_manager,&CMapManager::Update));
+		else								
+			MapManager().Update		();
+
+		if( IsGameTypeSingle() && Device.dwPrecacheFrame==0 )
+		{
+			//if (g_mt_config.test(mtMap)) 
+			//	Device.seqParallel.push_back	(fastdelegate::FastDelegate0<>(m_game_task_manager,&CGameTaskManager::UpdateTasks));
+			//else								
+				GameTaskManager().UpdateTasks();
+		}
+	}
+	// Inherited update
+	inherited::OnFrame		();
+
+	// Draw client/server stats
+	if ( !g_dedicated_server && psDeviceFlags.test(rsStatistic))
+	{
+		CGameFont* F = UI().Font().pFontDI;
+		if (!psNET_direct_connect) 
+		{
+			if ( IsServer() )
+			{
+				const IServerStatistic* S = Server->GetStatistic();
+				F->SetHeightI	(0.015f);
+				F->OutSetI	(0.0f,0.5f);
+				F->SetColor	(D3DCOLOR_XRGB(0,255,0));
+				F->OutNext	("IN:  %4d/%4d (%2.1f%%)",	S->bytes_in_real,	S->bytes_in,	100.f*float(S->bytes_in_real)/float(S->bytes_in));
+				F->OutNext	("OUT: %4d/%4d (%2.1f%%)",	S->bytes_out_real,	S->bytes_out,	100.f*float(S->bytes_out_real)/float(S->bytes_out));
+				F->OutNext	("client_2_sever ping: %d",	net_Statistic.getPing());
+				F->OutNext	("SPS/Sended : %4d/%4d", S->dwBytesPerSec, S->dwBytesSended);
+				F->OutNext	("sv_urate/cl_urate : %4d/%4d", psNET_ServerUpdate, psNET_ClientUpdate);
+
+				F->SetColor	(D3DCOLOR_XRGB(255,255,255));
+
+				struct net_stats_functor
+				{
+					xrServer* m_server;
+					CGameFont* F;
+					void operator()(IClient* C)
+					{
+						m_server->UpdateClientStatistic(C);
+						F->OutNext("0x%08x: P(%d), BPS(%2.1fK), MRR(%2d), MSR(%2d), Retried(%2d), Blocked(%2d)",
+							//Server->game->get_option_s(*C->Name,"name",*C->Name),
+							C->ID.value(),
+							C->stats.getPing(),
+							float(C->stats.getBPS()),// /1024,
+							C->stats.getMPS_Receive	(),
+							C->stats.getMPS_Send	(),
+							C->stats.getRetriedCount(),
+							C->stats.dwTimesBlocked
+						);
+					}
+				};
+				net_stats_functor tmp_functor;
+				tmp_functor.m_server = Server;
+				tmp_functor.F = F;
+				Server->ForEachClientDo(tmp_functor);
+			}
+			if (IsClient())
+			{
+				IPureClient::UpdateStatistic();
+
+				F->SetHeightI(0.015f);
+				F->OutSetI	(0.0f,0.5f);
+				F->SetColor	(D3DCOLOR_XRGB(0,255,0));
+				F->OutNext	("client_2_sever ping: %d",	net_Statistic.getPing());
+				F->OutNext	("sv_urate/cl_urate : %4d/%4d", psNET_ServerUpdate, psNET_ClientUpdate);
+
+				F->SetColor	(D3DCOLOR_XRGB(255,255,255));
+				F->OutNext("BReceivedPs(%2d), BSendedPs(%2d), Retried(%2d), Blocked(%2d)",
+					net_Statistic.getReceivedPerSec(),
+					net_Statistic.getSendedPerSec(),
+					net_Statistic.getRetriedCount(),
+					net_Statistic.dwTimesBlocked);
 #ifdef DEBUG
-        if (pStatGraphR)
-            xr_delete(pStatGraphR);
+				if (!pStatGraphR)
+				{
+					pStatGraphR = xr_new<CStatGraph>();
+					pStatGraphR->SetRect(50, 700, 300, 68, 0xff000000, 0xff000000);
+					//m_stat_graph->SetGrid(0, 0.0f, 10, 1.0f, 0xff808080, 0xffffffff);
+					pStatGraphR->SetMinMax(0.0f, 65536.0f, 1000);
+					pStatGraphR->SetStyle(CStatGraph::stBarLine);
+					pStatGraphR->AppendSubGraph(CStatGraph::stBarLine);
+				}
+				pStatGraphR->AppendItem(float(net_Statistic.getBPS()), 0xff00ff00, 0);
+				F->OutSet(20.f, 700.f);
+				F->OutNext("64 KBS");
+
 #endif
-    }
+			}
+		}
+	} else
+	{
 #ifdef DEBUG
-    g_pGamePersistent->Environment().m_paused = m_bEnvPaused;
+		if (pStatGraphR)
+			xr_delete(pStatGraphR);
 #endif
-    g_pGamePersistent->Environment().SetGameTime(GetEnvironmentGameDayTimeSec(),
-        game->GetEnvironmentGameTimeFactor());
-    if (!g_dedicated_server)
-        ai().script_engine().script_process(ScriptEngine::eScriptProcessorLevel)->update();
-    m_ph_commander->update();
-    m_ph_commander_scripts->update();
-    Device.Statistic->TEST0.Begin();
-    BulletManager().CommitRenderSet();
-    Device.Statistic->TEST0.End();
-    // update static sounds
-    if (!g_dedicated_server)
-    {
-        if (g_mt_config.test(mtLevelSounds))
-        {
-            Device.seqParallel.push_back(fastdelegate::FastDelegate0<>(
-                m_level_sound_manager, &CLevelSoundManager::Update));
-        }
-        else
-            m_level_sound_manager->Update();
-    }
-    // defer LUA-GC-STEP
-    if (!g_dedicated_server)
-    {
-        if (g_mt_config.test(mtLUA_GC))
-            Device.seqParallel.push_back(fastdelegate::FastDelegate0<>(this, &CLevel::script_gc));
-        else
-            script_gc();
-    }
-    if (pStatGraphR)
-    {
-        static float fRPC_Mult = 10.0f;
-        static float fRPS_Mult = 1.0f;
-        pStatGraphR->AppendItem(float(m_dwRPC)*fRPC_Mult, 0xffff0000, 1);
-        pStatGraphR->AppendItem(float(m_dwRPS)*fRPS_Mult, 0xff00ff00, 0);
-    }
+	}
+#ifdef DEBUG
+	g_pGamePersistent->Environment().m_paused		= m_bEnvPaused;
+#endif
+	g_pGamePersistent->Environment().SetGameTime	(GetEnvironmentGameDayTimeSec(),game->GetEnvironmentGameTimeFactor());
+
+	//Device.Statistic->cripting.Begin	();
+	if (!g_dedicated_server)
+		ai().script_engine().script_process	(ScriptEngine::eScriptProcessorLevel)->update();
+	//Device.Statistic->Scripting.End	();
+	m_ph_commander->update				();
+	m_ph_commander_scripts->update		();
+//	autosave_manager().update			();
+
+	//  
+	Device.Statistic->TEST0.Begin		();
+	BulletManager().CommitRenderSet		();
+	Device.Statistic->TEST0.End			();
+
+	// update static sounds
+	if(!g_dedicated_server)
+	{
+		if (g_mt_config.test(mtLevelSounds)) 
+			Device.seqParallel.push_back	(fastdelegate::FastDelegate0<>(m_level_sound_manager,&CLevelSoundManager::Update));
+		else								
+			m_level_sound_manager->Update	();
+	}
+	// deffer LUA-GC-STEP
+	if (!g_dedicated_server)
+	{
+		if (g_mt_config.test(mtLUA_GC))	Device.seqParallel.push_back	(fastdelegate::FastDelegate0<>(this,&CLevel::script_gc));
+		else							script_gc	()	;
+	}
+	//-----------------------------------------------------
+	if (pStatGraphR)
+	{	
+		static	float fRPC_Mult = 10.0f;
+		static	float fRPS_Mult = 1.0f;
+
+		pStatGraphR->AppendItem(float(m_dwRPC)*fRPC_Mult, 0xffff0000, 1);
+		pStatGraphR->AppendItem(float(m_dwRPS)*fRPS_Mult, 0xff00ff00, 0);
+	};
 }
 
 int		psLUA_GCSTEP					= 10			;
