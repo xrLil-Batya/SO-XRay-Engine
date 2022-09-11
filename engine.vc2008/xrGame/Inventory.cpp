@@ -1133,10 +1133,12 @@ bool CInventory::Eat(PIItem pIItem)
 
 	if(IsGameTypeSingle() && Actor()->m_inventory == this)
 		Actor()->callback(GameObject::eUseObject)((smart_cast<CGameObject*>(pIItem))->lua_game_object());
-
+	
 	if(pItemToEat->Empty())
 	{
+		m_slots[pIItem->CurrSlot()].eraseItem(pIItem);
 		pIItem->SetDropManual(TRUE);
+		UpdateZayaz();
 		return		false;
 	}
 	return			true;
