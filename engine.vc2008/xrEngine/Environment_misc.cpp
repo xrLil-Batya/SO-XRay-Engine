@@ -12,6 +12,8 @@
 
 #include "securom_api.h"
 
+#define DEF_TREE_AMPLITUDE_INTENSITY 0.01f
+
 void CEnvModifier::load	(IReader* fs, u32 version)
 {
 	use_flags.one					();
@@ -234,6 +236,7 @@ CEnvDescriptor::CEnvDescriptor	(shared_str const& identifier) :
 	m_fSunShaftsIntensity = 1;
 	m_fWaterIntensity = 1;
 	m_fRainDropsIntensity  = 0;
+	m_fTreeAmplitudeIntensity = DEF_TREE_AMPLITUDE_INTENSITY;
 
     lens_flare_id		= "";
 	tb_id				= "";
@@ -301,8 +304,12 @@ void CEnvDescriptor::load	(CEnvironment& environment, CInifile& config)
 	if (config.line_exist(m_identifier.c_str(),"water_intensity"))
 		m_fWaterIntensity = config.r_float(m_identifier.c_str(),"water_intensity");
 
-	if (config.line_exist(m_identifier.c_str(),"sgm_rain_drops_intensity"))
-		m_fRainDropsIntensity = config.r_float(m_identifier.c_str(),"sgm_rain_drops_intensity");
+	if (config.line_exist(m_identifier.c_str(),"rain_drops_intensity"))
+		m_fRainDropsIntensity = config.r_float(m_identifier.c_str(),"rain_drops_intensity");
+
+	m_fTreeAmplitudeIntensity = 0.01f + (rain_density * (0.07f - 0.01f)); //Если не прописано, дефолт будет рассчитываться от силы дождя.
+	if (config.line_exist(m_identifier.c_str(),"tree_amplitude_intensity"))
+		m_fTreeAmplitudeIntensity = config.r_float(m_identifier.c_str(),"tree_amplitude_intensity");
 
 	C_CHECK					(clouds_color);
 	C_CHECK					(sky_color	);
@@ -450,6 +457,7 @@ void CEnvDescriptorMixer::lerp	(CEnvironment* , CEnvDescriptor& A, CEnvDescripto
 	m_fSunShaftsIntensity	=	fi*A.m_fSunShaftsIntensity + f*B.m_fSunShaftsIntensity;
 	m_fWaterIntensity		=	fi*A.m_fWaterIntensity + f*B.m_fWaterIntensity;
 	m_fRainDropsIntensity	=	fi*A.m_fRainDropsIntensity + f*B.m_fRainDropsIntensity;
+	m_fTreeAmplitudeIntensity = fi * A.m_fTreeAmplitudeIntensity + f * B.m_fTreeAmplitudeIntensity;
 
 	// colors
 //.	sky_color.lerp			(A.sky_color,B.sky_color,f).add(Mdf.sky_color).mul(modif_power);

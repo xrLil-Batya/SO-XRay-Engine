@@ -161,6 +161,7 @@ public:
 	float				m_fSunShaftsIntensity;
 	float				m_fWaterIntensity;
 	float				m_fRainDropsIntensity;
+	float m_fTreeAmplitudeIntensity;
 
 
 //	int					lens_flare_id;

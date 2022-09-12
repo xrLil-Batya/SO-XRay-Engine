@@ -681,6 +681,29 @@ void CScriptGameObject::SetCharacterCommunity	(LPCSTR comm, int squad, int group
 	entity->ChangeTeam(community.team(), squad, group);
 }
 
+void CScriptGameObject::SetCharacterIcon(LPCSTR icon)
+{
+	CInventoryOwner* pInventoryOwner = smart_cast<CInventoryOwner*>(&object());
+	if (!pInventoryOwner)
+	{
+		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError, "SetCharacterIcon available only for InventoryOwner");
+	}
+
+	return pInventoryOwner->SetIcon(icon);
+}
+
+void CScriptGameObject::SetCharacterName(LPCSTR name)
+{
+	CInventoryOwner* pInventoryOwner = smart_cast<CInventoryOwner*>(&object());
+	if (!pInventoryOwner)
+	{
+		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError, "SetCharacterName available only for InventoryOwner");
+	}
+
+	return pInventoryOwner->SetCharacterName(name);
+}
+
+
 LPCSTR CScriptGameObject::sound_voice_prefix () const
 {
 	CInventoryOwner* pInventoryOwner = smart_cast<CInventoryOwner*>(&object());

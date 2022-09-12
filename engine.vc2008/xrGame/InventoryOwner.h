@@ -103,6 +103,8 @@ public:
 	u32					get_money		() const				{return m_money;}
 	void				set_money		(u32 amount, bool bSendEvent);
 	bool				is_alive		();
+	virtual void SetCharacterName(LPCSTR name) { m_game_name = name; };
+	virtual void SetIcon(const shared_str& icon) { CharacterInfo().m_SpecificCharacter.data()->m_icon_name = icon; };
 
 protected:
 	u32					m_money;

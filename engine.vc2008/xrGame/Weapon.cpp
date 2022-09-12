@@ -1176,13 +1176,10 @@ bool CWeapon::SwitchAmmoType( u32 flags )
 {
 	if ( IsPending() || OnClient() )
 		return false;
-	Msg("CWeapon::SwitchAmmoType: 1c");
 	if ( !(flags & CMD_START) )
 		return false;
-	Msg("CWeapon::SwitchAmmoType: 2c");
 
 	u8 l_newType = m_ammoType;
-	Msg("CWeapon::SwitchAmmoType: type %d",l_newType);
 	bool b1, b2;
 	do 
 	{
@@ -1193,15 +1190,12 @@ bool CWeapon::SwitchAmmoType( u32 flags )
 
 	if ( l_newType != m_ammoType )
 	{
-		Msg("CWeapon::SwitchAmmoType: type new %d",l_newType);
 		m_set_next_ammoType_on_reload = l_newType;					
 		if ( OnServer() )
 		{
 			Reload();
-			Msg("CWeapon::SwitchAmmoType: reload");
 		}
 	}
-	Msg("CWeapon::SwitchAmmoType: true");
 	return true;
 }
 
