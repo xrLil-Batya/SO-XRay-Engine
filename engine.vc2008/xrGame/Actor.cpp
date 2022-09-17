@@ -984,7 +984,9 @@ void CActor::UpdateCL	()
 			
 			fire_disp_full = m_fdisp_controller.GetCurrentDispertion();
 
-			HUD().SetCrosshairDisp(fire_disp_full, 0.02f);
+			if (!Device.m_SecondViewport.IsSVPFrame()) //--#SM+#-- +SecondVP+ [fix for crosshair shaking while SecondVP]
+				HUD().SetCrosshairDisp(fire_disp_full, 0.02f);
+
 			HUD().ShowCrosshair(pWeapon->use_crosshair());
 #ifdef DEBUG
 			HUD().SetFirstBulletCrosshairDisp(pWeapon->GetFirstBulletDisp());
@@ -998,9 +1000,17 @@ void CActor::UpdateCL	()
 
 			psHUD_Flags.set( HUD_CROSSHAIR_RT2, B );
 			
-
-			
 			psHUD_Flags.set( HUD_DRAW_RT,		pWeapon->show_indicators() );
+
+			//--#SM+#-- +SecondVP+ [Update SecondVP with Weapon Data]
+			pWeapon->UpdateSecondVP();
+
+			// Apply Weapon Data in Shaders
+			g_pGamePersistent->m_pGShaderConstants->hud_params.x = pWeapon->GetZRotatingFactor();
+			g_pGamePersistent->m_pGShaderConstants->hud_params.y = pWeapon->GetSecondVPZoomFactor();
+			g_pGamePersistent->m_pGShaderConstants->hud_params.z = pWeapon->m_nearwall_last_hud_fov;
+			g_pGamePersistent->m_pGShaderConstants->hud_params.w = Device.m_SecondViewport.IsSVPFrame();
+			//--#SM+#-- +SecondVP+ END
 		}
 
 	}
@@ -1010,6 +1020,14 @@ void CActor::UpdateCL	()
 		{
 			HUD().SetCrosshairDisp(0.f);
 			HUD().ShowCrosshair(false);
+
+			//--#SM+#-- +SecondVP+ [Clearing Weapons Information in Shaders]
+			g_pGamePersistent->m_pGShaderConstants->hud_params.set(0.f, 0.f, 0.f, 0.f);
+			g_pGamePersistent->m_pGShaderConstants->m_blender_mode.set(0.f, 0.f, 0.f, 0.f);
+
+			// Turn off SecondVP
+			Device.m_SecondViewport.SetSVPActive(false);
+			//--#SM+#-- +SecondVP+ END
 		}
 	}
 

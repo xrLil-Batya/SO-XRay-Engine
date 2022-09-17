@@ -55,7 +55,7 @@ CWeapon::CWeapon()
 	m_zoom_params.m_fZoomRotationFactor			= 0.f;
 	m_zoom_params.m_pVision						= NULL;
 	m_zoom_params.m_pNight_vision				= NULL;
-	m_zoom_params.m_fSecondVPFovFactor = 0.0f;
+	m_zoom_params.m_fSecondVPFovFactor = 0.0f; //--#SM+#--
 
 	m_altAimPos = false;
 	m_zoomtype = 0;
@@ -554,7 +554,7 @@ void CWeapon::Load		(LPCSTR section)
 	else
 		m_bAutoSpawnAmmo = TRUE;
 
-	m_zoom_params.m_fSecondVPFovFactor = READ_IF_EXISTS(pSettings, r_float, section, "scope_lense_fov", 0.0f);
+	m_zoom_params.m_fSecondVPFovFactor = READ_IF_EXISTS(pSettings, r_float, section, "scope_lense_fov", 0.0f); //--#SM+#--
 	m_zoom_params.m_bHideCrosshairInZoom		= true;
 
 	if(pSettings->line_exist(hud_sect, "zoom_hide_crosshair"))
@@ -1019,7 +1019,7 @@ void CWeapon::EnableActorNVisnAfterZoom()
 
 bool  CWeapon::need_renderable()
 {
-	return /*!Device.m_SecondViewport.IsSVPFrame() &&*/ !(IsZoomed() && ZoomTexture() && !IsRotatingToZoom());
+	return !Device.m_SecondViewport.IsSVPFrame() && !(IsZoomed() && ZoomTexture() && !IsRotatingToZoom());
 }
 
 void CWeapon::renderable_Render		()
@@ -2567,7 +2567,7 @@ void CWeapon::OnBulletHit() {
   if ( !fis_zero( conditionDecreasePerShotOnHit ) )
     ChangeCondition( -conditionDecreasePerShotOnHit );
 }
-
+//--#SM+#-- +SecondVP+
 float CWeapon::GetSecondVPFov() const
 {
 	if (m_zoom_params.m_bUseDynamicZoom && IsSecondVPZoomPresent())
@@ -2582,5 +2582,6 @@ void CWeapon::UpdateSecondVP()
 		return;
 
 	CActor* pActor = smart_cast<CActor*>(H_Parent());
-	//Device.m_SecondViewport.SetSVPActive(m_zoomtype == 0 && pActor->cam_Active() == pActor->cam_FirstEye() && IsSecondVPZoomPresent() && m_zoom_params.m_fZoomRotationFactor > 0.05f);
+	Device.m_SecondViewport.SetSVPActive(m_zoomtype == 0 && pActor->cam_Active() == pActor->cam_FirstEye() && IsSecondVPZoomPresent() && m_zoom_params.m_fZoomRotationFactor > 0.05f);
 }
+//--#SM+#-- +SecondVP+ END

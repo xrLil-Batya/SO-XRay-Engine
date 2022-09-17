@@ -1609,6 +1609,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\ShadersExternalData.h"
+				>
+			</File>
+			<File
 				RelativePath=".\xrLevel.h"
 				>
 			</File>

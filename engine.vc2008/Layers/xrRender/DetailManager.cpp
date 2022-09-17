@@ -320,7 +320,8 @@ void CDetailManager::Render	()
 	// MT
 	MT_SYNC					();
 
-	RDEVICE.Statistic->RenderDUMP_DT_Render.Begin	();
+	RDEVICE.Statistic->RenderDUMP_DT_Render.Begin();
+	g_pGamePersistent->m_pGShaderConstants->m_blender_mode.w = 1.0f; //--#SM+#--
 
 #ifndef _EDITOR
 	float factor			= g_pGamePersistent->Environment().wind_strength_factor;
@@ -333,9 +334,12 @@ void CDetailManager::Render	()
 	RCache.set_xform_world	(Fidentity);
 	if (UseVS())			hw_Render	();
 	else					soft_Render	();
-	RCache.set_CullMode		(CULL_CCW);
-	RDEVICE.Statistic->RenderDUMP_DT_Render.End	();
-	m_frame_rendered		= RDEVICE.dwFrame;
+	RCache.set_CullMode(CULL_CCW);
+
+	g_pGamePersistent->m_pGShaderConstants->m_blender_mode.w = 0.0f; //--#SM+#--
+
+	RDEVICE.Statistic->RenderDUMP_DT_Render.End();
+	m_frame_rendered = RDEVICE.dwFrame;
 }
 
 void __stdcall	CDetailManager::MT_CALC		()

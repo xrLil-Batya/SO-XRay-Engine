@@ -110,6 +110,26 @@ public:
 // refs
 class ENGINE_API CRenderDevice: public CRenderDeviceBase
 {
+	public:
+	class ENGINE_API CSecondVPParams //--#SM+#-- +SecondVP+
+	{
+		bool isActive;
+		u8 frameDelay;
+
+	public:
+		bool isCamReady;
+
+		IC bool IsSVPActive() { return isActive; }
+		void SetSVPActive(bool bState);
+		bool    IsSVPFrame();
+
+		IC u8 GetSVPFrameDelay() { return frameDelay; }
+		void  SetSVPFrameDelay(u8 iDelay)
+		{
+			frameDelay = iDelay;
+			clamp<u8>(frameDelay, 2, u8(-1));
+		}
+	};//--#SM+#-- +SecondVP+ END
 private:
     // Main objects used for creating and rendering the 3D scene
     u32										m_dwWindowStyle;
@@ -195,6 +215,7 @@ public:
 	//Fmatrix									mFullTransform;
 
 	Fmatrix									mInvFullTransform;
+	CSecondVPParams m_SecondViewport; //--#SM+#-- +SecondVP+
 
 	//float									fFOV;
 	//float									fASPECT;
@@ -219,6 +240,11 @@ public:
 		b_is_Ready			= FALSE;
 		Timer.Start			();
 		m_bNearer			= FALSE;
+		//--#SM+#-- +SecondVP+
+		m_SecondViewport.SetSVPActive(false);
+		m_SecondViewport.SetSVPFrameDelay(2);
+		m_SecondViewport.isCamReady = false;
+		//--#SM+#-- +SecondVP+ END
 	};
 
 	void	Pause							(BOOL bOn, BOOL bTimer, BOOL bSound, LPCSTR reason);
