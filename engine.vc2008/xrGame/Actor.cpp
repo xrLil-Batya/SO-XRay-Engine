@@ -401,6 +401,8 @@ if(!g_dedicated_server)
 		m_DangerSnd.create		(pSettings->r_string(section,"heavy_danger_snd"), st_Effect,SOUND_TYPE_MONSTER_INJURING);
 	}
 }
+    if (this == Level().CurrentEntity()) //--#SM+#-- Сбрасываем режим рендеринга в дефолтный [reset some render flags]
+        g_pGamePersistent->m_pGShaderConstants->m_blender_mode.set(0.f, 0.f, 0.f, 0.f);
 
 	// sheduler
 	shedule.t_min				= shedule.t_max = 1;
@@ -984,7 +986,7 @@ void CActor::UpdateCL	()
 			
 			fire_disp_full = m_fdisp_controller.GetCurrentDispertion();
 
-			if (!Device.m_SecondViewport.IsSVPFrame()) //--#SM+#-- +SecondVP+ [fix for crosshair shaking while SecondVP]
+			if (!Device.m_SecondViewport.IsSVPFrame()) //--#SM+#-- +SecondVP+ Чтобы перекрестие не скакало из за смены FOV (Sin!) [fix for crosshair shaking while SecondVP]
 				HUD().SetCrosshairDisp(fire_disp_full, 0.02f);
 
 			HUD().ShowCrosshair(pWeapon->use_crosshair());
@@ -1002,10 +1004,10 @@ void CActor::UpdateCL	()
 			
 			psHUD_Flags.set( HUD_DRAW_RT,		pWeapon->show_indicators() );
 
-			//--#SM+#-- +SecondVP+ [Update SecondVP with Weapon Data]
+			//--#SM+#-- +SecondVP+ Обновляем двойной рендер от оружия [Update SecondVP with weapon data]
 			pWeapon->UpdateSecondVP();
 
-			// Apply Weapon Data in Shaders
+			// Обновляем информацию об оружии в шейдерах [Apply Weapon Data in Shaders]
 			g_pGamePersistent->m_pGShaderConstants->hud_params.x = pWeapon->GetZRotatingFactor();
 			g_pGamePersistent->m_pGShaderConstants->hud_params.y = pWeapon->GetSecondVPZoomFactor();
 			g_pGamePersistent->m_pGShaderConstants->hud_params.z = pWeapon->m_nearwall_last_hud_fov;
@@ -1021,11 +1023,11 @@ void CActor::UpdateCL	()
 			HUD().SetCrosshairDisp(0.f);
 			HUD().ShowCrosshair(false);
 
-			//--#SM+#-- +SecondVP+ [Clearing Weapons Information in Shaders]
+			//--#SM+#-- +SecondVP+ Очищаем информацию об оружии в шейдерах [Clearing Weapons Information in Shaders]
 			g_pGamePersistent->m_pGShaderConstants->hud_params.set(0.f, 0.f, 0.f, 0.f);
 			g_pGamePersistent->m_pGShaderConstants->m_blender_mode.set(0.f, 0.f, 0.f, 0.f);
 
-			// Turn off SecondVP
+			// Отключаем второй вьюпорт  [Turn off SecondVP]
 			Device.m_SecondViewport.SetSVPActive(false);
 			//--#SM+#-- +SecondVP+ END
 		}
