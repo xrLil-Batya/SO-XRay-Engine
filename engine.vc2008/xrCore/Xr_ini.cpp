@@ -500,23 +500,11 @@ BOOL			CInifile::section_exist	( const shared_str& S	)const					{ return	section
 //--------------------------------------------------------------------------------------
 CInifile::Sect& CInifile::r_section( LPCSTR S )const
 {
+	R_ASSERT(S && strlen(S), "Empty section (null\\'') passed into CInifile::r_section(). See info above ^, check your configs and 'call stack'."); //--#SM+#--
 	char	section[256]; xr_strcpy(section,sizeof(section),S); strlwr(section);
 	RootCIt I = std::lower_bound(DATA.begin(),DATA.end(),section,sect_pred);
 	if (!(I!=DATA.end() && xr_strcmp(*(*I)->Name,section)==0))
 	{
-
-		//g_pStringContainer->verify();
-
-		//string_path			ini_dump_fn, path;
-		//strconcat			(sizeof(ini_dump_fn), ini_dump_fn, Core.ApplicationName, "_", Core.UserName, ".ini_log");
-		//
-		//FS.update_path		(path, "$logs$", ini_dump_fn);
-		//IWriter* F			= FS.w_open_ex(path);
-		//save_as				(*F);
-		//F->w_string			("shared strings:");
-		//g_pStringContainer->dump(F);
-		//FS.w_close			(F);
-
 		Debug.fatal			(DEBUG_INFO,"Can't open section '%s'. Please attach [*.ini_log] file to your bug report",S);
 	}
 	return	**I;
@@ -524,6 +512,10 @@ CInifile::Sect& CInifile::r_section( LPCSTR S )const
 
 LPCSTR	CInifile::r_string(LPCSTR S, LPCSTR L)const
 {
+	if (!S || !L || !strlen(S) || !strlen(L)) //--#SM+#-- [fix for one of "xrDebug - Invalid handler" error log]
+	{
+		Msg("!![ERROR] CInifile::r_string: S = [%s], L = [%s]", S, L);
+	}
 	Sect const&	I = r_section(S);
 	SectCIt	A = std::lower_bound(I.Data.begin(),I.Data.end(),L,item_pred);
 	if (A!=I.Data.end() && xr_strcmp(*A->first,L)==0)	return *A->second;

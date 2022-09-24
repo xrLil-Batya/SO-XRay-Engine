@@ -14,6 +14,7 @@ extern float		r_ssaDISCARD;
 extern float		r_ssaDONTSORT;
 extern float		r_ssaHZBvsTEX;
 extern float		r_ssaGLOD_start,	r_ssaGLOD_end;
+extern ENGINE_API float psHUD_FOV;
 
 ICF float calcLOD	(float ssa/*fDistSq*/, float R)
 {
@@ -460,10 +461,6 @@ void R_dsgraph_structure::r_dsgraph_render_graph	(u32	_priority, bool _clear)
 // HUD render
 void R_dsgraph_structure::r_dsgraph_render_hud	()
 {
-	extern ENGINE_API float		psHUD_FOV;
-	
-	//PIX_EVENT(r_dsgraph_render_hud);
-
 	// Change projection
 	Fmatrix Pold				= Device.mProject;
 	Fmatrix FTold				= Device.mFullTransform;
@@ -524,8 +521,6 @@ void R_dsgraph_structure::r_dsgraph_render_hud_ui()
 {
 	VERIFY(g_hud && g_hud->RenderActiveItemUIQuery());
 
-	extern ENGINE_API float		psHUD_FOV;
-
 	// Change projection
 	Fmatrix Pold				= Device.mProject;
 	Fmatrix FTold				= Device.mFullTransform;
@@ -576,6 +571,30 @@ void	R_dsgraph_structure::r_dsgraph_render_sorted	()
 	// Sorted (back to front)
 	mapSorted.traverseRL	(sorted_L1);
 	mapSorted.clear			();
+	// Change projection
+    Fmatrix Pold = Device.mProject;
+    Fmatrix FTold = Device.mFullTransform;
+    Fmatrix Vold = Device.mView;
+    Device.mView.build_camera_dir(Fvector().set(0.f, 0.f, 0.f), Device.vCameraDirection, Device.vCameraTop);
+    Device.mProject.build_projection(deg2rad(psHUD_FOV < 1.f ? psHUD_FOV * Device.fFOV : psHUD_FOV), Device.fASPECT, HUD_VIEWPORT_NEAR,
+                                     g_pGamePersistent->Environment().CurrentEnv->far_plane);
+
+    Device.mFullTransform.mul(Device.mProject, Device.mView);
+    RCache.set_xform_view(Device.mView);
+    RCache.set_xform_project(Device.mProject);
+
+    // Rendering
+    rmNear();
+    mapHUDSorted.traverseRL(sorted_L1);
+    mapHUDSorted.clear();
+    rmNormal();
+
+    // Restore projection
+    Device.mProject = Pold;
+    Device.mFullTransform = FTold;
+    Device.mView = Vold;
+    RCache.set_xform_view(Device.mView);
+    RCache.set_xform_project(Device.mProject);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -589,7 +608,6 @@ void	R_dsgraph_structure::r_dsgraph_render_emissive	()
 
 	//	HACK: Calculate this only once
 
-	extern ENGINE_API float		psHUD_FOV;
 
 	// Change projection
 	Fmatrix Pold				= Device.mProject;

@@ -187,6 +187,10 @@ extern ECORE_API float r_ssaDISCARD;
 
 void CDetailManager::UpdateVisibleM()
 {
+    // KRodin: Фикс мерцания и прочих глюков травы при активном двойном рендеринге. Это важно, не убирать!
+    if (Device.m_SecondViewport.IsSVPFrame())
+        return;
+
 	Fvector		EYE				= RDEVICE.vCameraPosition_saved;
 
 	CFrustum	View;
@@ -204,6 +208,7 @@ void CDetailManager::UpdateVisibleM()
 	// Initialize 'vis' and 'cache'
 	// Collect objects for rendering
 	RDEVICE.Statistic->RenderDUMP_DT_VIS.Begin	();
+	g_pGamePersistent->m_pGShaderConstants->m_blender_mode.w = 1.0f; //--#SM+#-- [begin of grass render]
 	for (int _mz=0; _mz<dm_cache1_line; _mz++){
 		for (int _mx=0; _mx<dm_cache1_line; _mx++){
 			CacheSlot1& MS		= cache_level1[_mz][_mx];
