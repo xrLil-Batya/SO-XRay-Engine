@@ -620,31 +620,29 @@ void CRender::BeforeWorldRender() {}
 ENGINE_API extern BOOL debugSecondVP;
 
 // После рендера мира и пост-эффектов --#SM+#-- +SecondVP+
-void CRender::AfterWorldRender()
+void CRender::AfterWorldRender(const bool save_bb_before_ui)
 {
 	if (currentViewPort == SECONDARY_WEAPON_SCOPE)
 	{
-		ID3DResource* res;
-		HW.pBaseRT->GetResource(&res);
-		HW.pContext->CopyResource(Target->rt_secondVP->pSurface, res); // rt sizes must match, to be able to copy
-
+		// Делает копию бэкбуфера (текущего экрана) в рендер-таргет второго вьюпорта (для использования в 3д прицеле либо в рендер-таргет вьюпорта, из которого мы вернем заберем кадр после рендера ui. Именно этот кадр будет позже выведен на экран.)
+		ID3DTexture2D* pBuffer{};
+		HW.m_pSwapChain->GetBuffer(0, IID_PPV_ARGS(&pBuffer));
+		HW.pContext->CopyResource(save_bb_before_ui ? Target->rt_BeforeUi->pSurface : Target->rt_secondVP->pSurface, pBuffer);
+		pBuffer->Release(); // Корректно очищаем ссылку на бэкбуфер (иначе игра зависнет в опциях)
 	}
+}
 
-	if (debugSecondVP && RImplementation.currentViewPort == MAIN_VIEWPORT) // Copy svp image into swapchain buffer((MAIN_VIEWPORT).baseRT) to draw it on screen
-	{
-		ID3DResource* res = Target->rt_secondVP->pSurface;
-		ID3DResource* res2;
+void CRender::AfterUIRender()
+{
+	// Делает копию бэкбуфера (текущего экрана) в рендер-таргет второго вьюпорта (для использования в пда)
+	ID3DTexture2D* pBuffer{};
+	HW.m_pSwapChain->GetBuffer(0, IID_PPV_ARGS(&pBuffer));
+	HW.pContext->CopyResource(Target->rt_secondVP->pSurface, pBuffer);
+	pBuffer->Release(); // Корректно очищаем ссылку на бэкбуфер (иначе игра зависнет в опциях)
 
-		HW.viewPortsRTZB.at(MAIN_VIEWPORT).baseRT->GetResource(&res2);
-
-		D3D11_BOX sourceRegion;
-		sourceRegion.left = 0;
-		sourceRegion.right = Device.m_SecondViewport.screenWidth;
-		sourceRegion.top = 0;
-		sourceRegion.bottom = Device.m_SecondViewport.screenHeight;
-		sourceRegion.front = 0;
-		sourceRegion.back = 1;
-
-		HW.pContext->CopySubresourceRegion(res2, 0, 0, 0, 0, res, 0, &sourceRegion);
-	}
+	// Возвращаем на экран кадр, который сохранили до рендера ui для пда
+	ID3DTexture2D* pBuffer2{};
+	HW.m_pSwapChain->GetBuffer(0, IID_PPV_ARGS(&pBuffer2));
+	HW.pContext->CopyResource(pBuffer2, Target->rt_BeforeUi->pSurface);
+	pBuffer2->Release(); // Корректно очищаем ссылку на бэкбуфер (иначе игра зависнет в опциях)
 }

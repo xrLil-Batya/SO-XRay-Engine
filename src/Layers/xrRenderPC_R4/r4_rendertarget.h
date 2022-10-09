@@ -86,7 +86,7 @@ public:
 	ref_rt						rt_Generic_1;		// 32bit		(r,g,b,a)				// post-process, intermidiate results, etc.
 
 	//  Second viewport
-	ref_rt						rt_secondVP;		// 32bit		(r,g,b,a) --//#SM+#-- +SecondVP+
+	ref_rt						rt_secondVP, rt_BeforeUi;		// 32bit		(r,g,b,a) --//#SM+#-- +SecondVP+
 
 	//	Igor: for volumetric lights
 	ref_rt						rt_Generic_2;		// 32bit		(r,g,b,a)				// post-process, intermidiate results, etc.

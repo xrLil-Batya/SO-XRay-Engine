@@ -297,7 +297,8 @@ public:
 
 	// [FFT++]
 	virtual void BeforeWorldRender() = 0; //--#SM+#-- Перед рендерингом мира
-	virtual void AfterWorldRender() = 0; //--#SM+#-- После рендеринга мира (до UI)
+	virtual void AfterWorldRender(const bool save_bb_before_ui) = 0; //--#SM+#-- После рендеринга мира (до UI)
+    virtual void AfterUIRender() = 0; //После рендеринга UI. Вызывать только если нам нужно отрендерить кадр для пда.
 
     virtual void Screenshot(ScreenshotMode mode = SM_NORMAL, LPCSTR name = 0) = 0;
     virtual void Screenshot(ScreenshotMode mode, CMemoryWriter& memory_writer) = 0;

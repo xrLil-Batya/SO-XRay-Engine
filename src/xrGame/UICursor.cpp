@@ -54,6 +54,11 @@ void CUICursor::InitInternal()
 u32 last_render_frame = 0;
 void CUICursor::OnRender	()
 {
+	static u32 last_frame{};
+	if (last_frame == Device.dwFrame)
+		return;
+	last_frame = Device.dwFrame;
+
 	g_btnHint->OnRender();
 	g_statHint->OnRender();
 

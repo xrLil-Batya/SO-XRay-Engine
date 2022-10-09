@@ -65,6 +65,7 @@ BOOL CRenderTarget::Create	()
 	//RImplementation.o.color_mapping = RT_color_map->valid();
 
 	RT_SecondVP.create(RTname_SecondVP, rtWidth, rtHeight, HW.Caps.fTarget); //--#SM+#-- +SecondVP+
+	rt_BeforeUi.create("$user$viewport_temp_before_ui", rtWidth, rtHeight, HW.Caps.fTarget); // #3D PDA#
 
 	if ((rtHeight!=Device.dwHeight) || (rtWidth!=Device.dwWidth))	{
 		R_CHK		(HW.pDevice->CreateDepthStencilSurface	(rtWidth,rtHeight,HW.Caps.fDepth,D3DMULTISAMPLE_NONE,0,TRUE,&ZB,NULL));

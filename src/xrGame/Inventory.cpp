@@ -7,6 +7,7 @@
 #include "weapon.h"
 #include "WeaponAmmo.h"
 #include "eatable_item.h"
+#include "PDA.h"
 
 #include "ui/UIInventoryUtilities.h"
 #include "ui/UIActorMenu.h"
@@ -24,6 +25,7 @@
 #include "static_cast_checked.hpp"
 #include "player_hud.h"
 #include "ui/UIDragDropListEx.h"
+#include "ui/UIPDAWnd.h"
 
 using namespace InventoryUtilities;
 
@@ -772,6 +774,23 @@ bool CInventory::Action(u16 cmd, u32 flags)
 			}
 		}
 	}break;
+	case kACTIVE_JOBS:
+	{
+		b_send_event = true;
+		if (flags & CMD_START)
+		{
+			if (!psActorFlags.test(AF_3D_PDA)) return false;
+
+			if (smart_cast<CPda*>(ActiveItem()))
+			{
+				Activate(NO_ACTIVE_SLOT);
+			}
+			else
+			{
+				Activate(PDA_SLOT);
+			}
+		}
+	}
 	}
 
 	if (b_send_event && g_pGameLevel && OnClient() && pActor)

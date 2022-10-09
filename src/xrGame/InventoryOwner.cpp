@@ -185,7 +185,7 @@ void	CInventoryOwner::save	(NET_Packet &output_packet)
 void	CInventoryOwner::load	(IReader &input_packet)
 {
 	u8 active_slot = input_packet.r_u8();
-	if(active_slot == NO_ACTIVE_SLOT)
+	if(active_slot == NO_ACTIVE_SLOT || active_slot == PDA_SLOT)
 		inventory().SetActiveSlot(NO_ACTIVE_SLOT);
 	//else
 		//inventory().Activate_deffered(active_slot, Device.dwFrame);

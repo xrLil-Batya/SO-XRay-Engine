@@ -40,6 +40,7 @@
 #include "MainMenu.h"
 #include "xrEngine/XR_IOConsole.h"
 #include "actor.h"
+#include "PDA.h"
 #include "player_hud.h"
 #include "UI/UIGameTutorial.h"
 #include "file_transfer.h"
@@ -49,6 +50,11 @@
 #include "CustomDetector.h"
 #include "xrPhysics/IPHWorld.h"
 #include "xrPhysics/console_vars.h"
+
+#include "UIGameSP.h"
+#include "ui/UIPDAWnd.h"
+#include "ui/UIBtnHint.h"
+#include "UICursor.h"
 
 #include "level_debug.h"
 #include "ai/stalker/ai_stalker.h"
@@ -611,21 +617,38 @@ extern void draw_wnds_rects();
 
 void CLevel::OnRender()
 {
-	::Render->BeforeWorldRender();	//--#SM+#-- +SecondVP+
+    auto pGameSP = smart_cast<CUIGameSP*>(CurrentGameUI());
+    auto pActor = smart_cast<CActor*>(Level().CurrentEntity());
+    CPda* Pda = pActor ? pActor->GetPDA() : nullptr;
+    const bool need_pda_render = Pda && psActorFlags.test(AF_3D_PDA) && CurrentGameUI()->GetPdaMenu().IsShown();
+    ::Render->AfterWorldRender(need_pda_render);
 
-	//Level().rend
-	//debug_renderer().render();
+    if (need_pda_render) {
+        HUD().RenderUI();
+        if (g_btnHint)
+            g_btnHint->OnRender();
+        GetUICursor().OnRender();
+        draw_wnds_rects();
+
+        Fvector2 cursor_pos = GetUICursor().GetCursorPosition();
+        Fvector2 cursor_pos_dif{ cursor_pos };
+        cursor_pos_dif.sub(CurrentGameUI()->GetPdaMenu().last_cursor_pos);
+        CurrentGameUI()->GetPdaMenu().last_cursor_pos.set(cursor_pos);
+        CurrentGameUI()->GetPdaMenu().MouseMovement(cursor_pos_dif.x, cursor_pos_dif.y);
+
+        ::Render->AfterUIRender();
+    }
     inherited::OnRender();
     if (!game)
         return;
     Game().OnRender();
-    //Device.Statistic->TEST1.Begin();
     BulletManager().Render();
-    //Device.Statistic->TEST1.End();
-
-	::Render->AfterWorldRender(); //--#SM+#-- +SecondVP+
 
     HUD().RenderUI();
+
+    if (g_btnHint)
+        g_btnHint->OnRender();
+    GetUICursor().OnRender();
 	debug_renderer().render();
 #ifdef DEBUG
     draw_wnds_rects();

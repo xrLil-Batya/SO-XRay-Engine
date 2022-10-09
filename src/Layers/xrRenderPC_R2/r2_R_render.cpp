@@ -540,14 +540,29 @@ void CRender::render_forward				()
 void CRender::BeforeWorldRender() {}
 
 // После рендера мира и пост-эффектов --#SM+#-- +SecondVP+
-void CRender::AfterWorldRender()
+void CRender::AfterWorldRender(const bool save_bb_before_ui)
 {
-	if (currentViewPort == SECONDARY_WEAPON_SCOPE)
+	if (save_bb_before_ui || currentViewPort == SECONDARY_WEAPON_SCOPE)
 	{
-		// Делает копию бэкбуфера (текущего экрана) в рендер-таргет второго вьюпорта
-		IDirect3DSurface9* pBackBuffer = NULL;
-		HW.pDevice->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &pBackBuffer); // Получаем ссылку на бэкбуфер
-		D3DXLoadSurfaceFromSurface(Target->rt_secondVP->pRT, 0, 0, pBackBuffer, 0, 0, D3DX_DEFAULT, 0);
-		pBackBuffer->Release(); // Корректно очищаем ссылку на бэкбуфер (иначе игра зависнет в опциях)
+		// Делает копию бэкбуфера (текущего экрана) в рендер-таргет второго вьюпорта (для использования в 3д прицеле либо в рендер-таргет вьюпорта, из которого мы вернем заберем кадр после рендера ui. Именно этот кадр будет позже выведен на экран.)
+		IDirect3DSurface9* pBuffer{};
+		HW.pDevice->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &pBuffer); // Получаем ссылку на бэкбуфер
+		D3DXLoadSurfaceFromSurface(save_bb_before_ui ? Target->rt_BeforeUi->pRT : Target->rt_secondVP->pRT, nullptr, nullptr, pBuffer, nullptr, nullptr, D3DX_DEFAULT, 0);
+		pBuffer->Release(); // Корректно очищаем ссылку на бэкбуфер (иначе игра зависнет в опциях)
 	}
+}
+
+void CRender::AfterUIRender()
+{
+	// Делает копию бэкбуфера (текущего экрана) в рендер-таргет второго вьюпорта (для использования в пда)
+	IDirect3DSurface9* pBuffer{};
+	HW.pDevice->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &pBuffer); // Получаем ссылку на бэкбуфер
+	D3DXLoadSurfaceFromSurface(Target->rt_secondVP->pRT, nullptr, nullptr, pBuffer, nullptr, nullptr, D3DX_DEFAULT, 0);
+	pBuffer->Release(); // Корректно очищаем ссылку на бэкбуфер (иначе игра зависнет в опциях)
+
+	// Возвращаем на экран кадр, который сохранили до рендера ui для пда
+	IDirect3DSurface9* pBuffer2{};
+	HW.pDevice->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &pBuffer2); // Получаем ссылку на бэкбуфер
+	D3DXLoadSurfaceFromSurface(pBuffer2, nullptr, nullptr, Target->rt_BeforeUi->pRT, nullptr, nullptr, D3DX_DEFAULT, 0);
+	pBuffer2->Release(); // Корректно очищаем ссылку на бэкбуфер (иначе игра зависнет в опциях)
 }

@@ -413,6 +413,7 @@ CRenderTarget::CRenderTarget		()
 		rt_Generic_0.create		(r2_RT_generic0, vp_params_main_secondary,D3DFMT_A8R8G8B8, 1		);
 		rt_Generic_1.create		(r2_RT_generic1, vp_params_main_secondary,D3DFMT_A8R8G8B8, 1		);
 		rt_secondVP.create(r2_RT_secondVP, RtCreationParams(Device.m_SecondViewport.screenWidth, Device.m_SecondViewport.screenHeight, MAIN_VIEWPORT), D3DFMT_A8R8G8B8, 1); //--#SM+#-- +SecondVP+
+		rt_BeforeUi.create("$user$viewport_temp_before_ui", vp_params_main_secondary, D3DFMT_A8R8G8B8, 1); // #3D PDA#
 		if( RImplementation.o.dx10_msaa )
 		{
 			rt_Generic_0_r.create			(r2_RT_generic0_r, vp_params_main_secondary,D3DFMT_A8R8G8B8, SampleCount	);

@@ -20,6 +20,8 @@
 
 #include "inventory_item.h"
 #include "inventory.h"
+#include "actor.h"
+#include "PDA.h"
 
 #include <ai/monsters/poltergeist/poltergeist.h>
 
@@ -164,6 +166,12 @@ void CHUDTarget::Render()
 		return;
 
 	VERIFY				(g_bRendering);
+
+	CActor* Actor = smart_cast<CActor*>(Level().CurrentEntity());
+	if (!Actor)	return;
+
+	if (smart_cast<CPda*>(Actor->inventory().ActiveItem()))
+		return;
 
 	CObject*	O		= Level().CurrentEntity();
 	if (0==O)			return;

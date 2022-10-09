@@ -325,6 +325,21 @@ static class cl_spv_screen_res : public R_constant_setup //--#SM+#--
 	virtual void setup(R_constant* C) { RCache.set_c(C, (float)Device.m_SecondViewport.screenWidth, (float)Device.m_SecondViewport.screenHeight, 0, 0); }
 } binder_spv_screen_res;
 
+static class cl_pda_params : public R_constant_setup // #3D PDA#
+{
+	u32 marker;
+	Fvector4 result;
+
+	virtual void setup(R_constant* C)
+	{
+		float pda_factor = g_pGamePersistent->pda_shader_data.pda_display_factor;
+		float pda_psy_factor = g_pGamePersistent->pda_shader_data.pda_psy_influence;
+		float pda_display_brightness = g_pGamePersistent->pda_shader_data.pda_displaybrightness;
+		RCache.set_c(C, pda_factor, pda_psy_factor, pda_display_brightness, 0.0f);
+	}
+
+} binder_pda_params;
+
 
 // Standart constant-binding
 void	CBlender_Compile::SetMapping	()
@@ -333,6 +348,7 @@ void	CBlender_Compile::SetMapping	()
 	r_Constant				("m_hud_params",	&binder_hud_params);	//--#SM+#--
 	r_Constant				("m_script_params", &binder_script_params); //--#SM+#--
 	r_Constant				("m_blender_mode",	&binder_blend_mode);	//--#SM+#--
+	r_Constant("pda_params", &binder_pda_params); // #3D PDA#
 	r_Constant				("svp_screen_res",  &binder_spv_screen_res);
 
 	// matrices
