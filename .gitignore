@@ -4,6 +4,7 @@ Bin/
 source/.vs/
 Intermediate/
 Lib/
+src/.vs
 patches/
 resources/
 import/
